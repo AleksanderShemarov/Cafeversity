@@ -7,6 +7,13 @@ import sunny from '../../public/sunny.png';
 
 export default function Home() {
 
+  let date = new Date();
+  const months : string[] = [
+    "Студзень", "Люты", "Сакавік", "Красавік",
+    "Травень", "Чэрвень", "Ліпень", "Жнівень",
+    "Верасень", "Кастрычнік", "Лістапад", "Снежань",
+  ];
+
   return (
     <>
       <div id={styles.header}>
@@ -19,7 +26,11 @@ export default function Home() {
           </div>
         </div>
         <div id={styles.clock}></div>
-        <div id={styles.date}></div>
+        <div id={styles.date}>
+            <p id={styles.current_date}>
+              {`${months[date.getMonth()]}, ${date.getDay()}`}<br />{date.getFullYear()}
+            </p>
+        </div>
       </div>
       <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
       <div className={styles.buttons}>

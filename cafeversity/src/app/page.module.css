@@ -259,7 +259,7 @@ body {
 #weather,
 #clock,
 #date {
-  width: 120px;
+  width: 170px;
   height: 50px;
   border: 2px orange dashed;
   border-radius: 20px;
@@ -269,6 +269,7 @@ body {
 
 #weather {
   display: flex;
+  justify-content: center;
 }
 
 @keyframes sun_rotating {
@@ -287,6 +288,7 @@ body {
   /* border: 1px solid black;
   border-radius: 50%; */
   margin: auto 0;
+  margin-right: 5px;
   animation: sun_rotating 15s linear infinite;
 }
 
@@ -295,6 +297,7 @@ body {
   height: 30px;
   /* border: 1px solid black; */
   margin: auto 0;
+  margin-left: 5px;
   text-align: center;
 }
 
@@ -305,6 +308,17 @@ body {
   margin: 0;
   padding-top: 5px;
 }
+
+
+
+#current_date {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  text-align: center;
+  margin: 0;
+}
+
 
 
 .buttons {
