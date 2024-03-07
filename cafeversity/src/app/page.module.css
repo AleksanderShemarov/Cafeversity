@@ -311,6 +311,18 @@ body {
 
 
 
+#clock_time {
+  text-align: center;
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  margin-top: 12px;
+  /* border: 1px solid black; */
+}
+
+
+
 #current_date {
   color: white;
   font-size: 20px;

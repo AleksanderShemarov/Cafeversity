@@ -1,8 +1,11 @@
+"use client"
+
 import styles from "./page.module.css";
 // import './globals.css';
 import Link from "next/link";
 import Image from "next/image";
 import sunny from '../../public/sunny.png';
+import { useEffect, useState } from "react";
 
 
 export default function Home() {
@@ -13,6 +16,14 @@ export default function Home() {
     "Травень", "Чэрвень", "Ліпень", "Жнівень",
     "Верасень", "Кастрычнік", "Лістапад", "Снежань",
   ];
+
+  const [time, setTime] = useState(date);
+
+  useEffect(() => {
+    setInterval(() => {
+      setTime(new Date());
+    }, 1000);
+  }, [])
 
   return (
     <>
@@ -25,14 +36,22 @@ export default function Home() {
             <p id={styles.weather_degrees}>+22&#176;C</p>
           </div>
         </div>
-        <div id={styles.clock}></div>
+        <div id={styles.clock}>
+          <p id={styles.clock_time}>
+            {time.getHours() >= 10 ? "" : "0"}{time.getHours()}:
+            {time.getMinutes() >= 10 ? "" : "0"}{time.getMinutes()}:
+            {time.getSeconds() >= 10 ? "" : "0"}{time.getSeconds()}
+          </p>
+        </div>
         <div id={styles.date}>
             <p id={styles.current_date}>
               {`${months[date.getMonth()]}, ${date.getDay()}`}<br />{date.getFullYear()}
             </p>
         </div>
       </div>
-      <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
+      <div className="main_part">
+        <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
+      </div>
       <div className={styles.buttons}>
         <Link href="/commonMenu" id={styles.food_today}>
           Сённяшнія Стравы
