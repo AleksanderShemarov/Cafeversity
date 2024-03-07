@@ -246,6 +246,67 @@ body {
 
 
 
+#header {
+  height: 100px;
+  padding-left: 2%;
+  padding-right: 2%;
+  border-bottom: 2px solid black;
+  background: linear-gradient(to bottom, rgb(0, 153, 255) 0%, rgb(0, 204, 255) 50%, rgb(252, 242, 223) 100%);
+  display: flex;
+  justify-content: space-between;
+}
+
+#weather,
+#clock,
+#date {
+  width: 120px;
+  height: 50px;
+  border: 2px orange dashed;
+  border-radius: 20px;
+  /* background-color: wheat; */
+  margin: auto 0;
+}
+
+#weather {
+  display: flex;
+}
+
+@keyframes sun_rotating {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+#weather_icon {
+  width: 45px;
+  height: 45px;
+  overflow: hidden;
+  /* border: 1px solid black;
+  border-radius: 50%; */
+  margin: auto 0;
+  animation: sun_rotating 15s linear infinite;
+}
+
+#weather_line {
+  width: 75px;
+  height: 30px;
+  /* border: 1px solid black; */
+  margin: auto 0;
+  text-align: center;
+}
+
+#weather_degrees {
+  color: white;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding-top: 5px;
+}
+
+
 .buttons {
   display: flex;
 }

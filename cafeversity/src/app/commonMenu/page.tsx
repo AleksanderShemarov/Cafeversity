@@ -7,8 +7,8 @@ export default function CommonMenuPage() {
         <>
             <h1>Просты спіс ежы на сённяшні дзень.</h1>
             <div className={styles.buttons}>
-                <Link href="/news" id={styles.food_news}>Ежа Свету</Link>
-                <Link href="/" id={styles.main_view}>Галоўная старонка</Link>
+                <Link href="/" id={styles.food_news}>Галоўная старонка</Link>
+                <Link href="/news" id={styles.main_view}>Ежа Свету</Link>
             </div>
         </>
     )
