@@ -333,6 +333,12 @@ body {
 
 
 
+#main_part {
+  min-height: calc(100vh - 245px);
+}
+
+
+
 .buttons {
   display: flex;
 }
