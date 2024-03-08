@@ -1,7 +1,6 @@
 "use client"
 
 import styles from "./page.module.css";
-// import './globals.css';
 import Link from "next/link";
 import Image from "next/image";
 import sunny from '../../public/sunny.png';
@@ -10,7 +9,7 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 
-  let date = new Date();
+  const [date, setDate] = useState(new Date());
   const months : string[] = [
     "Студзень", "Люты", "Сакавік", "Красавік",
     "Травень", "Чэрвень", "Ліпень", "Жнівень",
@@ -22,8 +21,11 @@ export default function Home() {
   useEffect(() => {
     setInterval(() => {
       setTime(new Date());
+      if (String(time.getHours()) === "00" && String(time.getMinutes()) === "00" && String(time.getSeconds) === "00") {
+        setDate(time);
+      }
     }, 1000);
-  }, [])
+  }, [time])
 
   return (
     <>
@@ -49,7 +51,7 @@ export default function Home() {
             </p>
         </div>
       </div>
-      <div className="main_part">
+      <div id={styles.main_part}>
         <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
       </div>
       <div className={styles.buttons}>
