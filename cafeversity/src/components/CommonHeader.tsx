@@ -2,16 +2,10 @@ import styles from "@/app/page.module.css";
 import Image from "next/image";
 import sunny from "../../public/sunny.png";
 import dynamic from "next/dynamic";
+import Dating from "@/components/Dating";
 
 
 export default function CommonHeader () {
-
-    let date = new Date();
-    const months : string[] = [
-        "Студзень", "Люты", "Сакавік", "Красавік",
-        "Травень", "Чэрвень", "Ліпень", "Жнівень",
-        "Верасень", "Кастрычнік", "Лістапад", "Снежань",
-    ];
 
     const Clock = dynamic(
         () => import('@/components/Clock'), {
@@ -31,11 +25,7 @@ export default function CommonHeader () {
                     </div>
                 </div>
                 <Clock />
-                <div id={styles.date}>
-                    <p id={styles.current_date}>
-                        {`${months[date.getMonth()]}, ${date.getDay()}`}<br />{date.getFullYear()}
-                    </p>
-                </div>
+                <Dating />
             </div>
         </>
     )

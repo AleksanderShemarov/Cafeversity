@@ -10,7 +10,7 @@ export default function Clock () {
 
     useEffect(() => {
         setInterval(() => {
-        setTime(new Date());
+            setTime(new Date());
         }, 1000);
     }, [])
 
@@ -19,9 +19,9 @@ export default function Clock () {
         <div id={styles.clock}>
             <p id={styles.clock_time}>
                 {`
-                ${time.getHours() >= 10 ? "" : "0"}${String(time.getHours())} :
-                ${time.getMinutes() >= 10 ? "" : "0"}${String(time.getMinutes())} :
-                ${time.getSeconds() >= 10 ? "" : "0"}${String(time.getSeconds())}
+                ${time.getHours() >= 10 ? "" : "0"}${time.getHours()} :
+                ${time.getMinutes() >= 10 ? "" : "0"}${time.getMinutes()} :
+                ${time.getSeconds() >= 10 ? "" : "0"}${time.getSeconds()}
                 `}
             </p>
         </div>
