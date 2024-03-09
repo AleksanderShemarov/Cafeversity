@@ -1,6 +1,7 @@
 import styles from "./page.module.css";
 import Link from "next/link";
 import CommonLayout from "@/components/CommonLayout";
+import Greeting from "@/components/Greeting";
 
 
 export default function Home() {
@@ -9,6 +10,7 @@ export default function Home() {
         <CommonLayout>
             <div id={styles.main_part}>
                 <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
+                <Greeting />
             </div>
             <div className={styles.buttons}>
                 <Link href="/commonMenu" id={styles.food_today}>

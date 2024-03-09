@@ -245,7 +245,7 @@ body {
 } */
 
 
-
+/* Header Part */
 #header {
   height: 100px;
   padding-left: 2%;
@@ -256,6 +256,7 @@ body {
   justify-content: space-between;
 }
 
+/* Three Blocks of Header */
 #weather,
 #clock,
 #date {
@@ -267,11 +268,13 @@ body {
   margin: auto 0;
 }
 
+/* Weather Block */
 #weather {
   display: flex;
   justify-content: center;
 }
 
+/* Rotation of Weather's Icon */
 @keyframes sun_rotating {
   from {
     transform: rotate(0deg);
@@ -292,6 +295,7 @@ body {
   animation: sun_rotating 15s linear infinite;
 }
 
+/* Weather Data */
 #weather_line {
   width: 75px;
   height: 30px;
@@ -311,6 +315,7 @@ body {
 
 
 
+/* Clock Block */
 #clock_time {
   text-align: center;
   color: white;
@@ -323,6 +328,7 @@ body {
 
 
 
+/* Date Block */
 #current_date {
   color: white;
   font-size: 20px;
@@ -333,12 +339,74 @@ body {
 
 
 
+/* Central Part of Main Page */
 #main_part {
   min-height: calc(100vh - 245px);
+  display: flex;
+  flex-direction: column;
+}
+
+.features {
+  /* border: 1px solid orange; */
+  display: flex;
+  justify-content: center;
+  margin: auto;
+  width: 85vw;
+}
+
+.know0 {
+  width: 70vw;
+  height: 450px;
+  border-top: 5px solid brown;
+  border-right: 5px solid brown;
+  border-bottom: 3px solid gold;
+  border-left: 3px solid gold;
+  border-top-left-radius: 20px;
+  border-bottom-right-radius: 20px;
+  border-top-right-radius: 40px;
+  border-bottom-left-radius: 40px;
+  display: flex;
+  justify-content: center;
+  background-color: rgba(123, 97, 219, 0.407);
+}
+
+.feature_picture {
+  width: 20vw;
+  height: 250px;
+  border: 7px double slateblue;
+  border-radius: 30px;
+  margin: auto 2vw auto 0;
+}
+
+.feature_list {
+  border: 5px dotted olive;
+  width: 35vw;
+  height: 180px;
+  border-top-right-radius: 20px;
+  border-bottom-left-radius: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  margin: auto 0 auto 2vw;
+  margin-top: 10vh;
+  background-color: antiquewhite;
+}
+
+#list > li:first-child {
+  margin-bottom: 10px;
+}
+
+#list > li {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+#list > li:last-child {
+  margin-top: 10px;
 }
 
 
 
+/* Buttons Part */
 .buttons {
   display: flex;
 }
