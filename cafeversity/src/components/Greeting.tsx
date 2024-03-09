@@ -1,14 +1,23 @@
 import styles from "@/app/page.module.css";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 import emptyImg from '../../public/no_image1.jpg';
 
 
 export default function Greeting() {
+
+    const listLines : string[] = [
+        "The first line: Lorem, ipsum dolor.",
+        "The second line: Lorem ipsum dolor sit amet.",
+        "The third line: Lorem ipsum dolor sit.",
+    ];
+
+    const imgFile : StaticImageData = emptyImg;// it is for images adding into several info blocks
+
     return (
         <div className={styles.features}>
             <div className={styles.know0}>
                 <div className={styles.feature_picture}>
-                    <Image src={emptyImg} alt="picture0" style={{
+                    <Image src={imgFile} alt="picture0" style={{
                         width: "20vw",
                         height: "250px",
                         borderRadius: "24px",
@@ -16,9 +25,9 @@ export default function Greeting() {
                 </div>
                 <div className={styles.feature_list}>
                     <ul id={styles.list}>
-                        <li>The first line: Lorem, ipsum dolor.</li>
-                        <li>The second line: Lorem ipsum dolor sit amet.</li>
-                        <li>The third line: Lorem ipsum dolor sit.</li>
+                        {listLines.map((listLine : string, index : number) => 
+                            <li key={index}>{listLine}</li>
+                        )}
                     </ul>
                 </div>
             </div>
