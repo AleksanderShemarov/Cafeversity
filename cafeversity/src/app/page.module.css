@@ -341,7 +341,7 @@ body {
 
 /* Central Part of Main Page */
 #main_part {
-  min-height: calc(100vh - 245px);
+  min-height: calc(100vh - 225px);
   display: flex;
   flex-direction: column;
 }
@@ -352,9 +352,10 @@ body {
   justify-content: center;
   margin: auto;
   width: 85vw;
+  flex-direction: column;
 }
 
-.know0 {
+.know_block {
   width: 70vw;
   height: 450px;
   border-top: 5px solid brown;
@@ -368,6 +369,11 @@ body {
   display: flex;
   justify-content: center;
   background-color: rgba(123, 97, 219, 0.407);
+  margin: 0 auto;
+}
+
+.know_block_disabled {
+  display: none;
 }
 
 .feature_picture {
@@ -402,6 +408,27 @@ body {
 
 #list > li:last-child {
   margin-top: 10px;
+}
+
+
+
+/*Points for Info Blocks*/
+#slider_points {
+  /* border: 2px solid navy; */
+  height: 50px;
+  display: flex;
+  justify-content: space-around;
+  margin: 0 auto;
+}
+
+#point {
+  width: 25px;
+  height: 25px;
+  background-color: goldenrod;
+  border-radius: 50%;
+  margin: auto;
+  margin-left: 5px;
+  margin-right: 5px;
 }
 
 
