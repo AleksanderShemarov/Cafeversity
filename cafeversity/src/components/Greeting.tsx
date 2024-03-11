@@ -3,8 +3,9 @@
 import styles from "@/app/page.module.css";
 import Image, { StaticImageData } from "next/image";
 import emptyImg from '../../public/no_image1.jpg';
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { clsx } from "clsx";
+import { useCallback } from "react";
 
 
 export default function Greeting() {
@@ -89,6 +90,91 @@ export default function Greeting() {
         // console.log(newPoints, divsVisibility);
         setDivsVisibility(newPoints);
     }
+
+
+
+    // // This code controls automatical changing info blocks with user's opportunity to do it manually
+    // const [currentIndex, setCurrentIndex] = useState<number>(0);
+    // const [manual, setManual] = useState<boolean>(false);
+    // const timerRef = useRef<number | null>(null);
+    //
+    // const changeIndex = useCallback(() => {
+    //     setCurrentIndex((prevIndex) => (prevIndex + 1) % staticImages.length);
+    // }, [staticImages, setCurrentIndex]);
+    //
+    // useEffect(() => {
+    //     timerRef.current = window.setInterval(changeIndex, 5000);
+    //     return () => {
+    //         if (timerRef.current) {
+    //             window.clearInterval(timerRef.current)
+    //         }
+    //     }
+    // }, [changeIndex])
+    //
+    // useEffect(() => {
+    //     const resume = () => {
+    //         setManual(false);
+    //         if (timerRef.current) {
+    //             window.clearInterval(timerRef.current);
+    //         }
+    //         timerRef.current = window.setTimeout(changeIndex, 5000);
+    //     }
+    //     if (manual){
+    //         if (timerRef.current) {
+    //             window.clearInterval(timerRef.current);
+    //         }
+    //         timerRef.current = window.setTimeout(resume, 5000);
+    //     }
+    //     return () => {
+    //         if (timerRef.current) {
+    //             window.clearTimeout(timerRef.current);
+    //         }
+    //     };
+    // }, [changeIndex, manual])
+    //
+    // const toggleVisibility = (index: number) => {
+    //     setCurrentIndex(index);
+    //     setManual(true);
+    // }
+    //
+    // {
+    //     staticImages.map(
+    //         (image: StaticImageData, index : number) => 
+    //         <div className={clsx(styles.know_block, {
+    //                 [styles.know_block_disabled]: index !== currentIndex,
+    //             })} key={index}>
+    //             <div className={styles.feature_picture}>
+    //                 <Image src={image} alt="picture0" style={{
+    //                 width: "20vw",
+    //                 height: "250px",
+    //                 borderRadius: "24px",
+    //                 }}></Image>
+    //             </div>
+    //             <div className={styles.feature_list}>
+    //                 <ul id={styles.list}>
+    //                     {strings[index].map((line : string, index : number) => 
+    //                         <li key={100 + index}>{line}</li>
+    //                     )}
+    //                 </ul>
+    //             </div>
+    //         </div>
+    //     )
+    // }
+    // <div id={styles.slider_points}>
+    //     {staticImages.map(
+    //         (image : StaticImageData, index : number) =>
+    //         <input
+    //             type="button"
+    //             id={styles.point}
+    //             key={index}
+    //             onClick={() => toggleVisibility(index)}
+    //             value={index}
+    //             disabled={index === currentIndex}
+    //         ></input>
+    //     )}
+    // </div>
+
+
 
     return (
         <>    
