@@ -1,6 +1,7 @@
 import Link from "next/link";
-import styles from "../page.module.css";
+import styles from "./commonMenu.module.css";
 import CommonLayout from "@/components/CommonLayout";
+import FoodList from "@/components/FoodList";
 
 
 export default function CommonMenuPage() {
@@ -9,6 +10,7 @@ export default function CommonMenuPage() {
         <CommonLayout>
             <div id={styles.main_part}>
                 <h1>Просты спіс ежы на сённяшні дзень.</h1>
+                <FoodList />
             </div>
             <div className={styles.buttons}>
                 <Link href="/" id={styles.food_news}>Галоўная старонка</Link>
