@@ -22,9 +22,18 @@ export default function Greeting() {
     //     [
     //         emptyImg,
     //         [
-    //             "The first line: Lorem, ipsum dolor.",
-    //             "The second line: Lorem ipsum dolor sit amet.",
-    //             "The third line: Lorem ipsum dolor sit.",
+    //             "The fourth line: Lorem, ipsum dolor.",
+    //             "The fifth line: Lorem ipsum dolor sit amet.",
+    //             "The sixth line: Lorem ipsum dolor sit.",
+    //         ],
+    //         true,
+    //     ],
+    //     [
+    //         emptyImg,
+    //         [
+    //             "The seventh line: Lorem, ipsum dolor.",
+    //             "The eighth line: Lorem ipsum dolor sit amet.",
+    //             "The nineth line: Lorem ipsum dolor sit.",
     //         ],
     //         true,
     //     ],
@@ -35,13 +44,16 @@ export default function Greeting() {
     // const [divsVisibility, setDivsVisibility] = useState(booleans);
 
     // const toggleDivsVisibility = (index : number) => {
-    //     const updatedVisibility = [...divsVisibility];
-    //     updatedVisibility[index] = !updatedVisibility[index];
-    //     setDivsVisibility(updatedVisibility);
+    //     const newPoints = Array(divsVisibility.length).fill(true);
+    //     let chosenPoint = !(divsVisibility[index]);
+    //     newPoints[index] = chosenPoint;
+    //     // console.log(divsVisibility, newPoints);
+    //     setDivsVisibility(newPoints);
     // };
 
 
     const staticImages : StaticImageData[] = [
+        emptyImg,
         emptyImg,
         emptyImg,
     ];
@@ -52,23 +64,30 @@ export default function Greeting() {
             "The third line: Lorem ipsum dolor sit.",
         ],
         [
-            "The first line: Lorem, ipsum dolor.",
-            "The second line: Lorem ipsum dolor sit amet.",
-            "The third line: Lorem ipsum dolor sit.",
+            "The fourth line: Lorem, ipsum dolor.",
+            "The fifth line: Lorem ipsum dolor sit amet.",
+            "The sixth line: Lorem ipsum dolor sit.",
+        ],
+        [
+            "The seventh line: Lorem, ipsum dolor.",
+            "The eighth line: Lorem ipsum dolor sit amet.",
+            "The nineth line: Lorem ipsum dolor sit.",
         ],
     ]
     let booleans : boolean[] = [
         false,
+        true,
         true,
     ]
 
     const [divsVisibility, setDivsVisibility] = useState(booleans);
 
     const toggleDivsVisibility = (index : number) => {
-        const updatedVisibility = [...divsVisibility];
-        updatedVisibility[index] = !updatedVisibility[index];
-        console.log(updatedVisibility);
-        setDivsVisibility(updatedVisibility);
+        const newPoints = Array(divsVisibility.length).fill(true);
+        let chosenPoint = !(divsVisibility[index]);
+        newPoints[index] = chosenPoint;
+        // console.log(newPoints, divsVisibility);
+        setDivsVisibility(newPoints);
     }
 
     return (
@@ -100,7 +119,11 @@ export default function Greeting() {
                 <div id={styles.slider_points}>
                     {allData.map(
                         (datum : [StaticImageData, string[], boolean], index : number) =>
-                        <div id={styles.point} key={index} onClick={() => toggleDivsVisibility(index)}></div>
+                        <div
+                            id={styles.point}
+                            key={index}
+                            onClick={() => {divsVisibility[index] && toggleDivsVisibility(index)}}
+                        ></div>
                     )}
                 </div> */}
                 {
@@ -135,6 +158,7 @@ export default function Greeting() {
                             key={index}
                             onClick={() => toggleDivsVisibility(index)}
                             value={index}
+                            disabled={!divVisib}
                         ></input>
                     )}
                 </div>
