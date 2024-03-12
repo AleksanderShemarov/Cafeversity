@@ -26,8 +26,8 @@ const database = new sqlite3.Database('./sqlite3_database.db', sqlite3.OPEN_READ
 
 
 // let sql = `INSERT INTO dishes_BY
-// (food_name, includes, spicy, vegetarian, vegan, protein, fats, carbohydrates, amino_acids, food_portion, cost)
-// VALUES (?,?,?,?,?,?,?,?,?,?,?)`;
+// (food_name, includes, spicy, vegetarian, vegan, protein, fats, carbohydrates, amino_acids, food_portion, cost, imagePath)
+// VALUES (?,?,?,?,?,?,?,?,?,?,?,?)`;
 
 // database.run(sql, [
 //     "Калдуны",
@@ -40,82 +40,71 @@ const database = new sqlite3.Database('./sqlite3_database.db', sqlite3.OPEN_READ
 //     12.0,
 //     "Аспаражыновая кіслата, Лейцын, Ізалейцын, Лізін, Гістыдын, Насычаны тлушч, Амега-3 і Амега-6 тлустыя кіслоты; Вітаміны: B1, B2, B4, B5, B6, C, E, PP; Мікраэлементы: Co, Cl, Na, Cr, Mo, Cu, Zn, K",
 //     250,
-//     3.15
+//     3.15,
+//     './public/Калдуны.jpeg',
 // ], (err) => {
 //     if (err) return console.error(err.message);
-
 //     console.log("A new data row has been created!");
 // });//It is Kalduny dish.
 
 // database.run(sql, [
 //     "Мачанка з блінамі",
-//     `Мачанка: 
-//     Свіная грудзінка (38.5%), Свініна (15.3%), Шампіньёны (15.3%), Смятана 15%-тлушчу (15.3%), 
-//     Цыбуля (9.2%), Вада (3.8%), Пшанічная мука (2.3%), Заправы (0.3%); 
-//     Бліны: 
-//     Малако (61.9%), Пшанічная мука (17.0%), Цэльназерневая мука (7.8%), Яйкі (9.3%), 
-//     Раслінны алей (2.8%), Цукар (0.9%), Соль (0.3%)`,
+//     `Мачанка: Свіная грудзінка (38.5%), Свініна (15.3%), Шампіньёны (15.3%), Смятана 15%-тлушчу (15.3%), Цыбуля (9.2%), Вада (3.8%), Пшанічная мука (2.3%), Заправы (0.3%);
+// Бліны: Малако (61.9%), Пшанічная мука (17.0%), Цэльназерневая мука (7.8%), Яйкі (9.3%), Раслінны алей (2.8%), Цукар (0.9%), Соль (0.3%)`,
 //     0,
 //     0,
 //     0,
 //     8.0,
 //     8.0,
 //     11.0,
-//     `Лейцын, Ізалейцын, Валін, Лізін, Метыёнін, Гістыдын, Фенілаланін, Трэанін, Трыптафан, 
-//     Насычаны тлушч, Амега-3 і Амега-6 тлустыя кіслоты; 
-//     Вітаміны: А, B1, B2, B4, B5, B6, B12, D, E, H, PP; 
-//     Мікраэлементы: K, Na, P, Cl, Fe, Ca, Co, Mg, Mn, Mo, Se, F, Cr, Zn.`,
+//     `Лейцын, Ізалейцын, Валін, Лізін, Метыёнін, Гістыдын, Фенілаланін, Трэанін, Трыптафан, Насычаны тлушч, Амега-3 і Амега-6 тлустыя кіслоты;
+// Вітаміны: А, B1, B2, B4, B5, B6, B12, D, E, H, PP;
+// Мікраэлементы: K, Na, P, Cl, Fe, Ca, Co, Mg, Mn, Mo, Se, F, Cr, Zn.`,
 //     515,
-//     4.28
+//     4.28,
+//     './public/Мачанка_з_блінамі.jpeg',
 // ], (err) => {
 //     if (err) return console.error(err.message);
-
 //     console.log("A new data row has been created!");
 // });//This is Machanka dish.
 
 // database.run(sql, [
 //     "Косаўская салата",
-//     `Буракі (52.0%), Цыбуля (18.7%), Смятана 15%-тлушчу (15.6%), 
-//     Шампіньёны (10.4%), Раслінны алей (1.5%), Часнык (0.5%), 
-//     Цукар (0.5%), Яблычны воцат (0.5%), Соль (0.3%).`,
+//     `Буракі (52.0%), Цыбуля (18.7%), Смятана 15%-тлушчу (15.6%), Шампіньёны (10.4%), Раслінны алей (1.5%), Часнык (0.5%), Цукар (0.5%), Яблычны воцат (0.5%), Соль (0.3%).`,
 //     0,
 //     0,
 //     0,
 //     5.9,
 //     16.5,
 //     20.9,
-//     `Лейцын, Ізалейцын, Валін, Лізін, Аланін, Аргінін, Насычаны тлушч, 
-//     Глутамінавая кіслата, Амега-3 і Амега-6 тлустыя кіслоты; 
-//     Вітаміны: А, B2, B3, B6, B9, B12, C, D, E, K; 
-//     Мікраэлементы: Ca, Mg, Mn, Fe, S, P, Zn`,
+//     `Лейцын, Ізалейцын, Валін, Лізін, Аланін, Аргінін, Насычаны тлушч, Глутамінавая кіслата, Амега-3 і Амега-6 тлустыя кіслоты;
+// Вітаміны: А, B2, B3, B6, B9, B12, C, D, E, K;
+// Мікраэлементы: Ca, Mg, Mn, Fe, S, P, Zn`,
 //     120,
-//     1.67
+//     1.67,
+//     './public/Косаўская_салата.jpeg',
 // ], (err) => {
 //     if (err) return console.error(err.message);
-
 //     console.log("A new data row has been created!");
 // });//This is Kosauskaja salata dish.
 
 // database.run(sql, [
 //     "Крупнік",
-//     `Кура (10.1%), Бульба (8.5%), Морква (5.4%), Цыбуля (4.0%), 
-//     Грэчка (1.7%), Рыс (1.0%), Сала (0.6%), Алей сланечніку (0.5%), 
-//     Соль (0.3%), Заправы (0.2%), Вада (67.7%).`,
+//     `Кура (10.1%), Бульба (8.5%), Морква (5.4%), Цыбуля (4.0%), Грэчка (1.7%), Рыс (1.0%), Сала (0.6%), Алей сланечніку (0.5%), Соль (0.3%), Заправы (0.2%), Вада (67.7%).`,
 //     0,
 //     0,
 //     0,
 //     3.0,
 //     4.0,
 //     3.0,
-//     `Гістыдын, Ізалейцын, Лейцын, Лізін, Метыёнін, Трэанін, Трыптафан, 
-//     Глутамінавая, Гама-амінамасляная і Аспарагінавая кіслоты, Амега-3 і Амега-6 тлустыя кіслоты; 
-//     Вітаміны: A, B1, B2, B3, B5, B6, B9, B12, C, D, E, H, K; 
-//     Мікраэлементы: Ca, Cl, F, Mg, Mn, Fe, S, P, Zn`,
+//     `Гістыдын, Ізалейцын, Лейцын, Лізін, Метыёнін, Трэанін, Трыптафан, Глутамінавая, Гама-амінамасляная і Аспарагінавая кіслоты, Амега-3 і Амега-6 тлустыя кіслоты;
+// Вітаміны: A, B1, B2, B3, B5, B6, B9, B12, C, D, E, H, K;
+// Мікраэлементы: Ca, Cl, F, Mg, Mn, Fe, S, P, Zn`,
 //     250,
-//     2.35
+//     2.35,
+//     './public/Крупнік.jpeg',
 // ], (err) => {
 //     if (err) return console.error(err.message);
-
 //     console.log("A new data row has been created!");
 // });//This is Krupnik soup dish.
 
@@ -129,12 +118,12 @@ const database = new sqlite3.Database('./sqlite3_database.db', sqlite3.OPEN_READ
 //     0.0,
 //     15.0,
 //     `Вітаміны: A, B1, B2, B4, B5, B6, B9, B12, C, D, E, H, K, PP;
-//     Мікраэлементы: K, Ca, Na, S, Cl, Cu, F.`,
+// Мікраэлементы: K, Ca, Na, S, Cl, Cu, F.`,
 //     200,
-//     1.12
+//     1.12,
+//     './public/Імбірна-цытрусавая_гарбата.jpeg',
 // ], (err) => {
 //     if (err) return console.error(err.message);
-
 //     console.log("A new data row has been created!");
 // });//It is Imbirna-citrusavaja harbata drink.
 
@@ -150,12 +139,29 @@ const database = new sqlite3.Database('./sqlite3_database.db', sqlite3.OPEN_READ
 // `);
 
 
+// To add a new column into SQLite table
+// let sql_alter = `ALTER TABLE dishes_BY ADD COLUMN imagePath TEXT NOT NULL`;
+//
+// database.run(sql_alter, [], (err) => {
+//     if (err) return console.error(err.message);
+//      console.log("A new column is created!");
+// });
+
+
+//To delete all rows in a SQLite table; To set Auto-Increment Primary Key to 0
+// let sql_delete_table_rows = `DELETE FROM dishes_BY;
+// UPDATE SQLITE_SEQUENCE SET seq = 0 WHERE name = 'dishes_BY';`;
+
+// database.run(sql_delete_table_rows, [], (err) => {
+//     if (err) return console.error(err.message);
+//     console.log("All table rows are deleted and PK is set on 0!");
+// })
+
+
 
 let sql = `SELECT * FROM dishes_BY`;
-
 database.all(sql, [], (err, rows) => {
     if (err) return console.error(err.message);
-
     rows.forEach(row => {
         console.log(row);
     });
