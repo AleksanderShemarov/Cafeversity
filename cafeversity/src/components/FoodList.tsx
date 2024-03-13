@@ -44,8 +44,8 @@ export default function FoodList() {
             amino_acids: "Розныя",
             food_portion: 2000,
             cost: 1.23,
-            imagePath: "C:/Django_Reactjs/NextJS/Cafeteen_Menu/cafeversity/public/no_image1.jpg",
-        }
+            imagePath: "/no_image1.jpg",
+        }// imagePath: "/image_folder/no_image1.jpg", (This example is correct too)
     ]);// You will see these data a few moments until the dishes_BY data fetching will be ended. If you see these data all time, data fetching is failed.
 
     useEffect(() => {
@@ -84,7 +84,7 @@ export default function FoodList() {
             </div>
             <div>{products.map((product) => 
             <div key={product.id}>
-                <p>Product&apos;s Name{product.food_name}</p>
+                <p>Product&apos;s Name: {product.food_name}</p>
                 <p>Product&apos;s Composition: {product.includes}</p>
                 <p>Is it spice? -&gt; {Boolean(product.spicy).toString().charAt(0).toUpperCase() + Boolean(product.spicy).toString().slice(1)}.<br />
                 Is it for vegetarians? -&gt; {Boolean(product.vegetarian).toString().charAt(0).toUpperCase() + Boolean(product.vegetarian).toString().slice(1)}.
@@ -94,6 +94,14 @@ export default function FoodList() {
                 <p>Portion (g): {product.food_portion}. Price: {product.cost}</p>
                 <p>&quot;{product.imagePath}&quot; It is incorrect image path, because it starts with &quot;./&quot;,<br />
                 but it must be started with &quot;/&quot;</p>
+                <p>{product.imagePath[0] === "." ? product.imagePath.slice(1) : product.imagePath}</p>
+                <p>{product.imagePath.slice(product.imagePath.lastIndexOf("/")+1)}</p>
+                <Image
+                    src={product.imagePath.slice(product.imagePath.lastIndexOf("/"))}
+                    alt={product.imagePath.slice(product.imagePath.lastIndexOf("/")+1)}
+                    width={200}
+                    height={150}
+                ></Image>
             </div>)}</div>
         </div>
     )
