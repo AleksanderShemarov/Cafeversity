@@ -24,14 +24,13 @@
     display: flex;
     flex-direction: column;
     margin: 15px 10px 15px 10px;
-    position: relative;
 }
 
 #list_field_image {
-    position: relative;
-    width: 20vw;
+    width: 21vw;
     height: 250px;
     margin: 0 auto;
+    overflow: hidden;
 }
 
 .text_lines {

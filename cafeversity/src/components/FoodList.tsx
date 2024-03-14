@@ -73,6 +73,10 @@ export default function FoodList() {
                                 margin: "auto",
                                 marginTop: "10px",
                                 marginBottom: "10px",
+                                width: "19vw",
+                                height: "215px",
+                                marginLeft: "0.5vw",
+                                marginRight: "0.5vw",
                             }}
                         ></Image>
                     </div>
