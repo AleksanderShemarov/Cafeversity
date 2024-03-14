@@ -6,22 +6,32 @@
 }
 
 .list_fields_zone {
-    height: 600px;
+    min-height: 600px;
     width: 90vw;
     border: 5px solid orange;
     margin: auto;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    flex-wrap: wrap;
 }
 
 #list_field {
-    height: 560px;
+    min-height: 560px;
     width: 22vw;
     border: 3px dashed purple;
     border-radius: 10%/5%;
     background-color: beige;
     display: flex;
     flex-direction: column;
+    margin: 15px 10px 15px 10px;
+    position: relative;
+}
+
+#list_field_image {
+    position: relative;
+    width: 20vw;
+    height: 250px;
+    margin: 0 auto;
 }
 
 .text_lines {
