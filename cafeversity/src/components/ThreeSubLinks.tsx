@@ -7,9 +7,9 @@ export default function ThreeSubLinks({ children }: Readonly<{children: React.Re
         <>
             <div className={styles.sub_links_panel}>
                 <div className={styles.sub_links}>
-                    <Link href="/news/recipeday" className="sub_link">Рэцэпт Дня</Link>
-                    <Link href="/news/foodpeople" className="sub_link">Людзі і Ежа</Link>
-                    <Link href="/news/worldfood" className="sub_link">Свет Ежы</Link>
+                    <Link href="/news/recipeday" className={styles.sub_link}>Рэцэпт Дня</Link>
+                    <Link href="/news/foodpeople" className={styles.sub_link}>Людзі і Ежа</Link>
+                    <Link href="/news/worldfood" className={styles.sub_link}>Свет Ежы</Link>
                 </div>
             </div>
             {children}
