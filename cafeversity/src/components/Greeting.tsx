@@ -2,7 +2,10 @@
 
 import styles from "@/app/page.module.css";
 import Image, { StaticImageData } from "next/image";
-import emptyImg from '../../public/no_image1.jpg';
+// import emptyImg from '../../public/no_image1.jpg';
+import quality from "../../public/якасць.jpeg";
+import city_map from "../../public/гарадзкая_мапа.jpeg";
+import fresh_food from "../../public/карысная_ежа.jpeg";
 import { useEffect, useRef, useState } from "react";
 import { clsx } from "clsx";
 import { useCallback } from "react";
@@ -54,9 +57,9 @@ export default function Greeting() {
 
 
     const staticImages : StaticImageData[] = [
-        emptyImg,
-        emptyImg,
-        emptyImg,
+        fresh_food,
+        city_map,
+        quality,
     ];
     const strings : string[][] = [
         [
