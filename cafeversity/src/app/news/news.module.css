@@ -1,0 +1,13 @@
+.sub_links_panel {
+    height: 75px;
+    width: 100vw;
+}
+
+.sub_links {
+    height: 50px;
+    width: 60vw;
+    border: 1px solid orange;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+}
