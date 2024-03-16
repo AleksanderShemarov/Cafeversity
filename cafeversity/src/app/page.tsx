@@ -17,7 +17,7 @@ export default function Home() {
                     Сённяшнія Стравы
                     {/* <p className={styles.button_name}>Сённяшнія Стравы</p> */}
                 </Link>
-                <Link href="/news" id={styles.food_news}>
+                <Link href="/news/foodpeople" id={styles.food_news}>
                     Ежа Свету
                     {/* <p className={styles.button_name}>Ежа Свету</p> */}
                 </Link>

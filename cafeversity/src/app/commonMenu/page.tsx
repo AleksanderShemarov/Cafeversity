@@ -14,7 +14,7 @@ export default function CommonMenuPage() {
             </div>
             <div className={styles.buttons}>
                 <Link href="/" id={styles.food_news}>Галоўная старонка</Link>
-                <Link href="/news" id={styles.main_view}>Ежа Свету</Link>
+                <Link href="/news/foodpeople" id={styles.main_view}>Ежа Свету</Link>
             </div>
         </CommonLayout>
     )

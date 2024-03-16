@@ -45,6 +45,24 @@
     -ms-transition: background-color 0.3s ease, outline 0.3s ease;
 }
 
+.sub_link_disabled {
+    height: 34px;
+    border-radius: 15px;
+    outline: 5px solid rgb(190, 189, 189);
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 6px;
+    font-size: 20px;
+    font-weight: 500;
+    text-decoration: none;
+    color: antiquewhite;
+    background-color: gray;  
+    text-align: center;
+    align-items: center;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
 #main_part {
     min-height: calc(100vh - 305px);
     border: 1px solid black;
