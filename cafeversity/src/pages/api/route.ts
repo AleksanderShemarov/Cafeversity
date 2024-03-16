@@ -1,7 +1,6 @@
 import sqlite3 from "sqlite3";
 import { open } from "sqlite";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-// import { NextRequest, NextResponse } from "next/server";
 
 
 const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {

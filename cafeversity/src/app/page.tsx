@@ -13,14 +13,8 @@ export default function Home() {
                 <Greeting />
             </div>
             <div className={styles.buttons}>
-                <Link href="/commonMenu" id={styles.food_today}>
-                    Сённяшнія Стравы
-                    {/* <p className={styles.button_name}>Сённяшнія Стравы</p> */}
-                </Link>
-                <Link href="/news/foodpeople" id={styles.food_news}>
-                    Ежа Свету
-                    {/* <p className={styles.button_name}>Ежа Свету</p> */}
-                </Link>
+                <Link href="/commonMenu" id={styles.food_today}>Сённяшнія Стравы</Link>
+                <Link href="/news/foodpeople" id={styles.food_news}>Ежа Свету</Link>
             </div>
         </CommonLayout>
     );

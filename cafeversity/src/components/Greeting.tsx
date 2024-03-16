@@ -87,7 +87,6 @@ export default function Greeting() {
         const newPoints = Array(divsVisibility.length).fill(true);
         let chosenPoint = !(divsVisibility[index]);
         newPoints[index] = chosenPoint;
-        // console.log(newPoints, divsVisibility);
         setDivsVisibility(newPoints);
     }
 

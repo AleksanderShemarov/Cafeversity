@@ -39,14 +39,19 @@ export default function FoodList() {
             food_portion: 2000,
             cost: 1.23,
             imagePath: "/no_image1.jpg",
-        }// "/no_image1.jpg" – An each picture path must be started with "/" and a picture's file (for example, "no_image1.jpg") after it 
-    ]);// You will see these data a few moments until the dishes_BY data fetching will be ended. If you see these data all time, data fetching is failed.
+        }
+    ]);
+    /* "/no_image1.jpg" – An each picture path must be started with "/"
+    and a picture's file (for example, "no_image1.jpg") after it*/
+
+    /* You will see these data a few moments until the dishes_BY data fetching will be ended.
+    If you see these data all time, data fetching is failed.*/
 
     useEffect(() => {
         fetch("http://localhost:3000/api/route", {
           method: "GET",
           headers: {
-            "Content-Type": "application/json", // Set the request headers to indicate JSON format
+            "Content-Type": "application/json",
           },
         })
           .then((res) => res.json())

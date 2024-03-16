@@ -1,3 +1,4 @@
+/* Navbar with Sub Links */
 .sub_links_panel {
     height: 70px;
     /* border: 1px solid black; */
@@ -63,6 +64,8 @@
     opacity: 0.3;
 }
 
+
+/* Main Part of Sub Links' Pages */
 #main_part {
     min-height: calc(100vh - 305px);
     border: 1px solid black;

@@ -12,6 +12,8 @@ export default function CommonHeader () {
             ssr: false,            
         }
     )
+    /* Server and Client have different clock time (the first has the previous time; the second – the next time).
+    From this moment we call Clock component as a dynamic component*/
 
     return (
         <>
