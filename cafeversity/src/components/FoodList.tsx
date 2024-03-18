@@ -43,7 +43,7 @@ export default function FoodList() {
     ]);// You will see these data a few moments until the dishes_BY data fetching will be ended. If you see these data all time, data fetching is failed.
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/route", {
+        fetch("http://localhost:3000/api/route_prisma", {
           method: "GET",
           headers: {
             "Content-Type": "application/json", // Set the request headers to indicate JSON format
