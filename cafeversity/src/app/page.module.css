@@ -297,11 +297,10 @@ body {
 
 /* Weather Data */
 #weather_line {
-  width: 100px;
+  width: 105px;
   height: 30px;
   /* border: 1px solid black; */
   margin: auto 0;
-  margin-left: 5px;
   text-align: center;
 }
 
