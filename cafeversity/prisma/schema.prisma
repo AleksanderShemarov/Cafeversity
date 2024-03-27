@@ -1,0 +1,31 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model dishes_BY {
+  id            Int      @id @default(autoincrement())
+  food_name     String
+  includes      String
+  spicy         Boolean
+  vegetarian    Boolean
+  vegan         Boolean
+  protein       Decimal? @default(0.00)
+  fats          Decimal? @default(0.00)
+  carbohydrates Decimal? @default(0.00)
+  amino_acids   String?  @default("Гістыдын, Ізалейцын, Лейцын")
+  food_portion  Decimal? @default(0.00)
+  cost          Decimal? @default(0.00)
+  imagePath     String
+}
+
+model people_and_food {
+  id            Int       @id @default(autoincrement())
+  article_title String
+  article_text  String    @default("This article is the only test. It consists of a title, a text and 3 image files: one is a main, and others are optional.")
+  imagePaths    String    @default("/no_image1.jpg;/no_image1.jpg;/no_image1.jpg")
+}

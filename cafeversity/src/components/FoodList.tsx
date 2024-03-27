@@ -48,7 +48,7 @@ export default function FoodList() {
     If you see these data all time, data fetching is failed.*/
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/route", {
+        fetch("http://localhost:3000/api/route_prisma", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
