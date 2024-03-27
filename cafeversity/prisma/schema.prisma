@@ -22,3 +22,10 @@ model dishes_BY {
   cost          Decimal? @default(0.00)
   imagePath     String
 }
+
+model people_and_food {
+  id            Int       @id @default(autoincrement())
+  article_title String
+  article_text  String    @default("This article is the only test. It consists of a title, a text and 3 image files: one is a main, and others are optional.")
+  imagePaths    String    @default("/no_image1.jpg;/no_image1.jpg;/no_image1.jpg")
+}
