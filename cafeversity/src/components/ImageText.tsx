@@ -14,7 +14,7 @@ export default function ImageText({ title, ingredients, portion, cost } : ImageD
             <p id={styles.food_title}>{title}</p>
             <p id={styles.food_ing}>Склад: {ingredients}</p>
             <div className={styles.portia_price}>
-                <p id={styles.portia}>Вага порцыі: {portion} граммаў</p>
+                <p id={styles.portia}>Вага порцыі: {portion} г.</p>
                 <p id={styles.price}>Кошт: {cost} BYN</p>
             </div>
         </div>

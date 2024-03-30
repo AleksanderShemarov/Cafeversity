@@ -69,4 +69,41 @@
 #main_part {
     min-height: calc(100vh - 305px);
     border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+}
+
+
+/* Calculator Part (temporarily in the "recipeday" page) */
+#calculator {
+    border: 3px dotted blue;
+    width: 450px;
+    height: 200px;
+}
+
+#calculator_name {
+    font-size: 18px;
+    font-weight: bolder;
+    border: 2px solid black;
+    border-radius: 20px/50%;
+    text-align: center;
+    height: 30px;
+    padding-top: 5px;
+}
+
+.message_summa {
+    display: flex;
+    justify-content: space-around;
+    height: 50px;
+    border: 1px dashed black;
+}
+
+.importance {
+    height: 30px;
+    border: 1px solid black;
+}
+
+.price_sum {
+    height: 30px;
+    border: 1px solid black;
 }
