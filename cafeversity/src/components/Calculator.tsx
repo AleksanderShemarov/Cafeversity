@@ -64,19 +64,19 @@ export default function Calculator() {
     return (
         <div id={styles.calculator}>
             <p id={styles.calculator_name}>Лічыльнык страў</p>
-            <table className="food_zone">
-                <tr>
-                    <th>№</th>
-                    <th>Назва Стравы</th>
-                    <th>Кол-сць порцый</th>
-                    <th>Кошт</th>
-                    <th>Адмена</th>{/* it will be hidden late */}
+            <table className={styles.food_zone}>
+                <tr className={styles.food_lines}>
+                    <th className={styles.food_pos}>№</th>
+                    <th className={styles.food_name}>Назва Стравы</th>
+                    <th className={styles.portions}>Кол-сць порцый</th>
+                    <th className={styles.food_price}>Кошт</th>
+                    <th className={styles.food_canceling}>Адмена</th>{/* it will be hidden late */}
                 </tr>
                 {data.map((datum, index) => 
-                    <tr key={index}>
-                        <td>{datum.id}.</td>
-                        <td>{datum.food_name}</td>
-                        <td>
+                    <tr key={index} className={styles.food_lines}>
+                        <td className={styles.food_pos}>{datum.id}.</td>
+                        <td className={styles.food_name}>{datum.food_name}</td>
+                        <td className={styles.portions}>
                             <button
                                 type="button"
                                 style={{
@@ -123,8 +123,8 @@ export default function Calculator() {
                                 ></Image>
                             </button>
                         </td>
-                        <td>{datum.cost}</td>
-                        <td>
+                        <td className={styles.food_price}>{datum.cost}</td>
+                        <td className={styles.food_canceling}>
                             <button
                                 type="button"
                                 style={{
