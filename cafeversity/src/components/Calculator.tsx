@@ -85,7 +85,7 @@ export default function Calculator() {
                                     width: "20px",
                                 }}
                                 onClick={() => datum.food_portion <= 10 && portionIncrease(index, datum.food_portion)}
-                                disabled={datum.food_portion > 9}
+                                disabled={datum.food_portion > 2}
                             >
                                 <Image
                                     src={additionIcon}
@@ -149,7 +149,7 @@ export default function Calculator() {
             </table>
             <div className={styles.message_summa}>
                 <div className={styles.importance}>Паведамленне</div>
-                <div className={styles.price_sum}>Сума коштаў -&gt; {common_cost}</div>
+                <div className={styles.price_sum}>Сума коштаў -&gt; {common_cost.toFixed(2)}</div>
             </div>
         </div>
     )
