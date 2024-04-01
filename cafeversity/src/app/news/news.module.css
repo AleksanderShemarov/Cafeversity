@@ -151,9 +151,25 @@
 .importance {
     height: 30px;
     border: 1px solid black;
+    text-align: center;
+    align-content: center;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 150px;
+}
+
+.importance_block {
+    /* border: 1px solid black; */
+    display: flex;
+    justify-content: space-between;
 }
 
 .price_sum {
     height: 30px;
     border: 1px solid black;
+    padding-left: 3px;
+    padding-right: 3px;
+    text-align: center;
+    align-content: center;
+    width: 180px;
 }

@@ -6,6 +6,7 @@ import deleteIcon from "../../public/delete_cross_icon.png";
 import Image from "next/image";
 import additionIcon from "../../public/addition_icon.png";
 import subtractIcon from "../../public/subtraction_icon.png";
+import exclamation from "../../public/exclamation_icon.png";
 
 
 export default function Calculator() {
@@ -148,7 +149,20 @@ export default function Calculator() {
                 )}
             </table>
             <div className={styles.message_summa}>
-                <div className={styles.importance}>Паведамленне</div>
+                <div className={styles.importance}>
+                    <div className={styles.importance_block}>
+                        <Image
+                            src={exclamation}
+                            alt="Exclamation_Icon"
+                            width={20}
+                            height={20}
+                            style={{
+                                borderRadius: "50%",
+                            }}
+                        ></Image>
+                        Паведамленне
+                    </div>
+                </div>
                 <div className={styles.price_sum}>Сума коштаў -&gt; {common_cost.toFixed(2)}</div>
             </div>
         </div>
