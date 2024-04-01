@@ -5,7 +5,6 @@ import dynamic from "next/dynamic";
 
 const Calculator = dynamic(() => import("@/components/Calculator"), { ssr: false })
 
-
 export default function RecipeDay () {
     return (
         <div id={styles.main_part}>

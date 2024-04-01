@@ -78,7 +78,7 @@
 #calculator {
     border: 3px dotted blue;
     width: 450px;
-    height: 200px;
+    min-height: 200px;
 }
 
 #calculator_name {
