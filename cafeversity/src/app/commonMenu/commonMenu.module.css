@@ -3,7 +3,34 @@
     min-height: calc(100vh - 225px);
     display: flex;
     flex-direction: column;
+    position: relative;
 }
+
+
+#calculator_div {
+    min-height: 200px;
+    width: 450px;
+    border: 1px black dashed;
+    position: absolute;
+    right: -400px;
+    top: 85px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    background-color: antiquewhite;
+
+    display: flex;
+    justify-content: left;
+}
+
+#temporarily_p {
+    writing-mode: vertical-lr;
+    text-orientation: upright;
+    text-align: center;
+    align-content: center;
+    margin: 0;
+    margin-left: 5px;
+}
+
 
 .list_fields_zone {
     min-height: 600px;

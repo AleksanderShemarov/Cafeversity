@@ -10,6 +10,9 @@ export default function CommonMenuPage() {
         <CommonLayout>
             <div id={styles.main_part}>
                 <h1>Просты спіс ежы на сённяшні дзень.</h1>
+                <div id={styles.calculator_div}>
+                    <p id={styles.temporarily_p}>Calculator Field</p>
+                </div>
                 <FoodList />
             </div>
             <div className={styles.buttons}>
