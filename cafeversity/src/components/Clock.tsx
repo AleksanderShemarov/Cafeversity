@@ -27,3 +27,26 @@ export default function Clock () {
         </div>
     )
 }
+
+export function Clock2 () {
+
+    const [currentTime, setCurrentTime] = useState("");
+
+    useEffect(() => {
+        const date = new Date();
+
+        const dating = date.getHours() + " " + date.getMinutes() + " " + date.getSeconds();
+        const timer = setInterval(() => {
+            setCurrentTime(dating);
+        }, 1000);
+
+        return () => clearInterval(timer);
+    }, [currentTime]);
+
+
+    return (
+        <div id={styles.clock}>
+            <p id={styles.clock_time}>{currentTime}</p>
+        </div>
+    )
+}

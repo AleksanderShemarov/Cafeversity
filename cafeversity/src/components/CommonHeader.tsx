@@ -3,6 +3,7 @@ import Image from "next/image";
 import sunny from "../../public/sunny.png";
 import dynamic from "next/dynamic";
 import Dating, {WeatherWeekday} from "@/components/Dating";
+import { Clock2 } from "@/components/Clock";
 
 
 export default function CommonHeader () {
@@ -25,6 +26,7 @@ export default function CommonHeader () {
                     <WeatherWeekday />
                 </div>
                 <Clock />
+                <Clock2 />{/* Clock2 rewritings are stood in useEffect hook and don't need to be as a dynamic component  */}
                 <Dating />
             </div>
         </>
