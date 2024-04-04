@@ -18,7 +18,7 @@ export default function Clock () {
     return (
         <div id={styles.clock}>
             <p id={styles.clock_time}>
-                {`
+                {`Type1 
                 ${time.getHours() >= 10 ? "" : "0"}${time.getHours()} :
                 ${time.getMinutes() >= 10 ? "" : "0"}${time.getMinutes()} :
                 ${time.getSeconds() >= 10 ? "" : "0"}${time.getSeconds()}
@@ -30,23 +30,28 @@ export default function Clock () {
 
 export function Clock2 () {
 
-    const [currentTime, setCurrentTime] = useState("");
+    const [currentHour, setCurrentHour] = useState<number>(0);
+    const [currentMinute, setCurrentMinute] = useState<number>(0);
+    const [currentSecond, setCurrentSecond] = useState<number>(0);
 
     useEffect(() => {
         const date = new Date();
 
-        const dating = date.getHours() + " " + date.getMinutes() + " " + date.getSeconds();
+        const hour = date.getHours(), minute = date.getMinutes(), second = date.getSeconds();
+        
         const timer = setInterval(() => {
-            setCurrentTime(dating);
+            setCurrentHour(hour);
+            setCurrentMinute(minute);
+            setCurrentSecond(second);
         }, 1000);
 
         return () => clearInterval(timer);
-    }, [currentTime]);
+    }, [currentHour, currentMinute, currentSecond]);
 
 
     return (
         <div id={styles.clock}>
-            <p id={styles.clock_time}>{currentTime}</p>
+            <p id={styles.clock_time}>Type2 {currentHour} : {currentMinute} : {currentSecond}</p>
         </div>
     )
 }
