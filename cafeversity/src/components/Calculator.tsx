@@ -66,87 +66,91 @@ export default function Calculator() {
         <div id={styles.calculator}>
             <p id={styles.calculator_name}>Лічыльнык страў</p>
             <table className={styles.food_zone}>
-                <tr className={styles.food_lines}>
-                    <th className={styles.food_pos}>№</th>
-                    <th className={styles.food_name}>Назва Стравы</th>
-                    <th className={styles.portions}>Кол-сць порцый</th>
-                    <th className={styles.food_price}>Кошт</th>
-                    <th className={styles.food_canceling}>Адмена</th>{/* it will be hidden late */}
-                </tr>
-                {data.map((datum, index) => 
-                    <tr key={index} className={styles.food_lines}>
-                        <td className={styles.food_pos}>{datum.id}.</td>
-                        <td className={styles.food_name}>{datum.food_name}</td>
-                        <td className={styles.portions}>
-                            <button
-                                type="button"
-                                style={{
-                                    borderRadius: "50%",
-                                    height: "20px",
-                                    width: "20px",
-                                }}
-                                onClick={() => datum.food_portion <= 10 && portionIncrease(index, datum.food_portion)}
-                                disabled={datum.food_portion > 2}
-                            >
-                                <Image
-                                    src={additionIcon}
-                                    alt="Add_Icon"
-                                    width={15}
-                                    height={15}
-                                    style={{
-                                        borderRadius: "50%",
-                                        marginLeft: "-5px",
-                                        marginBottom: "4px",
-                                    }}
-                                ></Image>
-                            </button>
-                            {datum.food_portion}
-                            <button
-                                type="button"
-                                style={{
-                                    borderRadius: "50%",
-                                    height: "20px",
-                                    width: "20px",
-                                }}
-                                onClick={() => portionDecrease(index, datum.food_portion)}
-                                disabled={datum.food_portion <= 1}
-                            >
-                                <Image
-                                    src={subtractIcon}
-                                    alt="Subtract_Icon"
-                                    width={15}
-                                    height={15}
-                                    style={{
-                                        borderRadius: "50%",
-                                        marginLeft: "-5px",
-                                        marginBottom: "4px",
-                                    }}
-                                ></Image>
-                            </button>
-                        </td>
-                        <td className={styles.food_price}>{datum.cost}</td>
-                        <td className={styles.food_canceling}>
-                            <button
-                                type="button"
-                                style={{
-                                    borderRadius: "10%/25%",
-                                    backgroundColor: "red",
-                                    height: "20px",
-                                    width: "20px",
-                                }}
-                                onClick={() => deletion(datum.id)}
-                            >
-                                <Image
-                                    src={deleteIcon}
-                                    alt="Delete_Icon"
-                                    width={10}
-                                    height={10}
-                                    style={{ marginLeft: "-3px", }}
-                                ></Image>
-                            </button>
-                        </td>
+                <thead>
+                    <tr className={styles.food_lines}>
+                        <th className={styles.food_pos}>№</th>
+                        <th className={styles.food_name}>Назва Стравы</th>
+                        <th className={styles.portions}>Кол-сць порцый</th>
+                        <th className={styles.food_price}>Кошт</th>
+                        <th className={styles.food_canceling}>Адмена</th>{/* it will be hidden late */}
                     </tr>
-                )}
+                </thead>
+                <tbody>
+                    {data.map((datum, index) => 
+                        <tr key={index} className={styles.food_lines}>
+                            <td className={styles.food_pos}>{datum.id}.</td>
+                            <td className={styles.food_name}>{datum.food_name}</td>
+                            <td className={styles.portions}>
+                                <button
+                                    type="button"
+                                    style={{
+                                        borderRadius: "50%",
+                                        height: "20px",
+                                        width: "20px",
+                                    }}
+                                    onClick={() => datum.food_portion <= 10 && portionIncrease(index, datum.food_portion)}
+                                    disabled={datum.food_portion > 2}
+                                >
+                                    <Image
+                                        src={additionIcon}
+                                        alt="Add_Icon"
+                                        width={15}
+                                        height={15}
+                                        style={{
+                                            borderRadius: "50%",
+                                            marginLeft: "-5px",
+                                            marginBottom: "4px",
+                                        }}
+                                    ></Image>
+                                </button>
+                                {datum.food_portion}
+                                <button
+                                    type="button"
+                                    style={{
+                                        borderRadius: "50%",
+                                        height: "20px",
+                                        width: "20px",
+                                    }}
+                                    onClick={() => portionDecrease(index, datum.food_portion)}
+                                    disabled={datum.food_portion <= 1}
+                                >
+                                    <Image
+                                        src={subtractIcon}
+                                        alt="Subtract_Icon"
+                                        width={15}
+                                        height={15}
+                                        style={{
+                                            borderRadius: "50%",
+                                            marginLeft: "-5px",
+                                            marginBottom: "4px",
+                                        }}
+                                    ></Image>
+                                </button>
+                            </td>
+                            <td className={styles.food_price}>{datum.cost}</td>
+                            <td className={styles.food_canceling}>
+                                <button
+                                    type="button"
+                                    style={{
+                                        borderRadius: "10%/25%",
+                                        backgroundColor: "red",
+                                        height: "20px",
+                                        width: "20px",
+                                    }}
+                                    onClick={() => deletion(datum.id)}
+                                >
+                                    <Image
+                                        src={deleteIcon}
+                                        alt="Delete_Icon"
+                                        width={10}
+                                        height={10}
+                                        style={{ marginLeft: "-3px", }}
+                                    ></Image>
+                                </button>
+                            </td>
+                        </tr>
+                    )}
+                </tbody>
             </table>
             <div className={styles.message_summa}>
                 <div className={styles.importance}>
