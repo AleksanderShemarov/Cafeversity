@@ -1,9 +1,6 @@
 import styles from "@/app/news/news.module.css";
-// import Calculator from "@/components/Calculator"; // temporarily added for the "recipeday" page
-import dynamic from "next/dynamic";
+import Calculator from "@/components/Calculator"; // temporarily added for the "recipeday" page
 
-
-const Calculator = dynamic(() => import("@/components/Calculator"), { ssr: false })
 
 export default function RecipeDay () {
     return (
