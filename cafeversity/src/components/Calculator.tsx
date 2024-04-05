@@ -9,14 +9,21 @@ import subtractIcon from "../../public/subtraction_icon.png";
 import exclamation from "../../public/exclamation_icon.png";
 
 
+type ChoiceFood = {
+    id: number,
+    food_name: string,
+    food_portion: number,
+    cost: number,
+};
+
 export default function Calculator() {
 
-    type ChoiceFood = {
-        id: number,
-        food_name: string,
-        food_portion: number,
-        cost: number,
-    };
+    // type ChoiceFood = {
+    //     id: number,
+    //     food_name: string,
+    //     food_portion: number,
+    //     cost: number,
+    // };
 
     const [data, setData] = useState<ChoiceFood[]|[]>([
         {id: 1, food_name: "Калдуны", food_portion: 1, cost: 3.15},
@@ -28,6 +35,8 @@ export default function Calculator() {
         (datum) => datum.cost * datum.food_portion
     ).reduce((summa, current) => summa + current, 0) : 0.00;
 
+
+    function adding ({ id, food_name, food_portion, cost }: ChoiceFood) {}
     
     function deletion (productId: number) {
         let new_data = data.filter((datum) => datum.id !== productId);

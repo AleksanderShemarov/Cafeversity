@@ -4,13 +4,28 @@ import Link from "next/link";
 import styles from "./commonMenu.module.css";
 import CommonLayout from "@/components/CommonLayout";
 import FoodList from "@/components/FoodList";
-import { useState } from "react";
+import React, { useState } from "react";
 import Calculator from "@/components/Calculator";
 
 
 export default function CommonMenuPage() {
 
     const [click, setClick] = useState<boolean>(false);
+
+    const foodIncluding = (
+        event: React.MouseEvent<HTMLParagraphElement>,
+        product_index: number,
+        product_id: number,
+        product_name: string,
+        product_cost: number,
+    ) => {
+        console.log("This signal goes from the Common Menu page through FoodList Component.");
+        console.log(`Product Index: ${product_index}`);
+        console.log(`Product ID: ${product_id}`);
+        console.log(`Product Name: ${product_name}`);
+        console.log(`Product Cost: ${product_cost}`);
+        console.log("Product portion amount is 1");
+    }
 
     return (
         <CommonLayout>
@@ -34,7 +49,7 @@ export default function CommonMenuPage() {
                     </button>
                     <Calculator />
                 </div>
-                <FoodList />
+                <FoodList onClick={foodIncluding} />
             </div>
             <div className={styles.buttons}>
                 <Link href="/" id={styles.food_news}>Галоўная старонка</Link>

@@ -3,10 +3,20 @@
 import styles from "@/app/commonMenu/commonMenu.module.css";
 import Image from "next/image";
 import ImageText from "./ImageText";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
-export default function FoodList() {
+type onClickEvent = {
+    onClick: (
+        event: React.MouseEvent<HTMLParagraphElement>,
+        product_index: number,
+        product_id: number,
+        product_name: string,
+        product_cost: number,
+    ) => void,
+}
+
+export default function FoodList({ onClick }: onClickEvent) {
 
     interface Data {
         id: number,
@@ -64,8 +74,8 @@ export default function FoodList() {
 
     return (
         <div className={styles.list_fields_zone}>
-            {products.map((product) => 
-                <div id={styles.list_field} key={product.id}>
+            {products.map((product, index) => 
+                <div id={styles.list_field} key={index}>
                     <div id={styles.list_field_image}>
                         <Image
                             src={product.imagePath.slice(product.imagePath.lastIndexOf("/"))}
@@ -90,6 +100,7 @@ export default function FoodList() {
                         ingredients={product.includes}
                         portion={product.food_portion}
                         cost={product.cost}
+                        onClick={(e) => onClick(e, index, product.id, product.food_name, product.cost)}
                     />
                 </div>
             )}
