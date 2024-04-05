@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/news/news.module.css";
+import styles from "@/app/commonMenu/commonMenu.module.css";
 import { useState } from "react";
 import deleteIcon from "../../public/delete_cross_icon.png";
 import Image from "next/image";
