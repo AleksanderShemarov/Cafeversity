@@ -8,18 +8,24 @@
 
 
 #calculator_div {
-    min-height: 200px;
-    width: 450px;
+    min-height: 300px;
+    width: 600px;
     border: 1px black dashed;
-    position: absolute;
-    right: -400px;
-    top: 85px;
+    position: fixed;
+    /* right: -550px; */
+    top: 195px;
     padding-top: 10px;
     padding-bottom: 10px;
     background-color: antiquewhite;
 
     display: flex;
     justify-content: left;
+
+    transition: right 0.9s ease;
+    -webkit-transition: right 0.9s ease;
+    -moz-transition: right 0.9s ease;
+    -o-transition: right 0.9s ease;
+    -ms-transition: right 0.9s ease;
 }
 
 #temporarily_p {

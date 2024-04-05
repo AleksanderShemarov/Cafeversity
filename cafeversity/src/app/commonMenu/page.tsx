@@ -15,7 +15,9 @@ export default function CommonMenuPage() {
         <CommonLayout>
             <div id={styles.main_part}>
                 <h1>Просты спіс ежы на сённяшні дзень.</h1>
-                <div id={styles.calculator_div}>
+                <div id={styles.calculator_div} style={{
+                    right: click ? "0px" : "-550px",
+                }}>
                     <p id={styles.temporarily_p}>Calculator Field</p>
                     <button
                         type="button"
