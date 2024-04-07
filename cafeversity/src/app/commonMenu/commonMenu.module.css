@@ -128,6 +128,18 @@
     align-content: center;
     width: 180px;
 }
+
+#empty_table {
+    padding: 5px 10px;
+    align-content: center;
+    text-align: center;
+    text-decoration: underline;
+    font-weight: 600;
+    background-color: rgba(240, 248, 255, 0.8);
+    opacity: 0.8;
+    border: 1px solid black;
+    border-radius: 10px/10px;
+}
 /**/
 
 

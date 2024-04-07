@@ -22,24 +22,42 @@ export default function Calculator({ params }: CalculatorProps) {
         cost: number,
     };
 
-    const [data, setData] = useState<ChoiceFood[]|[]>([
-        {id: 1, food_name: "Калдуны", food_portion: 1, cost: 3.15},
-        {id: 2, food_name: "Мачанка", food_portion: 2, cost: 8.56},
-        {id: 3, food_name: "Крупнік", food_portion: 1, cost: 2.35},
-    ]);
+    // const [data, setData] = useState<ChoiceFood[]|[]>([
+    //     {id: 1, food_name: "Калдуны", food_portion: 1, cost: 3.15},
+    //     {id: 2, food_name: "Мачанка", food_portion: 2, cost: 8.56},
+    //     {id: 3, food_name: "Крупнік", food_portion: 1, cost: 2.35},
+    // ]);
+
+    const [data, setData] = useState<ChoiceFood[]|[]>([]);
 
     const adding = useCallback((dish: [number, string, number, number]) => {
         let data_length = data.length;
-        let new_data = [
-            ...data,
-            {
-                id: data_length + 1,
-                food_name: dish[1],
-                food_portion: dish[2],
-                cost: dish[3],
-            }
-        ];
-        setData(new_data);
+
+        let dishPosition: number = data.findIndex((datum) => datum.food_name === dish[1])
+        if (dishPosition !== -1) {
+            let new_data = data.map((datum, index) => {
+                if (index === dishPosition && datum.food_portion < 3) {
+                    return {
+                        ...datum,
+                        food_portion: datum.food_portion + 1,
+                    };
+                } else {
+                    return datum;
+                }
+            });
+            setData(new_data);
+        } else {
+            let new_data = [
+                ...data,
+                {
+                    id: data_length + 1,
+                    food_name: dish[1],
+                    food_portion: dish[2],
+                    cost: dish[3],
+                }
+            ];
+            setData(new_data);
+        }
     }, [data]);
 
 
@@ -58,6 +76,14 @@ export default function Calculator({ params }: CalculatorProps) {
     
     function deletion (productId: number) {
         let new_data = data.filter((datum) => datum.id !== productId);
+        let position: number = 0;
+        new_data = new_data.map((new_datum) => {
+            position += 1;
+            return {
+                ...new_datum,
+                id: position,
+            }; 
+        })
         setData(new_data);
     }
 
@@ -103,7 +129,7 @@ export default function Calculator({ params }: CalculatorProps) {
                     </tr>
                 </thead>
                 <tbody>
-                    {data.map((datum, index) => 
+                    {data.length > 0 ? data.map((datum, index) => 
                         <tr key={index} className={styles.food_lines}>
                             <td className={styles.food_pos}>{datum.id}.</td>
                             <td className={styles.food_name}>{datum.food_name}</td>
@@ -175,6 +201,10 @@ export default function Calculator({ params }: CalculatorProps) {
                                     ></Image>
                                 </button>
                             </td>
+                        </tr>
+                    ) : (
+                        <tr>
+                            <td colSpan={5} id={styles.empty_table}>Каб дадаць страву ў калькулятар, націскніце на яе кошт.</td>
                         </tr>
                     )}
                 </tbody>
