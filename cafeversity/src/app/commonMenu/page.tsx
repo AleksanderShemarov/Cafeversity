@@ -11,6 +11,7 @@ import Calculator from "@/components/Calculator";
 export default function CommonMenuPage() {
 
     const [click, setClick] = useState<boolean>(false);
+    const [food, setFood] = useState<[number, string, number, number]>([0, "", 0, 0.00]);
 
     const foodIncluding = (
         event: React.MouseEvent<HTMLParagraphElement>,
@@ -19,12 +20,9 @@ export default function CommonMenuPage() {
         product_name: string,
         product_cost: number,
     ) => {
-        console.log("This signal goes from the Common Menu page through FoodList Component.");
+        // console.log("This signal goes from the Common Menu page through FoodList Component.");
         console.log(`Product Index: ${product_index}`);
-        console.log(`Product ID: ${product_id}`);
-        console.log(`Product Name: ${product_name}`);
-        console.log(`Product Cost: ${product_cost}`);
-        console.log("Product portion amount is 1");
+        setFood([product_id, product_name, 1, product_cost]);
     }
 
     return (
@@ -34,7 +32,6 @@ export default function CommonMenuPage() {
                 <div id={styles.calculator_div} style={{
                     right: click ? "0px" : "-500px",
                 }}>
-                    {/* <p id={styles.temporarily_p}>Calculator Field</p> */}
                     <button
                         type="button"
                         style={{
@@ -47,7 +44,7 @@ export default function CommonMenuPage() {
                     >
                         {click ? "Close Calculator" : "Open Calculator"}
                     </button>
-                    <Calculator />
+                    <Calculator params={food} />
                 </div>
                 <FoodList onClick={foodIncluding} />
             </div>

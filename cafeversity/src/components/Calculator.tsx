@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "@/app/commonMenu/commonMenu.module.css";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import deleteIcon from "../../public/delete_cross_icon.png";
 import Image from "next/image";
 import additionIcon from "../../public/addition_icon.png";
@@ -9,21 +9,18 @@ import subtractIcon from "../../public/subtraction_icon.png";
 import exclamation from "../../public/exclamation_icon.png";
 
 
-type ChoiceFood = {
-    id: number,
-    food_name: string,
-    food_portion: number,
-    cost: number,
-};
+type CalculatorProps = {
+    params: [number, string, number, number],
+}
 
-export default function Calculator() {
+export default function Calculator({ params }: CalculatorProps) {
 
-    // type ChoiceFood = {
-    //     id: number,
-    //     food_name: string,
-    //     food_portion: number,
-    //     cost: number,
-    // };
+    type ChoiceFood = {
+        id: number,
+        food_name: string,
+        food_portion: number,
+        cost: number,
+    };
 
     const [data, setData] = useState<ChoiceFood[]|[]>([
         {id: 1, food_name: "Калдуны", food_portion: 1, cost: 3.15},
@@ -31,12 +28,33 @@ export default function Calculator() {
         {id: 3, food_name: "Крупнік", food_portion: 1, cost: 2.35},
     ]);
 
+    const adding = useCallback((dish: [number, string, number, number]) => {
+        let data_length = data.length;
+        let new_data = [
+            ...data,
+            {
+                id: data_length + 1,
+                food_name: dish[1],
+                food_portion: dish[2],
+                cost: dish[3],
+            }
+        ];
+        setData(new_data);
+    }, [data]);
+
+
+    useEffect(() => {
+        if (params[0] !== 0) {
+            adding(params);
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [params]);
+
+
     let common_cost: number = data.length > 0 ? data.map(
         (datum) => datum.cost * datum.food_portion
     ).reduce((summa, current) => summa + current, 0) : 0.00;
 
-
-    function adding ({ id, food_name, food_portion, cost }: ChoiceFood) {}
     
     function deletion (productId: number) {
         let new_data = data.filter((datum) => datum.id !== productId);
