@@ -1,6 +1,8 @@
 import { PrismaClient } from "@prisma/client";
 
 
+// This code is suitable for JavaScript and needs to have "global.d.ts" for "global" typing
+
 // let prisma: PrismaClient;
 // 
 // if (process.env.NODE_ENV === "production") {
