@@ -1,5 +1,6 @@
 import styles from "@/app/news/foodpeople/foodpeople.module.css";
 import SearchLine from "@/components/SearchLine";
+import ArticleBar from "@/components/ArticleBar";
 
 
 export default function FoodPeople () {
@@ -7,6 +8,7 @@ export default function FoodPeople () {
         <div id={styles.main_part}>
             <h1>Знакамітыя людзі аб Ежы</h1>
             <SearchLine />
+            <ArticleBar />
         </div>
     )
 }
