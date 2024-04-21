@@ -28,4 +28,5 @@ model people_and_food {
   article_title String
   article_text  String    @default("This article is the only test. It consists of a title, a text and 3 image files: one is a main, and others are optional.")
   imagePaths    String    @default("/no_image1.jpg;/no_image1.jpg;/no_image1.jpg")
+  mainText      String    @default("This text is temporary! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam non enim sint ducimus, dolores molestias reprehenderit? Atque facere autem, ipsa aliquam rerum, voluptatum nemo laudantium quisquam at molestias est sapiente.")
 }
