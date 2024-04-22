@@ -1,13 +1,14 @@
 import styles from "./page.module.css";
 import Link from "next/link";
-import CommonLayout from "@/components/CommonLayout";
+// import CommonLayout from "@/components/CommonLayout";
 import Greeting from "@/components/Greeting";
 
 
 export default function Home() {
 
     return (
-        <CommonLayout>
+        <>
+        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <div id={styles.main_part}>
                 <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
                 <Greeting />
@@ -22,6 +23,7 @@ export default function Home() {
                     {/* <p className={styles.button_name}>Ежа Свету</p> */}
                 </Link>
             </div>
-        </CommonLayout>
+        {/* </CommonLayout> */}
+        </>
     );
 }

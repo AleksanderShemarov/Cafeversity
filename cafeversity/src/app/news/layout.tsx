@@ -1,5 +1,5 @@
 import React from "react";
-import CommonLayout from "@/components/CommonLayout";
+// import CommonLayout from "@/components/CommonLayout";
 import ThreeSubLinks from "@/components/ThreeSubLinks";
 import Link from "next/link";
 import styles from "@/app/page.module.css";
@@ -7,7 +7,8 @@ import styles from "@/app/page.module.css";
 
 export default function Layout ({ children }: Readonly<{children: React.ReactNode}>) {
     return (
-        <CommonLayout>
+        <>
+        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <ThreeSubLinks>
                 {children}
             </ThreeSubLinks>
@@ -15,6 +16,7 @@ export default function Layout ({ children }: Readonly<{children: React.ReactNod
                 <Link href="/commonMenu" id={styles.food_today}>Сённяшнія Стравы</Link>
                 <Link href="/" id={styles.main_view}>Галоўная старонка</Link>
             </div>
-        </CommonLayout>
+        {/* </CommonLayout> */}
+        </>
     )
 }
