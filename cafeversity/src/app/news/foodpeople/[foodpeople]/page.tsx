@@ -51,11 +51,13 @@ export default function ArticlePage() {
                 </div>
                 <div id={styles.first_text}>
                     <p>
-                        &nbsp;&nbsp;&nbsp;&nbsp;Lorem ipsum dolor sit amet, consectetur 
-                        adipisicing elit. Obcaecati necessitatibus 
-                        voluptas dolore nobis eos iure nulla doloribus 
-                        error repudiandae expedita eum delectus 
-                        commodi, velit mollitia.
+                        &emsp;Большай часткай людзі ведаюць яго працаздольным і таленавітым шэф-кухарам,
+                        рэстаратарам, які валодае адначасова 17 зоркамі Мэшлену, знатаком 
+                        вышэйшай кухні і адным з лепшых прафесіяналаў у стварэнні страў.<br />
+                        &emsp;Першапачаткова планаваў звязаць свой лёс з зусім іншым: ... футболам. 
+                        Траўма назі павярнула яго лёс у другі шлях.<br />
+                        &emsp;Сёння пройдземся па галоўных 
+                        кроках яго жыцця, каб асэнсаваць талент Гордана Рамсей.
                     </p>
                 </div>
                 <div id={styles.personal_data_block}>
@@ -69,14 +71,35 @@ export default function ArticlePage() {
                         ></Image>
                         <ul className={styles.table_data}>
                             <li>
-                                Імя: Гордан (анг.: Gordon)
+                                <span style={{
+                                    fontStyle: "italic",
+                                    fontWeight: "bolder",
+                                }}>Імя:</span>&emsp;Гордан (анг.: Gordon)
                             </li>
                             <li>
-                                Прозвішча: Рамсей (анг.: Ramsay)
+                                <span style={{ 
+                                    fontStyle: "italic",
+                                    fontWeight: "bolder",
+                                }}>Прозвішча:</span>&emsp;Рамсей (анг.: Ramsay)
                             </li>
-                            <li>Нарадзіўся: 8 {birth_months[10]} 1966 года</li>
-                            <li>Узрост: {years} год</li>
-                            <li>Статус: Шэф-кухар, Рэстаратар</li>
+                            <li>
+                                <span style={{ 
+                                    fontStyle: "italic",
+                                    fontWeight: "bolder",
+                                }}>Нарадзіўся:</span>&emsp;8 {birth_months[10]} 1966 года;<br />
+                            Джонстоўн, Злучанае Каралеўства</li>
+                            <li>
+                                <span style={{ 
+                                    fontStyle: "italic",
+                                    fontWeight: "bolder",
+                                }}>Узрост:</span>&emsp;{years} год
+                            </li>
+                            <li>
+                                <span style={{ 
+                                    fontStyle: "italic",
+                                    fontWeight: "bolder",
+                                }}>Статус:</span>&emsp;Шэф-кухар, Рэстаратар
+                            </li>
                         </ul>
                     </div>
                 </div>
