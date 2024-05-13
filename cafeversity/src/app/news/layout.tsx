@@ -1,7 +1,7 @@
 import React from "react";
 // import CommonLayout from "@/components/CommonLayout";
 import ThreeSubLinks from "@/components/ThreeSubLinks";
-import Link from "next/link";
+// import Link from "next/link";
 import styles from "@/app/page.module.css";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
 

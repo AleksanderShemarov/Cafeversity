@@ -9,6 +9,7 @@
     border-radius: 30px;
     background-color: rgb(110, 110, 0);
     padding-bottom: 30px;
+    padding-top: 20px;
 }
 
 #article_enter_image {
@@ -68,6 +69,7 @@
     margin: 0 auto;
     /* background-color: antiquewhite; */
     margin-top: 20px;
+    margin-bottom: 50px;
     padding: 20px 30px;
 }
 
@@ -128,7 +130,7 @@
 }
 
 .article_text {
-    border: 2px ridge orange;
+    /* border: 2px ridge orange; */
     text-align: justify;
     padding: 5px 50px;
     margin-top: 10px;
@@ -136,4 +138,6 @@
     font-size: 22px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
+    padding-top: 30px;
+    padding-bottom: 30px;
 }
