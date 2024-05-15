@@ -1,6 +1,6 @@
 #main_part {
     min-height: calc(100vh - 305px);
-    border: 1px solid black;
+    /* border: 1px solid black; */
 }
 
 #article_body {
@@ -40,6 +40,7 @@
 #article_enter_shorty {
     font-weight: bolder;
     text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
 #first_text {
@@ -134,7 +135,7 @@
     text-align: justify;
     padding: 5px 50px;
     margin-top: 10px;
-    background-color: antiquewhite;
+    /* background-color: antiquewhite; */
     font-size: 22px;
     border-bottom-left-radius: 20px;
     border-bottom-right-radius: 20px;
