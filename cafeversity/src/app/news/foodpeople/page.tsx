@@ -4,6 +4,7 @@ import ArticleBar from "@/components/ArticleBar";
 import Gordon_Ramsay from "../../../../public/Gordon_Ramsay_and_the_dish.jpg";
 import Gordon_Ramsay_cooking from "../../../../public/Gordon_Ramsay_cooking.jpg";
 import noImage from "../../../../public/no_image1.jpg";
+import Link from "next/link";
 
 
 export default function FoodPeople () {
@@ -14,7 +15,7 @@ export default function FoodPeople () {
             image: Gordon_Ramsay,
             imageName: "Gordon_Ramsay_and_the_dish.jpg",
             articleHead: "Гордан Рамсей",
-            articleShort: "Легенда кулінарнага мастацтва, рэстаратар ды тэле-зорка. 7 зорак Мішлэну і шэф-повар, якога ведаюць ва ўсім свеце.",
+            articleShort: "Легенда кулінарнага мастацтва, рэстаратар ды тэле-зорка. 8 зорак Мішлэну і шэф-повар, вядомы ва ўсім свеце.",
         },
         {
             id: 2,
@@ -36,15 +37,23 @@ export default function FoodPeople () {
         <div id={styles.main_part}>
             <h1>Знакамітыя людзі аб Ежы</h1>
             <SearchLine />
-            {articlesBars.map((articleBar) => 
-                <ArticleBar
-                    key={articleBar.id}
-                    picture={articleBar.image}
-                    pictName={articleBar.imageName}
-                    articleName={articleBar.articleHead}
-                    shortText={articleBar.articleShort}
-                />
-            )}
+            {articlesBars && articlesBars.map((articleBar) => {
+                return (
+                    <Link
+                        key={articleBar.id}
+                        href={`/news/foodpeople/${articleBar.id}`}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
+                        <ArticleBar
+                            key={articleBar.id}
+                            picture={articleBar.image}
+                            pictName={articleBar.imageName}
+                            articleName={articleBar.articleHead}
+                            shortText={articleBar.articleShort}
+                        />
+                    </Link>
+                )
+            })}
         </div>
     )
 }
