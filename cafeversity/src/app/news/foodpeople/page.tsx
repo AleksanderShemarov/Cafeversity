@@ -15,7 +15,7 @@ export default function FoodPeople () {
             image: Gordon_Ramsay,
             imageName: "Gordon_Ramsay_and_the_dish.jpg",
             articleHead: "Гордан Рамсей",
-            articleShort: "Легенда кулінарнага мастацтва, рэстаратар ды тэле-зорка. 8 зорак Мішлэну і шэф-повар, вядомы ва ўсім свеце.",
+            articleShort: "Легенда кухарскага мастацтва, рэстаратар ды тэле-зорка. 8 зорак Мішлэну і шэф-повар, вядомы ва ўсім свеце.",
         },
         {
             id: 2,

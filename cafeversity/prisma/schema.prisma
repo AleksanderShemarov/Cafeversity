@@ -28,6 +28,7 @@ model people_and_food {
   article_title       String    @default("Плануем...")
   article_text        String    @default("У хуткім часе будуць даданыя новыя асобы. Мы працуем над гэтым.")
   article_image_path  String    @default("/Gordon_Ramsay_cooking.jpg")
+  articleList_seeing  Boolean   @default(true)
   mainImagePath       String    @default("/no_image1.jpg")
   mainTitle           String    @default("Загаловак артыкула")
   shortTitle          String    @default("Кароткі запіс")
@@ -43,4 +44,5 @@ model people_and_food {
   imagePaths          String    @default("/no_image1.jpg;/no_image1.jpg;/no_image1.jpg")
   mainText            String    @default("This text is temporary! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam non enim sint ducimus, dolores molestias reprehenderit? Atque facere autem, ipsa aliquam rerum, voluptatum nemo laudantium quisquam at molestias est sapiente.")
   createdAt           DateTime  @default(now())
+  published           Boolean   @default(false)
 }
