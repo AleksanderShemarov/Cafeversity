@@ -24,9 +24,22 @@ model dishes_BY {
 }
 
 model people_and_food {
-  id            Int       @id @default(autoincrement())
-  article_title String
-  article_text  String    @default("This article is the only test. It consists of a title, a text and 3 image files: one is a main, and others are optional.")
-  imagePaths    String    @default("/no_image1.jpg;/no_image1.jpg;/no_image1.jpg")
-  mainText      String    @default("This text is temporary! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam non enim sint ducimus, dolores molestias reprehenderit? Atque facere autem, ipsa aliquam rerum, voluptatum nemo laudantium quisquam at molestias est sapiente.")
+  id                  Int       @id @default(autoincrement())
+  article_title       String    @default("Плануем...")
+  article_text        String    @default("У хуткім часе будуць даданыя новыя асобы. Мы працуем над гэтым.")
+  article_image_path  String    @default("/Gordon_Ramsay_cooking.jpg")
+  mainImagePath       String    @default("/no_image1.jpg")
+  mainTitle           String    @default("Загаловак артыкула")
+  shortTitle          String    @default("Кароткі запіс")
+  personalImagePath   String?   @default("/no_image1.jpg")
+  personalName        String?   @default("John")
+  personalSurname     String?   @default("Doe")
+  birthDay            String?   @default("May 18th 1995")
+  birthTown           String?   @default("New York")
+  birthCountry        String?   @default("United States")
+  birthdayDate        String?   @default("18.05.1995")
+  personalStatus      String?   @default("World Wild Web Personal Example, Real Person (possibly)")
+  imagePaths          String    @default("/no_image1.jpg;/no_image1.jpg;/no_image1.jpg")
+  mainText            String    @default("This text is temporary! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam non enim sint ducimus, dolores molestias reprehenderit? Atque facere autem, ipsa aliquam rerum, voluptatum nemo laudantium quisquam at molestias est sapiente.")
+  createdAt           DateTime  @default(now())
 }
