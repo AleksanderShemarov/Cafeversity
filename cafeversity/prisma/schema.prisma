@@ -31,6 +31,7 @@ model people_and_food {
   mainImagePath       String    @default("/no_image1.jpg")
   mainTitle           String    @default("Загаловак артыкула")
   shortTitle          String    @default("Кароткі запіс")
+  firstText           String    @default("Ўводзіны да артыкула")
   personalImagePath   String?   @default("/no_image1.jpg")
   personalName        String?   @default("John")
   personalSurname     String?   @default("Doe")
