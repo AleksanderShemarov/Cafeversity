@@ -4,7 +4,7 @@ import Image, { StaticImageData } from "next/image";
 
 
 interface ArticleBarValues {
-    picture: StaticImageData,
+    picture: StaticImageData | string,
     pictName: string,
     articleName: string,
     shortText: string,
