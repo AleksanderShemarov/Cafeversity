@@ -4,7 +4,13 @@ import React, { useState } from "react";
 import styles from "@/app/news/foodpeople/foodpeople.module.css";
 
 
-export default function SearchLine() {
+type SearchLineHandler = {
+    searchingHandler: (
+        event: React.ChangeEvent<HTMLInputElement>
+    ) => void,
+}
+
+export default function SearchLine({ searchingHandler }: SearchLineHandler) {
 
     const [line, setLine] = useState<string>("");
 
@@ -21,7 +27,11 @@ export default function SearchLine() {
                     title="Увядзі свой запыт!"//"Type your query here!"
                     type="text"
                     value={line}
-                    onChange={(e) => valueChanging(e, setLine)}
+                    // onChange={(e) => valueChanging(e, setLine)}
+                    onChange={(e) => {
+                        searchingHandler(e);
+                        valueChanging(e, setLine);
+                    }}
                     placeholder="Пошук..."//"Search..."
                  />
             </div>

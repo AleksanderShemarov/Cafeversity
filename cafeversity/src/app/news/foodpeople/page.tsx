@@ -3,11 +3,8 @@
 import styles from "@/app/news/foodpeople/foodpeople.module.css";
 import SearchLine from "@/components/SearchLine";
 import ArticleBar from "@/components/ArticleBar";
-import Gordon_Ramsay from "../../../../public/Gordon_Ramsay_and_the_dish.jpg";
-import Gordon_Ramsay_cooking from "../../../../public/Gordon_Ramsay_cooking.jpg";
-import noImage from "../../../../public/no_image1.jpg";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 
 
 export default function FoodPeople () {
@@ -36,55 +33,18 @@ export default function FoodPeople () {
         published: boolean,
     }
 
-    const [articleData, setArticleData] = useState<ArticlesData[]>([
-        // {
-        // id: 0,
-        // article_title: "Article Template",
-        // article_text: "This article is the only test.",
-        // article_image_path: "/no_image1.jpg",
-        // articleList_seeing: false,
-        // mainImagePath: "/no_image1.jpg",
-        // mainTitle: "Загаловак артыкула",
-        // shortTitle: "Кароткі запіс",
-        // firstText: "Ўводзіны да артыкула",
-        // personalImagePath: "/no_image1.jpg",
-        // personalName: "John",
-        // personalSurname: "Doe",
-        // birthDay: "May 18th 1995",
-        // birthTown: "New York",
-        // birthCountry: "United States",
-        // birthdayDate: "18.05.1995",
-        // personalStatus: "World Wild Web Personal Example, Real Person (possibly)",
-        // imagePaths: "/no_image1.jpg;/no_image1.jpg;/no_image1.jpg",
-        // mainText: "This text is temporary! Lorem ipsum, dolor sit amet consectetur adipisicing elit. Nam non enim sint ducimus, dolores molestias reprehenderit? Atque facere autem, ipsa aliquam rerum, voluptatum nemo laudantium quisquam at molestias est sapiente.",
-        // createdAt: "2024-05-17T11:29:51.000Z",
-        // published: false,
-        // }
-    ]);
+    const [articleData, setArticleData] = useState<ArticlesData[]>([]);// The initial data are put into 'articleData'
+    const [filteredArticleData, setFilteredArticleData] = useState<ArticlesData[]>([]);// Filtered – into 'filteredArticleData'
 
-    // const articlesBars = [
-    //     {
-    //         id: 1,
-    //         image: Gordon_Ramsay,
-    //         imageName: "Gordon_Ramsay_and_the_dish.jpg",
-    //         articleHead: "Гордан Рамсей",
-    //         articleShort: "Легенда кухарскага мастацтва, рэстаратар ды тэле-зорка. 8 зорак Мішлэну і шэф-повар, вядомы ва ўсім свеце.",
-    //     },
-    //     {
-    //         id: 2,
-    //         image: Gordon_Ramsay_cooking,
-    //         imageName: "Gordon_Ramsay_cooking.jpg",
-    //         articleHead: "Плануем...",
-    //         articleShort: "У хуткім часе будуць даданыя новыя асобы. Мы працуем над гэтым.",
-    //     },
-    //     {
-    //         id: 3,
-    //         image: noImage,
-    //         imageName: "no_image1.jpg",
-    //         articleHead: "Article Header",
-    //         articleShort: "Short Description.",
-    //     },
-    // ];
+    const [isLoaded, setIsLoaded] = useState<boolean>(false);
+
+    // User input a text into SearchLine component
+    const [query, setNewQuery] = useState<string>("");
+
+    const newQuery = (searchQuery: { target: { value: SetStateAction<string>; }; }) => {
+        setNewQuery(searchQuery.target.value);
+    };
+
 
     useEffect(() => {
         fetch("http://localhost:3000/api/articles_route", {
@@ -102,56 +62,77 @@ export default function FoodPeople () {
         });
     }, []);
 
+
+    // The 'articleData' array is being set by User's input text
+    useEffect(() => {
+        let newRequestedArticles = articleData.filter((articleDatum) => articleDatum.articleList_seeing);
+        if (query !== "") {
+            newRequestedArticles = newRequestedArticles.filter((articleDatum) => {
+                let titleIncludesQuery = articleDatum.article_title.toLowerCase().includes(query.toLowerCase());
+                return titleIncludesQuery;
+            });
+        };
+
+        setFilteredArticleData(newRequestedArticles);
+
+        setIsLoaded(true);// Articles data is loaded and will be shown for Users
+    }, [query, articleData]);
+
+
     return (
         <div id={styles.main_part}>
             <h1>Знакамітыя людзі аб Ежы</h1>
-            <SearchLine />
-            {/* {articlesBars && articlesBars.map((articleBar) => {
-                return (
-                    <Link
-                        key={articleBar.id}
-                        href={`/news/foodpeople/${articleBar.id}`}
-                        style={{ textDecoration: 'none', color: 'inherit' }}
-                    >
-                        <ArticleBar
-                            key={articleBar.id}
-                            picture={articleBar.image}
-                            pictName={articleBar.imageName}
-                            articleName={articleBar.articleHead}
-                            shortText={articleBar.articleShort}
-                        />
-                    </Link>
-                )
-            })} */}
-            {articleData && articleData.filter((articleDatum) => articleDatum.articleList_seeing).map((articleDatum, index) => {
-                if (articleDatum.published) {
+            <SearchLine searchingHandler={newQuery} />
+            {!isLoaded ? 
+            (<div style={{
+                marginTop: "5vh",
+            }}>
+                <p style={{
+                    textAlign: "center",
+                    fontSize: "30px",
+                    fontStyle: "italic",
+                }}>Пампаванне дадзен...</p>
+            </div>) : 
+            filteredArticleData.length > 0 ? 
+            filteredArticleData.map((articleBar, index) => {
+                if (articleBar.published) {
                     return (
                         <Link
                             key={index}
-                            href={`/news/foodpeople/${articleDatum.id}`}
+                            href={`/news/foodpeople/${articleBar.id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                             <ArticleBar
-                                key={articleDatum.id}
-                                picture={articleDatum.article_image_path}
-                                pictName={`${articleDatum.article_image_path}`}
-                                articleName={articleDatum.article_title}
-                                shortText={articleDatum.article_text}
+                                key={articleBar.id}
+                                picture={articleBar.article_image_path}
+                                pictName={`${articleBar.article_image_path}`}
+                                articleName={articleBar.article_title}
+                                shortText={articleBar.article_text}
                             />
                         </Link>
                     )
                 } else {
                     return (
                         <ArticleBar
-                            key={articleDatum.id}
-                            picture={articleDatum.article_image_path}
-                            pictName={`${articleDatum.article_image_path}`}
-                            articleName={articleDatum.article_title}
-                            shortText={articleDatum.article_text}
+                            key={articleBar.id}
+                            picture={articleBar.article_image_path}
+                            pictName={`${articleBar.article_image_path}`}
+                            articleName={articleBar.article_title}
+                            shortText={articleBar.article_text}
                         />
                     )
                 }
-            })}
+            }) : (
+                <div style={{
+                    marginTop: "5vh",
+                }}>
+                    <p style={{
+                        textAlign: "center",
+                        fontSize: "30px",
+                        fontStyle: "italic",
+                    }}>Наступных артыкулаў па запыце не існуе.</p>
+                </div>
+            )}
         </div>
     )
 }
