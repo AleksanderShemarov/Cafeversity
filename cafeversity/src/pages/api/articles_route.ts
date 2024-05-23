@@ -6,15 +6,36 @@ const PeopleFoodArticlesHadler: NextApiHandler = async (req: NextApiRequest, res
 
     const prisma = new PrismaClient();
 
-    if (req.method === "GET") {
-        let people_food_articles = await prisma.people_and_food.findMany();
-        prisma.$disconnect();
-        return res.status(200).json(people_food_articles);
-    } else {
-        prisma.$disconnect();
-        return res.status(500).json({error: `This request (${req.method}) is impossible now, because it isn't written.`});
+    try {
+        if (req.method === "GET") {
+            const { id } = req.query;
+            if (id) {
+                const article = await prisma.people_and_food.findUnique({
+                    where: { 
+                        id: Number(id),
+                    },
+                });
+                if (article) {
+                    return res.status(200).json(article);
+                } else {
+                    return res.status(404).json({
+                        error: "Article is not found!",
+                    });
+                }
+            } else {
+                const people_food_articles = await prisma.people_and_food.findMany();
+                await prisma.$disconnect();
+                return res.status(200).json(people_food_articles);
+            }
+        } else {
+            await prisma.$disconnect();
+            return res.status(500).json({error: `This request (${req.method}) is impossible now, because it isn't written.`});
+        }
+    } catch (error) {
+        return res.status(500).json({ error: "Internal server error" });
+    } finally {
+        await prisma.$disconnect();
     }
-
 }
 
 export default PeopleFoodArticlesHadler;

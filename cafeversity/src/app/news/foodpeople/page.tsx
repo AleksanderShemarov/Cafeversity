@@ -55,6 +55,7 @@ export default function FoodPeople () {
         })
         .then((res) => res.json())
         .then((data) => {
+            data = data.filter((datum: ArticlesData) => datum.articleList_seeing);
             setArticleData(data);
         })
         .catch((error) => {
@@ -65,7 +66,7 @@ export default function FoodPeople () {
 
     // The 'articleData' array is being set by User's input text
     useEffect(() => {
-        let newRequestedArticles = articleData.filter((articleDatum) => articleDatum.articleList_seeing);
+        let newRequestedArticles = articleData;
         if (query !== "") {
             newRequestedArticles = newRequestedArticles.filter((articleDatum) => {
                 let titleIncludesQuery = articleDatum.article_title.toLowerCase().includes(query.toLowerCase());

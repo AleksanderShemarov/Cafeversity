@@ -9,7 +9,46 @@ import Ramsay_Mina from "@/../../public/GordonRamsay_MichaelMina_Masterchef.jpg"
 import Ramsay_Rush from "@/../../public/GordonRamsay_AndreRush.jpg";
 
 
-export default function ArticlePage() {
+type ArticlesData = {
+    id: number,
+    article_title: string,
+    article_text: string,
+    article_image_path: string,
+    articleList_seeing: boolean,
+    mainImagePath: string,
+    mainTitle: string,
+    shortTitle: string,
+    firstText: string,
+    personalImagePath: string,
+    personalName: string,
+    personalSurname: string,
+    birthDay: string,
+    birthTown: string,
+    birthCountry: string,
+    birthdayDate: string,
+    personalStatus: string,
+    imagePaths: string,
+    mainText: string,
+    createdAt: string,
+    published: boolean,
+}
+
+export async function generateStaticParams() {
+    let articles = await fetch("http://localhost:3000/api/articles_route").then((response) => response.json());
+
+    articles = articles.filter((article: ArticlesData) => article.articleList_seeing);
+    return articles.map((article: ArticlesData) => ({
+        id: article,
+    }));
+}
+
+export default async function ArticlePage({ params }: { params: {foodpeople: number} }) {
+
+    const { foodpeople } = params;
+    console.log(foodpeople);// 2
+    const clickedArticle = await fetch(`http://localhost:3000/api/articles_route?id=${foodpeople}`)
+    .then(res => res.json());
+    console.log(clickedArticle);// The single Object with data
 
     /* 
     text sources:
@@ -132,7 +171,7 @@ export default function ArticlePage() {
                 <div id={styles.first_text}>
                     <p>
                         &emsp;Большай часткай людзі ведаюць яго працаздольным і таленавітым шэф-кухарам,
-                        рэстаратарам, які валодае адначасова 7 зоркамі Мэшлену, знатаком 
+                        рэстаратарам, які валодае адначасова 8 зоркамі Мэшлену, знатаком 
                         вышэйшай кухні і адным з лепшых прафесіяналаў у стварэнні страў.<br />
                         &emsp;Першапачаткова планаваў звязаць свой лёс з зусім іншым: ... футболам. 
                         Траўма назі павярнула яго лёс у другі шлях.<br />
