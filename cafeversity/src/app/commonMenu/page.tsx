@@ -1,15 +1,30 @@
+<<<<<<< HEAD
 "use client";
 
 import Link from "next/link";
+=======
+// import Link from "next/link";
+>>>>>>> developer
 import styles from "./commonMenu.module.css";
-import CommonLayout from "@/components/CommonLayout";
+// import CommonLayout from "@/components/CommonLayout";
 import FoodList from "@/components/FoodList";
+<<<<<<< HEAD
 import React, { useState } from "react";
 import Calculator from "@/components/Calculator";
+=======
+import TwoMainBottomButtons from "@/components/MainBottomButtons";
+>>>>>>> developer
 
+
+type buttonDatum = {
+    path: string,
+    id_style: string,
+    button_name: string,
+}// These types are for the TwoMainBottomButtons Component's array in 'data' variable and are the same in OptionData interface
 
 export default function CommonMenuPage() {
 
+<<<<<<< HEAD
     const [click, setClick] = useState<boolean>(false);
     const [food, setFood] = useState<[number, string, number, number]>([0, "", 0, 0.00]);
 
@@ -24,9 +39,16 @@ export default function CommonMenuPage() {
         console.log(`Product Index: ${product_index}`);
         setFood([product_id, product_name, 1, product_cost]);
     }
+=======
+    const buttonsData : buttonDatum[] = [
+        { path: "/", id_style: styles.food_news, button_name: "Галоўная старонка" },
+        { path: "/news/foodpeople", id_style: styles.food_news, button_name: "Ежа Свету" },
+    ];
+>>>>>>> developer
 
     return (
-        <CommonLayout>
+        <>
+        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <div id={styles.main_part}>
                 <h1>Просты спіс ежы на сённяшні дзень.</h1>
                 <div id={styles.calculator_div} style={{
@@ -48,10 +70,12 @@ export default function CommonMenuPage() {
                 </div>
                 <FoodList onClick={foodIncluding} />
             </div>
-            <div className={styles.buttons}>
+            {/* <div className={styles.buttons}>
                 <Link href="/" id={styles.food_news}>Галоўная старонка</Link>
                 <Link href="/news/foodpeople" id={styles.main_view}>Ежа Свету</Link>
-            </div>
-        </CommonLayout>
+            </div> */}
+            <TwoMainBottomButtons data={buttonsData} />
+        {/* </CommonLayout> */}
+        </>
     )
 }

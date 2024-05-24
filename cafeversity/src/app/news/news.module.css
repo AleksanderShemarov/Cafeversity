@@ -29,21 +29,21 @@
     background-color: gray;  
     text-align: center;
     align-items: center;
-    transition: background-color 0.3s ease, outline 0.3s ease;
     -webkit-transition: background-color 0.3s ease, outline 0.3s ease;
     -o-transition: background-color 0.3s ease, outline 0.3s ease;
     -moz-transition: background-color 0.3s ease, outline 0.3s ease;
     -ms-transition: background-color 0.3s ease, outline 0.3s ease;
+    transition: background-color 0.3s ease, outline 0.3s ease;
 }
 
 .sub_link:hover {
     background-color: rgb(190, 189, 189);
     outline: 5px solid gray;
-    transition: background-color 0.3s ease, outline 0.3s ease;
     -webkit-transition: background-color 0.3s ease, outline 0.3s ease;
     -o-transition: background-color 0.3s ease, outline 0.3s ease;
     -moz-transition: background-color 0.3s ease, outline 0.3s ease;
     -ms-transition: background-color 0.3s ease, outline 0.3s ease;
+    transition: background-color 0.3s ease, outline 0.3s ease;
 }
 
 .sub_link_disabled {

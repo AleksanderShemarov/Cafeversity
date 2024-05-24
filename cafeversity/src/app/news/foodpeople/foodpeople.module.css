@@ -1,0 +1,110 @@
+#main_part {
+    min-height: calc(100vh - 305px);
+    border: 1px solid black;
+}
+
+/* #searchline {
+    border: 1px solid black;
+} */
+
+#searchline_box {
+    height: 75px;
+    max-width: 30vw;
+    border: 5px double dodgerblue;
+    border-radius: 30px;
+    margin: 10px auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+        to bottom,
+        rgb(0, 204, 255) 0%,
+        rgb(252, 242, 223) 30%,
+        rgb(252, 242, 223) 50%,
+        rgb(252, 242, 223) 70%,
+        rgb(0, 204, 255) 100%
+    );
+}
+
+#searchline_zone {
+    height: 30px;
+    width: 25vw;
+    border-radius: 10px;
+    padding: 0 5px;
+}
+
+.temporary_answer {
+    height: 25px;
+    width: calc(20vw - 20px);
+    border: 2px solid orange;
+    border-radius: 10px;
+    align-items: center;
+    text-align: center;
+    margin: 5px auto;
+    padding: 2.5px 10px;
+}
+
+.temporary_answer_line {
+    margin: 0 auto;
+    height: 25px;
+    font-weight: 900;
+    font-size: 20px;
+    text-decoration: underline;
+    /* border: 1px solid black; */
+}
+
+
+
+/* #article_bar_zone {
+    border: 1px solid black;
+} */
+
+.article_bar_body {
+    max-width: 60vw;
+    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
+    /* border: 3px solid brown; */
+    border-radius: 30px;
+    margin: 30px auto;
+    display: flex;
+    /* outline: 1px solid black; */
+    /* background-color: black; */
+}
+
+.article_bar_image {
+    /* border: 3px dashed purple; */
+    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
+    border-top-left-radius: 30px;
+    border-bottom-left-radius: 30px;
+    min-width: 40vw;
+}
+
+.article_bar_text {
+    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
+    border-top-right-radius: 30px;
+    border-bottom-right-radius: 30px;
+    min-width: 20vw;
+    display: inline-flex;
+    flex-direction: column;
+}
+
+.article_text {
+    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
+    background-color: aliceblue;
+    border-top-right-radius: 27px;
+    border-bottom-right-radius: 27px;
+}
+
+.article_name {
+    /* border: 1px solid black; */
+    max-width: 18vw;
+    font-size: 28px;
+    margin: 25px auto 15px;
+}
+
+.article_short {
+    /* border: 1px solid black; */
+    max-width: 18vw;
+    font-size: 20px;
+    margin: 15px auto 5px;
+    text-align: justify;
+}
