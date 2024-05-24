@@ -1,10 +1,8 @@
-import { PrismaClient } from "@prisma/client";
+import prisma from "../../../lib/utils/prismaClient";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 
 const PeopleFoodArticlesHadler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
-
-    const prisma = new PrismaClient();
 
     try {
         if (req.method === "GET") {
@@ -24,17 +22,15 @@ const PeopleFoodArticlesHadler: NextApiHandler = async (req: NextApiRequest, res
                 }
             } else {
                 const people_food_articles = await prisma.people_and_food.findMany();
-                await prisma.$disconnect();
                 return res.status(200).json(people_food_articles);
             }
         } else {
-            await prisma.$disconnect();
             return res.status(500).json({error: `This request (${req.method}) is impossible now, because it isn't written.`});
         }
     } catch (error) {
         return res.status(500).json({ error: "Internal server error" });
     } finally {
-        await prisma.$disconnect();
+        // await prisma.$disconnect();
     }
 }
 

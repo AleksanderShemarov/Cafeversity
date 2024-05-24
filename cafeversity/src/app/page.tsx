@@ -1,5 +1,4 @@
 import styles from "./page.module.css";
-// import Link from "next/link";
 // import CommonLayout from "@/components/CommonLayout";
 import Greeting from "@/components/Greeting";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
