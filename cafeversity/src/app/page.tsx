@@ -25,26 +25,8 @@ export default function Home() {
                 <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
                 <Greeting />
             </div>
-<<<<<<< HEAD
-            <div className={styles.buttons}>
-                <Link href="/commonMenu" id={styles.food_today}>Сённяшнія Стравы</Link>
-                <Link href="/news/foodpeople" id={styles.food_news}>Ежа Свету</Link>
-            </div>
-        </CommonLayout>
-=======
-            {/* <div className={styles.buttons}>
-                <Link href="/commonMenu" id={styles.food_today}>
-                    Сённяшнія Стравы
-                    <p className={styles.button_name}>Сённяшнія Стравы</p>
-                </Link>
-                <Link href="/news/foodpeople" id={styles.food_news}>
-                    Ежа Свету
-                    <p className={styles.button_name}>Ежа Свету</p>
-                </Link>
-            </div> */}
             <TwoMainBottomButtons data={buttonsData}/>
         {/* </CommonLayout> */}
         </>
->>>>>>> developer
     );
 }
