@@ -1,19 +1,13 @@
-<<<<<<< HEAD
 "use client";
 
 import Link from "next/link";
-=======
 // import Link from "next/link";
->>>>>>> developer
 import styles from "./commonMenu.module.css";
 // import CommonLayout from "@/components/CommonLayout";
 import FoodList from "@/components/FoodList";
-<<<<<<< HEAD
 import React, { useState } from "react";
 import Calculator from "@/components/Calculator";
-=======
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
->>>>>>> developer
 
 
 type buttonDatum = {
@@ -24,7 +18,6 @@ type buttonDatum = {
 
 export default function CommonMenuPage() {
 
-<<<<<<< HEAD
     const [click, setClick] = useState<boolean>(false);
     const [food, setFood] = useState<[number, string, number, number]>([0, "", 0, 0.00]);
 
@@ -39,12 +32,10 @@ export default function CommonMenuPage() {
         console.log(`Product Index: ${product_index}`);
         setFood([product_id, product_name, 1, product_cost]);
     }
-=======
     const buttonsData : buttonDatum[] = [
         { path: "/", id_style: styles.food_news, button_name: "Галоўная старонка" },
         { path: "/news/foodpeople", id_style: styles.food_news, button_name: "Ежа Свету" },
     ];
->>>>>>> developer
 
     return (
         <>
