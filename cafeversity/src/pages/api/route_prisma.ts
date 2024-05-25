@@ -8,7 +8,7 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     //const prisma = new PrismaClient();// Used for an usual prisma-client instance
 
     if (req.method === "GET") {
-        let dishes = await prisma.dishes_BY.findMany();
+        const dishes = await prisma.dishes_BY.findMany();
         // prisma.$disconnect();// Singleton checks PrismaClient connection; we don't need to write such commands
         return res.status(200).json(dishes);
     } else {

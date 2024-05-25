@@ -11,7 +11,7 @@ const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse
     });
 
     if (req.method === "GET") {
-        let dishes_BY = await db.all(`SELECT * FROM dishes_BY`);
+        const dishes_BY = await db.all(`SELECT * FROM dishes_BY`);
         db.close();
         return res.status(200).json(dishes_BY);
     } else {

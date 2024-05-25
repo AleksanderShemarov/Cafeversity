@@ -31,11 +31,11 @@ export default function Calculator({ params }: CalculatorProps) {
     const [data, setData] = useState<ChoiceFood[]|[]>([]);
 
     const adding = useCallback((dish: [number, string, number, number]) => {
-        let data_length = data.length;
+        const data_length = data.length;
 
-        let dishPosition: number = data.findIndex((datum) => datum.food_name === dish[1])
+        const dishPosition: number = data.findIndex((datum) => datum.food_name === dish[1])
         if (dishPosition !== -1) {
-            let new_data = data.map((datum, index) => {
+            const new_data = data.map((datum, index) => {
                 if (index === dishPosition && datum.food_portion < 3) {
                     return {
                         ...datum,
@@ -47,7 +47,7 @@ export default function Calculator({ params }: CalculatorProps) {
             });
             setData(new_data);
         } else {
-            let new_data = [
+            const new_data = [
                 ...data,
                 {
                     id: data_length + 1,
@@ -69,7 +69,7 @@ export default function Calculator({ params }: CalculatorProps) {
     }, [params]);
 
 
-    let common_cost: number = data.length > 0 ? data.map(
+    const common_cost: number = data.length > 0 ? data.map(
         (datum) => datum.cost * datum.food_portion
     ).reduce((summa, current) => summa + current, 0) : 0.00;
 
@@ -88,7 +88,7 @@ export default function Calculator({ params }: CalculatorProps) {
     }
 
     function portionIncrease (index: number, amount: number) {
-        let new_data = data.map((datum, position) => {
+        const new_data = data.map((datum, position) => {
             if (position === index) {
                 return {
                     ...datum,
@@ -102,7 +102,7 @@ export default function Calculator({ params }: CalculatorProps) {
     }
 
     function portionDecrease (index: number, amount: number) {
-        let new_data = data.map((datum, position) => {
+        const new_data = data.map((datum, position) => {
             if (position === index) {
                 return {
                     ...datum,

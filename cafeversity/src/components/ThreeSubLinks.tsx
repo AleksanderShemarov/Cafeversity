@@ -12,7 +12,7 @@ export default function ThreeSubLinks({ children }: Readonly<{children: React.Re
 
     const handleClick = (num: number) => {
         const activity : boolean[] = Array(activeButtons.length).fill(false);
-        let button = !(activeButtons[num]);
+        const button = !(activeButtons[num]);
         activity[num] = button;
         setActiveButtons(activity);
     }
