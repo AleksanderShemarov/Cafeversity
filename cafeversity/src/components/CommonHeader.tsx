@@ -3,6 +3,7 @@ import Image from "next/image";
 import sunny from "../../public/sunny.png";
 import dynamic from "next/dynamic";
 import Dating, {WeatherWeekday} from "@/components/Dating";
+import Entrance from "./Entrance";
 
 
 export default function CommonHeader () {
@@ -24,6 +25,7 @@ export default function CommonHeader () {
                 </div>
                 <Clock />
                 <Dating />
+                <Entrance />
             </div>
         </>
     )
