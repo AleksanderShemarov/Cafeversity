@@ -3,10 +3,20 @@
 import styles from "@/app/commonMenu/commonMenu.module.css";
 import Image from "next/image";
 import ImageText from "./ImageText";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 
 
-export default function FoodList() {
+type onClickEvent = {
+    onClick: (
+        event: React.MouseEvent<HTMLParagraphElement>,
+        product_index: number,
+        product_id: number,
+        product_name: string,
+        product_cost: number,
+    ) => void,
+}
+
+export default function FoodList({ onClick }: onClickEvent) {
 
     interface Data {
         id: number,
@@ -39,14 +49,19 @@ export default function FoodList() {
             food_portion: 2000,
             cost: 1.23,
             imagePath: "/no_image1.jpg",
-        }// "/no_image1.jpg" – An each picture path must be started with "/" and a picture's file (for example, "no_image1.jpg") after it 
-    ]);// You will see these data a few moments until the dishes_BY data fetching will be ended. If you see these data all time, data fetching is failed.
+        }
+    ]);
+    /* "/no_image1.jpg" – An each picture path must be started with "/"
+    and a picture's file (for example, "no_image1.jpg") after it*/
+
+    /* You will see these data a few moments until the dishes_BY data fetching will be ended.
+    If you see these data all time, data fetching is failed.*/
 
     useEffect(() => {
         fetch("http://localhost:3000/api/route_prisma", {
           method: "GET",
           headers: {
-            "Content-Type": "application/json", // Set the request headers to indicate JSON format
+            "Content-Type": "application/json",
           },
         })
           .then((res) => res.json())
@@ -59,8 +74,8 @@ export default function FoodList() {
 
     return (
         <div className={styles.list_fields_zone}>
-            {products.map((product) => 
-                <div id={styles.list_field} key={product.id}>
+            {products.map((product, index) => 
+                <div id={styles.list_field} key={index}>
                     <div id={styles.list_field_image}>
                         <Image
                             src={product.imagePath.slice(product.imagePath.lastIndexOf("/"))}
@@ -85,6 +100,7 @@ export default function FoodList() {
                         ingredients={product.includes}
                         portion={product.food_portion}
                         cost={product.cost}
+                        onClick={(e) => onClick(e, index, product.id, product.food_name, product.cost)}
                     />
                 </div>
             )}

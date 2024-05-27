@@ -4,6 +4,7 @@ import sunny from "../../public/sunny.png";
 import dynamic from "next/dynamic";
 import Dating, {WeatherWeekday} from "@/components/Dating";
 import Entrance from "./Entrance";
+import { Clock2 } from "@/components/Clock";
 
 
 export default function CommonHeader () {
@@ -13,6 +14,8 @@ export default function CommonHeader () {
             ssr: false,            
         }
     )
+    /* Server and Client have different clock time (the first has the previous time; the second – the next time).
+    From this moment we call Clock component as a dynamic component*/
 
     return (
         <>
@@ -24,6 +27,7 @@ export default function CommonHeader () {
                     <WeatherWeekday />
                 </div>
                 <Clock />
+                <Clock2 />{/* Clock2 rewritings are stood in useEffect hook and don't need to be as a dynamic component  */}
                 <Dating />
                 <Entrance />
             </div>

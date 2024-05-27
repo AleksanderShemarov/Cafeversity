@@ -1,17 +1,18 @@
-import { PrismaClient } from "@prisma/client";
+//import { PrismaClient } from "@prisma/client";// Usual "PrismaClient" creates a new prisma-client instance for each calling
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
+import prisma from "../../../lib/utils/prismaClient";// "prismaClient.ts"-file has a Singleton creating the only instance of "PrismaClient"
 
 
 const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
 
-    const prisma = new PrismaClient();
+    //const prisma = new PrismaClient();// Used for an usual prisma-client instance
 
     if (req.method === "GET") {
-        let dishes = await prisma.dishes_BY.findMany();
-        prisma.$disconnect();
+        const dishes = await prisma.dishes_BY.findMany();
+        // prisma.$disconnect();// Singleton checks PrismaClient connection; we don't need to write such commands
         return res.status(200).json(dishes);
     } else {
-        prisma.$disconnect();
+        // prisma.$disconnect();
         return res.status(500).json({error: "This request is impossible now, because it isn't written."});
     }
 }

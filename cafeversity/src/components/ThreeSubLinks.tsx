@@ -12,7 +12,7 @@ export default function ThreeSubLinks({ children }: Readonly<{children: React.Re
 
     const handleClick = (num: number) => {
         const activity : boolean[] = Array(activeButtons.length).fill(false);
-        let button = !(activeButtons[num]);
+        const button = !(activeButtons[num]);
         activity[num] = button;
         setActiveButtons(activity);
     }
@@ -42,8 +42,3 @@ export default function ThreeSubLinks({ children }: Readonly<{children: React.Re
         </>
     )
 }
-
-// export default function ThreeSubLinks({ children }: Readonly<{children: React.ReactNode;}>)
-{/* <Link href="/news/recipeday" className={styles.sub_link}>Рэцэпт Дня</Link>
-<Link href="/news/foodpeople" className={styles.sub_link}>Людзі і Ежа</Link>
-<Link href="/news/worldfood" className={styles.sub_link}>Свет Ежы</Link> */}

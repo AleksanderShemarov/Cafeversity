@@ -6,9 +6,8 @@ import Image, { StaticImageData } from "next/image";
 import quality from "../../public/якасць.jpeg";
 import city_map from "../../public/гарадзкая_мапа.jpeg";
 import fresh_food from "../../public/карысная_ежа.jpeg";
-import { useEffect, useRef, useState } from "react";
+import { useState } from "react";
 import { clsx } from "clsx";
-import { useCallback } from "react";
 
 
 export default function Greeting() {
@@ -78,7 +77,7 @@ export default function Greeting() {
             "The nineth line: Lorem ipsum dolor sit.",
         ],
     ]
-    let booleans : boolean[] = [
+    const booleans : boolean[] = [
         false,
         true,
         true,
@@ -88,9 +87,8 @@ export default function Greeting() {
 
     const toggleDivsVisibility = (index : number) => {
         const newPoints = Array(divsVisibility.length).fill(true);
-        let chosenPoint = !(divsVisibility[index]);
+        const chosenPoint = !(divsVisibility[index]);
         newPoints[index] = chosenPoint;
-        // console.log(newPoints, divsVisibility);
         setDivsVisibility(newPoints);
     }
 

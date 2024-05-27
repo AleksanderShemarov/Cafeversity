@@ -1,5 +1,6 @@
 const sqlite3 = require('sqlite3').verbose();
 
+
 const database = new sqlite3.Database('./sqlite3_database.db', sqlite3.OPEN_READWRITE, (err) => {
     if (err) return console.error(err.message);
 
@@ -159,7 +160,7 @@ const database = new sqlite3.Database('./sqlite3_database.db', sqlite3.OPEN_READ
 
 
 
-let sql = `SELECT * FROM dishes_BY`;
+const sql = `SELECT * FROM dishes_BY`;
 database.all(sql, [], (err, rows) => {
     if (err) return console.error(err.message);
     rows.forEach(row => {

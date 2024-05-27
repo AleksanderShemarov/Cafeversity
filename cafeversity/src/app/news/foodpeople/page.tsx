@@ -69,10 +69,10 @@ export default function FoodPeople () {
         let newRequestedArticles = articleData;
         if (query !== "") {
             newRequestedArticles = newRequestedArticles.filter((articleDatum) => {
-                let titleIncludesQuery = articleDatum.article_title.toLowerCase().includes(query.toLowerCase());
+                const titleIncludesQuery = articleDatum.article_title.toLowerCase().includes(query.toLowerCase());
                 return titleIncludesQuery;
             });
-        };
+        }
 
         setFilteredArticleData(newRequestedArticles);
 

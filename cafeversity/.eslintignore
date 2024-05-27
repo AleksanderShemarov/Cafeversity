@@ -1,0 +1,8 @@
+# Import of "sqlite3" using "import" isn't workable, instead of "require('sqlite3').verbose();"
+datainit.ts
+
+# {} are using as a type
+/src/pages/_app.tsx
+
+# 'prismaGlobal' must have "var" keyword to be visible in the global space in prismaClient.ts file
+/lib/utils/prismaClient.ts

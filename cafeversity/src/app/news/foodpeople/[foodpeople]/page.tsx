@@ -1,5 +1,5 @@
 import styles from "@/app/news/foodpeople/[foodpeople]/article.module.css";
-import Image, { StaticImageData } from "next/image";
+import Image from "next/image";
 // import Chef from "@/../../public/Chef_Gordon_Ramsay.jpg";
 // import Gordon from "@/../../public/Gordon_Ramsay.jpg";
 // import GordonRamsay_Photo from "@/../../public/GordonRamsay_Photo.jpg";
@@ -51,9 +51,9 @@ export default async function ArticlePage({ params }: { params: {foodpeople: num
     const images: string[] = choisenArticle.imagePaths.split(";");
     const texts: string[] = choisenArticle.mainText.split("\\\\&;");
 
-    let imagesTexts: string[][] = [];
+    const imagesTexts: string[][] = [];
     for (let i = 0; i < images.length; i++) {
-        let part = [];
+        const part = [];
         part.push(images[i]);
         part.push(texts[i]);
         imagesTexts.push(part);
