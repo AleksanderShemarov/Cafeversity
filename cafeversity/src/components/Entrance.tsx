@@ -5,7 +5,7 @@ export default function Entrance() {
 
     return (
         <>
-            <Link href="/login/LoginPage" style={{
+            <Link href="/login/signin" style={{
                 textDecoration: "none",
                 color: "inherit",
                 margin: "auto 0",

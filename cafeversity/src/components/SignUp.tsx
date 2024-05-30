@@ -1,21 +1,20 @@
-"use client";
-
+// "use client";
 import styles from "@/pages/login/LoginPage.module.css";
 import Link from "next/link";
-import Image from "next/image";
-import Google from "@/../../public/google_icon.webp";
-import GitHub from "@/../../public/github_icon.webp";
-import { useState } from "react";
+// import Image from "next/image";
+// import Google from "@/../../public/google_icon.webp";
+// import GitHub from "@/../../public/github_icon.webp";
+// import { useState } from "react";
 
 
-export default function LogIn() {
+export default function SignUp() {
 
-    const [isClosed, setIsClosed] = useState<boolean>(true);
+    // const [isClosed, setIsClosed] = useState<boolean>(true);
 
     return (
         <>
             <form action="" method="post" id={styles.loginForm}>
-                <p id={styles.formTitle}>Уваходная Брама</p>
+                <p id={styles.formTitle}>Рэгістрацыйная Форма</p>
                 
                 <label>Імя</label>
                 <input type="text" name="firstName" id={styles.firstname} placeholder="Тадэўш"/>
@@ -23,15 +22,24 @@ export default function LogIn() {
                 <label>Прозвішча</label>
                 <input type="text" name="lastName" id={styles.lastname} placeholder="Касцюшка" />
 
+                <label>Мянушка (Нікнэйм)</label>
+                <input type="text" name="nickName" id={styles.nickname} placeholder="Андрэйка" />
+
+                <label>E-пошта</label>
+                <input type="email" name="eMail" id={styles.eMail} placeholder="Kastiushka@gmail.com" />
+
                 <label>Пароля</label>
                 <input type="password" name="password" id={styles.password} placeholder="Кодавае Слова"/>
 
+                <label>Паўтарыце Паролю</label>
+                <input type="password" name="passwordAgain" id={styles.password_again} placeholder="Кодавае Слова"/>
+
                 <div className={styles.formButtons}>
-                    <Link href="/TemporaryPage"><input type="button" value="Увайсці" id={styles.submitButton} /></Link>
+                    <Link href="/TemporaryPage"><input type="button" value="Рэгістрацыя" id={styles.submitButton} /></Link>
                     <Link href="/"><input type="button" value="Сыйсці" id={styles.closeButton} /></Link>
                 </div>
 
-                <div>
+                {/* <div>
                     <p 
                         id={styles.optional_ways_bar}
                         onClick={() => {setIsClosed(!isClosed)}}
@@ -70,11 +78,7 @@ export default function LogIn() {
                                 style={{ margin: "auto", }}></Image>
                         </div>
                     </div>
-                </div>
-                <div className={styles.help_block}>
-                    <p>Калі забыліся пра паролю, перайдзіце <Link href="/TemporaryPage">сюды</Link>.</p>
-                    <p>Яшчэ не рэгістраваліся? Калі ласка, націскніце <Link href="/login/signup">тут</Link>.</p>
-                </div>
+                </div> */}
             </form>
         </>
     )
