@@ -20,6 +20,8 @@ export default function SignUp() {
 
     const [passwordStyle, setPasswordStyle] = useState<React.CSSProperties>({});
 
+    const [enableReg, setEnableReg] = useState<boolean>(false);
+
     const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
         reactHook(event.target.value);
     }
@@ -41,39 +43,32 @@ export default function SignUp() {
             headers:{ 'Content-Type': 'application/json' },
             body: JSON.stringify(formFields),
         })
-        .then((res) => res.json())
+        .then((res) => {
+            console.log(res.status);
+            return res.json();
+        })
         .then((data) => console.log(data))
         .catch((error) => console.error(error));
     }
 
     useEffect(() => {
-        if (password1 === "" && password2 === "") {
+        if (password1 === "" || password2 === "" || name === "" || surname === "" || email === "") {
             setPasswordStyle({});
+            setEnableReg(false);
         } else if (password1 !== password2) {
-            setPasswordStyle({
-                outline: "2px solid red",
-            });
+            setPasswordStyle({ outline: "2px solid red" });
+            setEnableReg(false);
         } else {
-            setPasswordStyle({
-                outline: "2px solid green",
-            });
+            setPasswordStyle({ outline: "2px solid green" });
+            setEnableReg(true);
         }
-    }, [password1, password2]);
+    }, [password1, password2, name, surname, email]);
 
     return (
         <>
             <form action="" method="post" id={styles.loginForm} onSubmit={UserRegistration}>
                 <p id={styles.formTitle}>Рэгістрацыйная Форма</p>
                 
-                {/* <label>Імя</label>
-                <input
-                    type="text"
-                    name="firstName"
-                    id={styles.firstname}
-                    placeholder="Тадэўш"
-                    value={name}
-                    onChange={(e) => valueChange(e, setName)}
-                /> */}
                 <TextFormField
                     label="Імя"
                     inputName="firstName"
@@ -83,16 +78,6 @@ export default function SignUp() {
                     onChange={(e) => valueChange(e, setName)}
                 />
 
-
-                {/* <label>Прозвішча</label>
-                <input
-                    type="text"
-                    name="lastName"
-                    id={styles.lastname}
-                    placeholder="Касцюшка"
-                    value={surname}
-                    onChange={(e) => valueChange(e, setSurname)}
-                /> */}
                 <TextFormField
                     label="Прозвішча"
                     inputName="lastName"
@@ -102,16 +87,6 @@ export default function SignUp() {
                     onChange={(e) => valueChange(e, setSurname)}
                 />
 
-
-                {/* <label>Мянушка (Нікнэйм)</label>
-                <input
-                    type="text"
-                    name="nickName"
-                    id={styles.nickname}
-                    placeholder="Андрэйка"
-                    value={nickname}
-                    onChange={(e) => valueChange(e, setNickname)}
-                /> */}
                 <TextFormField
                     label="Мянушка (Нікнэйм)"
                     inputName="nickName"
@@ -121,16 +96,6 @@ export default function SignUp() {
                     onChange={(e) => valueChange(e, setNickname)}
                 />
 
-
-                {/* <label>E-пошта</label>
-                <input
-                    type="email"
-                    name="eMail"
-                    id={styles.eMail}
-                    placeholder="Kastiushka@gmail.com"
-                    value={email}
-                    onChange={(e) => valueChange(e, setEmail)}
-                /> */}
                 <TextFormField
                     label="E-пошта"
                     inputType="email"
@@ -141,16 +106,6 @@ export default function SignUp() {
                     onChange={(e) => valueChange(e, setEmail)}
                 />
 
-
-                {/* <label>Пароля</label>
-                <input
-                    type="password"
-                    name="password"
-                    id={styles.password}
-                    placeholder="Кодавае Слова"
-                    value={password1}
-                    onChange={(e) => valueChange(e, setPassword1)}
-                /> */}
                 <TextFormField
                     label="Пароля"
                     inputType="password"
@@ -162,16 +117,6 @@ export default function SignUp() {
                     style={passwordStyle}
                 />
 
-
-                {/* <label>Паўтарыце Паролю</label>
-                <input
-                    type="password"
-                    name="passwordAgain"
-                    id={styles.password_again}
-                    placeholder="Кодавае Слова"
-                    value={password2}
-                    onChange={(e) => valueChange(e, setPassword2)}
-                /> */}
                 <TextFormField
                     label="Паўтарыце Паролю"
                     inputType="password"
@@ -185,7 +130,18 @@ export default function SignUp() {
 
                 <div className={styles.formButtons}>
                     {/* <Link href="/TemporaryPage"><input type="button" value="Рэгістрацыя" id={styles.submitButton} /></Link> */}
-                    <button id={styles.submitButton} type="submit">Рэгістрацыя</button>
+                    <button
+                        id={styles.submitButton}
+                        type="submit"
+                        disabled={!enableReg}
+                        style={enableReg ? {} : { 
+                            color: "white",
+                            fontStyle: "italic",
+                            backgroundColor: "lightgray",
+                            outline: "2px dashed black",
+                            pointerEvents: "none",
+                        }}
+                    >Рэгістрацыя</button>
                     <Link href="/"><input type="button" value="Сыйсці" id={styles.closeButton} /></Link>
                 </div>
 
