@@ -20,7 +20,7 @@ export default function TemporaryPage() {
                 display: "flex",
                 justifyContent: "space-around"
             }}>
-                <Link href="/login/signin">Да Формы Ўваходу</Link>
+                {/* <Link href="/login/signin">Да Формы Ўваходу</Link> */}
                 <Link href="/">Да Галоўнай Старонцы</Link>
             </div>
         </div>

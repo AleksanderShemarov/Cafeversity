@@ -5,29 +5,98 @@ import Link from "next/link";
 import Image from "next/image";
 import Google from "@/../../public/google_icon.webp";
 import GitHub from "@/../../public/github_icon.webp";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
+import TextFormField from "./TextFormField";
 
 
 export default function LogIn() {
 
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>("");
+    const [enableSignIn, setEnableSignIn] = useState<boolean>(false);
+
     const [isClosed, setIsClosed] = useState<boolean>(true);
+
+    const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
+        reactHook(event.target.value);
+    }
+
+    const UserSigningIn = async (event: React.FormEvent<HTMLFormElement>) => {
+        event.preventDefault();
+
+        const formFields = {
+            email: email,
+            password: password,
+        }
+
+        await fetch("http://localhost:3000/api/logging_in", {
+            method: "POST",
+            headers:{ 'Content-Type': 'application/json' },
+            body: JSON.stringify(formFields),
+        })
+        .then((res) => {
+            console.log(res.status);
+            return res.json();
+        })
+        .then((data) => console.log(data))
+        .catch((error) => console.error(error));
+    }
+
+    useEffect(() => {
+        if (email === "" || password === "") {
+            setEnableSignIn(false);
+        } else {
+            setEnableSignIn(true);
+        }
+    }, [email, password]);
 
     return (
         <>
-            <form action="" method="post" id={styles.loginForm}>
+            <form action="" method="post" id={styles.loginForm} onSubmit={UserSigningIn}>
                 <p id={styles.formTitle}>Уваходная Брама</p>
+
+                <TextFormField
+                    label="E-пошта"
+                    inputType="email"
+                    inputName="eMail"
+                    styleId={styles.eMail}
+                    placeholder="email@example.com"
+                    value={email}
+                    onChange={(e) => valueChange(e, setEmail)}
+                />
+
+                <TextFormField
+                    label="Пароля"
+                    inputType="password"
+                    inputName="passwordl"
+                    styleId={styles.password}
+                    placeholder="Кодавае Слова"
+                    value={password}
+                    onChange={(e) => valueChange(e, setPassword)}
+                />
                 
-                <label>Імя</label>
+                {/* <label>Імя</label>
                 <input type="text" name="firstName" id={styles.firstname} placeholder="Тадэўш"/>
 
                 <label>Прозвішча</label>
                 <input type="text" name="lastName" id={styles.lastname} placeholder="Касцюшка" />
 
                 <label>Пароля</label>
-                <input type="password" name="password" id={styles.password} placeholder="Кодавае Слова"/>
+                <input type="password" name="password" id={styles.password} placeholder="Кодавае Слова"/> */}
 
                 <div className={styles.formButtons}>
-                    <Link href="/TemporaryPage"><input type="button" value="Увайсці" id={styles.submitButton} /></Link>
+                    <button
+                        type="submit"
+                        id={styles.submitButton}
+                        disabled={!enableSignIn}
+                        style={enableSignIn ? {} : { 
+                            color: "white",
+                            fontStyle: "italic",
+                            backgroundColor: "lightgray",
+                            outline: "2px dashed black",
+                            pointerEvents: "none",
+                        }}
+                    >Увайсці</button>
                     <Link href="/"><input type="button" value="Сыйсці" id={styles.closeButton} /></Link>
                 </div>
 
