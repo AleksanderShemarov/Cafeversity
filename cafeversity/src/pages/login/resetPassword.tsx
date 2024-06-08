@@ -1,12 +1,12 @@
 import styles from "@/pages/login/LoginPage.module.css";
-import LogIn from "@/components/LogIn";
+import PasswordRecovery from "@/components/PasswordRecovery";
 
 
-export default function SignInPage() {
+export default function ResetPassword() {
     return (
         <>
             <div className={styles.login_field}>
-                <LogIn />
+                <PasswordRecovery />
             </div>
         </>
     )

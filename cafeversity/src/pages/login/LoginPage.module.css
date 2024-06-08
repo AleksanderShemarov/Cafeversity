@@ -10,8 +10,8 @@
 
 /* LogIn.tsx */
 #loginForm {
-    min-height: 65vh;
-    max-height: 78vh;
+    min-height: 21vh;/*65vh*/
+    max-height: 82vh;
     min-width: 30vw;
     max-width: 30vw;
     border: 1px solid grey;
@@ -167,4 +167,10 @@
 
 .help_block p {
     font-size: 19px;
+}
+
+.error_block p {
+    font-size: 19px;
+    text-align: justify;
+    text-indent: 1.5em;
 }

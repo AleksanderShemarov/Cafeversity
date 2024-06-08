@@ -1,12 +1,12 @@
 import styles from "@/pages/login/LoginPage.module.css";
-import LogIn from "@/components/LogIn";
+import Recovery from "@/components/Recovery";
 
 
-export default function SignInPage() {
+export default function RecoveryPage() {
     return (
         <>
             <div className={styles.login_field}>
-                <LogIn />
+                <Recovery />
             </div>
         </>
     )
