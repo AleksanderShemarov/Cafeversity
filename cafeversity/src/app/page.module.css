@@ -469,3 +469,87 @@ body {
   -ms-transition: background-color 0.5s ease, color 0.5s ease;
   transition: background-color 0.5s ease, color 0.5s ease;
 }
+
+
+
+.exit_cover {
+  background-color: rgba(222, 184, 135, 0.8);
+  height: 100vh;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+}
+#exit_field {
+  border: 5px solid orange;
+  border-radius: 2vh;
+  width: 25%;
+  height: 25vh;
+  margin: auto;
+  background-color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+#accessButton,
+#denyButton {
+  height: 5vh;
+  border-radius: 2vh;
+  border: 3px solid;
+  font-size: 20px;
+  font-style: italic;
+  font-weight: 600;
+  text-align: center;
+}
+#accessButton {
+  width: 100%;
+  border-color: blue;
+  color: blue;
+  background-color: none;
+  box-shadow: none;
+  -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -moz-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -ms-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+}
+#accessButton:hover {
+  width: 100%;
+  border-color: white;
+  color: white;
+  background-color: blue;
+  box-shadow: 0 0 7px 7px blue;
+  -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -moz-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -ms-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+}
+#denyButton {
+  width: 25%;
+  border-color: firebrick;
+  color: firebrick;
+  background-color: none;
+  box-shadow: none;
+  -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -moz-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -ms-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+}
+#denyButton:hover {
+  width: 25%;
+  border-color: white;
+  color: white;
+  background-color: firebrick;
+  box-shadow: 0 0 7px 7px firebrick;
+  -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -moz-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  -ms-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+  transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
+}

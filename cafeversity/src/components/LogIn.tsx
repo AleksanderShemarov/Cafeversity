@@ -24,6 +24,11 @@ export default function LogIn() {
     const UserSigningIn = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
 
+        interface LoginResponse {
+            message: string;
+            redirect?: string;
+        }
+
         const formFields = {
             email: email,
             password: password,
@@ -36,9 +41,14 @@ export default function LogIn() {
         })
         .then((res) => {
             console.log(res.status);
-            return res.json();
+            return res.json() as Promise<LoginResponse>;
         })
-        .then((data) => console.log(data))
+        .then((data) => {
+            console.log(data);
+            if (data.redirect) {
+                window.location.href = data.redirect;
+            }
+        })
         .catch((error) => console.error(error));
     }
 

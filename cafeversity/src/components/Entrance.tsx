@@ -1,11 +1,11 @@
 import Link from "next/link";
 
 
-export default function Entrance() {
+export default function Entrance({ path, sign }: { path: string, sign: string }) {
 
     return (
         <>
-            <Link href="/login/signin" style={{
+            <Link href={path} style={{
                 textDecoration: "none",
                 color: "inherit",
                 margin: "auto 0",
@@ -26,7 +26,7 @@ export default function Entrance() {
                         textDecoration: "underline",
                         margin: "0",
                         marginTop: "12px",
-                    }}>Ўваход</p>
+                    }}>{sign}</p>
                 </div>
             </Link>
         </>
