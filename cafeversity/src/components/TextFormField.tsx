@@ -28,6 +28,7 @@ export default function TextFormField (
                     value={value}
                     onChange={onChange}
                     style={style}
+                    required={inputType === "email" && true}
                 />
         </>
     )

@@ -43,6 +43,7 @@ const LoggingIn: NextApiHandler = async (req: NextApiRequest, res: NextApiRespon
             })
         }
     } else if (req.method === "GET") {
+        // Entrance.tsx in CommonHeader.tsx
         const userSessionId = req.cookies["sessionId"];
         if (userSessionId !== undefined) return res.status(201).json({ 
             message: "You are still logged in.",
@@ -53,7 +54,7 @@ const LoggingIn: NextApiHandler = async (req: NextApiRequest, res: NextApiRespon
             userSessionId: false,
         });
     } else {
-        return res.setHeader("Allow", ["POST"]).status(405).end(`Method ${req.method} is not allowed!`);
+        return res.setHeader("Allow", ["GET", "POST"]).status(405).end(`Method ${req.method} is not allowed!`);
     }
 }
 
