@@ -6,6 +6,7 @@ import styles from "@/app/[authorizedUser]/authorized.module.css";
 export default function AuthorizedUser({ params }: { params: { authorizedUser: string } }) {
     
     const { authorizedUser } = params;
+    const nameSurname: string[] = authorizedUser.split("_");
     
     return (
         <>
@@ -13,14 +14,16 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                 display: "flex",
                 border: "3px dashed orange",
                 alignItems: "center",
-                justifyContent: "flex-start",
+                justifyContent: "center",
+                paddingTop: "30px",
+                paddingBottom: "30px",
             }}>
                 <Image
                     src={tempUserPage}
                     alt="tempUserImage.png"
                     className={styles.userImage}
                 ></Image>
-                <h2 className={styles.userName}>{authorizedUser}</h2>
+                <p className={styles.userName}>{nameSurname[0]}<br />{nameSurname[1]}</p>
             </div>
             {/* <div className={styles.exit_cover}>
                 <div id={styles.exit_field}></div>
