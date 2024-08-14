@@ -10,7 +10,7 @@ function checkAuthorizedPath (pathname: string): boolean {
         pathname.lastIndexOf("/") :
         pathname.length
     );
-    console.log(pathname);
+    // console.log(pathname);
     return userPathRegex.test(pathname);
 }
 
