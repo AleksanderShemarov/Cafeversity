@@ -17,9 +17,7 @@ function checkAuthorizedPath (pathname: string): boolean {
 
 export async function middleware(request: NextRequest) {
     const browserSessionId = request.cookies.get("sessionId");
-    // console.log("From middleware.ts", browserSessionId);
     const isRequestPath = checkAuthorizedPath(request.nextUrl.pathname);
-    // console.log(request.nextUrl.pathname, isRequestPath);
     if (!browserSessionId && isRequestPath) {
         return NextResponse.redirect(new URL("/login/signin", request.url));
     }
@@ -33,8 +31,7 @@ export async function middleware(request: NextRequest) {
         })
         .then((res) => res.json())
         .then((data) => {
-            // console.log("Data from user_checking.ts api route:");
-            // console.log(data);
+            // Fetching data from Users table (user_checking.ts api)
             truth = data.session;
         })
         .catch((error) => console.error(error));

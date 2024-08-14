@@ -2,6 +2,12 @@ import Link from "next/link";
 
 
 export default function TemporaryPage() {
+
+    const paths: [string, string][] = [
+        ["/", "Да Галоўнай Старонцы"],
+        ["/login/signin", "Да Формы Ўваходу"],
+    ]; 
+
     return (
         <div style={{
             fontSize: "25px",
@@ -20,8 +26,7 @@ export default function TemporaryPage() {
                 display: "flex",
                 justifyContent: "space-around"
             }}>
-                {/* <Link href="/login/signin">Да Формы Ўваходу</Link> */}
-                <Link href="/">Да Галоўнай Старонцы</Link>
+                {paths.map((path, index) => <Link key={index} href={path[0]}>{path[1]}</Link>)}
             </div>
         </div>
     )

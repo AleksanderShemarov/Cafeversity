@@ -29,8 +29,6 @@ const PeopleFoodArticlesHadler: NextApiHandler = async (req: NextApiRequest, res
         }
     } catch (error) {
         return res.status(500).json({ error: "Internal server error" });
-    } finally {
-        // await prisma.$disconnect();
     }
 }
 

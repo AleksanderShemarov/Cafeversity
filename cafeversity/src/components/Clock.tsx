@@ -18,7 +18,7 @@ export default function Clock () {
     return (
         <div id={styles.clock}>
             <p id={styles.clock_time}>
-                {`Type1 
+                {`T1 
                 ${time.getHours() >= 10 ? "" : "0"}${time.getHours()} :
                 ${time.getMinutes() >= 10 ? "" : "0"}${time.getMinutes()} :
                 ${time.getSeconds() >= 10 ? "" : "0"}${time.getSeconds()}
@@ -51,7 +51,29 @@ export function Clock2 () {
 
     return (
         <div id={styles.clock}>
-            <p id={styles.clock_time}>Type2 {currentHour} : {currentMinute} : {currentSecond}</p>
+            <p id={styles.clock_time}>T2 {currentHour} : {currentMinute} : {currentSecond}</p>
+        </div>
+    )
+}
+
+export function Clock3 () {
+    const [date, setDate] = useState<Date|null>(null);
+
+    useEffect(() => {
+        const timerId = setInterval(() => {
+            setDate(new Date());
+        }, 1000);
+
+        return () => {
+            clearInterval(timerId);
+        }
+    }, []);
+
+    return (
+        <div id={styles.clock}>
+            <p id={styles.clock_time}>
+                T3 {date ? date.getHours() : "00"} : {date ? date.getMinutes() : "00"} : {date ? date.getSeconds() : "00"}
+            </p>
         </div>
     )
 }
