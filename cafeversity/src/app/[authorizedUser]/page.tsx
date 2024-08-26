@@ -1,6 +1,7 @@
 import tempUserPage from "../../../public/tempUserImage.png";
 import Image from "next/image";
 import styles from "@/app/[authorizedUser]/authorized.module.css";
+import BottomMenu from "@/components/BottomMenu/BottomMenu";
 
 
 export default function AuthorizedUser({ params }: { params: { authorizedUser: string } }) {
@@ -25,6 +26,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                 ></Image>
                 <p className={styles.userName}>{nameSurname[0]}<br />{nameSurname[1]}</p>
             </div>
+            <BottomMenu />
             {/* <div className={styles.exit_cover}>
                 <div id={styles.exit_field}></div>
             </div> */}
