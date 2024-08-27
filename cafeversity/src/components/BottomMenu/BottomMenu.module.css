@@ -1,5 +1,18 @@
+.menuContainer {
+    border: 3px double black;
+    width: 20%;
+    height: 12vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
+    flex-direction: column;
+}
+
 .btns_div {
-    /* outline: 3px dashed purple;*/
+    /* outline: 3px dashed purple; */
     min-width: 25vw;
     margin: 0 auto;
     display: flex;
@@ -7,7 +20,13 @@
     /* transform: translateX(-10%);*/
     position: absolute;
     top: -40px;
-    padding-bottom: 12vh;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+.menuContainer:hover > .btns_div {
+    opacity: 1;
+    transition: opacity 0.5s ease;
 }
 
 .btn_body {

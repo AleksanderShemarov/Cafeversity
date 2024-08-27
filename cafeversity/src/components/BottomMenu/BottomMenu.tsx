@@ -17,18 +17,7 @@ export default function BottomMenu () {
             bottom: "10px",
             width: "100%",
         }}>
-            <div style={{
-                border: "3px double black",
-                width: "20%",
-                height: "20vh",
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-                margin: "0 auto",
-                borderTopLeftRadius: "70px",
-                borderTopRightRadius: "70px",
-                flexDirection: "column",
-            }}>
+            <div className={crcleBtnStyle.menuContainer}>
                 <CircleBtnsDiv>
                     <CircleButton
                         // path=""
