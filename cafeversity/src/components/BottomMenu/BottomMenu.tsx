@@ -2,11 +2,27 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { createContext, useContext, useState } from "react";
 import crcleBtnStyle from "./BottomMenu.module.css";
 
 
+type bottomBtns = {
+    name: string,
+    icon: string,
+    icon_alt: string,
+    topMargin?: number,
+    path?: string,
+}
+
+const BottomButtonsContext = createContext<bottomBtns[]>([]);
+
+export {BottomButtonsContext};
+
+
 export default function BottomMenu () {
+
+    const bottomBtns = useContext(BottomButtonsContext);
+
     return (
         <div style={{
             position: "absolute",
@@ -19,26 +35,16 @@ export default function BottomMenu () {
         }}>
             <div className={crcleBtnStyle.menuContainer}>
                 <CircleBtnsDiv>
-                    <CircleButton
-                        // path=""
-                        name="Налады акаўнту"
-                        icon="/settings-gear.png"
-                        icon_alt="Settings_Icon"
-                        marginTop={50}
-                    />
-                    <CircleButton
-                        // path=""
-                        name="Меню"
-                        icon="/menu_list_icon.webp"
-                        icon_alt="Menu_List_Icon"
-                    />
-                    <CircleButton
-                        // path=""
-                        name="Навіны"
-                        icon="/earth_planet.webp"
-                        icon_alt="Earth_Icon"
-                        marginTop={50}
-                    />
+                    {bottomBtns.map((bottomBtn, index) => 
+                        <CircleButton
+                            key={index}
+                            path={bottomBtn.path ?? "#"}
+                            name={bottomBtn.name}
+                            icon={bottomBtn.icon}
+                            icon_alt={bottomBtn.icon_alt}
+                            marginTop={bottomBtn.topMargin ?? 0}
+                        />
+                    )}
                 </CircleBtnsDiv>
                 <p style={{
                     fontSize: "20px",

@@ -1,0 +1,16 @@
+.bar_link {
+    margin-left: 15px;
+    margin-right: 15px;
+    font-weight: bolder;
+    margin-right: 15px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+.bar_link:first-child {
+    margin-right: 15px;
+    margin-left: 0;
+}
+.bar_link:last-child {
+    margin-left: 15px;
+    margin-right: 0;
+}
