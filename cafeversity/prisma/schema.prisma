@@ -52,6 +52,7 @@ model Users {
   firstName           String
   lastName            String
   nickName            String?   @unique
+  userPhoto           String?
   email               String    @unique
   password            String
   sessionId           String?   @unique

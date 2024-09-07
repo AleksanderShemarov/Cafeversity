@@ -2,6 +2,7 @@
 
 import { BottomButtonsContext } from "@/components/BottomMenu/BottomMenu";
 import BottomMenu from "@/components/BottomMenu/BottomMenu";
+import ImageEditor from "@/components/ImageEditor/ImageEditor";
 import { useState } from "react";
 import setStyles from "./settings.module.css";
 
@@ -60,7 +61,8 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     </p>
                 )}
             </div>
-            <p>It will be settings page here!</p>
+            <ImageEditor />
+            <p>There will be another settings: ...</p>
             <BottomButtonsContext.Provider value={BottomBtns}>
                 <BottomMenu />
             </BottomButtonsContext.Provider>
