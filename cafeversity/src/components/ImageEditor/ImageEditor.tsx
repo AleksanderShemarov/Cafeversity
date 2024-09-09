@@ -5,31 +5,17 @@ import imgEditStyles from "./imgEditor.module.css";
 import Image from "next/image";
 
 
-// function reducer(state, action) {
-//     switch (action.type) {
-//         case "new": {
-//             return {};
-//         }
-//         case "old": {
-//             return {};
-//         }
-//         case "default": {
-//             return {};
-//         }
-//     }
-//     throw new Error(`Unknown action: ${action.type}`);
-// }
-
 export default function ImageEditor() {
 
-    const [image, setImage] = useState<string>("/uploads/tempUserImage.png");// useReducer must be here.
+    const [image, setImage] = useState<string>("/uploads/tempUserImage.png");// useReducer might be here.
     const templatePhoto: string = "/uploads/tempUserImage.png";
     const bool = image === templatePhoto;
 
-    // const [state, dispatch] = useReducer(reducer, { data: "Something..." });
+    const [imageFile, setImageFile] = useState<File | null>(null);
 
     function photoSelect (event: React.ChangeEvent<HTMLInputElement>) {
         if (event.target.files && event.target.files.length > 0) {
+            setImageFile(event.target.files[0]);
             setImage(URL.createObjectURL(event.target.files[0]));
         }
     }
@@ -37,6 +23,24 @@ export default function ImageEditor() {
     const photoDelete = () => {
         URL.revokeObjectURL(image);
         setImage("/uploads/tempUserImage.png");
+        setImageFile(null);
+    }
+
+    async function photoServerSave() {
+        if (imageFile !== null) {
+            const imageFormData = new FormData();
+            imageFormData.append("imageFile", imageFile);
+
+            const apiResponse = await fetch("http://localhost:3000/api/usersPhoto_route", {
+                method: "POST",
+                body: imageFormData,
+            });
+
+            const apiResult = await apiResponse.json();
+            console.dir(apiResult.message);
+        } else {
+            console.dir("Your account photo is the common temporary User's image");
+        }
     }
 
     return (
@@ -71,7 +75,13 @@ export function ImageContainer({ img_path }: ImgCont) {
 
     return (
         <div className={imgEditStyles.photo_container}>
-            <Image src={img_path} alt="template_of_user_photo" width={300} height={300}></Image>
+            <Image
+                src={img_path}
+                alt="template_of_user_photo"
+                layout="fill"
+                objectFit="fill"
+                objectPosition="center"
+            ></Image>
         </div>
     )
 }

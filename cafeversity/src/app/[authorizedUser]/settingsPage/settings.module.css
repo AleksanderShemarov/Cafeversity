@@ -14,3 +14,55 @@
     margin-left: 15px;
     margin-right: 0;
 }
+
+
+.commonSet {
+    /* outline: 4px double purple; */
+    display: flex;
+    /* padding-left: 1em;
+    padding-right: 1em; */
+    min-width: fit-content;
+    padding: 5px 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 15px;
+}
+
+.textInput {
+    font-size: 20px;
+    font-weight: 500;
+    min-width: 400px;
+    max-width: fit-content;
+    height: 40px;
+    border: 3px #714efe solid;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    column-count: auto;
+    line-height: 1.5;
+    margin-bottom: 15px;
+}
+.textInput:focus {
+    border: 3px #714efe solid;
+    outline: none;
+    box-shadow: lightgray 0 0 5px 7px;
+}
+
+.inputLabel {
+    position: absolute;
+    top: 50%;
+    left: 0.3125rem;
+    display: flex;
+    transform: translateY(-50%);
+    pointer-events: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #714efe;
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
+    transition: top 0.1s ease-in-out, scale 0.1s ease-in-out;
+    top: 0;
+    transform: translateY(-50%) scale(0.75);
+    font-family: Consolas, monospace;
+}

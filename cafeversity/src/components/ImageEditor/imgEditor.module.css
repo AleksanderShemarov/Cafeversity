@@ -1,40 +1,53 @@
 .photo_editor {
-    width: 50%;
-    border: 2px solid black;
+    max-width: 30%;
+    /* border: 2px solid black; */
+    margin-bottom: 20px;
 }
 
 .photo_edit_name {
     margin-bottom: 0;
     min-width: fit-content;
-    font-size: 18px;
+    font-size: 19px;
+    font-style: oblique;
     font-weight: bolder;
     font-family: Consolas, monospace;
-    /* margin-left: 15px; */
-    text-align: center;
+    margin-bottom: 0.55em;
+    text-align: justify;
+    text-indent: 2em;
 }
 
 .photo_workplace {
-    outline: 3px dotted purple;
+    /* outline: 3px dotted purple; */
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
+    gap: 3.5em;
 }
 
 .photo_container {
-    width: 300px;
-    height: 300px;
+    position: relative;
     border-radius: 50%;
     overflow: hidden;
-    outline: 3px solid black;
+    width: 60%;
+    aspect-ratio: 1 / 1;
     margin-bottom: 10px;
     margin-top: 10px;
-    /* margin-left: 15px; */
+    box-shadow: black 0 0 5px 2px;
+}
+.photo_container img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: fill;
 }
 
 .photo_edit_buttons {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
-    outline: 3px double blue;
+    justify-content: center;
+    gap: 4em;
+    /* outline: 3px double blue; */
 }
 
 .changeBtn,
