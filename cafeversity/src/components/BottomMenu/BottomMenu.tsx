@@ -24,15 +24,7 @@ export default function BottomMenu () {
     const bottomBtns = useContext(BottomButtonsContext);
 
     return (
-        <div style={{
-            position: "absolute",
-            left: "0",
-            right: "0",
-            marginLeft: "auto",
-            marginRight: "auto",
-            bottom: "10px",
-            width: "100%",
-        }}>
+        <div className={crcleBtnStyle.menuBlock}>
             <div className={crcleBtnStyle.menuContainer}>
                 <CircleBtnsDiv>
                     {bottomBtns.map((bottomBtn, index) => 
@@ -50,6 +42,8 @@ export default function BottomMenu () {
                     fontSize: "20px",
                     fontStyle: "italic",
                     textAlign: "center",
+                    lineHeight: "1.5",
+                    paddingTop: "10px",
                 }}>Меню для рэгістраваных карыстальнікаў</p>
             </div>
         </div>

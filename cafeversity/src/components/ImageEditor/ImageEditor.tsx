@@ -5,7 +5,7 @@ import imgEditStyles from "./imgEditor.module.css";
 import Image from "next/image";
 
 
-export default function ImageEditor() {
+export default function ImageEditor({ disabled }: { disabled?: boolean }) {
 
     const [image, setImage] = useState<string>("/uploads/tempUserImage.png");// useReducer might be here.
     const templatePhoto: string = "/uploads/tempUserImage.png";
@@ -49,7 +49,12 @@ export default function ImageEditor() {
                 <p className={imgEditStyles.photo_edit_name}>User Image Editor</p>
                 <div className={imgEditStyles.photo_workplace}>
                     <ImageContainer img_path={image} />
-                    <ImageEditButtons isTemplatePhoto={bool} onChangeReplace={photoSelect} onClickDelete={photoDelete} />
+                    <ImageEditButtons
+                        isTemplatePhoto={bool}
+                        onChangeReplace={photoSelect}
+                        onClickDelete={photoDelete}
+                        disabled={disabled}
+                    />
                 </div>
             </div>
         </>
@@ -69,24 +74,19 @@ type ImgEditBtns = {
     onClickDelete?: (
         event: React.MouseEvent<HTMLButtonElement>,
     ) => void,
+    disabled?: boolean,
 }
 
 export function ImageContainer({ img_path }: ImgCont) {
 
     return (
         <div className={imgEditStyles.photo_container}>
-            <Image
-                src={img_path}
-                alt="template_of_user_photo"
-                layout="fill"
-                objectFit="fill"
-                objectPosition="center"
-            ></Image>
+            <Image src={img_path} alt="template_of_user_photo" layout="fill"></Image>
         </div>
     )
 }
 
-export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDelete }: ImgEditBtns) {
+export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDelete, disabled }: ImgEditBtns) {
 
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -102,21 +102,40 @@ export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDele
             <input type="file" onChange={onChangeReplace} ref={inputRef} style={{ display: "none" }}/>
             <button
                 className={imgEditStyles.changeBtn}
-                onClick={handleImageClick}>
+                onClick={handleImageClick}
+                disabled={disabled}
+                style={disabled ?
+                {
+                    backgroundColor: "lightgray",
+                    color: "gray",
+                    pointerEvents: "none",
+                } : {}
+                }
+            >
                 Change Photo
             </button>
             <button
                 className={imgEditStyles.deleteBtn}
-                style={isTemplatePhoto ? 
+                disabled={disabled}
+                style={disabled ?
+                {
+                    background: "lightgray",
+                    pointerEvents: "none",
+                } : isTemplatePhoto ? 
                 {
                     background: "radial-gradient(orange 25% 35%, red 70%)",
                     pointerEvents: "none",
-                } : 
-                {}}
+                } : {}
+            }
                 onClick={onClickDelete}>
                     <span
                         className={imgEditStyles.deleteBtnText}
-                        style={isTemplatePhoto ?
+                        style={disabled ? 
+                        {
+                            background: "none",
+                            color: "gray",
+                        } :
+                        isTemplatePhoto ?
                         {
                             backgroundColor: "white",
                             backgroundImage: "linear-gradient(90deg, white 5%, lightgray 20% 80%, white 95%)",
@@ -125,7 +144,7 @@ export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDele
                             WebkitBackgroundClip: "text",
                             WebkitTextFillColor: "transparent",
                         } :
-                        {}}>
+                    {}}>
                         Delete Photo
                     </span>
             </button>
