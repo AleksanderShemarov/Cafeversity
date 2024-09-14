@@ -18,6 +18,7 @@ type bottomBtns = {
 type userDataTypes = {
     firstName: string,
     lastName: string,
+    userPhoto: string,
 }
 
 export default function AuthorizedUser({ params }: { params: { authorizedUser: string } }) {
@@ -54,7 +55,11 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                 paddingBottom: "30px",
             }}>
                 <div className={styles.userImage}>
-                    <Image src="/uploads/tempUserImage.png" alt="tempUserImage.png" layout="fill"></Image>
+                    <Image
+                        src={userData ? userData.userPhoto : "/uploads/tempUserImage.png"}
+                        alt={userData ? userData.userPhoto : "/uploads/tempUserImage.png"}
+                        layout="fill"
+                    ></Image>
                 </div>
                 <p className={styles.userName}>{nameSurname[0]}<br />{nameSurname[1]}</p>
                 <p className={styles.userName}>From API:<br />{

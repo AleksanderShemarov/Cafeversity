@@ -1,15 +1,36 @@
+/* eslint-disable react/display-name */
 "use client";
 
-import { useRef, useState } from "react";
+import { useId, useRef, useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import imgEditStyles from "./imgEditor.module.css";
 import Image from "next/image";
 
 
-export default function ImageEditor({ disabled }: { disabled?: boolean }) {
+interface ImageIditorTypes {
+    getImagePath: string | null,
+    setImagePath: (
+        imagePath: string,
+    ) => void,
+    setImageFileId: (
+        imageFileId: string,
+    ) => void,
+    disabled?: boolean,
+}
 
-    const [image, setImage] = useState<string>("/uploads/tempUserImage.png");// useReducer might be here.
+interface ImageEditorRef {
+    photoServerSave: () => Promise<void>;
+}
+
+const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath, setImagePath, setImageFileId, disabled }, ref) => {
+
     const templatePhoto: string = "/uploads/tempUserImage.png";
+    const [image, setImage] = useState<string|null>(getImagePath);
     const bool = image === templatePhoto;
+
+    useEffect(() => {
+        setImage(getImagePath);
+    }, [getImagePath]);
+
 
     const [imageFile, setImageFile] = useState<File | null>(null);
 
@@ -17,31 +38,71 @@ export default function ImageEditor({ disabled }: { disabled?: boolean }) {
         if (event.target.files && event.target.files.length > 0) {
             setImageFile(event.target.files[0]);
             setImage(URL.createObjectURL(event.target.files[0]));
+            setImagePath(event.target.files[0].name);
         }
     }
 
     const photoDelete = () => {
-        URL.revokeObjectURL(image);
-        setImage("/uploads/tempUserImage.png");
-        setImageFile(null);
+        if (image !== null && getImagePath !== null && image === getImagePath) {
+            setImageFile(null);
+            setImage("/uploads/tempUserImage.png");
+            setImagePath("/uploads/tempUserImage.png");
+        } else if (image !== null && getImagePath !== null) {
+            URL.revokeObjectURL(image);
+            setImageFile(null);
+            setImage(getImagePath);
+            setImagePath(getImagePath);
+        } else if (image !== null) {
+            URL.revokeObjectURL(image);
+            setImageFile(null);
+            setImage("/uploads/tempUserImage.png");
+            setImagePath("/uploads/tempUserImage.png");
+        } else {
+            setImageFile(null);
+            setImage("/uploads/tempUserImage.png");
+            setImagePath("/uploads/tempUserImage.png");
+        }
+        // if (image !== null) {
+        //     URL.revokeObjectURL(image);
+        //     setImageFile(null);
+        //     setImage("/uploads/tempUserImage.png");
+        //     setImagePath("/uploads/tempUserImage.png");
     }
+
+
+    const pictureId = useId();
+    useEffect(() => {
+        setImageFileId(pictureId);
+    }, [pictureId, setImageFileId]);
+
 
     async function photoServerSave() {
         if (imageFile !== null) {
-            const imageFormData = new FormData();
-            imageFormData.append("imageFile", imageFile);
+            const imageFileFormData = new FormData();
+            imageFileFormData.append("imageId", pictureId);
+            imageFileFormData.append("imageFile", imageFile);
 
             const apiResponse = await fetch("http://localhost:3000/api/usersPhoto_route", {
                 method: "POST",
-                body: imageFormData,
+                body: imageFileFormData,
             });
 
             const apiResult = await apiResponse.json();
             console.dir(apiResult.message);
+            return apiResult.status;
         } else {
             console.dir("Your account photo is the common temporary User's image");
+            return "Success";
         }
     }
+
+    useImperativeHandle(ref, () => ({
+        photoServerSave,
+    }));
+
+    console.dir(image);
+    console.dir(imageFile);
+    console.dir(getImagePath);
 
     return (
         <>
@@ -59,11 +120,13 @@ export default function ImageEditor({ disabled }: { disabled?: boolean }) {
             </div>
         </>
     )
-}
+})
+
+export default ImageEditor;
 
 
 type ImgCont = {
-    img_path: string,
+    img_path: string|null,
 }
 
 type ImgEditBtns = {
@@ -81,7 +144,11 @@ export function ImageContainer({ img_path }: ImgCont) {
 
     return (
         <div className={imgEditStyles.photo_container}>
-            <Image src={img_path} alt="template_of_user_photo" layout="fill"></Image>
+            <Image
+                src={img_path === null ? "/uploads/tempUserImage.png" : img_path}
+                alt={img_path === null ? "/uploads/tempUserImage.png" : img_path}
+                layout="fill"
+            ></Image>
         </div>
     )
 }

@@ -3,7 +3,7 @@
 import { BottomButtonsContext } from "@/components/BottomMenu/BottomMenu";
 import BottomMenu from "@/components/BottomMenu/BottomMenu";
 import ImageEditor from "@/components/ImageEditor/ImageEditor";
-import { useState, useReducer, useEffect } from "react";
+import { useState, useReducer, useEffect, useRef } from "react";
 import setStyles from "./settings.module.css";
 import TextFormField from "@/components/FormFields/TextFormField";
 
@@ -20,12 +20,14 @@ type userDataTypes = {
     firstName: string,
     lastName: string,
     nickName: string,
+    userPhoto: string|null,
 }
 
 interface State {
     firstName: string,
     lastName: string,
     nickName: string,
+    userPhoto: string|null,
 }
 
 type Action = 
@@ -90,15 +92,15 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
         setChecking(newParts);
     }
 
+    
+    const [userData, setUserData] = useState<userDataTypes>({ firstName: "Pat", lastName: "Postman", nickName: "WestOak", userPhoto: null });
+    const [imagePath, setImagePath] = useState<string>("/uploads/tempUserImage.png");
+    const [imageFileId, setImageFileId] = useState<string>("");
 
-    const [userData, setUserData] = useState<userDataTypes>(
-        { firstName: "Pat", lastName: "Postman", nickName: "WestOak" }
-    );
-    const [changedUserData, setChangedUserData] = useState<userDataTypes>(
-        { firstName: "Pat", lastName: "Postman", nickName: "WestOak" }
-    );
+    const imageEditorRef = useRef<{ photoServerSave: () => Promise<void> }>(null);
 
-    const [state, dispatch] = useReducer(reducer, changedUserData);
+
+    const [state, dispatch] = useReducer(reducer, userData);
     
     function firstNameChange(event: React.ChangeEvent<HTMLInputElement>) {
         dispatch({
@@ -126,14 +128,19 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
         .then(res => res.json())
         .then(data => {
             setUserData(data);
-            setChangedUserData(data);
             dispatch({ type: 'SET_REAL_USER_DATA', payload: data });
+            if (data.userPhoto !== null) setImagePath(data.userPhoto);
+            console.log("API data");
             console.dir(data);
         });
     }, [authorizedUser]);
 
 
     async function saveNewCommonUserData() {
+
+        const imagePathArray = imagePath.split("");
+        const deletedNotAccessSymbols = imageFileId.replace(/[^a-zA-Z0-9_]/g, '');
+        imagePathArray.splice(imagePath.lastIndexOf("."), 0, `_${deletedNotAccessSymbols}`);
 
         const dataForm = {
             oldName: authorizedUser,
@@ -142,6 +149,10 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
             newName: state.firstName,
             newSurname: state.lastName,
             newNickname: state.nickName,
+
+            newUserPhoto: imagePath !== "/uploads/tempUserImage.png" ?
+            `/uploads/${imagePathArray.join("")}` :
+            null,
         }
 
         await fetch("http://localhost:3000/api/userData?page=settings", {
@@ -153,9 +164,13 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
             console.log(res.status);
             return res.json();
         })
-        .then((data) => {
+        .then(async (data) => {
             console.log(data);
-            if (data.status === "Success") {
+            let serverAnswer;
+            if (imageEditorRef.current) {
+                serverAnswer = await imageEditorRef.current.photoServerSave(); // Save the image to the server
+            }
+            if (data.status === "Success" && data.status === serverAnswer) {
                 window.location.href = data.redirect;
             }
         })
@@ -176,6 +191,8 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     const [buttons, setButtons] = useState<boolean>(true);
     const [dialog, setDialog] = useState<string>("");
+
+    console.dir(userData);
 
     return (
         <>
@@ -201,7 +218,12 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     </p>
                 )}
             </div>
-            <ImageEditor disabled={buttons} />
+            <ImageEditor ref={imageEditorRef}
+                getImagePath={state.userPhoto}
+                setImagePath={setImagePath}
+                setImageFileId={setImageFileId}
+                disabled={buttons}
+            />
             <form className={setStyles.commonSet}>
                 {settingsTextFormFields.map((settingTextFormField, index) => 
                     <TextFormField
@@ -262,7 +284,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     onClick={() => {
                         if (buttons) setButtons(!buttons);
                         else {
-                            // setButtons(!buttons);
                             setDialog("Deny_Button");
                         }
                     }}
@@ -274,7 +295,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     onClick={() => {
                         if (buttons) setButtons(!buttons);
                         else {
-                            // setButtons(!buttons);
                             setDialog("Save_Button");
                         }
                     }}

@@ -20,6 +20,7 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                     select: {
                         firstName: true,
                         lastName: true,
+                        userPhoto: true,
                     }
                 });
                 return response.status(200).json(user);
@@ -35,8 +36,10 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         firstName: true,
                         lastName: true,
                         nickName: true,
+                        userPhoto: true,
                     }
                 });
+                // console.log(user);
                 return response.status(200).json(user);
             } else {
                 return response.status(400).json({ message: "Incorrect connect." });
@@ -52,9 +55,10 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
             const newName: string = request.body.newName;
             const newSurname: string = request.body["newSurname"];
             const { newNickname } = request.body;
+            const { newUserPhoto } = request.body;
 
             console.log(request.body);
-            if (oldName && oldNickname && newName !== "" && newSurname !== "" && newNickname !== undefined) {
+            if (oldName && oldNickname && newName !== "" && newSurname !== "" && newNickname !== undefined && newUserPhoto !== undefined) {
                 const user = await prisma.users.findFirst({
                     where:  {
                         AND: [
@@ -72,6 +76,7 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         firstName: newName,
                         lastName: newSurname,
                         nickName: newNickname,
+                        userPhoto: newUserPhoto,
                     }
                 });
                 return response.status(201).json({ status: "Success", redirect: `/${newName}_${newSurname}/settingsPage` });
