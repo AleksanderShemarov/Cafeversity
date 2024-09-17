@@ -1,4 +1,3 @@
-/* eslint-disable react/display-name */
 "use client";
 
 import { useId, useRef, useState, forwardRef, useImperativeHandle, useEffect } from "react";
@@ -21,6 +20,7 @@ interface ImageEditorRef {
     photoServerSave: () => Promise<void>;
 }
 
+// eslint-disable-next-line react/display-name
 const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath, setImagePath, setImageFileId, disabled }, ref) => {
 
     const templatePhoto: string = "/uploads/tempUserImage.png";
@@ -30,6 +30,10 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath
     useEffect(() => {
         setImage(getImagePath);
     }, [getImagePath]);
+
+    useEffect(() => {
+        disabled && setImage(getImagePath);
+    }, [disabled, getImagePath]);
 
 
     const [imageFile, setImageFile] = useState<File | null>(null);
@@ -44,6 +48,11 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath
 
     const photoDelete = () => {
         if (image !== null && getImagePath !== null && image === getImagePath) {
+            setImageFile(null);
+            setImage("/uploads/tempUserImage.png");
+            setImagePath("/uploads/tempUserImage.png");
+        } else if (image !== null && getImagePath !== null && image !== getImagePath) {
+            URL.revokeObjectURL(image);
             setImageFile(null);
             setImage("/uploads/tempUserImage.png");
             setImagePath("/uploads/tempUserImage.png");
@@ -62,11 +71,6 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath
             setImage("/uploads/tempUserImage.png");
             setImagePath("/uploads/tempUserImage.png");
         }
-        // if (image !== null) {
-        //     URL.revokeObjectURL(image);
-        //     setImageFile(null);
-        //     setImage("/uploads/tempUserImage.png");
-        //     setImagePath("/uploads/tempUserImage.png");
     }
 
 
@@ -100,9 +104,9 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath
         photoServerSave,
     }));
 
-    console.dir(image);
-    console.dir(imageFile);
-    console.dir(getImagePath);
+    // console.dir(image);
+    // console.dir(imageFile);
+    // console.dir(getImagePath);
 
     return (
         <>
