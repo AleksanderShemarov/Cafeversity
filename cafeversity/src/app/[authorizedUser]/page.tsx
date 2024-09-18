@@ -62,11 +62,6 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                     ></Image>
                 </div>
                 <p className={styles.userName}>{nameSurname[0]}<br />{nameSurname[1]}</p>
-                <p className={styles.userName}>From API:<br />{
-                    userData ? userData.firstName : "Імя"
-                }<br />{
-                    userData ? userData.lastName : "Прозвішча"
-                }</p>
             </div>
             <BottomButtonsContext.Provider value={BottomBtns}>
                 <BottomMenu />

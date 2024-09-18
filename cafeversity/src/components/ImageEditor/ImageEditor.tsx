@@ -14,6 +14,7 @@ interface ImageIditorTypes {
         imageFileId: string,
     ) => void,
     disabled?: boolean,
+    id?: string,
 }
 
 interface ImageEditorRef {
@@ -21,7 +22,7 @@ interface ImageEditorRef {
 }
 
 // eslint-disable-next-line react/display-name
-const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath, setImagePath, setImageFileId, disabled }, ref) => {
+const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath, setImagePath, setImageFileId, disabled, id }, ref) => {
 
     const templatePhoto: string = "/uploads/tempUserImage.png";
     const [image, setImage] = useState<string|null>(getImagePath);
@@ -110,7 +111,7 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath
 
     return (
         <>
-            <div className={imgEditStyles.photo_editor}>
+            <div className={imgEditStyles.photo_editor} id={id}>
                 <p className={imgEditStyles.photo_edit_name}>User Image Editor</p>
                 <div className={imgEditStyles.photo_workplace}>
                     <ImageContainer img_path={image} />

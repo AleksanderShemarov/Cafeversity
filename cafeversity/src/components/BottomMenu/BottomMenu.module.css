@@ -55,7 +55,7 @@
 }
 
 .menuContainer:hover {
-    bottom: 10px;
+    bottom: 0px;
     transition: bottom 0.9s ease-in;
     -webkit-transition: bottom 0.9s ease-in;
     -moz-transition: bottom 0.9s ease-in;

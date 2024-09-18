@@ -1,7 +1,8 @@
 .photo_editor {
     max-width: 30%;
-    /* border: 2px solid black; */
+    outline: 2px solid black;
     margin-bottom: 20px;
+    scroll-margin-top: 180px;
 }
 
 .photo_edit_name {

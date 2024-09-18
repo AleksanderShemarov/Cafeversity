@@ -85,6 +85,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     const parts: string[] = ["Common Settings", "Tasties & Body Constitution", "Page Appearance"];
     const [checking, setChecking] = useState<boolean[]>([true, false, false]);
+    const settingsLinks: string = "#section";
 
     const switching = (index: number) => {
         const newParts = Array(checking.length).fill(false);
@@ -196,33 +197,50 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     return (
         <>
-            <h2 style={{ fontFamily: "Consolas, monospace" }}>Account Settings</h2>
-            <hr style={{ backgroundColor: "black", height: "3px" }} />
             <div style={{
-                // border: "3px solid black",
-                display: "flex",
-                fontFamily: "Consolas, monospace",
-                fontSize: "20px",
+                display: "block",
+                position: "sticky",
+                top: "0px",
+                zIndex: "9",
+                backgroundColor: "rgb(252, 242, 223)",
+                scrollMarginTop: "30px",
             }}>
-                {parts.map((part, index) =>
-                    <p
-                        key={index}
-                        onClick={() => switching(index)}
-                        className={setStyles.bar_link}
-                        style={{
-                            color: checking[index] ? "#714efe" : "black",
-                            borderBottom: checking[index] ? "3px solid #714efe" : "none",
-                        }}
-                    >
-                        {part}
-                    </p>
-                )}
+                <p style={{
+                    fontFamily: "Consolas, monospace",
+                    fontSize: "28px",
+                    marginTop: 0,
+                    paddingTop: "30px",
+                }}>
+                    Account Settings
+                </p>
+                <hr style={{ backgroundColor: "black", height: "3px" }} />
+                <div style={{
+                    // border: "3px solid black",
+                    display: "flex",
+                    fontFamily: "Consolas, monospace",
+                    fontSize: "20px",
+                }}>
+                    {parts.map((part, index) =>
+                        <p
+                            key={index}
+                            onClick={() => switching(index)}
+                            className={setStyles.bar_link}
+                            style={{
+                                color: checking[index] ? "#714efe" : "black",
+                                borderBottom: checking[index] ? "3px solid #714efe" : "none",
+                            }}
+                        >
+                            <a href={`${settingsLinks}${index}`} style={{ textDecoration: "none", color: "none" }}>{part}</a>
+                        </p>
+                    )}
+                </div>
             </div>
             <ImageEditor ref={imageEditorRef}
                 getImagePath={state.userPhoto}
                 setImagePath={setImagePath}
                 setImageFileId={setImageFileId}
                 disabled={buttons}
+                id="section0"
             />
             <form className={setStyles.commonSet}>
                 {settingsTextFormFields.map((settingTextFormField, index) => 
@@ -303,6 +321,36 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 </button>
             </div>
             <p>There will be another settings: ...</p>
+
+            <div style={{
+                height: "70vh",
+                outline: "2px dashed black",
+                borderRadius: "1%/2%",
+                padding: "1em",
+                backgroundColor: "white",
+                scrollMarginTop: "180px",
+            }} id="section1">
+                <p style={{
+                    fontSize: "30px",
+                    fontWeight: "400",
+                    fontFamily: "Consolas, monospace",
+                }}>Tasties & Body Constitution</p>
+            </div>
+            <div style={{
+                height: "60vh",
+                outline: "2px dashed black",
+                borderRadius: "1%/2%",
+                padding: "1em",
+                backgroundColor: "white",
+                scrollMarginTop: "180px",
+            }} id="section2">
+                <p style={{
+                    fontSize: "30px",
+                    fontWeight: "400",
+                    fontFamily: "Consolas, monospace",
+                }}>Page Appearance</p>
+            </div>
+            
             <BottomButtonsContext.Provider value={BottomBtns}>
                 <BottomMenu />
             </BottomButtonsContext.Provider>
