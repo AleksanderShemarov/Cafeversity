@@ -10,7 +10,7 @@ const LoggingOut: NextApiHandler = async (req: NextApiRequest, res: NextApiRespo
                 sessionId: userSessionId,
             },
             data: {
-                sessionId: "",
+                sessionId: null,
             }
         });
         res.setHeader('Set-Cookie', 'sessionId=; Path=/; HttpOnly; Secure; Max-Age=0; SameSite=Strict');

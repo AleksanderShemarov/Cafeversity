@@ -1,0 +1,96 @@
+.menuBlock {
+    position: relative;
+    /* left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto; */
+    bottom: 10px;
+    width: 100%;
+    /* outline: 3px dotted orange; */
+}
+
+.menuContainer {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin-left: auto;
+    margin-right: auto;
+
+    bottom: -10vh;
+    transition: bottom 0.9s ease-out;
+    -webkit-transition: bottom 0.9s ease-out;
+    -moz-transition: bottom 0.9s ease-out;
+    -ms-transition: bottom 0.9s ease-out;
+    -o-transition: bottom 0.9s ease-out;
+
+    border: 3px double black;
+    background-color: burlywood;
+    width: 20%;
+    height: 12vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0 auto;
+    border-top-left-radius: 70px;
+    border-top-right-radius: 70px;
+    flex-direction: column;
+}
+
+.btns_div {
+    /* outline: 3px dashed purple; */
+    min-width: 25vw;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    /* transform: translateX(-10%);*/
+    position: absolute;
+    top: -40px;
+
+    opacity: 0;
+    transition: opacity 0.25s ease;
+    -webkit-transition: opacity 0.25s ease;
+    -moz-transition: opacity 0.25s ease;
+    -ms-transition: opacity 0.25s ease;
+    -o-transition: opacity 0.25s ease;
+}
+
+.menuContainer:hover {
+    bottom: 10px;
+    transition: bottom 0.9s ease-in;
+    -webkit-transition: bottom 0.9s ease-in;
+    -moz-transition: bottom 0.9s ease-in;
+    -ms-transition: bottom 0.9s ease-in;
+    -o-transition: bottom 0.9s ease-in;
+}
+.menuContainer:hover > .btns_div {
+    opacity: 1;
+    transition: opacity 0.5s ease;
+    -webkit-transition: opacity 0.5s ease;
+    -moz-transition: opacity 0.5s ease;
+    -ms-transition: opacity 0.5s ease;
+    -o-transition: opacity 0.5s ease;
+}
+
+.btn_body {
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    /* border: blue 5px double; */
+    font-weight: bolder;
+    font-size: 20px;
+    font-style: italic;
+    text-align: center;
+    position: relative;
+    background-color: lightgray;
+}
+
+.btn_name {
+    display: inline;
+    /* border: 1px solid black;*/
+    position: absolute;
+    left: 50%;
+    top: -55px;
+    transform: translateX(-50%);
+    white-space: nowrap;
+    color: black;
+}
