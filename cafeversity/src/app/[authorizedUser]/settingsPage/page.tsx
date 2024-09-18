@@ -273,6 +273,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                                     if (/Deny/.test(dialog)) denyNewCommonUserData();
                                     setButtons(!buttons);
                                     setDialog("");
+                                    document.body.style.overflow = 'auto';
                                 }}
                             >
                                 <span className={setStyles.btn_name}>Так</span>
@@ -281,6 +282,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                                 style={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
                                 onClick={() => {
                                     setDialog("");
+                                    document.body.style.overflow = 'auto';
                                 }}
                             >
                                 <span className={setStyles.btn_name}>Не</span>
@@ -303,6 +305,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                         if (buttons) setButtons(!buttons);
                         else {
                             setDialog("Deny_Button");
+                            document.body.style.overflow = 'hidden';
                         }
                     }}
                 >
@@ -314,6 +317,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                         if (buttons) setButtons(!buttons);
                         else {
                             setDialog("Save_Button");
+                            document.body.style.overflow = 'hidden';
                         }
                     }}
                 >
