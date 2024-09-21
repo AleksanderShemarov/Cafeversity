@@ -6,6 +6,9 @@ import ImageEditor from "@/components/ImageEditor/ImageEditor";
 import { useState, useReducer, useEffect, useRef } from "react";
 import setStyles from "./settings.module.css";
 import TextFormField from "@/components/FormFields/TextFormField";
+import StickyNavBar from "@/components/StickySettingsNavBar/StickyNavBar";
+import DialogView from "@/components/Dialog/DialogView";
+import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
 
 
 type bottomBtns = {
@@ -197,44 +200,21 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     return (
         <>
-            <div style={{
-                display: "block",
-                position: "sticky",
-                top: "0px",
-                zIndex: "9",
-                backgroundColor: "rgb(252, 242, 223)",
-                scrollMarginTop: "30px",
-            }}>
-                <p style={{
-                    fontFamily: "Consolas, monospace",
-                    fontSize: "28px",
-                    marginTop: 0,
-                    paddingTop: "30px",
-                }}>
-                    Account Settings
-                </p>
-                <hr style={{ backgroundColor: "black", height: "3px" }} />
-                <div style={{
-                    // border: "3px solid black",
-                    display: "flex",
-                    fontFamily: "Consolas, monospace",
-                    fontSize: "20px",
-                }}>
-                    {parts.map((part, index) =>
-                        <p
-                            key={index}
-                            onClick={() => switching(index)}
-                            className={setStyles.bar_link}
-                            style={{
-                                color: checking[index] ? "#714efe" : "black",
-                                borderBottom: checking[index] ? "3px solid #714efe" : "none",
-                            }}
-                        >
-                            <a href={`${settingsLinks}${index}`} style={{ textDecoration: "none", color: "none" }}>{part}</a>
-                        </p>
-                    )}
-                </div>
-            </div>
+            <StickyNavBar>
+                {parts.map((part, index) =>
+                    <p
+                        key={index}
+                        onClick={() => switching(index)}
+                        className={setStyles.bar_link}
+                        style={{
+                            color: checking[index] ? "#714efe" : "black",
+                            borderBottom: checking[index] ? "3px solid #714efe" : "none",
+                        }}
+                    >
+                        <a href={`${settingsLinks}${index}`} style={{ textDecoration: "none", color: "none" }}>{part}</a>
+                    </p>
+                )}
+            </StickyNavBar>
             <ImageEditor ref={imageEditorRef}
                 getImagePath={state.userPhoto}
                 setImagePath={setImagePath}
@@ -257,39 +237,33 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 )}
             </form>
             <hr style={{ border: "5px double gray" }} />
-            
+
             {dialog && (
-                <div id={setStyles.dialog}>
-                    <div className={setStyles.accessView}>
-                        <p id={setStyles.dialog_question}>
-                            {(/Save/.test(dialog) && "Ці згодзен Ты са зменамі?") ||
-                            (/Deny/.test(dialog) && "Хочаш адмяніць змены?")}
-                        </p>
-                        <div id={setStyles.dialog_buttons}>
-                            <button className={setStyles.saveBtn}
-                                style={{ paddingLeft: "60px", paddingRight: "60px" }}
-                                onClick={() => {
-                                    if (/Save/.test(dialog)) saveNewCommonUserData();
-                                    if (/Deny/.test(dialog)) denyNewCommonUserData();
-                                    setButtons(!buttons);
-                                    setDialog("");
-                                    document.body.style.overflow = 'auto';
-                                }}
-                            >
-                                <span className={setStyles.btn_name}>Так</span>
-                            </button>
-                            <button className={setStyles.cancelBtn}
-                                style={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
-                                onClick={() => {
-                                    setDialog("");
-                                    document.body.style.overflow = 'auto';
-                                }}
-                            >
-                                <span className={setStyles.btn_name}>Не</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
+                <DialogView question={
+                    (/Save/.test(dialog) && "Ці згодзен Ты са зменамі?")
+                    ||
+                    (/Deny/.test(dialog) && "Хочаш адмяніць змены?")
+                }>
+                    <AccessBtn
+                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px" }}
+                        onClick={() => {
+                            if (/Save/.test(dialog)) saveNewCommonUserData();
+                            if (/Deny/.test(dialog)) denyNewCommonUserData();
+                            setButtons(!buttons);
+                            setDialog("");
+                            document.body.style.overflow = 'auto';
+                        }}
+                        buttonName="Так"
+                    />
+                    <DenyBtn
+                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
+                        onClick={() => {
+                            setDialog("");
+                            document.body.style.overflow = 'auto';
+                        }}
+                        buttonName="Не"
+                    />
+                </DialogView>
             )}
 
             <div className={setStyles.commonSetsBtns}>

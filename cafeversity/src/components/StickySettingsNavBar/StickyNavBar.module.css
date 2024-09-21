@@ -1,0 +1,24 @@
+#sticky_navbar {
+    display: block;
+    position: sticky;
+    top: 0px;
+    z-index: 9;
+    background-color: rgb(252, 242, 223);
+    scroll-margin-top: 30px;
+}
+#sticky_navbar_name {
+    font-family: Consolas, monospace;
+    font-size: 28px;
+    margin-top: 0;
+    padding-top: 30px;
+}
+#sticky_navbar hr {
+    background-color: black;
+    height: 3px;
+}
+#sticky_navbar_links {
+    /* border: 3px solid black; */
+    display: flex;
+    font-family: Consolas, monospace;
+    font-size: 20px;
+}

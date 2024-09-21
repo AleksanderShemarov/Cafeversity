@@ -1,0 +1,45 @@
+.accessBtn,
+.denyBtn {
+    height: 50px;
+    min-width: fit-content;
+    border-radius: 5px;
+    border: none;
+    font-size: 20px;
+    font-weight: 700;
+
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    box-shadow: none;
+    transition: box-shadow 0.5s ease-in-out;
+    -webkit-transition: box-shadow 0.5s ease-in-out;
+    -moz-transition: box-shadow 0.5s ease-in-out;
+    -o-transition: box-shadow 0.5s ease-in-out;
+    -ms-transition: box-shadow 0.5s ease-in-out;
+}
+.accessBtn {
+    color: white;
+    background-color: blue;
+    padding-left: 120px;
+    padding-right: 120px;
+}
+.denyBtn {
+    color: white;
+    background-color: orangered;
+    padding-left: 60px;
+    padding-right: 60px;
+}
+.accessBtn:hover,
+.denyBtn:hover {
+    box-shadow: gray 0 0 5px 7px;
+    transition: box-shadow 0.5s ease-in-out;
+    -webkit-transition: box-shadow 0.5s ease-in-out;
+    -moz-transition: box-shadow 0.5s ease-in-out;
+    -o-transition: box-shadow 0.5s ease-in-out;
+    -ms-transition: box-shadow 0.5s ease-in-out;
+}
+.btn_name {
+    position: absolute;
+}

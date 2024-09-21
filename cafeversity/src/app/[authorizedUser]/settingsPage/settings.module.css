@@ -130,7 +130,7 @@
 }
 
 
-#dialog {
+/* #dialog {
     background-color: rgba(255, 255, 255, 0.8);
     height: 100vh;
     width: 100%;
@@ -164,9 +164,9 @@
     text-decoration-style: solid;
 }
 #dialog_buttons {
-    /* border: 2px solid black; */
+    border: 2px solid black;
     margin-top: 3vh;
     display: flex;
     width: 80%;
     justify-content: space-between;
-}
+} */
