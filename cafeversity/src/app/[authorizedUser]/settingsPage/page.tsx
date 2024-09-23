@@ -9,6 +9,8 @@ import TextFormField from "@/components/FormFields/TextFormField";
 import StickyNavBar from "@/components/StickySettingsNavBar/StickyNavBar";
 import DialogView from "@/components/Dialog/DialogView";
 import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
+import PageExterior from "@/components/PageAppearanceSets/PageExterior";
+import CustomSelect from "@/components/OptionsChoice/CustomSelect";
 
 
 type bottomBtns = {
@@ -73,6 +75,21 @@ function reducer(state: State, action: Action): State {
         }
     }
 }
+
+
+const langs: [string, string][] = [
+    [ "Беларуская", "/countries/Belarus_borders.jpg" ],
+    [ "English", "/countries/UK_borders.jpg" ],
+    [ "Čeština", "/countries/CzechRepublic_borders.jpg" ],
+    [ "Polski", "/countries/Poland_borders.jpg" ],
+    [ "Українська", "/countries/Ukraine_borders.jpg" ],
+    [ "Lietuvių", "/countries/Lithuania_borders.jpg" ],
+    [ "Italiano", "/countries/Italy_borders.jpeg" ],
+    [ "Français", "/countries/France_borders.jpg" ],
+    [ "Türkçe", "/countries/Turkey_borders.jpg" ],
+    [ "日本語", "/countries/Japan_borders.jpg" ],
+    // ["Русский", "/countries/russia_border.jpg"],
+];
 
 
 export default function SettingsPage({ params }: { params: { authorizedUser: string } }) {
@@ -204,14 +221,24 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 {parts.map((part, index) =>
                     <p
                         key={index}
-                        onClick={() => switching(index)}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            document.querySelector(`${settingsLinks}${index}`)?.scrollIntoView({ behavior: "smooth" });
+                            switching(index);
+                        }}
                         className={setStyles.bar_link}
                         style={{
                             color: checking[index] ? "#714efe" : "black",
                             borderBottom: checking[index] ? "3px solid #714efe" : "none",
+                            pointerEvents: checking[index] ? "none" : "auto",
                         }}
                     >
-                        <a href={`${settingsLinks}${index}`} style={{ textDecoration: "none", color: "none" }}>{part}</a>
+                        <a
+                            href={`${settingsLinks}${index}`}
+                            style={{ textDecoration: "none", color: "none" }}
+                        >
+                            {part}
+                        </a>
                     </p>
                 )}
             </StickyNavBar>
@@ -298,15 +325,16 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     <span className={setStyles.btn_name}>{`${buttons ? "Change" : "Save"}`}</span>
                 </button>
             </div>
-            <p>There will be another settings: ...</p>
+
+            {/* <p>There will be another settings: ...</p> */}
 
             <div style={{
                 height: "70vh",
-                outline: "2px dashed black",
+                border: "2px dashed black",
                 borderRadius: "1%/2%",
                 padding: "1em",
                 backgroundColor: "white",
-                scrollMarginTop: "180px",
+                scrollMarginTop: "205px",
             }} id="section1">
                 <p style={{
                     fontSize: "30px",
@@ -314,20 +342,23 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     fontFamily: "Consolas, monospace",
                 }}>Tasties & Body Constitution</p>
             </div>
-            <div style={{
-                height: "60vh",
-                outline: "2px dashed black",
-                borderRadius: "1%/2%",
-                padding: "1em",
-                backgroundColor: "white",
-                scrollMarginTop: "180px",
-            }} id="section2">
-                <p style={{
-                    fontSize: "30px",
-                    fontWeight: "400",
+
+            <PageExterior id="section2">
+                <p style={{ 
+                    fontSize: "24px",
+                    fontWeight: 700,
                     fontFamily: "Consolas, monospace",
-                }}>Page Appearance</p>
-            </div>
+                    paddingLeft: "10px",
+                    paddingRight: "10px",
+                }}>
+                    Language
+                </p>
+                <CustomSelect
+                    labelName="Choose your native language: "
+                    selectorName="languages"
+                    options={langs}
+                />
+            </PageExterior>
             
             <BottomButtonsContext.Provider value={BottomBtns}>
                 <BottomMenu />

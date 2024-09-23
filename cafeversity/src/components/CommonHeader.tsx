@@ -66,7 +66,10 @@ export default function CommonHeader () {
                 <Dating />
                 <div
                     style={{ margin: "auto 0" }} 
-                    onClick={() => isExitView(!exitView)}
+                    onClick={() => {
+                        isExitView(!exitView);
+                        document.body.style.overflow = "hidden";
+                    }}
                 >
                     <Entrance
                         path={isAuthorized ? '' : '/login/signin'}
@@ -95,7 +98,10 @@ export default function CommonHeader () {
                                 <Link href="/ExitProcess" style={{ width: "25%" }}>
                                     <input type="button" value="Так" id={styles.accessButton} />
                                 </Link>
-                                <input type="button" value="Не" id={styles.denyButton} onClick={() => isExitView(!exitView)} />
+                                <input type="button" value="Не" id={styles.denyButton} onClick={() => {
+                                    isExitView(!exitView);
+                                    document.body.style.overflow = "auto";
+                                }} />
                             </div>
                         </div>
                     </div>

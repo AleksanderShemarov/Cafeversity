@@ -2,13 +2,13 @@
     max-width: 30%;
     /* outline: 2px solid black; */
     margin-bottom: 20px;
-    scroll-margin-top: 180px;
+    scroll-margin-top: 220px;
 }
 
 .photo_edit_name {
     margin-bottom: 0;
     min-width: fit-content;
-    font-size: 19px;
+    font-size: 22px;
     font-style: oblique;
     font-weight: bolder;
     font-family: Consolas, monospace;
