@@ -11,6 +11,7 @@ import DialogView from "@/components/Dialog/DialogView";
 import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
 import PageExterior from "@/components/PageAppearanceSets/PageExterior";
 import CustomSelect from "@/components/OptionsChoice/CustomSelect";
+import ColourSets from "@/components/ColoursPageSets/ColourSets";
 
 
 type bottomBtns = {
@@ -345,19 +346,25 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
             <PageExterior id="section2">
                 <p style={{ 
-                    fontSize: "24px",
-                    fontWeight: 700,
+                    fontSize: "1.5em", fontWeight: 700,
                     fontFamily: "Consolas, monospace",
-                    paddingLeft: "10px",
-                    paddingRight: "10px",
-                }}>
-                    Language
-                </p>
+                    paddingLeft: "10px", paddingRight: "10px",
+                }}>Language</p>
                 <CustomSelect
                     labelName="Choose your native language: "
                     selectorName="languages"
                     options={langs}
                 />
+                <hr />
+
+                <p style={{ 
+                    fontSize: "1.5em", fontWeight: 700,
+                    fontFamily: "Consolas, monospace",
+                    paddingLeft: "10px", paddingRight: "10px",
+                }}>Interface Themes</p>
+                <ColourSets name="Customise your application theme" />
+                <hr />
+
             </PageExterior>
             
             <BottomButtonsContext.Provider value={BottomBtns}>
