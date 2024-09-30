@@ -12,6 +12,7 @@ import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
 import PageExterior from "@/components/PageAppearanceSets/PageExterior";
 import CustomSelect from "@/components/OptionsChoice/CustomSelect";
 import ColourSets from "@/components/ColoursPageSets/ColourSets";
+import RadiosChoice from "@/components/RadiosChoice/Radios";
 
 
 type bottomBtns = {
@@ -365,6 +366,13 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 <ColourSets name="Customise your application theme" />
                 <hr />
 
+                <p style={{ 
+                    fontSize: "1.5em", fontWeight: 700,
+                    fontFamily: "Consolas, monospace",
+                    paddingLeft: "10px", paddingRight: "10px",
+                }}>Brand (Accent) Colours</p>
+                <RadiosChoice />
+                <hr />
             </PageExterior>
             
             <BottomButtonsContext.Provider value={BottomBtns}>

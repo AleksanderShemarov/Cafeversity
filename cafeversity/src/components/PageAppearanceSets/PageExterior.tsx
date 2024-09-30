@@ -13,7 +13,7 @@ export default function PageExterior({ id, children }: PageExteriorInterface) {
             {children}
             {/* <p className={exteriorStyle.temporaryPLines}>Language</p> */}
             {/* <p className={exteriorStyle.temporaryPLines}>Colorsets</p> */}
-            <p className={exteriorStyle.temporaryPLines}>Brand Color (?maybe?)</p>
+            {/* <p className={exteriorStyle.temporaryPLines}>Brand Color (?maybe?)</p> */}
             <p className={exteriorStyle.temporaryPLines}>Text Font CSS (Font Family, Font Size)</p>
         </div>
     )

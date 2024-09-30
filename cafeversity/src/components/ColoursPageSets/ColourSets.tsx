@@ -30,7 +30,7 @@ const ColourSets = ({ name }: ColourSetsInterface) => {
             <p id={coloursSetStyle.describe_name}>{name}</p>
             <div id={coloursSetStyle.colours_examples}>
                 {themeClicked.map((theme, index) => (
-                    <>
+                    <div key={`theme-${index}`}>
                         <div className={coloursSetStyle.colourExampleBlock}>
                             <div className={`${coloursSetStyle.colourExample} ${divStyles[index][0]}`} key={`ColourTheme${index}`}
                                 onClick={() => { switchBetweenColourThemes(`ColourTheme${index}`); }}
@@ -49,7 +49,7 @@ const ColourSets = ({ name }: ColourSetsInterface) => {
                             </div>
                             <p className={coloursSetStyle.colourExampleName}>{divStyles[index][2]}</p>
                         </div>
-                    </>
+                    </div>
                 ))}
             </div>
         </>
