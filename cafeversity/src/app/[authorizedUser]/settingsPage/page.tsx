@@ -13,6 +13,7 @@ import PageExterior from "@/components/PageAppearanceSets/PageExterior";
 import CustomSelect from "@/components/OptionsChoice/CustomSelect";
 import ColourSets from "@/components/ColoursPageSets/ColourSets";
 import RadiosChoice from "@/components/RadiosChoice/Radios";
+import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
 
 
 type bottomBtns = {
@@ -373,6 +374,14 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 }}>Brand (Accent) Colours</p>
                 <RadiosChoice />
                 <hr />
+
+                <p style={{ 
+                    fontSize: "1.5em", fontWeight: 700,
+                    fontFamily: "Consolas, monospace",
+                    paddingLeft: "10px", paddingRight: "10px",
+                }}>Font Settings</p>
+                <FontsFamilySizeWeight />
+
             </PageExterior>
             
             <BottomButtonsContext.Provider value={BottomBtns}>

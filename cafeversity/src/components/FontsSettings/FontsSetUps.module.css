@@ -1,0 +1,14 @@
+.fontsSetUpBlocks {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#describe_name {
+    font-size: 1.375em;
+    font-weight: 400;
+    padding-top: 0;
+    padding-left: 10px;
+    padding-right: 10px;
+}
