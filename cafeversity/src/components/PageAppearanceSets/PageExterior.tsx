@@ -10,6 +10,7 @@ interface PageExteriorInterface {
 export default function PageExterior({ id, children }: PageExteriorInterface) {
     return (
         <div id={id} className={exteriorStyle.appearanceBox}>
+            <p id={exteriorStyle.appearanceBoxName}>Page Appearance</p>
             {children}
         </div>
     )

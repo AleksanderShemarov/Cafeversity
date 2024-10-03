@@ -1,0 +1,103 @@
+/* This code is from "https://getcssscan.com/css-checkboxes-examples" made by #22 Matt Smith */
+/* .checkbox_wrapper_22 .switch {
+    display: inline-block;
+    height: 34px;
+    position: relative;
+    width: 60px;
+}
+.checkbox_wrapper_22 .switch input {
+    display:none;
+}
+.checkbox_wrapper_22 .slider {
+    background-color: #ccc;
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+}
+.checkbox_wrapper_22 .slider:before {
+    background-color: #ffffff;
+    bottom: 4px;
+    content: "";
+    height: 26px;
+    left: 4px;
+    position: absolute;
+    transition: .4s;
+    width: 26px;
+}
+.checkbox_wrapper_22 input:checked + .slider {
+    background-color: #66bb6a;
+}
+.checkbox_wrapper_22 input:checked + .slider:before {
+    transform: translateX(26px);
+}
+.checkbox_wrapper_22 .slider.round {
+    border-radius: 34px;
+}
+.checkbox_wrapper_22 .slider.round:before {
+    border-radius: 50%;
+} */
+
+
+
+/*
+I have repeated his code and have changed design for my checkboxes
+*/
+.box {
+    /* border: 1px solid black; */
+    height: 3em;
+    width: 6em;
+    display: inline-block;
+    position: relative;
+}
+.box input {
+    display: none;
+}
+
+.runner {
+    position: absolute;
+    background-color: darkgray;
+    cursor: pointer;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-radius: 3em;
+    transition: .7s;
+}
+.runner::before {
+    position: absolute;
+    background-color: wheat;
+    left: 0.5em;
+    bottom: 8px;
+    height: 2em;
+    width: 2em;
+    content: "";
+    border-radius: 50%;
+    transition: .7s;
+}
+
+.box input:checked + .runner {
+    background-color: lime;
+}
+.box input:checked + .runner::before {
+    transform: translateX(3em);
+}
+
+
+.checkboxLine {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+}
+.questionPart {
+    font-size: 1.375em;
+    font-weight: 400;
+    padding-top: 0;
+    padding-right: 10px;
+    padding-left: 10px;
+}

@@ -14,6 +14,8 @@ import CustomSelect from "@/components/OptionsChoice/CustomSelect";
 import ColourSets from "@/components/ColoursPageSets/ColourSets";
 import RadiosChoice from "@/components/RadiosChoice/Radios";
 import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
+import TastesNBodyConstition from "@/components/TastesSettings/Tastes&BodyConst";
+import TastesCheckboxes from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
 
 
 type bottomBtns = {
@@ -266,7 +268,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     />
                 )}
             </form>
-            <hr style={{ border: "5px double gray" }} />
 
             {dialog && (
                 <DialogView question={
@@ -329,22 +330,23 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 </button>
             </div>
 
-            {/* <p>There will be another settings: ...</p> */}
 
-            <div style={{
-                height: "70vh",
-                border: "2px dashed black",
-                borderRadius: "1%/2%",
-                padding: "1em",
-                backgroundColor: "white",
-                scrollMarginTop: "205px",
-            }} id="section1">
+            <hr style={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+
+
+            <TastesNBodyConstition id="section1">
                 <p style={{
-                    fontSize: "30px",
-                    fontWeight: "400",
+                    fontSize: "1.5em", fontWeight: "700",
                     fontFamily: "Consolas, monospace",
-                }}>Tasties & Body Constitution</p>
-            </div>
+                    paddingLeft: "10px", paddingRight: "10px",
+                }}>Choose your preferencies</p>
+                <TastesCheckboxes />
+                <hr />
+            </TastesNBodyConstition>
+
+
+            <hr style={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+
 
             <PageExterior id="section2">
                 <p style={{ 
@@ -358,7 +360,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     options={langs}
                 />
                 <hr />
-
                 <p style={{ 
                     fontSize: "1.5em", fontWeight: 700,
                     fontFamily: "Consolas, monospace",
@@ -366,7 +367,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 }}>Interface Themes</p>
                 <ColourSets name="Customise your application theme" />
                 <hr />
-
                 <p style={{ 
                     fontSize: "1.5em", fontWeight: 700,
                     fontFamily: "Consolas, monospace",
@@ -374,14 +374,12 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 }}>Brand (Accent) Colours</p>
                 <RadiosChoice />
                 <hr />
-
                 <p style={{ 
                     fontSize: "1.5em", fontWeight: 700,
                     fontFamily: "Consolas, monospace",
                     paddingLeft: "10px", paddingRight: "10px",
                 }}>Font Settings</p>
                 <FontsFamilySizeWeight />
-
             </PageExterior>
             
             <BottomButtonsContext.Provider value={BottomBtns}>
