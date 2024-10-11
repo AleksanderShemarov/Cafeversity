@@ -15,7 +15,8 @@ import ColourSets from "@/components/ColoursPageSets/ColourSets";
 import RadiosChoice from "@/components/RadiosChoice/Radios";
 import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
 import TastesNBodyConstition from "@/components/TastesSettings/Tastes&BodyConst";
-import TastesCheckboxes from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
+import TastesCheckboxes, { ParagraphFor } from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
+import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/RangeOfCalories";
 
 
 type bottomBtns = {
@@ -342,6 +343,17 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 }}>Choose your preferencies</p>
                 <TastesCheckboxes />
                 <hr />
+
+                <p style={{
+                    fontSize: "1.5em", fontWeight: "700",
+                    fontFamily: "Consolas, monospace",
+                    paddingLeft: "10px", paddingRight: "10px",
+                }}>Average amount of calories per day</p>
+                <ParagraphFor sentence="How many calories do you want to get per day?">
+                    <RangeInput2Handlers />
+                </ParagraphFor>
+                <hr />
+                {/* <BodyConstitution /> */}
             </TastesNBodyConstition>
 
 

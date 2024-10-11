@@ -2,29 +2,40 @@ import tasteCheckboxStyle from "@/components/TastesSettings/MildSpicy/TasteCheck
 
 
 const TastesCheckboxes = () => {
+
+    const checkboxesAttrs: { id: number|string, attr: string[] }[] = [
+        { id: "spicyCheckbox", attr: [ "Do you want to eat spicy dishes?", "check1" ], },
+        { id: "vegetarianCheckbox", attr: [ "Do you prefer to eat vegetarian dishes?", "check2" ], },
+        { id: "veganCheckbox", attr: [ "Are you vegan?", "check3" ], },
+    ];
+
     return (
         <>
-            <div className={tasteCheckboxStyle.checkboxLine}>
-                <p className={tasteCheckboxStyle.questionPart}>
-                    Do you want to eat spicy dishes?
-                </p>
-                <Checkbox checkboxId="check1" />
-            </div>
-
-            <div className={tasteCheckboxStyle.checkboxLine}>
-                <p className={tasteCheckboxStyle.questionPart}>
-                    Do you prefer to eat vegetarian dishes?
-                </p>
-                <Checkbox checkboxId="check2" />
-            </div>
-
-            <div className={tasteCheckboxStyle.checkboxLine}>
-                <p className={tasteCheckboxStyle.questionPart}>
-                    Are you vegan?
-                </p>
-                <Checkbox checkboxId="check3" />
-            </div>
+            {
+                checkboxesAttrs.map((checkboxAttrs, index) => (
+                    <ParagraphFor key={index} sentence={checkboxAttrs.attr[0]}>
+                        <Checkbox key={checkboxAttrs.id} checkboxId={checkboxAttrs.attr[1]} />
+                    </ParagraphFor>
+                ))
+            }
         </>
+    )
+}
+
+
+interface ParagraphForTypes {
+    sentence: string,
+    children: React.ReactNode,
+}
+
+const ParagraphFor = ({ sentence, children }: ParagraphForTypes) => {
+    return (
+        <div className={tasteCheckboxStyle.checkboxLine}>
+            <p className={tasteCheckboxStyle.questionPart}>
+                {sentence}
+            </p>
+            {children}
+        </div>
     )
 }
 
@@ -36,18 +47,18 @@ interface CheckboxParams {
 
 const Checkbox = ({ checkboxId, checkboxName = "" }: CheckboxParams) => {
     return (
-        <div>
+        <>
             <label className={tasteCheckboxStyle.box} htmlFor={checkboxId}>
                 <input type="checkbox" id={checkboxId} name={checkboxName} />
                 <div className={tasteCheckboxStyle.runner}></div>
             </label>
-        </div>
+        </>
     )
 }
 
 
 export default TastesCheckboxes;
-export { Checkbox };
+export { ParagraphFor, Checkbox };
 
 
 // {/* This code is from "https://getcssscan.com/css-checkboxes-examples" made by #22 Matt Smith */}

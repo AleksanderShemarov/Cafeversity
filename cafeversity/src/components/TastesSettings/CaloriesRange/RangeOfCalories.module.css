@@ -1,0 +1,104 @@
+.twohandRangeContainer {
+    /* outline: 1px solid black; */
+    height: 5em;
+    width: 30em;
+    position: relative;
+}
+
+.twohandRangeContainer > input[type="range"] {
+    appearance: none;
+    width: 100%;
+    outline: none;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: -3em;
+    background-color: transparent;
+    pointer-events: none;
+}
+
+.twohandRangeTrack {
+    width: 100%;
+    height: 0.3125em;
+    background-color: rgb(255, 238, 140);
+    outline: 0.0625em solid #d5d5d5;
+    position: absolute;
+    margin: auto;
+    top: 0;
+    bottom: -3em;
+    border-radius: 0.3125em;
+}
+
+.twohandRangeContainer > input[type="range"]::-webkit-slider-runnable-track {
+    appearance: none;
+    height: 0.4375em;
+}
+.twohandRangeContainer > input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+    background-color: gold;
+    cursor: pointer;
+    margin-top: -0.5em;
+    pointer-events: all;
+}
+.twohandRangeContainer > input[type="range"]:active::-webkit-slider-thumb {
+    background-color: aliceblue;
+    border: 0.25em solid gold;
+}
+
+.twohandRangeContainer > input[type="range"]::-ms-track {
+    appearance: none;
+    height: 0.4375em;
+}
+.twohandRangeContainer > input[type="range"]::-ms-thumb {
+    appearance: none;
+    height: 2em;
+    width: 2em;
+    border-radius: 50%;
+    background-color: gold;
+    cursor: pointer;
+    margin-top: -0.5em;;
+    pointer-events: all;
+}
+.twohandRangeContainer > input[type="range"]:active::-ms-thumb {
+    background-color: aliceblue;
+    border: 0.25em solid gold;
+}
+
+
+.rangeValues {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: center;
+    /* gap: 0.75em; */
+    align-items: center;
+}
+
+#downRange,
+#rangeDash,
+#upRange {
+    font-size: 1.5em;
+    font-weight: bolder;
+    padding-top: 0.1875em;
+    padding-bottom: 0.1875em;
+    background-color: rgb(255, 238, 140);
+    border-top: 0.1em solid #d5d5d5;
+    border-bottom: 0.1em solid #d5d5d5;
+}
+#downRange {
+    padding-right: 0.75em;
+    padding-left: 0.25em;
+    border-top-left-radius: 0.3em;
+    border-bottom-left-radius: 0.3em;
+    border-left: 0.1em solid #d5d5d5;
+}
+#upRange {
+    padding-left: 0.75em;
+    padding-right: 0.25em;
+    border-top-right-radius: 0.3em;
+    border-bottom-right-radius: 0.3em;
+    border-right: 0.1em solid #d5d5d5;
+}
