@@ -1,9 +1,6 @@
 .tastyNbodyBlock {
     /* height: 70vh; */
-    border: 2px dashed black;
-    border-radius: 1%/2%;
     padding: 1em;
-    background-color: white;
     scroll-margin-top: 205px;
 }
 

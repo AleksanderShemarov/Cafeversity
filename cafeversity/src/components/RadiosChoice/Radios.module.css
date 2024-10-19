@@ -36,9 +36,6 @@
 .radio:last-child {
     margin-left: 1em;
 }
-.radio:checked {
-    outline: 0.375em solid rgba(136, 0, 255, 0.754);
-}
 .radio:checked::before {
     height: 1.375em;
     aspect-ratio: 1/1;

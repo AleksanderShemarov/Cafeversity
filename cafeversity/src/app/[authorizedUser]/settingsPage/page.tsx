@@ -17,6 +17,7 @@ import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
 import TastesNBodyConstition from "@/components/TastesSettings/Tastes&BodyConst";
 import TastesCheckboxes, { ParagraphFor } from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
 import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/RangeOfCalories";
+// import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
 type bottomBtns = {
@@ -352,7 +353,8 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 <ParagraphFor sentence="How many calories do you want to get per day?">
                     <RangeInput2Handlers />
                 </ParagraphFor>
-                <hr />
+                {/* <hr /> */}
+                {/* <PLFSetUps /> */}
                 {/* <BodyConstitution /> */}
             </TastesNBodyConstition>
 
