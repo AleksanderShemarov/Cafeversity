@@ -58,4 +58,14 @@ model Users {
   sessionId           String?   @unique
   resetToken          String?   @unique
   resetTokenExpiry    DateTime?
+  isSpicy             Boolean   @default(false)
+  isVegetarian        Boolean   @default(false)
+  isVegan             Boolean   @default(false)
+  caloriesRange       String    @default("1800 - 2500")
+  language            String    @default("Belarusian")
+  interfaceColor      String    @default("Light")
+  choiceColor         String    @default("Lime")
+  fonFamily           String    @default("Consolas")
+  fontSize            String    @default("20px")
+  fontWeight          String    @default("Normal")
 }

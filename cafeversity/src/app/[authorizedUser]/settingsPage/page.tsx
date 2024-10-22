@@ -1,7 +1,5 @@
 "use client";
 
-import { BottomButtonsContext } from "@/components/BottomMenu/BottomMenu";
-import BottomMenu from "@/components/BottomMenu/BottomMenu";
 import ImageEditor from "@/components/ImageEditor/ImageEditor";
 import { useState, useReducer, useEffect, useRef } from "react";
 import setStyles from "./settings.module.css";
@@ -17,16 +15,10 @@ import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
 import TastesNBodyConstition from "@/components/TastesSettings/Tastes&BodyConst";
 import TastesCheckboxes, { ParagraphFor } from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
 import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/RangeOfCalories";
+import SubTitle from "@/components/OtherParts/SubTitle/SubTitle";
+import HorizontalLine from "@/components/OtherParts/HorizontalLine/HorizontalLine";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
-
-type bottomBtns = {
-    name: string,
-    icon: string,
-    icon_alt: string,
-    topMargin?: number,
-    path?: string,
-}
 
 type userDataTypes = {
     firstName: string,
@@ -84,31 +76,38 @@ function reducer(state: State, action: Action): State {
 }
 
 
-const langs: [string, string][] = [
-    [ "Беларуская", "/countries/Belarus_borders.jpg" ],
-    [ "English", "/countries/UK_borders.jpg" ],
-    [ "Čeština", "/countries/CzechRepublic_borders.jpg" ],
-    [ "Polski", "/countries/Poland_borders.jpg" ],
-    [ "Українська", "/countries/Ukraine_borders.jpg" ],
-    [ "Lietuvių", "/countries/Lithuania_borders.jpg" ],
-    [ "Italiano", "/countries/Italy_borders.jpeg" ],
-    [ "Français", "/countries/France_borders.jpg" ],
-    [ "Türkçe", "/countries/Turkey_borders.jpg" ],
-    [ "日本語", "/countries/Japan_borders.jpg" ],
-    // ["Русский", "/countries/russia_border.jpg"],
+const langs: [string, string, string][] = [
+    [ "Belarusian", "Беларуская", "/countries/Belarus_borders.jpg" ],
+    [ "English", "English", "/countries/UK_borders.jpg" ],
+    [ "Czech", "Čeština", "/countries/CzechRepublic_borders.jpg" ],
+    [ "Polish", "Polski", "/countries/Poland_borders.jpg" ],
+    [ "Ukranian", "Українська", "/countries/Ukraine_borders.jpg" ],
+    [ "Lithuanian", "Lietuvių", "/countries/Lithuania_borders.jpg" ],
+    [ "Italian", "Italiano", "/countries/Italy_borders.jpeg" ],
+    [ "French", "Français", "/countries/France_borders.jpg" ],
+    [ "Turkish", "Türkçe", "/countries/Turkey_borders.jpg" ],
+    [ "Japanese", "日本語", "/countries/Japan_borders.jpg" ],
+    // ["Russian", "Русский", "/countries/russia_border.jpg"],
 ];
+
+
+type SettingsDataTypes = {
+    isSpicy: boolean,
+    isVeget: boolean,
+    isVegan: boolean,
+    calorys: string,
+    language: string,
+    intfaceC: string,
+    choiceC: string,
+    fFamily: string,
+    fSize: string,
+    fWeight: string,
+}
 
 
 export default function SettingsPage({ params }: { params: { authorizedUser: string } }) {
 
     const { authorizedUser } = params;
-
-    const BottomBtns: bottomBtns[] = [
-        { name: "Меню", icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", topMargin: 50, },
-        { name: "Агульная", icon: "/account_icon.png", icon_alt: "Account_Icon",
-            path: `/${authorizedUser}` },
-        { name: "Навіны", icon: "/earth_planet.webp", icon_alt: "Earth_Icon", topMargin: 50, },
-    ];
 
     const parts: string[] = ["Common Settings", "Tasties & Body Constitution", "Page Appearance"];
     const [checking, setChecking] = useState<boolean[]>([true, false, false]);
@@ -222,6 +221,21 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     console.dir(userData);
 
+    
+    // Fetching data for settings page using SettingsApiRoute.ts
+    const [settingsData, setSettingsData] = useState<SettingsDataTypes>();
+    
+    useEffect(() => {
+        fetch(`http://localhost:3000/api/settings_api?name=${authorizedUser}`)
+        .then(response => response.json())
+        .then(settings => {
+            console.dir(settings);
+            setSettingsData(settings);
+        })
+        .catch((error) => console.error(error))
+    }, [authorizedUser]);
+
+
     return (
         <>
             <StickyNavBar>
@@ -270,35 +284,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     />
                 )}
             </form>
-
-            {dialog && (
-                <DialogView question={
-                    (/Save/.test(dialog) && "Ці згодзен Ты са зменамі?")
-                    ||
-                    (/Deny/.test(dialog) && "Хочаш адмяніць змены?")
-                }>
-                    <AccessBtn
-                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px" }}
-                        onClick={() => {
-                            if (/Save/.test(dialog)) saveNewCommonUserData();
-                            if (/Deny/.test(dialog)) denyNewCommonUserData();
-                            setButtons(!buttons);
-                            setDialog("");
-                            document.body.style.overflow = 'auto';
-                        }}
-                        buttonName="Так"
-                    />
-                    <DenyBtn
-                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
-                        onClick={() => {
-                            setDialog("");
-                            document.body.style.overflow = 'auto';
-                        }}
-                        buttonName="Не"
-                    />
-                </DialogView>
-            )}
-
             <div className={setStyles.commonSetsBtns}>
                 <button
                     className={setStyles.cancelBtn}
@@ -333,25 +318,18 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
             </div>
 
 
-            <hr style={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
 
 
             <TastesNBodyConstition id="section1">
-                <p style={{
-                    fontSize: "1.5em", fontWeight: "700",
-                    fontFamily: "Consolas, monospace",
-                    paddingLeft: "10px", paddingRight: "10px",
-                }}>Choose your preferencies</p>
-                <TastesCheckboxes />
-                <hr />
+                <SubTitle name="Choose your preferencies" />
+                <TastesCheckboxes props={settingsData && [settingsData?.isSpicy, settingsData?.isVeget, settingsData?.isVegan]} />
+                
+                <HorizontalLine />
 
-                <p style={{
-                    fontSize: "1.5em", fontWeight: "700",
-                    fontFamily: "Consolas, monospace",
-                    paddingLeft: "10px", paddingRight: "10px",
-                }}>Average amount of calories per day</p>
+                <SubTitle name="Average amount of calories per day" />
                 <ParagraphFor sentence="How many calories do you want to get per day?">
-                    <RangeInput2Handlers />
+                    <RangeInput2Handlers twohandRangeName="caloriesRangeSlider" props={settingsData?.calorys} />
                 </ParagraphFor>
                 {/* <hr /> */}
                 {/* <PLFSetUps /> */}
@@ -359,46 +337,65 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
             </TastesNBodyConstition>
 
 
-            <hr style={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
 
 
             <PageExterior id="section2">
-                <p style={{ 
-                    fontSize: "1.5em", fontWeight: 700,
-                    fontFamily: "Consolas, monospace",
-                    paddingLeft: "10px", paddingRight: "10px",
-                }}>Language</p>
+                <SubTitle name="Language" />
                 <CustomSelect
                     labelName="Choose your native language: "
                     selectorName="languages"
                     options={langs}
+                    dbOption={settingsData?.language}
                 />
-                <hr />
-                <p style={{ 
-                    fontSize: "1.5em", fontWeight: 700,
-                    fontFamily: "Consolas, monospace",
-                    paddingLeft: "10px", paddingRight: "10px",
-                }}>Interface Themes</p>
-                <ColourSets name="Customise your application theme" />
-                <hr />
-                <p style={{ 
-                    fontSize: "1.5em", fontWeight: 700,
-                    fontFamily: "Consolas, monospace",
-                    paddingLeft: "10px", paddingRight: "10px",
-                }}>Brand (Accent) Colours</p>
-                <RadiosChoice />
-                <hr />
-                <p style={{ 
-                    fontSize: "1.5em", fontWeight: 700,
-                    fontFamily: "Consolas, monospace",
-                    paddingLeft: "10px", paddingRight: "10px",
-                }}>Font Settings</p>
-                <FontsFamilySizeWeight />
+
+                <HorizontalLine />
+
+                <SubTitle name="Interface Themes" />
+                <ColourSets name="Customise your application theme" themeColor={settingsData?.intfaceC} />
+
+                <HorizontalLine />
+
+                <SubTitle name="Brand (Accent) Colours" />
+                <RadiosChoice choseRadio={settingsData?.choiceC} />
+
+                <HorizontalLine />
+                
+                <SubTitle name="Font Settings" />
+                <FontsFamilySizeWeight
+                    fontFamily={settingsData?.fFamily}
+                    fontSize={settingsData?.fSize}
+                    fontWeight={settingsData?.fWeight}
+                />
             </PageExterior>
-            
-            <BottomButtonsContext.Provider value={BottomBtns}>
-                <BottomMenu />
-            </BottomButtonsContext.Provider>
+
+            {dialog && (
+                <DialogView question={
+                    (/Save/.test(dialog) && "Ці згодзен Ты са зменамі?")
+                    ||
+                    (/Deny/.test(dialog) && "Хочаш адмяніць змены?")
+                }>
+                    <AccessBtn
+                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px" }}
+                        onClick={() => {
+                            if (/Save/.test(dialog)) saveNewCommonUserData();
+                            if (/Deny/.test(dialog)) denyNewCommonUserData();
+                            setButtons(!buttons);
+                            setDialog("");
+                            document.body.style.overflow = 'auto';
+                        }}
+                        buttonName="Так"
+                    />
+                    <DenyBtn
+                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
+                        onClick={() => {
+                            setDialog("");
+                            document.body.style.overflow = 'auto';
+                        }}
+                        buttonName="Не"
+                    />
+                </DialogView>
+            )}
         </>
     )
 }

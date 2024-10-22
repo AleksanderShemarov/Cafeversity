@@ -1,20 +1,34 @@
+"use client";
+
 import tasteCheckboxStyle from "@/components/TastesSettings/MildSpicy/TasteCheckboxes.module.css";
+import { useState } from "react";
 
 
-const TastesCheckboxes = () => {
+const checkboxesAttrs: { id: number|string, attr: string[] }[] = [
+    { id: "spicyCheckbox", attr: [ "Do you want to eat spicy dishes?", "check1", "tastes" ], },
+    { id: "vegetarianCheckbox", attr: [ "Do you prefer to eat vegetarian dishes?", "check2", "tastes" ], },
+    { id: "veganCheckbox", attr: [ "Are you vegan?", "check3", "tastes" ], },
+];
 
-    const checkboxesAttrs: { id: number|string, attr: string[] }[] = [
-        { id: "spicyCheckbox", attr: [ "Do you want to eat spicy dishes?", "check1" ], },
-        { id: "vegetarianCheckbox", attr: [ "Do you prefer to eat vegetarian dishes?", "check2" ], },
-        { id: "veganCheckbox", attr: [ "Are you vegan?", "check3" ], },
-    ];
+type TasteCheckboxesProps = {
+    props?: boolean[],
+}
+
+/* spicy=${user.isSpicy}&veget=${user.isVegetarian}
+    &vegan=${user.isVegan}&calory=${user.caloriesRange}
+    &lang=${user.language}&faceC=${user.interfaceColor}
+    &choice=${user.choiceColor}&fontF=${user.fonFamily}
+    &fontS=${user.fontSize}&fontW=${user.fontWeight}`, */
+
+const TastesCheckboxes = ({ props }: TasteCheckboxesProps) => {
 
     return (
         <>
             {
                 checkboxesAttrs.map((checkboxAttrs, index) => (
                     <ParagraphFor key={index} sentence={checkboxAttrs.attr[0]}>
-                        <Checkbox key={checkboxAttrs.id} checkboxId={checkboxAttrs.attr[1]} />
+                        <Checkbox key={checkboxAttrs.id} checkboxId={checkboxAttrs.attr[1]}
+                        checkboxName={checkboxAttrs.attr[2]} choisen={props && props[index]}/>
                     </ParagraphFor>
                 ))
             }
@@ -43,13 +57,18 @@ const ParagraphFor = ({ sentence, children }: ParagraphForTypes) => {
 interface CheckboxParams {
     checkboxId: string,
     checkboxName?: string,
+    choisen?: boolean,
 }
 
-const Checkbox = ({ checkboxId, checkboxName = "" }: CheckboxParams) => {
+const Checkbox = ({ checkboxId, checkboxName = "", choisen = false }: CheckboxParams) => {
+
+    const [isChecked, setIsChecked] = useState<boolean>(choisen);
+
     return (
         <>
             <label className={tasteCheckboxStyle.box} htmlFor={checkboxId}>
-                <input type="checkbox" id={checkboxId} name={checkboxName} />
+                <input type="checkbox" id={checkboxId} name={checkboxName}
+                checked={isChecked} onChange={() => setIsChecked(!isChecked)} />
                 <div className={tasteCheckboxStyle.runner}></div>
             </label>
         </>

@@ -8,23 +8,46 @@ import Image from "next/image";
 interface CustomSelect {
     labelName: string,
     selectorName: string,
-    options?: [string, string][],
+    options?: [string, string, string][],
     styleDIV?: CSSProperties,
     styleLABEL?: CSSProperties,
+    dbOption?: string,
 }
 
 export default function CustomSelect(
-    { labelName, selectorName, options = [["option", "/earth_planet.webp"]], styleDIV, styleLABEL }: CustomSelect
+    {
+        labelName, selectorName, options = [["option1", "option", "/earth_planet.webp"]],
+        styleDIV, styleLABEL, dbOption
+    }: CustomSelect
 ) {
 
-    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][0]);
-    const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[0][1]);
+    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][1]);
+    const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[0][2]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const handleOptionClick = (option: [string, string]) => {
-        setSelectedOptionValue(option[0]);
-        setSelectedOptionImage(option[1]);
+    const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
+    console.log(selectedOptionIndex);
+
+    useEffect(() => {
+        if (dbOption) {
+            for (let i = 0; i < options.length; i++) {
+                if (options[i][0].includes(dbOption)) {
+                    setSelectedOptionValue(options[i][1]);
+                    setSelectedOptionImage(options[i][2]);
+                    setSelectedOptionIndex(i);
+                    break;
+                }
+            }
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [dbOption]);
+
+    const handleOptionClick = (option: [string, string, string], index: number) => {
+        setSelectedOptionValue(option[1]);
+        setSelectedOptionImage(option[2]);
         setIsOpen(false);
+
+        setSelectedOptionIndex(index);
     }
 
 
@@ -98,14 +121,14 @@ export default function CustomSelect(
                 <div className={`${stylesOfOptions.optionsList} 
                 ${selectDropping === "up" ? stylesOfOptions.optionsList_up : stylesOfOptions.optionsList_down}`}>
                     {options.map((option, index) => (
-                        <div key={index}
+                        <div key={option[0]}
                             className={stylesOfOptions.option}
-                            onClick={() => handleOptionClick(option)}
+                            onClick={() => handleOptionClick(option, index)}
                             ref={el => { optionRefs.current[index] = el; }}
                         >
-                            {/* <img src={option[1]} alt={option[1]} width={25} height={25} /> */}
-                            <Image src={option[1]} alt={option[1]} width={25} height={25}></Image>
-                            <p>{option[0]}</p>
+                            {/* <img src={option[2]} alt={option[2]} width={25} height={25} /> */}
+                            <Image src={option[2]} alt={option[2]} width={25} height={25}></Image>
+                            <p>{option[1]}</p>
                         </div>
                     ))}
                 </div>

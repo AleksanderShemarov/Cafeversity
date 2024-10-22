@@ -3,14 +3,19 @@ import twohandRangeStyle from "@/components/TastesSettings/CaloriesRange/RangeOf
 import { useState } from "react";
 
 
-const RangeInput2Handlers = ({ twohandRangeName = "" }) => {
+type CaloriesRangeSliderTypes = {
+    twohandRangeName?: string,
+    props?: string,
+}
+
+const RangeInput2Handlers = ({ twohandRangeName = "", props }: CaloriesRangeSliderTypes) => {
 
     const lowerBorder: number = 1500;
     const upperBorder: number = 3000;
     const step: number = 50;
 
-    const [lowerRange, setLowerRange] = useState<number>(1800);
-    const [upperRange, setUpperRange] = useState<number>(2500);        
+    const [lowerRange, setLowerRange] = useState<number>(props ? Number(props.split(" – ")[0]) : 1800);
+    const [upperRange, setUpperRange] = useState<number>(props ? Number(props.split(" – ")[1]) : 2500);
 
     function lowerRangeCheck(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();

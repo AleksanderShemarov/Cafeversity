@@ -6,6 +6,7 @@ import { useState } from "react";
 
 interface ColourSetsInterface {
     name: string,
+    themeColor?: string,
 }
 
 const divStyles: [string, string, string][] = [
@@ -13,9 +14,19 @@ const divStyles: [string, string, string][] = [
     [coloursSetStyle.colourExampleDark, coloursSetStyle.lightdarkDiv, "Dark Theme"],
 ];
 
-const ColourSets = ({ name }: ColourSetsInterface) => {
+const ColourSets = ({ name, themeColor }: ColourSetsInterface) => {
 
-    const [themeClicked, setThemeClicked] = useState<boolean[]>([ true, false, ]);
+    let startTheme: boolean[] = [ true, false ];
+
+    if (themeColor) {
+        if (themeColor === "Light") {
+            startTheme = [ true, false ];
+        } else if (themeColor === "Dark") {
+            startTheme = [ false, true ];
+        }
+    }
+
+    const [themeClicked, setThemeClicked] = useState<boolean[]>(startTheme);
 
     function switchBetweenColourThemes (key: string) {
         const newBools: boolean[] = Array(2).fill(false);
