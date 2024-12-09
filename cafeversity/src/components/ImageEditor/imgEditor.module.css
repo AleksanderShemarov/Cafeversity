@@ -7,6 +7,7 @@
     text-decoration: underline;
     margin-top: 1em;
     font-weight: 700;
+    color: var(--text-color);
 }
 
 .photo_editor {
@@ -26,6 +27,7 @@
     margin-bottom: 0.55em;
     text-align: justify;
     text-indent: 2em;
+    color: var(--text-color);
 }
 
 .photo_workplace {

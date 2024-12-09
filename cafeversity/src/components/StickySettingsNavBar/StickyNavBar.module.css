@@ -3,23 +3,24 @@
     position: sticky;
     top: 0px;
     z-index: 9;
-    background-color: rgb(252, 242, 223);
+    background-color: var(--background-color);
     scroll-margin-top: 30px;
     box-shadow: grey 0 10px 7px -5px;
 }
 #sticky_navbar_name {
     font-family: Consolas, monospace;
-    font-size: 32px;
+    font-size: 2em;
     margin-top: 0;
     padding-top: 30px;
+    color: var(--text-color);
 }
 #sticky_navbar hr {
     background-color: black;
-    height: 3px;
+    height: 0.1875em;
 }
 #sticky_navbar_links {
     /* border: 3px solid black; */
     display: flex;
     font-family: Consolas, monospace;
-    font-size: 24px;
+    font-size: 1.5em;
 }

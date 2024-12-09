@@ -91,20 +91,6 @@ const langs: [string, string, string][] = [
 ];
 
 
-type SettingsDataTypes = {
-    isSpicy: boolean,
-    isVeget: boolean,
-    isVegan: boolean,
-    calorys: string,
-    language: string,
-    intfaceC: string,
-    choiceC: string,
-    fFamily: string,
-    fSize: string,
-    fWeight: string,
-}
-
-
 export default function SettingsPage({ params }: { params: { authorizedUser: string } }) {
 
     const { authorizedUser } = params;
@@ -221,21 +207,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     console.dir(userData);
 
-    
-    // Fetching data for settings page using SettingsApiRoute.ts
-    const [settingsData, setSettingsData] = useState<SettingsDataTypes>();
-    
-    useEffect(() => {
-        fetch(`http://localhost:3000/api/settings_api?name=${authorizedUser}`)
-        .then(response => response.json())
-        .then(settings => {
-            console.dir(settings);
-            setSettingsData(settings);
-        })
-        .catch((error) => console.error(error))
-    }, [authorizedUser]);
-
-
     return (
         <>
             <StickyNavBar>
@@ -249,14 +220,13 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                         }}
                         className={setStyles.bar_link}
                         style={{
-                            color: checking[index] ? "#714efe" : "black",
                             borderBottom: checking[index] ? "3px solid #714efe" : "none",
                             pointerEvents: checking[index] ? "none" : "auto",
                         }}
                     >
                         <a
                             href={`${settingsLinks}${index}`}
-                            style={{ textDecoration: "none", color: "none" }}
+                            style={{ textDecoration: "none", color: checking[index] ? "#714efe" : "var(--text-color)", }}
                         >
                             {part}
                         </a>
@@ -323,13 +293,13 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
             <TastesNBodyConstition id="section1">
                 <SubTitle name="Choose your preferencies" />
-                <TastesCheckboxes props={settingsData && [settingsData?.isSpicy, settingsData?.isVeget, settingsData?.isVegan]} />
+                <TastesCheckboxes />
                 
                 <HorizontalLine />
 
                 <SubTitle name="Average amount of calories per day" />
                 <ParagraphFor sentence="How many calories do you want to get per day?">
-                    <RangeInput2Handlers twohandRangeName="caloriesRangeSlider" props={settingsData?.calorys} />
+                    <RangeInput2Handlers twohandRangeName="caloriesRangeSlider" />
                 </ParagraphFor>
                 {/* <hr /> */}
                 {/* <PLFSetUps /> */}
@@ -346,34 +316,29 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     labelName="Choose your native language: "
                     selectorName="languages"
                     options={langs}
-                    dbOption={settingsData?.language}
                 />
 
                 <HorizontalLine />
 
                 <SubTitle name="Interface Themes" />
-                <ColourSets name="Customise your application theme" themeColor={settingsData?.intfaceC} />
+                <ColourSets name="Customise your application theme" />
 
                 <HorizontalLine />
 
                 <SubTitle name="Brand (Accent) Colours" />
-                <RadiosChoice choseRadio={settingsData?.choiceC} />
+                <RadiosChoice />
 
                 <HorizontalLine />
                 
                 <SubTitle name="Font Settings" />
-                <FontsFamilySizeWeight
-                    fontFamily={settingsData?.fFamily}
-                    fontSize={settingsData?.fSize}
-                    fontWeight={settingsData?.fWeight}
-                />
+                <FontsFamilySizeWeight />
             </PageExterior>
 
             {dialog && (
                 <DialogView question={
                     (/Save/.test(dialog) && "Ці згодзен Ты са зменамі?")
                     ||
-                    (/Deny/.test(dialog) && "Хочаш адмяніць змены?")
+                    (/Deny/.test(dialog) && "Хочаш адмовіць змены?")
                 }>
                     <AccessBtn
                         uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px" }}

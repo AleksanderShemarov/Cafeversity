@@ -4,4 +4,5 @@
     font-family: Consolas, monospace;
     padding-left: 10px;
     padding-right: 10px;
+    color: var(--text-color);
 }

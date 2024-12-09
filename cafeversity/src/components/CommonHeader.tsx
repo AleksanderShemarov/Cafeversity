@@ -87,6 +87,7 @@ export default function CommonHeader () {
                                 padding: "0 6%",
                                 margin: "0",
                                 marginBottom: "3vh",
+                                color: "var(--text-color)",
                             }}>Вы на сам рэч хаціце выйсці?</p>
                             <div style={{
                                 // border: "2px solid black",

@@ -41,6 +41,7 @@
     column-count: auto;
     line-height: 1.5;
     margin-bottom: 15px;
+    color: var(--text-color);
 }
 .textInput:focus {
     border: 3px #714efe solid;

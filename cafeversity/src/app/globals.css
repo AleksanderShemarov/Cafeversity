@@ -114,7 +114,19 @@ a {
   padding: 0;
 } */
 
+:root {
+  --background-color: rgb(252, 242, 223);
+  /* --background-color: rgb(73, 71, 66); */
+  --text-color: black;
+  /* --text-color: white; */
+}
+
+[data-theme='dark'] {
+  --background-color: rgb(73, 71, 66);
+  --text-color: white;
+}
+
 
 body {
-  background-color: rgb(252, 242, 223);
+  background-color: var(--background-color);
 }

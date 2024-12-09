@@ -29,6 +29,7 @@
     margin-bottom: 3vh;
     text-shadow: revert;
     text-decoration-style: solid;
+    color: var(--text-color);
 }
 #dialog_buttons {
     /* border: 2px solid black; */

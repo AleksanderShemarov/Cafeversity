@@ -13,4 +13,5 @@
     text-decoration: underline;
     margin-top: 0;
     font-weight: 700;
+    color: var(--text-color);
 }

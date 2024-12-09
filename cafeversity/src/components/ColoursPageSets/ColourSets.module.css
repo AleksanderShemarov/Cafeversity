@@ -4,6 +4,7 @@
     padding-top: 10px;
     padding-left: 10px;
     padding-right: 10px;
+    color: var(--text-color);
 }
 
 #colours_examples {
@@ -26,6 +27,7 @@
     font-weight: 500;
     margin: 0;
     margin-top: 10px;
+    color: var(--text-color);
 }
 
 .colourExample {

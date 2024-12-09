@@ -13,6 +13,7 @@
     font-size: 22px;
     font-weight: 400;
     padding-top: 10px;
+    color: var(--text-color);
 }
 
 .selectorBox {
