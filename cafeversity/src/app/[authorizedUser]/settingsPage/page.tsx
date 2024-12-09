@@ -17,6 +17,7 @@ import TastesCheckboxes, { ParagraphFor } from "@/components/TastesSettings/Mild
 import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/RangeOfCalories";
 import SubTitle from "@/components/OtherParts/SubTitle/SubTitle";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine/HorizontalLine";
+import useThemeSets from "@/hooks/themeSets";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -207,6 +208,13 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     console.dir(userData);
 
+    const [theme, setTheme] = useThemeSets();
+
+    function switchBetweenColourThemes(index: number) {
+        const newTheme = index === 0 ? 'light' : 'dark';
+        setTheme(newTheme);
+    }
+
     return (
         <>
             <StickyNavBar>
@@ -321,7 +329,11 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 <HorizontalLine />
 
                 <SubTitle name="Interface Themes" />
-                <ColourSets name="Customise your application theme" />
+                <ColourSets
+                    name="Customise your application theme"
+                    theme={theme}
+                    switcher={switchBetweenColourThemes}
+                />
 
                 <HorizontalLine />
 

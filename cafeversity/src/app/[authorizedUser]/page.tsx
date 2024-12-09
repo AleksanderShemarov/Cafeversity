@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "@/app/[authorizedUser]/authorized.module.css";
 import { use } from "react";
+import GetThemeSets from "@/hooks/GetThemeSets";
 
 
 type UserDataTypes = {
@@ -44,7 +45,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                 </div>
                 <p className={styles.userName}>{data.firstName}<br />{data.lastName}</p>
             </div>
-
+            <GetThemeSets />
             {/* <div className={styles.exit_cover}>
                 <div id={styles.exit_field}></div>
             </div> */}
