@@ -59,7 +59,7 @@ const ColourSets = ({ name, theme, switcher }: ColourSetsTypes) => {
                             <div className={`${coloursSetStyle.colourExample} ${style[0]}`}
                                 onClick={() => switcher(index)}
                                 style={{
-                                    outline: theme === (index === 0 ? 'light' : 'dark') ? "5px solid lime" : "none",
+                                    outline: theme === (index === 0 ? 'light' : 'dark') ? "5px solid var(--accent-color)" : "none",
                                     pointerEvents: theme === (index === 0 ? 'light' : 'dark') ? "none" : "auto",
                                 }}
                             >

@@ -7,9 +7,11 @@ const ThemeManager = () => {
     const [, setTheme] = useThemeSets();
 
     useEffect(() => {
-        const savedTheme = localStorage.getItem("theme");
-        if (savedTheme) {
-            setTheme(savedTheme);
+        if (typeof window !== 'undefined') {
+            const savedTheme = localStorage.getItem("theme");
+            if (savedTheme) {
+                setTheme(savedTheme);
+            }
         }
     }, [setTheme]);
 

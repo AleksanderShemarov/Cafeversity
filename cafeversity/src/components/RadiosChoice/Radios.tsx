@@ -1,6 +1,6 @@
 "use client";
 import radioStyle from "@/components/RadiosChoice/Radios.module.css";
-import { useState } from "react";
+import { useState, Dispatch, SetStateAction } from "react";
 
 
 const radioBtns: {id: string, value: string, classLine: string}[] = [
@@ -11,11 +11,17 @@ const radioBtns: {id: string, value: string, classLine: string}[] = [
     { id: "OrangePointer", value: "Orange", classLine: radioStyle.radioOrange },
 ];
 
+let startRadioBtns: boolean[] = [ true, false, false, false, false ];
 
-export default function RadiosChoice({ choseRadio }: { choseRadio?: string }) {
 
-    let startRadioBtns: boolean[] = [ true, false, false, false, false ];
+type RadiosChoiceTypes = {
+    choseRadio: string,
+    hookFunction: Dispatch<SetStateAction<string>>
+}
 
+
+export default function RadiosChoice({ choseRadio, hookFunction }: RadiosChoiceTypes) {   
+    
     if (choseRadio) {
         for (let i = 0; i < radioBtns.length; i++) {
             if (choseRadio === radioBtns[i].value) {
@@ -28,11 +34,12 @@ export default function RadiosChoice({ choseRadio }: { choseRadio?: string }) {
     }
 
     const [checkedRadioBtn, setCheckedRadioBtn] = useState<boolean[]>(startRadioBtns);
-
+    
     function switchingRadioBtns (index: number) {
         const newBools: boolean[] = Array(5).fill(false);
         newBools[index] = !checkedRadioBtn[index];
         setCheckedRadioBtn(newBools);
+        hookFunction(radioBtns[index].value);
     }
 
     return (

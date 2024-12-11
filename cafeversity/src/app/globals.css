@@ -119,6 +119,7 @@ a {
   /* --background-color: rgb(73, 71, 66); */
   --text-color: black;
   /* --text-color: white; */
+  --accent-color: lime;
 }
 
 [data-theme='dark'] {

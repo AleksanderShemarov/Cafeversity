@@ -18,6 +18,7 @@ import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/Range
 import SubTitle from "@/components/OtherParts/SubTitle/SubTitle";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine/HorizontalLine";
 import useThemeSets from "@/hooks/themeSets";
+import useAccentColourSet from "@/hooks/accentColourSet";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -208,12 +209,15 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     console.dir(userData);
 
+    // light/dark theme settings
     const [theme, setTheme] = useThemeSets();
-
     function switchBetweenColourThemes(index: number) {
         const newTheme = index === 0 ? 'light' : 'dark';
         setTheme(newTheme);
     }
+
+    // accent colour settings
+    const [accentColour, setAccentColour] = useAccentColourSet();
 
     return (
         <>
@@ -338,7 +342,10 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 <HorizontalLine />
 
                 <SubTitle name="Brand (Accent) Colours" />
-                <RadiosChoice />
+                <RadiosChoice
+                    choseRadio={accentColour}
+                    hookFunction={setAccentColour}
+                />
 
                 <HorizontalLine />
                 
