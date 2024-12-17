@@ -118,8 +118,12 @@ a {
   --background-color: rgb(252, 242, 223);
   /* --background-color: rgb(73, 71, 66); */
   --text-color: black;
+
   /* --text-color: white; */
   --accent-color: lime;
+
+  --font-family: Consolas, monospace;
+  --font-size: 20px;
 }
 
 [data-theme='dark'] {
@@ -130,4 +134,5 @@ a {
 
 body {
   background-color: var(--background-color);
+  color: var(--text-color);
 }

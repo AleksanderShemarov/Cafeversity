@@ -88,6 +88,7 @@
     background-color: rgb(255, 238, 140);
     border-top: 0.1em solid #d5d5d5;
     border-bottom: 0.1em solid #d5d5d5;
+    color: var(--background-color);
 }
 #downRange {
     padding-right: 0.75em;

@@ -14,15 +14,19 @@
     font-weight: 400;
     padding-top: 10px;
     color: var(--text-color);
+
+    font-family: var(--font-family);
 }
 
 .selectorBox {
     font-size: 22px;
     font-weight: 500;
     border-radius: 5px;
-    border: 2px solid black;
+    border: 2px solid var(--text-color);
     padding: 5px;
     position: relative;
+
+    font-family: var(--font-family);
 }
 
 .selectedOption {
@@ -61,7 +65,8 @@
 }
 
 .option {
-    background-color: white;
+    background-color: var(--background-color);
+    color: var(--text-color);
     display: flex;
     justify-content: center;
     align-items: center;

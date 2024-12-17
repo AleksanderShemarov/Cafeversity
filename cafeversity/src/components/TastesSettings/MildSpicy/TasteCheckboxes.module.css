@@ -95,6 +95,7 @@ I have repeated his code and have changed design for my checkboxes
     flex-wrap: wrap;
 }
 .questionPart {
+    font-family: var(--font-family);
     font-size: 1.375em;
     font-weight: 400;
     padding-top: 0;

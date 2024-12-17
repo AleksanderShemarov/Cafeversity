@@ -19,6 +19,7 @@ import SubTitle from "@/components/OtherParts/SubTitle/SubTitle";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine/HorizontalLine";
 import useThemeSets from "@/hooks/themeSets";
 import useAccentColourSet from "@/hooks/accentColourSet";
+import useFontFamilySet from "@/hooks/fontFamilySet";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -219,6 +220,10 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
     // accent colour settings
     const [accentColour, setAccentColour] = useAccentColourSet();
 
+    // font family settings
+    const [fontFamilyType, setFontFamilyType] = useFontFamilySet();
+    
+
     return (
         <>
             <StickyNavBar>
@@ -350,7 +355,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 <HorizontalLine />
                 
                 <SubTitle name="Font Settings" />
-                <FontsFamilySizeWeight />
+                <FontsFamilySizeWeight fontFamily={fontFamilyType} hookFunction={setFontFamilyType} />
             </PageExterior>
 
             {dialog && (

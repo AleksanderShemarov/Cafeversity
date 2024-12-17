@@ -1,15 +1,16 @@
 import ReactSelect, { CSSObjectWithLabel } from "react-select";
 import Select from "react-select";
 import FontsSetUpStyle from "@/components/FontsSettings/FontsSetUps.module.css";    
+import { Dispatch, SetStateAction } from "react";
 
 
 const FontsFamilies: {label: string, value: string}[] = [
     { label: "Arial", value: "Arial, sans-serif" },
+    { label: "Calibri", value: "Calibri, sans-serif" },
+    { label: "Consolas", value: "Consolas, monospace" },
     { label: "Helvetica", value: "Georgia, serif" },
     { label: "Times New Roman", value: "'Times New Roman', serif" },
-    { label: "Calibri", value: "Calibri, sans-serif" },
     { label: "Trebuchet MS", value: "'Trebuchet MS', sans-serif" },
-    { label: "Consolas", value: "Consolas, monospace" },
 ];
 
 const FontSizes: { label: string, value: string }[] = [
@@ -28,13 +29,14 @@ const FontWeights: { label: string, value: string }[] = [
 
 
 type FontsTypes = {
-    fontFamily?: string,
+    fontFamily: string,
+    hookFunction: Dispatch<SetStateAction<string>>,
     fontSize?: string,
     fontWeight?: string,
 }
 
 
-export default function FontsFamilySizeWeight({ fontFamily, fontSize, fontWeight }: FontsTypes) {
+export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSize, fontWeight }: FontsTypes) {
 
     let startFontFamily = { label: "Consolas", value: "Consolas, monospace" };
     let startFontSize = { label: "20px", value: "20px" };
@@ -71,11 +73,35 @@ export default function FontsFamilySizeWeight({ fontFamily, fontSize, fontWeight
             ...base,
             width: "max-content",
             minWidth: "15em",
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "auto",
             minWidth: "15em",
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
+        }),
+        singleValue: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
+        }),
+        dropdownIndicator: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
+            '&:hover': {
+                color: "gold",
+            },
+        }),
+        option: (base: CSSObjectWithLabel, state: { isFocused: boolean, isSelected: boolean }) => ({
+            ...base,
+            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "var(--background-color)",
+            color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
+        }),
+        input: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
         }),
     }
 
@@ -122,6 +148,8 @@ export default function FontsFamilySizeWeight({ fontFamily, fontSize, fontWeight
                         </div>
                     )}
                     defaultValue={startFontFamily}
+                    onChange={selectedOption => hookFunction(selectedOption?.value as string)}
+                    isSearchable={false}
                 />
             </div>
             <hr />

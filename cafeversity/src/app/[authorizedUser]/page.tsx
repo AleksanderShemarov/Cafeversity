@@ -3,6 +3,7 @@ import styles from "@/app/[authorizedUser]/authorized.module.css";
 import { use } from "react";
 import ThemeManager from "@/hooks/GetThemeSets";
 import AccentColourManager from "@/hooks/GetAccentColour";
+import GetFontFamily from "@/hooks/GetFontFamily";
 
 
 type UserDataTypes = {
@@ -48,6 +49,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             </div>
             <ThemeManager />
             <AccentColourManager />
+            <GetFontFamily />
             {/* <div className={styles.exit_cover}>
                 <div id={styles.exit_field}></div>
             </div> */}

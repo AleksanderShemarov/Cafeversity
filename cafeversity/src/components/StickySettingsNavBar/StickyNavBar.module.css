@@ -8,19 +8,19 @@
     box-shadow: grey 0 10px 7px -5px;
 }
 #sticky_navbar_name {
-    font-family: Consolas, monospace;
+    font-family: var(--font-family);
     font-size: 2em;
     margin-top: 0;
     padding-top: 30px;
     color: var(--text-color);
 }
 #sticky_navbar hr {
-    background-color: black;
+    background-color: var(--text-color);
     height: 0.1875em;
 }
 #sticky_navbar_links {
     /* border: 3px solid black; */
     display: flex;
-    font-family: Consolas, monospace;
+    font-family: var(--font-family);
     font-size: 1.5em;
 }

@@ -5,6 +5,8 @@
     padding-left: 10px;
     padding-right: 10px;
     color: var(--text-color);
+
+    font-family: var(--font-family);
 }
 
 #colours_examples {
@@ -28,6 +30,8 @@
     margin: 0;
     margin-top: 10px;
     color: var(--text-color);
+
+    font-family: var(--font-family);
 }
 
 .colourExample {
