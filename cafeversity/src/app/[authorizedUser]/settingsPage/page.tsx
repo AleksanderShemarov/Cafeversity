@@ -210,19 +210,28 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     console.dir(userData);
 
+
     // light/dark theme settings
     const [theme, setTheme] = useThemeSets();
     function switchBetweenColourThemes(index: number) {
         const newTheme = index === 0 ? 'light' : 'dark';
         setTheme(newTheme);
     }
+    /*
+    Clicking on "Refresh" button in a browser makes the changing between
+    light/dark page's mode broken because of desynchronization between
+    Server and Client parts. useEffect solves that problem.
+    */
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
 
     // accent colour settings
     const [accentColour, setAccentColour] = useAccentColourSet();
 
+    
     // font family settings
     const [fontFamilyType, setFontFamilyType] = useFontFamilySet();
-    
 
     return (
         <>
@@ -337,12 +346,14 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
                 <HorizontalLine />
 
+                {mounted && <>
                 <SubTitle name="Interface Themes" />
                 <ColourSets
                     name="Customise your application theme"
                     theme={theme}
                     switcher={switchBetweenColourThemes}
                 />
+                </>}
 
                 <HorizontalLine />
 

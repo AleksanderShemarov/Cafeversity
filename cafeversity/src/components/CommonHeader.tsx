@@ -9,6 +9,7 @@ import Entrance from "./Entrance";
 import { Clock2, Clock3 } from "@/components/Clock";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import DialogView from "./Dialog/DialogView";
 
 
 // { params }: { params: { authorizedUser: string } }
@@ -77,35 +78,20 @@ export default function CommonHeader () {
                     />
                 </div>
                 {(isAuthorized && exitView) && (
-                    <div className={styles.exit_cover}>
-                        <div id={styles.exit_field}>
-                            <p style={{
-                                // border: "2px solid black",
-                                textAlign: "center",
-                                fontSize: "25px",
-                                fontWeight: "600",
-                                padding: "0 6%",
-                                margin: "0",
-                                marginBottom: "3vh",
-                                color: "var(--text-color)",
-                            }}>Вы на сам рэч хаціце выйсці?</p>
-                            <div style={{
-                                // border: "2px solid black",
-                                marginTop: "3vh",
-                                display: "flex",
-                                width: "80%",
-                                justifyContent: "space-between",
-                            }}>
-                                <Link href="/ExitProcess" style={{ width: "25%" }}>
-                                    <input type="button" value="Так" id={styles.accessButton} />
-                                </Link>
-                                <input type="button" value="Не" id={styles.denyButton} onClick={() => {
-                                    isExitView(!exitView);
-                                    document.body.style.overflow = "auto";
-                                }} />
-                            </div>
-                        </div>
-                    </div>
+                    <DialogView
+                        question="Вы на сам рэч хаціце выйсці?"
+                        dialog_cover={{ backgroundColor: "rgba(222, 184, 135, 0.8)" }}
+                        dialog_container={{ border: "5px solid orange" }}
+                        dialog_question={{ textShadow: "none" }}
+                    >
+                        <Link href="/ExitProcess" style={{ width: "25%" }}>
+                            <input type="button" value="Так" id={styles.accessButton} />
+                        </Link>
+                        <input type="button" value="Не" id={styles.denyButton} onClick={() => {
+                            isExitView(!exitView);
+                            document.body.style.overflow = "auto";
+                        }} />
+                    </DialogView>
                 )}
             </div>
         </>
