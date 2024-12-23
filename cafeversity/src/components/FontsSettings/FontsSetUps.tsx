@@ -18,7 +18,7 @@ const FontSizes: { label: string, value: string }[] = [
     { label: "14px", value: "14px" }, { label: "16px", value: "16px" }, { label: "18px", value: "18px" },
 ];
 
-const FontWeights: { label: string, value: string }[] = [
+const FontVolumes: { label: string, value: string }[] = [
     { label: "Bold", value: "bold" },
     { label: "Normal", value: "normal" },
     { label: "Italic", value: "italic" },
@@ -30,11 +30,13 @@ type FontsTypes = {
     hookFamily: Dispatch<SetStateAction<string>>,
     fontSize: string,
     hookSize: Dispatch<SetStateAction<string>>,
-    fontWeight?: string,
+    // fontWeight?: string,
+    fontVolume: { fontWeight: string, fontStyle: string },
+    hookVolume: Dispatch<SetStateAction<{ fontWeight: string, fontStyle: string }>>,
 }
 
 
-export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize, hookSize, fontWeight }: FontsTypes) {
+export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize, hookSize, fontVolume, hookVolume }: FontsTypes) {
 
     let startFontFamily = { label: "Consolas", value: "Consolas, monospace" };
     let startFontSize = { label: "10px", value: "10px" };
@@ -56,10 +58,14 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize
             }
         }
     }
-    if (fontWeight) {
-        for (let y = 0; y < FontWeights.length; y++) {
-            if (fontWeight === FontWeights[y].value) {
-                startFontWeight = FontWeights[y];
+    if (fontVolume) {
+        let volumeType = ""
+        if (fontVolume.fontWeight !== "normal" && fontVolume.fontStyle === "normal") volumeType = "bold"
+        else if (fontVolume.fontWeight === "normal" && fontVolume.fontStyle !== "normal") volumeType = "italic"
+        else volumeType = "normal"
+        for (let y = 0; y < FontVolumes.length; y++) {
+            if (volumeType === FontVolumes[y].value) {
+                startFontWeight = FontVolumes[y];
                 break;
             }
         }
@@ -224,11 +230,20 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize
             <hr />
             <div className={FontsSetUpStyle.fontsSetUpBlocks}>
                 <p id={FontsSetUpStyle.describe_name}>Choose a Font Weight</p>
-                <ReactSelect options={FontWeights}
+                <ReactSelect options={FontVolumes}
                     instanceId="custom-select"
                     menuPlacement="auto"
                     styles={weightSelectOptionWidth}
                     defaultValue={startFontWeight}
+                    onChange={selectedOption => {
+                        if (selectedOption?.value === "bold") {
+                            hookVolume({ fontWeight: selectedOption?.value, fontStyle: "normal" });
+                        } else if (selectedOption?.value === "italic") {
+                            hookVolume({ fontWeight: "normal", fontStyle: selectedOption?.value });
+                        } else {
+                            hookVolume({ fontWeight: "normal", fontStyle: "normal" });
+                        }
+                    }}
                 />
             </div>
         </>

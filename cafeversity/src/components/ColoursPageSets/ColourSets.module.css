@@ -8,6 +8,8 @@
     color: var(--text-color);
 
     font-family: var(--font-family);
+
+    font-style: var(--font-volume-style);
 }
 
 #colours_examples {
@@ -29,12 +31,15 @@
 .colourExampleName {
     /* font-size: 1.25em; /* 20px */
     font-size: 2rem;
-    font-weight: 500;
+    /* font-weight: 500; */
     margin: 0;
     margin-top: 10px;
     color: var(--text-color);
 
     font-family: var(--font-family);
+
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
 }
 
 .colourExample {

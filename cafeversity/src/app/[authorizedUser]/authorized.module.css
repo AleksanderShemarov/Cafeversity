@@ -30,6 +30,9 @@
     padding: 25px 100px 25px 25px;
 
     font-family: var(--font-family);
+    
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
 }
 
 /* .exit_cover {

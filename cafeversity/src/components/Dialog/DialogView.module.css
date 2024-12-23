@@ -31,6 +31,9 @@
     text-shadow: revert;
     text-decoration-style: solid;
     color: var(--text-color);
+
+    font-family: var(--font-family);
+    font-style: var(--font-volume-style);
 }
 #dialog_buttons {
     /* border: 2px solid black; */

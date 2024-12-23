@@ -8,6 +8,9 @@
     box-shadow: grey 0 10px 7px -5px;
 }
 #sticky_navbar_name {
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
+
     font-family: var(--font-family);
     /* font-size: 2em; /* 32px */
     font-size: 3.2em;

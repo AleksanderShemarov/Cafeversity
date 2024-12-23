@@ -21,6 +21,7 @@ import useThemeSets from "@/hooks/themeSets";
 import useAccentColourSet from "@/hooks/accentColourSet";
 import useFontFamilySet from "@/hooks/fontFamilySet";
 import useFontSizeSet from "@/hooks/fontSizeSet";
+import useFontVolumeSet from "@/hooks/fontVolume";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -240,6 +241,10 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
     const [fontsize, setFontSize] = useFontSizeSet();
 
 
+    // font volume (weight and style) settings
+    const [fontvolume, setFontVolume] = useFontVolumeSet();
+
+
     return (
         <>
             <StickyNavBar>
@@ -378,6 +383,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     <FontsFamilySizeWeight
                         fontFamily={fontFamilyType} hookFamily={setFontFamilyType}
                         fontSize={fontsize} hookSize={setFontSize}
+                        fontVolume={fontvolume} hookVolume={setFontVolume}
                     />
                 </>}
             </PageExterior>

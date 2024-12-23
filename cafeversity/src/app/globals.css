@@ -122,9 +122,12 @@ a {
   --accent-color: lime;
 
   --font-family: Consolas, monospace;
-  --font-size: 20px;
+  /* --font-size: 20px; */
 
   --common-font-size: 10px;
+
+  --font-volume-weight: normal;
+  --font-volume-style: normal;
 }
 
 [data-theme='dark'] {

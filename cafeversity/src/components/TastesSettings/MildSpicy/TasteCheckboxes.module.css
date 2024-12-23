@@ -110,4 +110,6 @@ I have repeated his code and have changed design for my checkboxes
     padding-right: 10px;
     padding-left: 10px;
     color: var(--text-color);
+
+    font-style: var(--font-volume-style);
 }

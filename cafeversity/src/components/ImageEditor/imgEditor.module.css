@@ -36,6 +36,9 @@
     /* text-indent: 2em; /* 32px */
     text-indent: 3.2rem;
     color: var(--text-color);
+
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
 }
 
 .photo_workplace {

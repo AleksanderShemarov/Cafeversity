@@ -15,4 +15,6 @@
     color: var(--text-color);
 
     font-family: var(--font-family);
+
+    font-style: var(--font-volume-style);
 }

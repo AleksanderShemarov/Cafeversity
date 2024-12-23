@@ -82,7 +82,10 @@ export default function CommonHeader () {
                         question="Вы на сам рэч хаціце выйсці?"
                         dialog_cover={{ backgroundColor: "rgba(222, 184, 135, 0.8)" }}
                         dialog_container={{ border: "5px solid orange" }}
-                        dialog_question={{ textShadow: "none" }}
+                        dialog_question={{
+                            textShadow: "none", fontFamily: "var(--font-family)",
+                            fontWeight: "var(--font-volume-weight)", fontStyle: "var(--font-volume-style)",
+                        }}
                     >
                         <Link href="/ExitProcess" style={{ width: "25%" }}>
                             <input type="button" value="Так" id={styles.accessButton} />
