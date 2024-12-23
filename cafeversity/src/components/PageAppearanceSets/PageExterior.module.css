@@ -1,7 +1,8 @@
 .appearanceBox {
     /* height: 60vh; */
     border-radius: 1%/2%;
-    padding: 1em;
+    /* padding: 1em; /* 16px */
+    padding: 1.6rem;
     scroll-margin-top: 205px;
 }
 
@@ -10,7 +11,8 @@
     padding-left: 10px;
     padding-right: 10px;
     width: max-content;
-    font-size: 2em;
+    /* font-size: 2em; /* 32px */
+    font-size: 3.2rem;
     text-decoration: underline;
     margin-top: 0;
     font-weight: 700;

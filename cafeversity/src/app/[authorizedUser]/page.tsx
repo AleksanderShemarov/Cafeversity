@@ -4,6 +4,7 @@ import { use } from "react";
 import ThemeManager from "@/hooks/GetThemeSets";
 import AccentColourManager from "@/hooks/GetAccentColour";
 import GetFontFamily from "@/hooks/GetFontFamily";
+import GetFontSize from "@/hooks/GetFontSize";
 
 
 type UserDataTypes = {
@@ -50,6 +51,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             <ThemeManager />
             <AccentColourManager />
             <GetFontFamily />
+            <GetFontSize />
             {/* <div className={styles.exit_cover}>
                 <div id={styles.exit_field}></div>
             </div> */}

@@ -1,5 +1,6 @@
 #describe_name {
-    font-size: 1.375em; /* equivalent of 22px  */
+    /* font-size: 1.375em; */ /* equivalent of 22px  */
+    font-size: 2.2rem;
     font-weight: 400;
     padding-top: 10px;
     padding-left: 10px;
@@ -18,14 +19,16 @@
 
 .colourExampleBlock {
     height: 36svh;
-    width: 27em; /* When a parent container is thinner than this block,
-    this block will be taper as a parent container */
+    /* width: 27em; */ /* When a parent container is thinner than this block,
+    this block will be taper as a parent container */ /* 432px */
+    width: 43.2rem;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
 }
 .colourExampleName {
-    font-size: 1.25em;
+    /* font-size: 1.25em; /* 20px */
+    font-size: 2rem;
     font-weight: 500;
     margin: 0;
     margin-top: 10px;
@@ -60,7 +63,8 @@
     align-content in '.colourExample' */
     /* margin-top: 1svh;
     margin-bottom: 1svh; */
-    border-radius: 0.6250em;
+    /* border-radius: 0.6250em; /* 10px */
+    border-radius: 1rem;
 }
 .firstlineDiv1 {
     margin-left: 2%;

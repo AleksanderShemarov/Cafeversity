@@ -16,35 +16,33 @@ const FontsFamilies: {label: string, value: string}[] = [
 const FontSizes: { label: string, value: string }[] = [
     { label: "8px", value: "8px" }, { label: "10px", value: "10px" }, { label: "12px", value: "12px" },
     { label: "14px", value: "14px" }, { label: "16px", value: "16px" }, { label: "18px", value: "18px" },
-    { label: "20px", value: "20px" }, { label: "22px", value: "22px" }, { label: "26px", value: "26px" },
-    { label: "28px", value: "28px" }, { label: "36px", value: "36px" }, { label: "40px", value: "40px" },
-    { label: "48px", value: "48px" }, { label: "52px", value: "52px" }, { label: "56px", value: "56px" },
 ];
 
 const FontWeights: { label: string, value: string }[] = [
     { label: "Bold", value: "bold" },
     { label: "Normal", value: "normal" },
-    { label: "Italic", value: "italuic" },
+    { label: "Italic", value: "italic" },
 ];
 
 
 type FontsTypes = {
     fontFamily: string,
-    hookFunction: Dispatch<SetStateAction<string>>,
-    fontSize?: string,
+    hookFamily: Dispatch<SetStateAction<string>>,
+    fontSize: string,
+    hookSize: Dispatch<SetStateAction<string>>,
     fontWeight?: string,
 }
 
 
-export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSize, fontWeight }: FontsTypes) {
+export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize, hookSize, fontWeight }: FontsTypes) {
 
     let startFontFamily = { label: "Consolas", value: "Consolas, monospace" };
-    let startFontSize = { label: "20px", value: "20px" };
+    let startFontSize = { label: "10px", value: "10px" };
     let startFontWeight = { label: "Normal", value: "normal" };
 
     if (fontFamily) {
         for (let i = 0; i < FontsFamilies.length; i++) {
-            if (fontFamily === FontsFamilies[i].label) {
+            if (fontFamily === FontsFamilies[i].value) {
                 startFontFamily = FontsFamilies[i];
                 break;
             }
@@ -52,7 +50,7 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSi
     }
     if (fontSize) {
         for (let j = 0; j < FontSizes.length; j++) {
-            if (fontSize === FontSizes[j].label) {
+            if (fontSize === FontSizes[j].value) {
                 startFontSize = FontSizes[j];
                 break;
             }
@@ -60,7 +58,7 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSi
     }
     if (fontWeight) {
         for (let y = 0; y < FontWeights.length; y++) {
-            if (fontWeight === FontWeights[y].label) {
+            if (fontWeight === FontWeights[y].value) {
                 startFontWeight = FontWeights[y];
                 break;
             }
@@ -72,14 +70,18 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSi
         menu: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "max-content",
-            minWidth: "15em",
+            // minWidth: "15em", // 1em = 16px
+            minWidth: "24rem", // 1rem = 10px in global.css file
+            fontSize: "1.6rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "auto",
-            minWidth: "15em",
+            // minWidth: "15em",
+            minWidth: "24rem",
+            fontSize: "1.8rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
         }),
@@ -109,12 +111,40 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSi
         menu: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "max-content",
-            minWidth: "5em",
+            // minWidth: "5em",
+            minWidth: "8rem",
+            fontSize: "1.6rem",
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "auto",
-            minWidth: "5em",
+            // minWidth: "5em",
+            minWidth: "8rem",
+            fontSize: "1.8rem",
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
+        }),
+        singleValue: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
+        }),
+        dropdownIndicator: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
+            '&:hover': {
+                color: "gold",
+            },
+        }),
+        option: (base: CSSObjectWithLabel, state: { isFocused: boolean, isSelected: boolean }) => ({
+            ...base,
+            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "var(--background-color)",
+            color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
+        }),
+        input: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
         }),
     }
 
@@ -122,12 +152,40 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSi
         menu: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "max-content",
-            minWidth: "7.5em",
+            // minWidth: "7.5em",
+            minWidth: "12rem",
+            fontSize: "1.6rem",
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "auto",
-            minWidth: "7.5em",
+            // minWidth: "7.5em",
+            minWidth: "12rem",
+            fontSize: "1.8rem",
+            backgroundColor: "var(--background-color)",
+            color: "var(--text-color)",
+        }),
+        singleValue: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
+        }),
+        dropdownIndicator: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
+            '&:hover': {
+                color: "gold",
+            },
+        }),
+        option: (base: CSSObjectWithLabel, state: { isFocused: boolean, isSelected: boolean }) => ({
+            ...base,
+            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "var(--background-color)",
+            color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
+        }),
+        input: (base: CSSObjectWithLabel) => ({
+            ...base,
+            color: "var(--text-color)",
         }),
     }
 
@@ -148,7 +206,7 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSi
                         </div>
                     )}
                     defaultValue={startFontFamily}
-                    onChange={selectedOption => hookFunction(selectedOption?.value as string)}
+                    onChange={selectedOption => hookFamily(selectedOption?.value as string)}
                     isSearchable={false}
                 />
             </div>
@@ -160,6 +218,7 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFunction, fontSi
                     menuPlacement="auto"
                     styles={sizeSelectOptionWidth}
                     defaultValue={startFontSize}
+                    onChange={selectedOption => hookSize(selectedOption?.value as string)}
                 />
             </div>
             <hr />

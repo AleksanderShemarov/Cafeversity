@@ -48,8 +48,10 @@ I have repeated his code and have changed design for my checkboxes
 */
 .box {
     /* border: 1px solid black; */
-    height: 3em;
-    width: 6em;
+    /* height: 3em; /* 48px */
+    /* width: 6em; /* 96px */
+    height: 4.8rem;
+    width: 9.6rem;
     display: inline-block;
     position: relative;
 }
@@ -65,16 +67,20 @@ I have repeated his code and have changed design for my checkboxes
     top: 0;
     left: 0;
     right: 0;
-    border-radius: 3em;
+    /* border-radius: 3em; /* 48px */
+    border-radius: 4.8rem;
     transition: .7s;
 }
 .runner::before {
     position: absolute;
     background-color: wheat;
-    left: 0.5em;
+    /* left: 0.5em; /* 8px */
+    left: 0.8rem;
     bottom: 8px;
-    height: 2em;
-    width: 2em;
+    /* height: 2em; /* 32px */
+    /* width: 2em; /* 32px */
+    height: 3.2rem;
+    width: 3.2rem;
     content: "";
     border-radius: 50%;
     transition: .7s;
@@ -84,7 +90,8 @@ I have repeated his code and have changed design for my checkboxes
     background-color: lime;
 }
 .box input:checked + .runner::before {
-    transform: translateX(3em);
+    /* transform: translateX(3em); /* 48px */
+    transform: translateX(4.8rem);
 }
 
 
@@ -96,7 +103,8 @@ I have repeated his code and have changed design for my checkboxes
 }
 .questionPart {
     font-family: var(--font-family);
-    font-size: 1.375em;
+    /* font-size: 1.375em; /* 22px */
+    font-size: 2.2rem;
     font-weight: 400;
     padding-top: 0;
     padding-right: 10px;

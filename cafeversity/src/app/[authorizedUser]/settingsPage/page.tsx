@@ -20,6 +20,7 @@ import HorizontalLine from "@/components/OtherParts/HorizontalLine/HorizontalLin
 import useThemeSets from "@/hooks/themeSets";
 import useAccentColourSet from "@/hooks/accentColourSet";
 import useFontFamilySet from "@/hooks/fontFamilySet";
+import useFontSizeSet from "@/hooks/fontSizeSet";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -219,7 +220,8 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
     }
     /*
     Clicking on "Refresh" button in a browser makes the changing between
-    light/dark page's mode broken because of desynchronization between
+    different page's modes (page's theme; font's family, size or weight) 
+    broken using localStorage because of desynchronization between
     Server and Client parts. useEffect solves that problem.
     */
     const [mounted, setMounted] = useState(false);
@@ -232,6 +234,11 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
     
     // font family settings
     const [fontFamilyType, setFontFamilyType] = useFontFamilySet();
+
+
+    // font size settings
+    const [fontsize, setFontSize] = useFontSizeSet();
+
 
     return (
         <>
@@ -346,13 +353,14 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
                 <HorizontalLine />
 
-                {mounted && <>
-                <SubTitle name="Interface Themes" />
-                <ColourSets
-                    name="Customise your application theme"
-                    theme={theme}
-                    switcher={switchBetweenColourThemes}
-                />
+                {mounted &&
+                <>
+                    <SubTitle name="Interface Themes" />
+                    <ColourSets
+                        name="Customise your application theme"
+                        theme={theme}
+                        switcher={switchBetweenColourThemes}
+                    />
                 </>}
 
                 <HorizontalLine />
@@ -365,8 +373,13 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
                 <HorizontalLine />
                 
-                <SubTitle name="Font Settings" />
-                <FontsFamilySizeWeight fontFamily={fontFamilyType} hookFunction={setFontFamilyType} />
+                {mounted && <>
+                    <SubTitle name="Font Settings" />
+                    <FontsFamilySizeWeight
+                        fontFamily={fontFamilyType} hookFamily={setFontFamilyType}
+                        fontSize={fontsize} hookSize={setFontSize}
+                    />
+                </>}
             </PageExterior>
 
             {dialog && (

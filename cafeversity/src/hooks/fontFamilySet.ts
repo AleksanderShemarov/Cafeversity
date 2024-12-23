@@ -5,8 +5,8 @@ const useFontFamilySet = (): [string, Dispatch<SetStateAction<string>>] => {
 
     const [fontFamily, setFontFamily] = useState(() => {
         if (typeof window !== 'undefined') {
-            const setFontFamily = localStorage.getItem("font_family");
-            return setFontFamily ? setFontFamily : "Consolas, monospace";
+            const setFamily = localStorage.getItem("font_family");
+            return setFamily ? setFamily : "Consolas, monospace";
         }
         return "Consolas, monospace";
     });
@@ -14,7 +14,7 @@ const useFontFamilySet = (): [string, Dispatch<SetStateAction<string>>] => {
     useEffect(() => {
         if (typeof window !== 'undefined') {
             document.documentElement.style.setProperty("--font-family", fontFamily);
-            localStorage.setItem("font-family", fontFamily);
+            localStorage.setItem("font_family", fontFamily);
         }
     }, [fontFamily]);
 

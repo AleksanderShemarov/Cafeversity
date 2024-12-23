@@ -119,11 +119,12 @@ a {
   /* --background-color: rgb(73, 71, 66); */
   --text-color: black;
 
-  /* --text-color: white; */
   --accent-color: lime;
 
   --font-family: Consolas, monospace;
   --font-size: 20px;
+
+  --common-font-size: 10px;
 }
 
 [data-theme='dark'] {
@@ -131,6 +132,11 @@ a {
   --text-color: white;
 }
 
+html {
+  /* font-size: 16px;   Default value from browsers (old type with em values) */
+
+  font-size: var(--common-font-size);   /* Set value for application (new type with rem values) */
+}
 
 body {
   background-color: var(--background-color);

@@ -3,7 +3,7 @@
 import { useEffect } from "react";
 import useFontFamilySet from "./fontFamilySet";
 
-const AccentColourManager = () => {
+const GetFontFamily = () => {
     const [, setFontFamily] = useFontFamilySet();
 
     useEffect(() => {
@@ -18,4 +18,4 @@ const AccentColourManager = () => {
     return null;
 };
 
-export default AccentColourManager;
+export default GetFontFamily;
