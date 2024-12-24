@@ -58,4 +58,22 @@ model Users {
   sessionId           String?   @unique
   resetToken          String?   @unique
   resetTokenExpiry    DateTime?
+  customSets          CustomSets?
+}
+
+model CustomSets {
+  id                  Int       @id @default(autoincrement())
+  spicy               Boolean   @default(false)
+  vegetarian          Boolean   @default(false)
+  vegan               Boolean   @default(false)
+  minCalory           Int       @default(1800)
+  maxCalory           Int       @default(2500)
+  language            String    @default("Беларуская")
+  pageTheme           String    @default("light")
+  brandColor          String    @default("lime")
+  fontFamily          String    @default("Consolas, monospace")
+  fontSize            String    @default("10px")
+  fontVolume          String    @default("fontWeight: normal, fontStyle: italic")
+  userId              Int       @unique
+  user                Users     @relation(fields: [userId], references: [id])
 }
