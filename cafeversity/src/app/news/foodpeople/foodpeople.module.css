@@ -3,9 +3,6 @@
     border: 1px solid black;
 }
 
-/* #searchline {
-    border: 1px solid black;
-} */
 
 #searchline_box {
     height: 75px;
@@ -54,10 +51,6 @@
 }
 
 
-
-/* #article_bar_zone {
-    border: 1px solid black;
-} */
 
 .article_bar_body {
     max-width: 60vw;

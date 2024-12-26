@@ -20,14 +20,12 @@ export default function SearchLine({ searchingHandler }: SearchLineHandler) {
 
     return (
         <>
-        {/* <div id={styles.searchline}> */}
             <div id={styles.searchline_box}>
                 <input
                     id={styles.searchline_zone}
                     title="Увядзі свой запыт!"//"Type your query here!"
                     type="text"
                     value={line}
-                    // onChange={(e) => valueChanging(e, setLine)}
                     onChange={(e) => {
                         searchingHandler(e);
                         valueChanging(e, setLine);
@@ -38,7 +36,6 @@ export default function SearchLine({ searchingHandler }: SearchLineHandler) {
             <div className={styles.temporary_answer}>
                 <p className={styles.temporary_answer_line}>{line}</p>
             </div>
-        {/* </div> */}
         </>
     )
 }

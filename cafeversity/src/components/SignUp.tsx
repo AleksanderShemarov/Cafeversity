@@ -126,7 +126,6 @@ export default function SignUp() {
                 />
 
                 <div className={styles.formButtons}>
-                    {/* <Link href="/TemporaryPage"><input type="button" value="Рэгістрацыя" id={styles.submitButton} /></Link> */}
                     <button
                         id={styles.submitButton}
                         type="submit"

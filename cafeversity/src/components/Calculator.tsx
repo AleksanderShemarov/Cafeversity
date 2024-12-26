@@ -22,12 +22,6 @@ export default function Calculator({ params }: CalculatorProps) {
         cost: number,
     };
 
-    // const [data, setData] = useState<ChoiceFood[]|[]>([
-    //     {id: 1, food_name: "Калдуны", food_portion: 1, cost: 3.15},
-    //     {id: 2, food_name: "Мачанка", food_portion: 2, cost: 8.56},
-    //     {id: 3, food_name: "Крупнік", food_portion: 1, cost: 2.35},
-    // ]);
-
     const [data, setData] = useState<ChoiceFood[]|[]>([]);
 
     const adding = useCallback((dish: [number, string, number, number]) => {

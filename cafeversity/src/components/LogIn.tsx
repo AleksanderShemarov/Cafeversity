@@ -84,15 +84,6 @@ export default function LogIn() {
                     value={password}
                     onChange={(e) => valueChange(e, setPassword)}
                 />
-                
-                {/* <label>Імя</label>
-                <input type="text" name="firstName" id={styles.firstname} placeholder="Тадэўш"/>
-
-                <label>Прозвішча</label>
-                <input type="text" name="lastName" id={styles.lastname} placeholder="Касцюшка" />
-
-                <label>Пароля</label>
-                <input type="password" name="password" id={styles.password} placeholder="Кодавае Слова"/> */}
 
                 <div className={styles.formButtons}>
                     <button
