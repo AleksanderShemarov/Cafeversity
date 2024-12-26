@@ -1,20 +1,29 @@
 "use client";
 
-import { BottomButtonsContext } from "@/components/BottomMenu/BottomMenu";
-import BottomMenu from "@/components/BottomMenu/BottomMenu";
 import ImageEditor from "@/components/ImageEditor/ImageEditor";
 import { useState, useReducer, useEffect, useRef } from "react";
 import setStyles from "./settings.module.css";
 import TextFormField from "@/components/FormFields/TextFormField";
+import StickyNavBar from "@/components/StickySettingsNavBar/StickyNavBar";
+import DialogView from "@/components/Dialog/DialogView";
+import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
+import PageExterior from "@/components/PageAppearanceSets/PageExterior";
+import CustomSelect from "@/components/OptionsChoice/CustomSelect";
+import ColourSets from "@/components/ColoursPageSets/ColourSets";
+import RadiosChoice from "@/components/RadiosChoice/Radios";
+import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
+import TastesNBodyConstition from "@/components/TastesSettings/Tastes&BodyConst";
+import TastesCheckboxes, { ParagraphFor } from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
+import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/RangeOfCalories";
+import SubTitle from "@/components/OtherParts/SubTitle/SubTitle";
+import HorizontalLine from "@/components/OtherParts/HorizontalLine/HorizontalLine";
+import useThemeSets from "@/hooks/themeSets";
+import useAccentColourSet from "@/hooks/accentColourSet";
+import useFontFamilySet from "@/hooks/fontFamilySet";
+import useFontSizeSet from "@/hooks/fontSizeSet";
+import useFontVolumeSet from "@/hooks/fontVolume";
+// import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
-
-type bottomBtns = {
-    name: string,
-    icon: string,
-    icon_alt: string,
-    topMargin?: number,
-    path?: string,
-}
 
 type userDataTypes = {
     firstName: string,
@@ -72,16 +81,24 @@ function reducer(state: State, action: Action): State {
 }
 
 
+const langs: [string, string, string][] = [
+    [ "Belarusian", "Беларуская", "/countries/Belarus_borders.jpg" ],
+    [ "English", "English", "/countries/UK_borders.jpg" ],
+    [ "Czech", "Čeština", "/countries/CzechRepublic_borders.jpg" ],
+    [ "Polish", "Polski", "/countries/Poland_borders.jpg" ],
+    [ "Ukranian", "Українська", "/countries/Ukraine_borders.jpg" ],
+    [ "Lithuanian", "Lietuvių", "/countries/Lithuania_borders.jpg" ],
+    [ "Italian", "Italiano", "/countries/Italy_borders.jpeg" ],
+    [ "French", "Français", "/countries/France_borders.jpg" ],
+    [ "Turkish", "Türkçe", "/countries/Turkey_borders.jpg" ],
+    [ "Japanese", "日本語", "/countries/Japan_borders.jpg" ],
+    // ["Russian", "Русский", "/countries/russia_border.jpg"],
+];
+
+
 export default function SettingsPage({ params }: { params: { authorizedUser: string } }) {
 
     const { authorizedUser } = params;
-
-    const BottomBtns: bottomBtns[] = [
-        { name: "Меню", icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", topMargin: 50, },
-        { name: "Агульная", icon: "/account_icon.png", icon_alt: "Account_Icon",
-            path: `/${authorizedUser}` },
-        { name: "Навіны", icon: "/earth_planet.webp", icon_alt: "Earth_Icon", topMargin: 50, },
-    ];
 
     const parts: string[] = ["Common Settings", "Tasties & Body Constitution", "Page Appearance"];
     const [checking, setChecking] = useState<boolean[]>([true, false, false]);
@@ -195,46 +212,65 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     console.dir(userData);
 
+
+    // light/dark theme settings
+    const [theme, setTheme] = useThemeSets();
+    function switchBetweenColourThemes(index: number) {
+        const newTheme = index === 0 ? 'light' : 'dark';
+        setTheme(newTheme);
+    }
+    /*
+    Clicking on "Refresh" button in a browser makes the changing between
+    different page's modes (page's theme; font's family, size or weight) 
+    broken using localStorage because of desynchronization between
+    Server and Client parts. useEffect solves that problem.
+    */
+    const [mounted, setMounted] = useState(false);
+    useEffect(() => setMounted(true), []);
+
+
+    // accent colour settings
+    const [accentColour, setAccentColour] = useAccentColourSet();
+
+    
+    // font family settings
+    const [fontFamilyType, setFontFamilyType] = useFontFamilySet();
+
+
+    // font size settings
+    const [fontsize, setFontSize] = useFontSizeSet();
+
+
+    // font volume (weight and style) settings
+    const [fontvolume, setFontVolume] = useFontVolumeSet();
+
+
     return (
         <>
-            <div style={{
-                display: "block",
-                position: "sticky",
-                top: "0px",
-                zIndex: "9",
-                backgroundColor: "rgb(252, 242, 223)",
-                scrollMarginTop: "30px",
-            }}>
-                <p style={{
-                    fontFamily: "Consolas, monospace",
-                    fontSize: "28px",
-                    marginTop: 0,
-                    paddingTop: "30px",
-                }}>
-                    Account Settings
-                </p>
-                <hr style={{ backgroundColor: "black", height: "3px" }} />
-                <div style={{
-                    // border: "3px solid black",
-                    display: "flex",
-                    fontFamily: "Consolas, monospace",
-                    fontSize: "20px",
-                }}>
-                    {parts.map((part, index) =>
-                        <p
-                            key={index}
-                            onClick={() => switching(index)}
-                            className={setStyles.bar_link}
-                            style={{
-                                color: checking[index] ? "#714efe" : "black",
-                                borderBottom: checking[index] ? "3px solid #714efe" : "none",
-                            }}
+            <StickyNavBar>
+                {parts.map((part, index) =>
+                    <p
+                        key={index}
+                        onClick={(event) => {
+                            event.preventDefault();
+                            document.querySelector(`${settingsLinks}${index}`)?.scrollIntoView({ behavior: "smooth" });
+                            switching(index);
+                        }}
+                        className={setStyles.bar_link}
+                        style={{
+                            borderBottom: checking[index] ? "3px solid #714efe" : "none",
+                            pointerEvents: checking[index] ? "none" : "auto",
+                        }}
+                    >
+                        <a
+                            href={`${settingsLinks}${index}`}
+                            style={{ textDecoration: "none", color: checking[index] ? "#714efe" : "var(--text-color)", }}
                         >
-                            <a href={`${settingsLinks}${index}`} style={{ textDecoration: "none", color: "none" }}>{part}</a>
-                        </p>
-                    )}
-                </div>
-            </div>
+                            {part}
+                        </a>
+                    </p>
+                )}
+            </StickyNavBar>
             <ImageEditor ref={imageEditorRef}
                 getImagePath={state.userPhoto}
                 setImagePath={setImagePath}
@@ -256,40 +292,6 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     />
                 )}
             </form>
-            <hr style={{ border: "5px double gray" }} />
-            
-            {dialog && (
-                <div id={setStyles.dialog}>
-                    <div className={setStyles.accessView}>
-                        <p id={setStyles.dialog_question}>
-                            {(/Save/.test(dialog) && "Ці згодзен Ты са зменамі?") ||
-                            (/Deny/.test(dialog) && "Хочаш адмяніць змены?")}
-                        </p>
-                        <div id={setStyles.dialog_buttons}>
-                            <button className={setStyles.saveBtn}
-                                style={{ paddingLeft: "60px", paddingRight: "60px" }}
-                                onClick={() => {
-                                    if (/Save/.test(dialog)) saveNewCommonUserData();
-                                    if (/Deny/.test(dialog)) denyNewCommonUserData();
-                                    setButtons(!buttons);
-                                    setDialog("");
-                                }}
-                            >
-                                <span className={setStyles.btn_name}>Так</span>
-                            </button>
-                            <button className={setStyles.cancelBtn}
-                                style={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
-                                onClick={() => {
-                                    setDialog("");
-                                }}
-                            >
-                                <span className={setStyles.btn_name}>Не</span>
-                            </button>
-                        </div>
-                    </div>
-                </div>
-            )}
-
             <div className={setStyles.commonSetsBtns}>
                 <button
                     className={setStyles.cancelBtn}
@@ -303,6 +305,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                         if (buttons) setButtons(!buttons);
                         else {
                             setDialog("Deny_Button");
+                            document.body.style.overflow = 'hidden';
                         }
                     }}
                 >
@@ -314,46 +317,104 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                         if (buttons) setButtons(!buttons);
                         else {
                             setDialog("Save_Button");
+                            document.body.style.overflow = 'hidden';
                         }
                     }}
                 >
                     <span className={setStyles.btn_name}>{`${buttons ? "Change" : "Save"}`}</span>
                 </button>
             </div>
-            <p>There will be another settings: ...</p>
 
-            <div style={{
-                height: "70vh",
-                outline: "2px dashed black",
-                borderRadius: "1%/2%",
-                padding: "1em",
-                backgroundColor: "white",
-                scrollMarginTop: "180px",
-            }} id="section1">
-                <p style={{
-                    fontSize: "30px",
-                    fontWeight: "400",
-                    fontFamily: "Consolas, monospace",
-                }}>Tasties & Body Constitution</p>
-            </div>
-            <div style={{
-                height: "60vh",
-                outline: "2px dashed black",
-                borderRadius: "1%/2%",
-                padding: "1em",
-                backgroundColor: "white",
-                scrollMarginTop: "180px",
-            }} id="section2">
-                <p style={{
-                    fontSize: "30px",
-                    fontWeight: "400",
-                    fontFamily: "Consolas, monospace",
-                }}>Page Appearance</p>
-            </div>
-            
-            <BottomButtonsContext.Provider value={BottomBtns}>
-                <BottomMenu />
-            </BottomButtonsContext.Provider>
+
+            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+
+
+            <TastesNBodyConstition id="section1">
+                <SubTitle name="Choose your preferencies" />
+                <TastesCheckboxes />
+                
+                <HorizontalLine />
+
+                <SubTitle name="Average amount of calories per day" />
+                <ParagraphFor sentence="How many calories do you want to get per day?">
+                    <RangeInput2Handlers twohandRangeName="caloriesRangeSlider" />
+                </ParagraphFor>
+                {/* <hr /> */}
+                {/* <PLFSetUps /> */}
+                {/* <BodyConstitution /> */}
+            </TastesNBodyConstition>
+
+
+            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+
+
+            <PageExterior id="section2">
+                <SubTitle name="Language" />
+                <CustomSelect
+                    labelName="Choose your native language: "
+                    selectorName="languages"
+                    options={langs}
+                />
+
+                <HorizontalLine />
+
+                {mounted &&
+                <>
+                    <SubTitle name="Interface Themes" />
+                    <ColourSets
+                        name="Customise your application theme"
+                        theme={theme}
+                        switcher={switchBetweenColourThemes}
+                    />
+                </>}
+
+                <HorizontalLine />
+
+                <SubTitle name="Brand (Accent) Colours" />
+                <RadiosChoice
+                    choseRadio={accentColour}
+                    hookFunction={setAccentColour}
+                />
+
+                <HorizontalLine />
+                
+                {mounted && <>
+                    <SubTitle name="Font Settings" />
+                    <FontsFamilySizeWeight
+                        fontFamily={fontFamilyType} hookFamily={setFontFamilyType}
+                        fontSize={fontsize} hookSize={setFontSize}
+                        fontVolume={fontvolume} hookVolume={setFontVolume}
+                    />
+                </>}
+            </PageExterior>
+
+            {dialog && (
+                <DialogView question={
+                    (/Save/.test(dialog) && "Ці згодзен Ты са зменамі?")
+                    ||
+                    (/Deny/.test(dialog) && "Хочаш адмовіць змены?")
+                }>
+                    <AccessBtn
+                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px" }}
+                        onClick={() => {
+                            if (/Save/.test(dialog)) saveNewCommonUserData();
+                            if (/Deny/.test(dialog)) denyNewCommonUserData();
+                            setButtons(!buttons);
+                            setDialog("");
+                            document.body.style.overflow = 'auto';
+                        }}
+                        buttonName="Так"
+                    />
+                    <DenyBtn
+                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
+                        onClick={() => {
+                            setDialog("");
+                            document.body.style.overflow = 'auto';
+                        }}
+                        buttonName="Не"
+                    />
+                </DialogView>
+            )}
         </>
     )
 }

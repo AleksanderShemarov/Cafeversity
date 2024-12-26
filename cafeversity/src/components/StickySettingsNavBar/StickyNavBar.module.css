@@ -1,0 +1,32 @@
+#sticky_navbar {
+    display: block;
+    position: sticky;
+    top: 0px;
+    z-index: 9;
+    background-color: var(--background-color);
+    scroll-margin-top: 30px;
+    box-shadow: grey 0 10px 7px -5px;
+}
+#sticky_navbar_name {
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
+
+    font-family: var(--font-family);
+    /* font-size: 2em; /* 32px */
+    font-size: 3.2em;
+    margin-top: 0;
+    padding-top: 30px;
+    color: var(--text-color);
+}
+#sticky_navbar hr {
+    background-color: var(--text-color);
+    /* height: 0.1875em; /* 3px */
+    height: 0.3rem;
+}
+#sticky_navbar_links {
+    /* border: 3px solid black; */
+    display: flex;
+    font-family: var(--font-family);
+    /* font-size: 1.5em; /* 24px */
+    font-size: 2.4rem;
+}

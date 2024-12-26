@@ -111,6 +111,7 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath
 
     return (
         <>
+            <p id={imgEditStyles.commonSettingsName}>Common Settings</p>
             <div className={imgEditStyles.photo_editor} id={id}>
                 <p className={imgEditStyles.photo_edit_name}>User Image Editor</p>
                 <div className={imgEditStyles.photo_workplace}>

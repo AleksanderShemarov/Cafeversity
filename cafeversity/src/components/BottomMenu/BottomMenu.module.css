@@ -92,5 +92,5 @@
     top: -55px;
     transform: translateX(-50%);
     white-space: nowrap;
-    color: black;
+    color: var(--text-color);
 }

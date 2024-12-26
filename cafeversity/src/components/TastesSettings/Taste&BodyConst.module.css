@@ -1,0 +1,21 @@
+.tastyNbodyBlock {
+    /* height: 70vh; */
+    /* padding: 1em; /* 16px */
+    padding: 1.6rem;
+    scroll-margin-top: 205px;
+}
+
+#tastyNbodyBlockName {
+    /* border: 1px solid black; */
+    padding-left: 10px;
+    padding-right: 10px;
+    width: max-content;
+    /* font-size: 2em; /* 32px */
+    font-size: 3.2rem;
+    text-decoration: underline;
+    margin-top: 0;
+    font-weight: 700;
+    color: var(--text-color);
+
+    font-family: var(--font-family);
+}

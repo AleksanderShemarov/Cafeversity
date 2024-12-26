@@ -1,27 +1,52 @@
+#commonSettingsName {
+    /* border: 1px solid black; */
+    /* padding-left: 1em; /* 16px */
+    /* padding-right: 1em; */
+    padding-left: 1.6rem;
+    padding-right: 1.6rem;
+    width: max-content;
+    /* font-size: 2em; /* 32px */
+    font-size: 3.2em;
+    text-decoration: underline;
+    /* margin-top: 1em; /* 16px */
+    margin-top: 1.6rem;
+    font-weight: 700;
+    color: var(--text-color);
+
+    font-family: var(--font-family);
+}
+
 .photo_editor {
     max-width: 30%;
-    outline: 2px solid black;
+    /* border: 2px solid black; */
     margin-bottom: 20px;
-    scroll-margin-top: 180px;
+    scroll-margin-top: 302px;
 }
 
 .photo_edit_name {
     margin-bottom: 0;
     min-width: fit-content;
-    font-size: 19px;
+    font-size: 22px;
     font-style: oblique;
     font-weight: bolder;
-    font-family: Consolas, monospace;
-    margin-bottom: 0.55em;
+    font-family: var(--font-family);
+    /* margin-bottom: 0.55em; /* 8.8px */
+    margin-bottom: 0.88rem;
     text-align: justify;
-    text-indent: 2em;
+    /* text-indent: 2em; /* 32px */
+    text-indent: 3.2rem;
+    color: var(--text-color);
+
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
 }
 
 .photo_workplace {
     /* outline: 3px dotted purple; */
     display: flex;
     justify-content: center;
-    gap: 3.5em;
+    /* gap: 3.5em; /* 56px */
+    gap: 5.6rem;
 }
 
 .photo_container {
@@ -50,7 +75,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    gap: 4em;
+    /* gap: 4em; /* 64px */
+    gap: 6.4rem;
     /* outline: 3px double blue; */
 }
 

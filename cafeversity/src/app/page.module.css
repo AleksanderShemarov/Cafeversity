@@ -472,28 +472,14 @@ body {
 
 
 
-.exit_cover {
-  background-color: rgba(222, 184, 135, 0.8);
-  height: 100vh;
-  width: 100%;
-  position: absolute;
-  top: 0;
-  left: 0;
-  display: flex;
-  align-items: center;
-}
-#exit_field {
-  border: 5px solid orange;
-  border-radius: 2vh;
-  width: 25%;
-  height: 25vh;
-  margin: auto;
-  background-color: whitesmoke;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
+/*
+Here ".exit_cover" and "#exit_field" styles were before.
+I replaced common divs in CommonHeader.tsx with special 
+<DialogView> component. Some styles were changed according 
+to dicarded divs.
+*/
+
+
 
 #accessButton,
 #denyButton {

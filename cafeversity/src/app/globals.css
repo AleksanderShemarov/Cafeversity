@@ -114,7 +114,34 @@ a {
   padding: 0;
 } */
 
+:root {
+  --background-color: rgb(252, 242, 223);
+  /* --background-color: rgb(73, 71, 66); */
+  --text-color: black;
+
+  --accent-color: lime;
+
+  --font-family: Consolas, monospace;
+  /* --font-size: 20px; */
+
+  --common-font-size: 10px;
+
+  --font-volume-weight: normal;
+  --font-volume-style: normal;
+}
+
+[data-theme='dark'] {
+  --background-color: rgb(73, 71, 66);
+  --text-color: white;
+}
+
+html {
+  /* font-size: 16px;   Default value from browsers (old type with em values) */
+
+  font-size: var(--common-font-size);   /* Set value for application (new type with rem values) */
+}
 
 body {
-  background-color: rgb(252, 242, 223);
+  background-color: var(--background-color);
+  color: var(--text-color);
 }

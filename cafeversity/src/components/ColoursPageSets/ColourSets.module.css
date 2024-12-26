@@ -1,0 +1,101 @@
+#describe_name {
+    /* font-size: 1.375em; */ /* equivalent of 22px  */
+    font-size: 2.2rem;
+    font-weight: 400;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    color: var(--text-color);
+
+    font-family: var(--font-family);
+
+    font-style: var(--font-volume-style);
+}
+
+#colours_examples {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.colourExampleBlock {
+    height: 36svh;
+    /* width: 27em; */ /* When a parent container is thinner than this block,
+    this block will be taper as a parent container */ /* 432px */
+    width: 43.2rem;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+}
+.colourExampleName {
+    /* font-size: 1.25em; /* 20px */
+    font-size: 2rem;
+    /* font-weight: 500; */
+    margin: 0;
+    margin-top: 10px;
+    color: var(--text-color);
+
+    font-family: var(--font-family);
+
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
+}
+
+.colourExample {
+    height: 32svh;
+    width: 100%;
+    border-radius: 10px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-content: space-around;
+}
+.colourExampleWhite {
+    background-color: gray;
+}
+.colourExampleDark {
+    background-color: black;
+}
+
+.firstlineDiv1, .firstlineDiv2, .firstlineDiv3, .firstlineDiv4,
+.secondlineDiv,
+.thirdlineDiv {
+    height: 5svh;
+    width: 20%;
+    /* These codelines works without
+    align-content in '.colourExample' */
+    /* margin-top: 1svh;
+    margin-bottom: 1svh; */
+    /* border-radius: 0.6250em; /* 10px */
+    border-radius: 1rem;
+}
+.firstlineDiv1 {
+    margin-left: 2%;
+}
+.firstlineDiv4 {
+    width: 15%;
+    margin-right: 2%;
+}
+
+.secondlineDiv {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 96%;
+    height: 10svh;
+}
+
+.thirdlineDiv {
+    margin-left: 2%;
+    margin-right: 2%;
+    width: 46%;
+    height: 10svh;
+}
+
+.whiteDiv {
+    background-color: white;
+}
+.lightdarkDiv {
+    background-color: rgb(56, 56, 56);
+}
