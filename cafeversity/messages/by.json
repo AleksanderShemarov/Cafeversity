@@ -1,0 +1,68 @@
+{
+    "SettingsPage": {
+        "stickyNavbarName": {
+            "name": "Налады Акаўнту",
+            "parts": [
+                "Агульныя Налады", "Смакі & Цялесная Канстытуцыя", "Выгляд Старонкі"
+            ]
+        },
+        "firstSetsPart": {
+            "name": "Агульныя Налады",
+            "photoEditor": {
+                "name": "Рэдактар Фота Карыстальніку",
+                "changePhotoButton": "Змяніць Фота",
+                "deletePhotoButton": "Выдаліць Фота"
+            },
+            "nameInput": "Імя",
+            "surnameInput": "Прозвішча",
+            "nicknameInput": "Мянушка",
+            "cancelButton": "Адмена",
+            "saveButton": [
+                "Змена", "Захова"
+            ],
+            "changesDialog": {
+                "mainQuestion": [
+                    "Ці згодзен Ты са зменамі?", "Хочаш адмовіць змены?"
+                ],
+                "accessButton": "Так",
+                "denyButton": "Не"
+            }
+        },
+        "secondSetsPart": {
+            "name": "Смакі & Цялесная Канстытуцыя",
+            "subtitle1": {
+                "name": "Абяры свае перавагі",
+                "preferQuestion1": "Ці хочаш есці вострыя стравы?",
+                "preferQuestion2": "Ці аддаеш перавагу да вегетарыянскіх страў?",
+                "preferQuestion3": "Ты веган?"
+            },
+            "subtitle2": {
+                "name": "Сярэдняя колькасць калорыяў у дзень",
+                "mainQuestion": "Колькі калорыяў хочаш атрымаўваць у дзень?"
+            } 
+        },
+        "thirdSetsPart": {
+            "name": "Выгляд Старонкі",
+            "subtitle1": {
+                "name": "Мова",
+                "mainQuestion": "Абяры сваю родную мову: "
+            },
+            "subtitle2": {
+                "name": "Рэжым Старонцы",
+                "mainQuestion": "Наладзь рэжым фарбаў",
+                "lightTheme": "Светлыя",
+                "darkTheme": "Цёмныя"
+            },
+            "subtitle3": {
+                "name": "Колер Вылучэння",
+                "mainQuestion": "Абяры адзін з колераў"
+            },
+            "subtitle4": {
+                "name": "Налады Шрыфту",
+                "fontQuestion1": "Абяры Сямейства Шрыфтаў",
+                "fontQuestion2": "Абяры Памер Шрыфту",
+                "fontQuestion3": "Абяры Таўшчыню Шрыфту"
+            }
+        }
+    }
+}

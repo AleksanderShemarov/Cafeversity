@@ -1,0 +1,68 @@
+{
+    "SettingsPage": {
+        "stickyNavbarName": {
+            "name": "Nastavení Účtu",
+            "parts": [
+                "Obecné (Běžné) Nastavení", "Chuti & Tělesná Konstituce", "Vzhled Stránky"
+            ]
+        },
+        "firstSetsPart": {
+            "name": "Obecné (Běžné) Nastavení",
+            "photoEditor": {
+                "name": "Redaktor Obrázků pro Uživatele",
+                "changePhotoButton": "Změnit Fotku",
+                "deletePhotoButton": "Smazat Fotku"
+            },
+            "nameInput": "Jméno",
+            "surnameInput": "Příjmení",
+            "nicknameInput": "Přezdívka",
+            "cancelButton": "Storno",
+            "saveButton": [
+                "Změnit", "Uložit"
+            ],
+            "changesDialog": {
+                "mainQuestion": [
+                    "Souhlasíš-li se změnami?", "Chceš změny odmítnout?"
+                ],
+                "accessButton": "Ano",
+                "denyButton": "Ne"
+            }
+        },
+        "secondSetsPart": {
+            "name": "Chuti & Tělesná Konstituce",
+            "subtitle1": {
+                "name": "Vyber si své předvolby",
+                "preferQuestion1": "Chceš jíst ostrá jídla?",
+                "preferQuestion2": "Jíš raději vegetariánská jídla?",
+                "preferQuestion3": "Jsi vegan?"
+            },
+            "subtitle2": {
+                "name": "Průměrný počet kalorií za den",
+                "mainQuestion": "Kolik kalorií chceš denně získat?"
+            }
+        },
+        "thirdSetsPart": {
+            "name": "Vzhled Stránky",
+            "subtitle1": {
+                "name": "Jazyk",
+                "mainQuestion": "Vyber si svůj rodný jazyk: "
+            },
+            "subtitle2": {
+                "name": "Témata Interfacu",
+                "mainQuestion": "Uprav si téma aplikace",
+                "lightTheme": "Světlá Téma",
+                "darkTheme": "Temná Téma"
+            },
+            "subtitle3": {
+                "name": "Značkové (Accentoví) Barvy",
+                "mainQuestion": "Vyber jednu z barev"
+            },
+            "subtitle4": {
+                "name": "Nastavení Písma",
+                "fontQuestion1": "Vyber rodinu písem",
+                "fontQuestion2": "Vyber velikost písma",
+                "fontQuestion3": "Vzber hmotnost písma"
+            }
+        }
+    }
+}

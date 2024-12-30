@@ -247,7 +247,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
     return (
         <>
-            <StickyNavBar>
+            <StickyNavBar navbarName="Account Settings">
                 {parts.map((part, index) =>
                     <p
                         key={index}
@@ -372,6 +372,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
                 <SubTitle name="Brand (Accent) Colours" />
                 <RadiosChoice
+                name="Choose one of the colours"
                     choseRadio={accentColour}
                     hookFunction={setAccentColour}
                 />

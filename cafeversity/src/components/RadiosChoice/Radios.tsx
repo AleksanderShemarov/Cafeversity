@@ -15,12 +15,13 @@ let startRadioBtns: boolean[] = [ true, false, false, false, false ];
 
 
 type RadiosChoiceTypes = {
+    name: string,
     choseRadio: string,
     hookFunction: Dispatch<SetStateAction<string>>
 }
 
 
-export default function RadiosChoice({ choseRadio, hookFunction }: RadiosChoiceTypes) {   
+export default function RadiosChoice({ name, choseRadio, hookFunction }: RadiosChoiceTypes) {   
     
     if (choseRadio) {
         for (let i = 0; i < radioBtns.length; i++) {
@@ -45,7 +46,7 @@ export default function RadiosChoice({ choseRadio, hookFunction }: RadiosChoiceT
     return (
         <>
             <div id={radioStyle.radiosBlock}>
-                <p id={radioStyle.describe_radios_name}>Choose one of the colours</p>
+                <p id={radioStyle.describe_radios_name}>{name}</p>
                 <form className={radioStyle.radios}>
                     {radioBtns.map((radioBtn, index) => 
                         <input key={index} type="radio" className={`${radioStyle.radio} ${radioBtn.classLine}`}
