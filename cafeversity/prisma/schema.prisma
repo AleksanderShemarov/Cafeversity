@@ -68,7 +68,7 @@ model CustomSets {
   vegan               Boolean   @default(false)
   minCalory           Int       @default(1800)
   maxCalory           Int       @default(2500)
-  language            String    @default("Беларуская")
+  language            String    @default("by")
   pageTheme           String    @default("light")
   brandColor          String    @default("lime")
   fontFamily          String    @default("Consolas, monospace")

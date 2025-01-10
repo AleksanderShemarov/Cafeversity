@@ -1,10 +1,10 @@
 {
     "SettingsPage": {
-        "stickyNavbarName": {
+        "stickyNavbar": {
             "name": "Nastavení Účtu",
-            "parts": [
-                "Obecné (Běžné) Nastavení", "Chuti & Tělesná Konstituce", "Vzhled Stránky"
-            ]
+            "part1": "Obecné (Běžné) Nastavení",
+            "part2": "Chuti & Tělesná Konstituce",
+            "part3": "Vzhled Stránky"
         },
         "firstSetsPart": {
             "name": "Obecné (Běžné) Nastavení",
@@ -13,17 +13,15 @@
                 "changePhotoButton": "Změnit Fotku",
                 "deletePhotoButton": "Smazat Fotku"
             },
-            "nameInput": "Jméno",
-            "surnameInput": "Příjmení",
-            "nicknameInput": "Přezdívka",
+            "input1": "Jméno",
+            "input2": "Příjmení",
+            "input3": "Přezdívka",
             "cancelButton": "Storno",
-            "saveButton": [
-                "Změnit", "Uložit"
-            ],
+            "saveButtonType1": "Změnit",
+            "saveButtonType2": "Uložit",
             "changesDialog": {
-                "mainQuestion": [
-                    "Souhlasíš-li se změnami?", "Chceš změny odmítnout?"
-                ],
+                "mainQuestion1": "Souhlasíš-li se změnami?",
+                "mainQuestion2": "Chceš změny odmítnout?",
                 "accessButton": "Ano",
                 "denyButton": "Ne"
             }

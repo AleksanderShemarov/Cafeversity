@@ -22,6 +22,8 @@ import useAccentColourSet from "@/hooks/accentColourSet";
 import useFontFamilySet from "@/hooks/fontFamilySet";
 import useFontSizeSet from "@/hooks/fontSizeSet";
 import useFontVolumeSet from "@/hooks/fontVolume";
+
+import { useTranslations } from "next-intl";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -82,23 +84,24 @@ function reducer(state: State, action: Action): State {
 
 
 const langs: [string, string, string][] = [
-    [ "Belarusian", "Беларуская", "/countries/Belarus_borders.jpg" ],
-    [ "English", "English", "/countries/UK_borders.jpg" ],
-    [ "Czech", "Čeština", "/countries/CzechRepublic_borders.jpg" ],
-    [ "Polish", "Polski", "/countries/Poland_borders.jpg" ],
-    [ "Ukranian", "Українська", "/countries/Ukraine_borders.jpg" ],
-    [ "Lithuanian", "Lietuvių", "/countries/Lithuania_borders.jpg" ],
-    [ "Italian", "Italiano", "/countries/Italy_borders.jpeg" ],
-    [ "French", "Français", "/countries/France_borders.jpg" ],
-    [ "Turkish", "Türkçe", "/countries/Turkey_borders.jpg" ],
-    [ "Japanese", "日本語", "/countries/Japan_borders.jpg" ],
+    [ "Беларуская", "by", "/countries/Belarus_borders.jpg" ],
+    [ "English", "en", "/countries/UK_borders.jpg" ],
+    [ "Čeština", "cz", "/countries/CzechRepublic_borders.jpg" ],
+    // [ "Polish", "Polski", "/countries/Poland_borders.jpg" ],
+    // [ "Ukranian", "Українська", "/countries/Ukraine_borders.jpg" ],
+    // [ "Lithuanian", "Lietuvių", "/countries/Lithuania_borders.jpg" ],
+    // [ "Italian", "Italiano", "/countries/Italy_borders.jpeg" ],
+    // [ "French", "Français", "/countries/France_borders.jpg" ],
+    // [ "Turkish", "Türkçe", "/countries/Turkey_borders.jpg" ],
+    // [ "Japanese", "日本語", "/countries/Japan_borders.jpg" ],
     // ["Russian", "Русский", "/countries/russia_border.jpg"],
 ];
 
 
-export default function SettingsPage({ params }: { params: { authorizedUser: string } }) {
+export default function SettingsPage({ params }: { params: { locale: string, authorizedUser: string } }) {
 
     const { authorizedUser } = params;
+    const { locale } = params;
 
     const parts: string[] = ["Common Settings", "Tasties & Body Constitution", "Page Appearance"];
     const [checking, setChecking] = useState<boolean[]>([true, false, false]);
@@ -244,11 +247,14 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
     // font volume (weight and style) settings
     const [fontvolume, setFontVolume] = useFontVolumeSet();
 
+    // const t = (str: string) => str;
+    const t = useTranslations("SettingsPage");
 
     return (
         <>
-            <StickyNavBar navbarName="Account Settings">
-                {parts.map((part, index) =>
+            {/* <StickyNavBar navbarName="Account Settings"> */}
+            <StickyNavBar navbarName={t("stickyNavbar.name")}>
+                {parts.map((_, index) =>
                     <p
                         key={index}
                         onClick={(event) => {
@@ -266,13 +272,17 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                             href={`${settingsLinks}${index}`}
                             style={{ textDecoration: "none", color: checking[index] ? "#714efe" : "var(--text-color)", }}
                         >
-                            {part}
+                            {t(`stickyNavbar.part${index + 1}`)}
                         </a>
                     </p>
                 )}
             </StickyNavBar>
             <ImageEditor ref={imageEditorRef}
+                setsPartName={t("firstSetsPart.name")}
+                photoEditorName={t("firstSetsPart.photoEditor.name")}
                 getImagePath={state.userPhoto}
+                btnName1={t("firstSetsPart.photoEditor.changePhotoButton")}
+                btnName2={t("firstSetsPart.photoEditor.deletePhotoButton")}
                 setImagePath={setImagePath}
                 setImageFileId={setImageFileId}
                 disabled={buttons}
@@ -282,7 +292,8 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 {settingsTextFormFields.map((settingTextFormField, index) => 
                     <TextFormField
                         key={`SettingTextField__${index}`}
-                        fieldName={settingTextFormField.fieldName}
+                        // fieldName={settingTextFormField.fieldName}
+                        fieldName={t(`firstSetsPart.input${index + 1}`)}
                         fieldValue={settingTextFormField.fieldValue}
                         fieldPlaceholder={settingTextFormField.fieldPlaceholder}
                         inputStyles={setStyles.textInput}
@@ -309,7 +320,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                         }
                     }}
                 >
-                    <span className={setStyles.btn_name}>Cancel</span>
+                    <span className={setStyles.btn_name}>{t("firstSetsPart.cancelButton")}</span>
                 </button>
                 <button
                     className={setStyles.saveBtn}
@@ -321,7 +332,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                         }
                     }}
                 >
-                    <span className={setStyles.btn_name}>{`${buttons ? "Change" : "Save"}`}</span>
+                    <span className={setStyles.btn_name}>{`${buttons ? t("firstSetsPart.saveButtonType1") : t("firstSetsPart.saveButtonType2")}`}</span>
                 </button>
             </div>
 
@@ -329,14 +340,18 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
             <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
 
 
-            <TastesNBodyConstition id="section1">
-                <SubTitle name="Choose your preferencies" />
-                <TastesCheckboxes />
+            <TastesNBodyConstition id="section1" name={t("secondSetsPart.name")}>
+                <SubTitle name={t("secondSetsPart.subtitle1.name")} />
+                <TastesCheckboxes questions={[
+                    t("secondSetsPart.subtitle1.preferQuestion1"),
+                    t("secondSetsPart.subtitle1.preferQuestion2"),
+                    t("secondSetsPart.subtitle1.preferQuestion3"),
+                ]} />
                 
                 <HorizontalLine />
 
-                <SubTitle name="Average amount of calories per day" />
-                <ParagraphFor sentence="How many calories do you want to get per day?">
+                <SubTitle name={t("secondSetsPart.subtitle2.name")} />
+                <ParagraphFor sentence={t("secondSetsPart.subtitle2.mainQuestion")}>
                     <RangeInput2Handlers twohandRangeName="caloriesRangeSlider" />
                 </ParagraphFor>
                 {/* <hr /> */}
@@ -348,31 +363,33 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
             <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
 
 
-            <PageExterior id="section2">
-                <SubTitle name="Language" />
+            <PageExterior id="section2" name={t("thirdSetsPart.name")}>
+                <SubTitle name={t("thirdSetsPart.subtitle1.name")} />
                 <CustomSelect
-                    labelName="Choose your native language: "
+                    labelName={t("thirdSetsPart.subtitle1.mainQuestion")}
                     selectorName="languages"
                     options={langs}
+                    dbOption={locale}
                 />
 
                 <HorizontalLine />
 
                 {mounted &&
                 <>
-                    <SubTitle name="Interface Themes" />
+                    <SubTitle name={t("thirdSetsPart.subtitle2.name")} />
                     <ColourSets
-                        name="Customise your application theme"
+                        name={t("thirdSetsPart.subtitle2.mainQuestion")}
                         theme={theme}
                         switcher={switchBetweenColourThemes}
+                        themeTypes={[t("thirdSetsPart.subtitle2.lightTheme"), t("thirdSetsPart.subtitle2.darkTheme")]}
                     />
                 </>}
 
                 <HorizontalLine />
 
-                <SubTitle name="Brand (Accent) Colours" />
+                <SubTitle name={t("thirdSetsPart.subtitle3.name")} />
                 <RadiosChoice
-                name="Choose one of the colours"
+                    name={t("thirdSetsPart.subtitle3.mainQuestion")}
                     choseRadio={accentColour}
                     hookFunction={setAccentColour}
                 />
@@ -380,20 +397,20 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                 <HorizontalLine />
                 
                 {mounted && <>
-                    <SubTitle name="Font Settings" />
+                    <SubTitle name={t("thirdSetsPart.subtitle4.name")} />
                     <FontsFamilySizeWeight
-                        fontFamily={fontFamilyType} hookFamily={setFontFamilyType}
-                        fontSize={fontsize} hookSize={setFontSize}
-                        fontVolume={fontvolume} hookVolume={setFontVolume}
+                        fontset1={t("thirdSetsPart.subtitle4.fontQuestion1")} fontFamily={fontFamilyType} hookFamily={setFontFamilyType}
+                        fontset2={t("thirdSetsPart.subtitle4.fontQuestion2")} fontSize={fontsize} hookSize={setFontSize}
+                        fontset3={t("thirdSetsPart.subtitle4.fontQuestion3")} fontVolume={fontvolume} hookVolume={setFontVolume}
                     />
                 </>}
             </PageExterior>
 
             {dialog && (
                 <DialogView question={
-                    (/Save/.test(dialog) && "Ці згодзен Ты са зменамі?")
+                    (/Save/.test(dialog) && t("firstSetsPart.changesDialog.mainQuestion1"))
                     ||
-                    (/Deny/.test(dialog) && "Хочаш адмовіць змены?")
+                    (/Deny/.test(dialog) && t("firstSetsPart.changesDialog.mainQuestion2"))
                 }>
                     <AccessBtn
                         uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px" }}
@@ -404,7 +421,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                             setDialog("");
                             document.body.style.overflow = 'auto';
                         }}
-                        buttonName="Так"
+                        buttonName={t("firstSetsPart.changesDialog.accessButton")}
                     />
                     <DenyBtn
                         uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
@@ -412,7 +429,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                             setDialog("");
                             document.body.style.overflow = 'auto';
                         }}
-                        buttonName="Не"
+                        buttonName={t("firstSetsPart.changesDialog.denyButton")}
                     />
                 </DialogView>
             )}

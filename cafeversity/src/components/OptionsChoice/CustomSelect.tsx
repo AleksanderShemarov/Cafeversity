@@ -8,7 +8,7 @@ import Image from "next/image";
 interface CustomSelect {
     labelName: string,
     selectorName: string,
-    options?: [string, string, string][],
+    options: [string, string, string][],
     styleDIV?: CSSProperties,
     styleLABEL?: CSSProperties,
     dbOption?: string,
@@ -16,12 +16,16 @@ interface CustomSelect {
 
 export default function CustomSelect(
     {
-        labelName, selectorName, options = [["option1", "option", "/earth_planet.webp"]],
-        styleDIV, styleLABEL, dbOption
+        labelName,
+        selectorName,
+        options,
+        styleDIV,
+        styleLABEL,
+        dbOption
     }: CustomSelect
 ) {
 
-    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][1]);
+    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][0]);
     const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[0][2]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
@@ -31,8 +35,8 @@ export default function CustomSelect(
     useEffect(() => {
         if (dbOption) {
             for (let i = 0; i < options.length; i++) {
-                if (options[i][0].includes(dbOption)) {
-                    setSelectedOptionValue(options[i][1]);
+                if (options[i][1].includes(dbOption)) {
+                    setSelectedOptionValue(options[i][0]);
                     setSelectedOptionImage(options[i][2]);
                     setSelectedOptionIndex(i);
                     break;
@@ -43,7 +47,7 @@ export default function CustomSelect(
     }, [dbOption]);
 
     const handleOptionClick = (option: [string, string, string], index: number) => {
-        setSelectedOptionValue(option[1]);
+        setSelectedOptionValue(option[0]);
         setSelectedOptionImage(option[2]);
         setIsOpen(false);
 
@@ -128,7 +132,7 @@ export default function CustomSelect(
                         >
                             {/* <img src={option[2]} alt={option[2]} width={25} height={25} /> */}
                             <Image src={option[2]} alt={option[2]} width={25} height={25}></Image>
-                            <p>{option[1]}</p>
+                            <p>{option[0]}</p>
                         </div>
                     ))}
                 </div>

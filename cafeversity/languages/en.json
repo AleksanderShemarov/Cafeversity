@@ -1,10 +1,10 @@
 {
     "SettingsPage": {
-        "stickyNavbarName": {
+        "stickyNavbar": {
             "name": "Account Settings",
-            "parts": [
-                "Common Settings", "Tasties & Body Constitution", "Page Appearance"
-            ]
+            "part1": "Common Settings",
+            "part2": "Tasties & Body Constitution",
+            "part3": "Page Appearance"
         },
         "firstSetsPart": {
             "name": "Common Settings",
@@ -13,17 +13,15 @@
                 "changePhotoButton": "Change Photo",
                 "deletePhotoButton": "Delete Photo"
             },
-            "nameInput": "First Name",
-            "surnameInput": "Last Name",
-            "nicknameInput": "Nickname",
+            "input1": "First Name",
+            "input2": "Last Name",
+            "input3": "Nickname",
             "cancelButton": "Cancel",
-            "saveButton": [
-                "Change", "Save"
-            ],
+            "saveButtonType1": "Change",
+            "saveButtonType2": "Save",
             "changesDialog": {
-                "mainQuestion": [
-                    "Are You agreed with the changes?", "Do You want to deny the changes?"
-                ],
+                "mainQuestion1": "Are You agreed with the changes?",
+                "mainQuestion2": "Do You want to deny the changes?",
                 "accessButton": "Yes",
                 "denyButton": "No"
             }

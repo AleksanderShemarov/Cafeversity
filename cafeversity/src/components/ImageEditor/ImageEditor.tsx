@@ -6,7 +6,11 @@ import Image from "next/image";
 
 
 interface ImageIditorTypes {
+    setsPartName: string,
+    photoEditorName: string,
     getImagePath: string | null,
+    btnName1: string,
+    btnName2: string,
     setImagePath: (
         imagePath: string,
     ) => void,
@@ -22,7 +26,9 @@ interface ImageEditorRef {
 }
 
 // eslint-disable-next-line react/display-name
-const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath, setImagePath, setImageFileId, disabled, id }, ref) => {
+const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({
+    setsPartName, photoEditorName, getImagePath, btnName1, btnName2, setImagePath, setImageFileId, disabled, id
+}, ref) => {
 
     const templatePhoto: string = "/uploads/tempUserImage.png";
     const [image, setImage] = useState<string|null>(getImagePath);
@@ -111,12 +117,14 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath
 
     return (
         <>
-            <p id={imgEditStyles.commonSettingsName}>Common Settings</p>
+            <p id={imgEditStyles.commonSettingsName}>{setsPartName}</p>
             <div className={imgEditStyles.photo_editor} id={id}>
-                <p className={imgEditStyles.photo_edit_name}>User Image Editor</p>
+                <p className={imgEditStyles.photo_edit_name}>{photoEditorName}</p>
                 <div className={imgEditStyles.photo_workplace}>
                     <ImageContainer img_path={image} />
                     <ImageEditButtons
+                        btnName1={btnName1}
+                        btnName2={btnName2}
                         isTemplatePhoto={bool}
                         onChangeReplace={photoSelect}
                         onClickDelete={photoDelete}
@@ -136,6 +144,8 @@ type ImgCont = {
 }
 
 type ImgEditBtns = {
+    btnName1: string,
+    btnName2: string,
     isTemplatePhoto?: boolean,
     onChangeReplace?: (
         event: React.ChangeEvent<HTMLInputElement>
@@ -159,7 +169,7 @@ export function ImageContainer({ img_path }: ImgCont) {
     )
 }
 
-export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDelete, disabled }: ImgEditBtns) {
+export function ImageEditButtons({ btnName1, btnName2, isTemplatePhoto, onChangeReplace, onClickDelete, disabled }: ImgEditBtns) {
 
 
     const inputRef = useRef<HTMLInputElement>(null);
@@ -185,7 +195,8 @@ export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDele
                 } : {}
                 }
             >
-                Change Photo
+                {/* Change Photo */}
+                {btnName1}
             </button>
             <button
                 className={imgEditStyles.deleteBtn}
@@ -218,7 +229,8 @@ export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDele
                             WebkitTextFillColor: "transparent",
                         } :
                     {}}>
-                        Delete Photo
+                        {/* Delete Photo */}
+                        {btnName2}
                     </span>
             </button>
         </div>

@@ -11,6 +11,7 @@ const checkboxesAttrs: { id: number|string, attr: string[] }[] = [
 ];
 
 type TasteCheckboxesProps = {
+    questions: string[],
     props?: boolean[],
 }
 
@@ -20,13 +21,13 @@ type TasteCheckboxesProps = {
     &choice=${user.choiceColor}&fontF=${user.fonFamily}
     &fontS=${user.fontSize}&fontW=${user.fontWeight}`, */
 
-const TastesCheckboxes = ({ props }: TasteCheckboxesProps) => {
+const TastesCheckboxes = ({ questions, props }: TasteCheckboxesProps) => {
 
     return (
         <>
             {
                 checkboxesAttrs.map((checkboxAttrs, index) => (
-                    <ParagraphFor key={index} sentence={checkboxAttrs.attr[0]}>
+                    <ParagraphFor key={index} sentence={`${questions[index]}`}>
                         <Checkbox key={checkboxAttrs.id} checkboxId={checkboxAttrs.attr[1]}
                         checkboxName={checkboxAttrs.attr[2]} choisen={props && props[index]}/>
                     </ParagraphFor>

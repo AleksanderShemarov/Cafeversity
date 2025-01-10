@@ -10,11 +10,12 @@ const divStyles: [string, string, string][] = [
 type ColourSetsTypes = {
     name: string,
     theme: string,
-    switcher: (index: number) => void   
+    switcher: (index: number) => void,
+    themeTypes: string[] 
 }
 
 
-const ColourSets = ({ name, theme, switcher }: ColourSetsTypes) => {
+const ColourSets = ({ name, theme, switcher, themeTypes }: ColourSetsTypes) => {
 
     // const [themeClicked, setThemeClicked] = useState<boolean[]>([true, false]);
     // 
@@ -71,7 +72,7 @@ const ColourSets = ({ name, theme, switcher }: ColourSetsTypes) => {
                                 <div className={`${coloursSetStyle.thirdlineDiv} ${style[1]}`}></div>
                                 <div className={`${coloursSetStyle.thirdlineDiv} ${style[1]}`}></div>
                             </div>
-                            <p className={coloursSetStyle.colourExampleName}>{style[2]}</p>
+                            <p className={coloursSetStyle.colourExampleName}>{themeTypes[index]}</p>
                         </div>
                     </div>
                 ))}

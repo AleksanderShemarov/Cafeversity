@@ -1,10 +1,10 @@
 {
     "SettingsPage": {
-        "stickyNavbarName": {
+        "stickyNavbar": {
             "name": "Налады Акаўнту",
-            "parts": [
-                "Агульныя Налады", "Смакі & Цялесная Канстытуцыя", "Выгляд Старонкі"
-            ]
+            "part1": "Агульныя Налады",
+            "part2": "Смакі & Цялесная Канстытуцыя",
+            "part3": "Выгляд Старонкі"
         },
         "firstSetsPart": {
             "name": "Агульныя Налады",
@@ -13,17 +13,15 @@
                 "changePhotoButton": "Змяніць Фота",
                 "deletePhotoButton": "Выдаліць Фота"
             },
-            "nameInput": "Імя",
-            "surnameInput": "Прозвішча",
-            "nicknameInput": "Мянушка",
+            "input1": "Імя",
+            "input2": "Прозвішча",
+            "input3": "Мянушка",
             "cancelButton": "Адмена",
-            "saveButton": [
-                "Змена", "Захова"
-            ],
+            "saveButtonType1": "Змена",
+            "saveButtonType2": "Захова",
             "changesDialog": {
-                "mainQuestion": [
-                    "Ці згодзен Ты са зменамі?", "Хочаш адмовіць змены?"
-                ],
+                "mainQuestion1": "Ці згодзен Ты са зменамі?",
+                "mainQuestion2": "Хочаш адмовіць змены?",
                 "accessButton": "Так",
                 "denyButton": "Не"
             }

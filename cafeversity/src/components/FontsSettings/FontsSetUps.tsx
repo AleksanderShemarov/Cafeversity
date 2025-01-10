@@ -26,17 +26,22 @@ const FontVolumes: { label: string, value: string }[] = [
 
 
 type FontsTypes = {
+    fontset1: string,
     fontFamily: string,
     hookFamily: Dispatch<SetStateAction<string>>,
+    fontset2: string,
     fontSize: string,
     hookSize: Dispatch<SetStateAction<string>>,
     // fontWeight?: string,
+    fontset3: string,
     fontVolume: { fontWeight: string, fontStyle: string },
     hookVolume: Dispatch<SetStateAction<{ fontWeight: string, fontStyle: string }>>,
 }
 
 
-export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize, hookSize, fontVolume, hookVolume }: FontsTypes) {
+export default function FontsFamilySizeWeight({
+    fontset1, fontFamily, hookFamily, fontset2, fontSize, hookSize, fontset3, fontVolume, hookVolume
+}: FontsTypes) {
 
     let startFontFamily = { label: "Consolas", value: "Consolas, monospace" };
     let startFontSize = { label: "10px", value: "10px" };
@@ -198,7 +203,7 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize
     return (
         <>
             <div className={FontsSetUpStyle.fontsSetUpBlocks}>
-                <p id={FontsSetUpStyle.describe_name}>Choose a Font Family</p>
+                <p id={FontsSetUpStyle.describe_name}>{fontset1}</p>
                 <Select options={FontsFamilies}
                     instanceId="custom-select"
                     menuPlacement="auto"
@@ -218,7 +223,7 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize
             </div>
             <hr />
             <div className={FontsSetUpStyle.fontsSetUpBlocks}>
-                <p id={FontsSetUpStyle.describe_name}>Choose a Font Size</p>
+                <p id={FontsSetUpStyle.describe_name}>{fontset2}</p>
                 <ReactSelect options={FontSizes}
                     instanceId="custom-select"
                     menuPlacement="auto"
@@ -229,7 +234,7 @@ export default function FontsFamilySizeWeight({ fontFamily, hookFamily, fontSize
             </div>
             <hr />
             <div className={FontsSetUpStyle.fontsSetUpBlocks}>
-                <p id={FontsSetUpStyle.describe_name}>Choose a Font Weight</p>
+                <p id={FontsSetUpStyle.describe_name}>{fontset3}</p>
                 <ReactSelect options={FontVolumes}
                     instanceId="custom-select"
                     menuPlacement="auto"
