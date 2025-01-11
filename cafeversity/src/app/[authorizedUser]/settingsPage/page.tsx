@@ -32,6 +32,9 @@ type userDataTypes = {
     lastName: string,
     nickName: string,
     userPhoto: string|null,
+    customSets: {
+        language: string
+    }
 }
 
 interface State {
@@ -98,10 +101,9 @@ const langs: [string, string, string][] = [
 ];
 
 
-export default function SettingsPage({ params }: { params: { locale: string, authorizedUser: string } }) {
+export default function SettingsPage({ params }: { params: { authorizedUser: string } }) {
 
     const { authorizedUser } = params;
-    const { locale } = params;
 
     const parts: string[] = ["Common Settings", "Tasties & Body Constitution", "Page Appearance"];
     const [checking, setChecking] = useState<boolean[]>([true, false, false]);
@@ -114,7 +116,13 @@ export default function SettingsPage({ params }: { params: { locale: string, aut
     }
 
     
-    const [userData, setUserData] = useState<userDataTypes>({ firstName: "Pat", lastName: "Postman", nickName: "WestOak", userPhoto: null });
+    const [userData, setUserData] = useState<userDataTypes>({
+        firstName: "Pat",
+        lastName: "Postman",
+        nickName: "WestOak",
+        userPhoto: null,
+        customSets: { language: "by" }
+    });
     const [imagePath, setImagePath] = useState<string>("/uploads/tempUserImage.png");
     const [imageFileId, setImageFileId] = useState<string>("");
 
@@ -369,7 +377,7 @@ export default function SettingsPage({ params }: { params: { locale: string, aut
                     labelName={t("thirdSetsPart.subtitle1.mainQuestion")}
                     selectorName="languages"
                     options={langs}
-                    dbOption={locale}
+                    dbOption={userData.customSets.language}
                 />
 
                 <HorizontalLine />

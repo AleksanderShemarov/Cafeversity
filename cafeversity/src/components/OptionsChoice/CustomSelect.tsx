@@ -11,7 +11,7 @@ interface CustomSelect {
     options: [string, string, string][],
     styleDIV?: CSSProperties,
     styleLABEL?: CSSProperties,
-    dbOption?: string,
+    dbOption: string,
 }
 
 export default function CustomSelect(

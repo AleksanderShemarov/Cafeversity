@@ -37,9 +37,14 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         lastName: true,
                         nickName: true,
                         userPhoto: true,
+                        customSets: {
+                            select: {
+                                language: true,
+                            }
+                        }
                     }
                 });
-                // console.log(user);
+                console.log("user API ->", user);
                 return response.status(200).json(user);
             } else {
                 return response.status(400).json({ message: "Incorrect connect." });
