@@ -12,6 +12,9 @@ interface CustomSelect {
     styleDIV?: CSSProperties,
     styleLABEL?: CSSProperties,
     dbOption: string,
+    setNewLang: (
+        newLang: string,
+    ) => void,
 }
 
 export default function CustomSelect(
@@ -21,7 +24,8 @@ export default function CustomSelect(
         options,
         styleDIV,
         styleLABEL,
-        dbOption
+        dbOption,
+        setNewLang
     }: CustomSelect
 ) {
 
@@ -52,6 +56,7 @@ export default function CustomSelect(
         setIsOpen(false);
 
         setSelectedOptionIndex(index);
+        setNewLang(option[1]);
     }
 
 

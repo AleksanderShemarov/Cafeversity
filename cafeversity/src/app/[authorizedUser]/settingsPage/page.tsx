@@ -210,6 +210,27 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
         dispatch({ type: 'SET_REAL_USER_DATA', payload: userData });
     }
 
+    async function saveLanguageSet (newLanguage: string) {
+        const userLanguage = {
+            userName: authorizedUser,
+            newLang: newLanguage,
+        };
+
+        await fetch("http://localhost:3000/api/langSet", {
+            method: "POST",
+            headers:{ 'Content-Type': 'application/json' },
+            body: JSON.stringify(userLanguage),
+        })
+        .then((res) => {
+            console.log(res.status);
+            return res.json();
+        })
+        .then((data) => {
+            console.log(data.message);
+            window.location.href = data.redirect;
+        });
+    }
+
 
     const settingsTextFormFields = [
         { fieldName: "First Name", fieldValue: state.firstName, fieldPlaceholder: state.firstName, changeFunc: firstNameChange, },
@@ -378,6 +399,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
                     selectorName="languages"
                     options={langs}
                     dbOption={userData.customSets.language}
+                    setNewLang={saveLanguageSet}
                 />
 
                 <HorizontalLine />

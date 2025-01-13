@@ -51,7 +51,7 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
             }
         }
     } else if (request.method === "POST") {
-        console.log(request.query);
+        console.log("userData API ->", request.query);
         const { page } = request.query;
         if (page === "settings") {
             const oldName: string = request.body.oldName;

@@ -17,6 +17,7 @@ export default getRequestConfig(async () => {
         .then(res => res.json());
     }
     const locale = userLanguage ? userLanguage.language : 'en';
+    console.log("Found User Locale ->", locale);
 
     // const locale = 'by';
     // const locale = 'cz';
