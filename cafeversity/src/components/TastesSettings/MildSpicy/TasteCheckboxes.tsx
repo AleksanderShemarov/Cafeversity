@@ -28,8 +28,10 @@ const TastesCheckboxes = ({ questions, props }: TasteCheckboxesProps) => {
             {
                 checkboxesAttrs.map((checkboxAttrs, index) => (
                     <ParagraphFor key={index} sentence={`${questions[index]}`}>
-                        <Checkbox key={checkboxAttrs.id} checkboxId={checkboxAttrs.attr[1]}
-                        checkboxName={checkboxAttrs.attr[2]} choisen={props && props[index]}/>
+                        <Checkbox key={checkboxAttrs.id}
+                            checkboxId={checkboxAttrs.attr[1]}
+                            checkboxName={checkboxAttrs.attr[2]}
+                            choisen={props && props[index]}/>
                     </ParagraphFor>
                 ))
             }

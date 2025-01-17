@@ -33,7 +33,12 @@ type userDataTypes = {
     nickName: string,
     userPhoto: string|null,
     customSets: {
-        language: string
+        isSpicy: boolean,
+        isVeget: boolean,
+        isVegan: boolean,
+        minCalory: number,
+        maxCalory: number,
+        language: string,
     }
 }
 
@@ -121,7 +126,14 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
         lastName: "Postman",
         nickName: "WestOak",
         userPhoto: null,
-        customSets: { language: "by" }
+        customSets: {
+            isSpicy: false,
+            isVeget: false,
+            isVegan: false,
+            minCalory: 1800,
+            maxCalory: 2500,
+            language: "by"
+        }
     });
     const [imagePath, setImagePath] = useState<string>("/uploads/tempUserImage.png");
     const [imageFileId, setImageFileId] = useState<string>("");
@@ -227,7 +239,7 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
         })
         .then((data) => {
             console.log(data.message);
-            window.location.href = data.redirect;
+            window.location.reload();
         });
     }
 
@@ -371,17 +383,28 @@ export default function SettingsPage({ params }: { params: { authorizedUser: str
 
             <TastesNBodyConstition id="section1" name={t("secondSetsPart.name")}>
                 <SubTitle name={t("secondSetsPart.subtitle1.name")} />
-                <TastesCheckboxes questions={[
-                    t("secondSetsPart.subtitle1.preferQuestion1"),
-                    t("secondSetsPart.subtitle1.preferQuestion2"),
-                    t("secondSetsPart.subtitle1.preferQuestion3"),
-                ]} />
+                <TastesCheckboxes
+                    questions={[
+                        t("secondSetsPart.subtitle1.preferQuestion1"),
+                        t("secondSetsPart.subtitle1.preferQuestion2"),
+                        t("secondSetsPart.subtitle1.preferQuestion3"),
+                    ]}
+                    props={[
+                        userData.customSets.isSpicy,
+                        userData.customSets.isVeget,
+                        userData.customSets.isVegan
+                    ]}
+                />
                 
                 <HorizontalLine />
 
                 <SubTitle name={t("secondSetsPart.subtitle2.name")} />
                 <ParagraphFor sentence={t("secondSetsPart.subtitle2.mainQuestion")}>
-                    <RangeInput2Handlers twohandRangeName="caloriesRangeSlider" />
+                    <RangeInput2Handlers
+                        twohandRangeName="caloriesRangeSlider"
+                        minCalories={userData.customSets.minCalory}
+                        maxCalories={userData.customSets.maxCalory}
+                    />
                 </ParagraphFor>
                 {/* <hr /> */}
                 {/* <PLFSetUps /> */}

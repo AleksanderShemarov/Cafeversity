@@ -42,8 +42,8 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             }}>
                 <div className={styles.userImage}>
                     <Image
-                        src={data ? data.userPhoto : "/uploads/tempUserImage.png"}
-                        alt={data ? data.userPhoto : "/uploads/tempUserImage.png"}
+                        src={data.userPhoto ?? "/uploads/tempUserImage.png"}
+                        alt={data.userPhoto ?? "/uploads/tempUserImage.png"}
                         layout="fill"
                     ></Image>
                 </div>

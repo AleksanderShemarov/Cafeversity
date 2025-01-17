@@ -39,6 +39,11 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         userPhoto: true,
                         customSets: {
                             select: {
+                                spicy: true,
+                                vegetarian: true,
+                                vegan: true,
+                                minCalory: true,
+                                maxCalory: true,
                                 language: true,
                             }
                         }

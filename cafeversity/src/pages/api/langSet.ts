@@ -28,7 +28,7 @@ const NewUserLanguage: NextApiHandler = async (req: NextApiRequest, res: NextApi
                 }
             });
 
-            return res.status(200).json({ message: "Language has been changed!", redirect: `settingsPage` });
+            return res.status(200).json({ message: "Language has been changed!" });
         }
     }
     else {

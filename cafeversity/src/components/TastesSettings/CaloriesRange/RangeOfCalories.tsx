@@ -5,17 +5,18 @@ import { useState } from "react";
 
 type CaloriesRangeSliderTypes = {
     twohandRangeName?: string,
-    props?: string,
+    minCalories?: number,
+    maxCalories?: number,
 }
 
-const RangeInput2Handlers = ({ twohandRangeName = "", props }: CaloriesRangeSliderTypes) => {
+const RangeInput2Handlers = ({ twohandRangeName = "", minCalories, maxCalories }: CaloriesRangeSliderTypes) => {
 
     const lowerBorder: number = 1500;
     const upperBorder: number = 3000;
     const step: number = 50;
 
-    const [lowerRange, setLowerRange] = useState<number>(props ? Number(props.split(" – ")[0]) : 1800);
-    const [upperRange, setUpperRange] = useState<number>(props ? Number(props.split(" – ")[1]) : 2500);
+    const [lowerRange, setLowerRange] = useState<number>(minCalories ?? 1800);
+    const [upperRange, setUpperRange] = useState<number>(maxCalories ?? 2500);
 
     function lowerRangeCheck(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
