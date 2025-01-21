@@ -4,7 +4,6 @@ import ImageEditor from "@/components/ImageEditor/ImageEditor";
 import { useState, useReducer, useEffect, useRef } from "react";
 import setStyles from "./settings.module.css";
 import TextFormField from "@/components/FormFields/TextFormField";
-import StickyNavBar from "@/components/StickySettingsNavBar/StickyNavBar";
 import DialogView from "@/components/Dialog/DialogView";
 import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
 import PageExterior from "@/components/PageAppearanceSets/PageExterior";
@@ -98,18 +97,6 @@ const langs: [string, string, string][] = [
 
 
 export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
-    const parts: string[] = ["Common Settings", "Tasties & Body Constitution", "Page Appearance"];
-    const [checking, setChecking] = useState<boolean[]>([true, false, false]);
-    const settingsLinks: string = "#section";
-
-
-    const switching = (index: number) => {
-        const newParts = Array(checking.length).fill(false);
-        newParts[index] = !(checking[index]);
-        setChecking(newParts);
-    }
-
-
     const [imagePath, setImagePath] = useState<string>("/uploads/tempUserImage.png");
     const [imageFileId, setImageFileId] = useState<string>("");
 
@@ -255,30 +242,6 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
 
     return (
         <>
-            <StickyNavBar navbarName={t("stickyNavbar.name")}>
-                {parts.map((_, index) =>
-                    <p
-                        key={index}
-                        onClick={(event) => {
-                            event.preventDefault();
-                            document.querySelector(`${settingsLinks}${index}`)?.scrollIntoView({ behavior: "smooth" });
-                            switching(index);
-                        }}
-                        className={setStyles.bar_link}
-                        style={{
-                            borderBottom: checking[index] ? "3px solid #714efe" : "none",
-                            pointerEvents: checking[index] ? "none" : "auto",
-                        }}
-                    >
-                        <a
-                            href={`${settingsLinks}${index}`}
-                            style={{ textDecoration: "none", color: checking[index] ? "#714efe" : "var(--text-color)", }}
-                        >
-                            {t(`stickyNavbar.part${index + 1}`)}
-                        </a>
-                    </p>
-                )}
-            </StickyNavBar>
             <ImageEditor ref={imageEditorRef}
                 setsPartName={t("firstSetsPart.name")}
                 photoEditorName={t("firstSetsPart.photoEditor.name")}

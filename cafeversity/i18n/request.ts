@@ -5,7 +5,6 @@ import { cookies } from "next/headers";
 export default getRequestConfig(async () => {
     
     const session = cookies().get("sessionId");
-    console.log("user's cookie after signing in ->", session);
     
     let userLanguage;
     if (session) {
