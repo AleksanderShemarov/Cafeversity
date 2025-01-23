@@ -6,16 +6,14 @@ import setStyles from "./settings.module.css";
 import TextFormField from "@/components/FormFields/TextFormField";
 import DialogView from "@/components/Dialog/DialogView";
 import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
-import PageExterior from "@/components/PageAppearanceSets/PageExterior";
 import CustomSelect from "@/components/OptionsChoice/CustomSelect";
 import ColourSets from "@/components/ColoursPageSets/ColourSets";
 import RadiosChoice from "@/components/RadiosChoice/Radios";
 import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
-import TastesNBodyConstition from "@/components/TastesSettings/Tastes&BodyConst";
-import TastesCheckboxes, { ParagraphFor } from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
+import TastesCheckboxes from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
 import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/RangeOfCalories";
-import SubTitle from "@/components/OtherParts/SubTitle/SubTitle";
-import HorizontalLine from "@/components/OtherParts/HorizontalLine/HorizontalLine";
+import SubTitle from "@/components/PageBlocks/SubTitle/SubTitle";
+import HorizontalLine from "@/components/OtherParts/HorizontalLine";
 import useThemeSets from "@/hooks/themeSets";
 import useAccentColourSet from "@/hooks/accentColourSet";
 import useFontFamilySet from "@/hooks/fontFamilySet";
@@ -24,6 +22,7 @@ import useFontVolumeSet from "@/hooks/fontVolume";
 
 import { useTranslations } from "next-intl";
 import { UserDataTypes } from "@/app/[authorizedUser]/settingsPage/page";
+import PageBlockName from "@/components/PageBlocks/PageBlockName";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -242,70 +241,70 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
 
     return (
         <>
-            <ImageEditor ref={imageEditorRef}
-                setsPartName={t("firstSetsPart.name")}
-                photoEditorName={t("firstSetsPart.photoEditor.name")}
-                getImagePath={state.userPhoto}
-                btnName1={t("firstSetsPart.photoEditor.changePhotoButton")}
-                btnName2={t("firstSetsPart.photoEditor.deletePhotoButton")}
-                setImagePath={setImagePath}
-                setImageFileId={setImageFileId}
-                disabled={buttons}
-                id="section0"
-            />
-            <form className={setStyles.commonSet}>
-                {settingsTextFormFields.map((settingTextFormField, index) => 
-                    <TextFormField
-                        key={`SettingTextField__${index}`}
-                        // fieldName={settingTextFormField.fieldName}
-                        fieldName={t(`firstSetsPart.input${index + 1}`)}
-                        fieldValue={settingTextFormField.fieldValue}
-                        fieldPlaceholder={settingTextFormField.fieldPlaceholder}
-                        inputStyles={setStyles.textInput}
-                        labelStyles={setStyles.inputLabel}
-                        onChange={settingTextFormField.changeFunc}
-                        disabled={buttons}
-                    />
-                )}
-            </form>
-            <div className={setStyles.commonSetsBtns}>
-                <button
-                    className={setStyles.cancelBtn}
+            <PageBlockName id="section0" name={t("firstSetsPart.name")} pageBlockCSS={{ scrollMarginTop: "302px" }}>
+                <ImageEditor ref={imageEditorRef}
+                    photoEditorName={t("firstSetsPart.photoEditor.name")}
+                    getImagePath={state.userPhoto}
+                    btnName1={t("firstSetsPart.photoEditor.changePhotoButton")}
+                    btnName2={t("firstSetsPart.photoEditor.deletePhotoButton")}
+                    setImagePath={setImagePath}
+                    setImageFileId={setImageFileId}
                     disabled={buttons}
-                    style={buttons ? {
-                        backgroundColor: "lightgray",
-                        color: "gray",
-                        pointerEvents: "none",
-                    } : {}}
-                    onClick={() => {
-                        if (buttons) setButtons(!buttons);
-                        else {
-                            setDialog("Deny_Button");
-                            document.body.style.overflow = 'hidden';
-                        }
-                    }}
-                >
-                    <span className={setStyles.btn_name}>{t("firstSetsPart.cancelButton")}</span>
-                </button>
-                <button
-                    className={setStyles.saveBtn}
-                    onClick={() => {
-                        if (buttons) setButtons(!buttons);
-                        else {
-                            setDialog("Save_Button");
-                            document.body.style.overflow = 'hidden';
-                        }
-                    }}
-                >
-                    <span className={setStyles.btn_name}>{`${buttons ? t("firstSetsPart.saveButtonType1") : t("firstSetsPart.saveButtonType2")}`}</span>
-                </button>
-            </div>
+                />
+                <form className={setStyles.commonSet}>
+                    {settingsTextFormFields.map((settingTextFormField, index) => 
+                        <TextFormField
+                            key={`SettingTextField__${index}`}
+                            // fieldName={settingTextFormField.fieldName}
+                            fieldName={t(`firstSetsPart.input${index + 1}`)}
+                            fieldValue={settingTextFormField.fieldValue}
+                            fieldPlaceholder={settingTextFormField.fieldPlaceholder}
+                            inputStyles={setStyles.textInput}
+                            labelStyles={setStyles.inputLabel}
+                            onChange={settingTextFormField.changeFunc}
+                            disabled={buttons}
+                        />
+                    )}
+                </form>
+                <div className={setStyles.commonSetsBtns}>
+                    <button
+                        className={setStyles.cancelBtn}
+                        disabled={buttons}
+                        style={buttons ? {
+                            backgroundColor: "lightgray",
+                            color: "gray",
+                            pointerEvents: "none",
+                        } : {}}
+                        onClick={() => {
+                            if (buttons) setButtons(!buttons);
+                            else {
+                                setDialog("Deny_Button");
+                                document.body.style.overflow = 'hidden';
+                            }
+                        }}
+                    >
+                        <span className={setStyles.btn_name}>{t("firstSetsPart.cancelButton")}</span>
+                    </button>
+                    <button
+                        className={setStyles.saveBtn}
+                        onClick={() => {
+                            if (buttons) setButtons(!buttons);
+                            else {
+                                setDialog("Save_Button");
+                                document.body.style.overflow = 'hidden';
+                            }
+                        }}
+                    >
+                        <span className={setStyles.btn_name}>{`${buttons ? t("firstSetsPart.saveButtonType1") : t("firstSetsPart.saveButtonType2")}`}</span>
+                    </button>
+                </div>
+            </PageBlockName>
 
 
             <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
 
 
-            <TastesNBodyConstition id="section1" name={t("secondSetsPart.name")}>
+            <PageBlockName id="section1" name={t("secondSetsPart.name")}>
                 <SubTitle name={t("secondSetsPart.subtitle1.name")} />
                 <TastesCheckboxes
                     questions={[
@@ -323,27 +322,25 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                 <HorizontalLine />
 
                 <SubTitle name={t("secondSetsPart.subtitle2.name")} />
-                <ParagraphFor sentence={t("secondSetsPart.subtitle2.mainQuestion")}>
-                    <RangeInput2Handlers
-                        twohandRangeName="caloriesRangeSlider"
-                        minCalories={userData.customSets.minCalory}
-                        maxCalories={userData.customSets.maxCalory}
-                    />
-                </ParagraphFor>
+                <RangeInput2Handlers
+                    question={t("secondSetsPart.subtitle2.mainQuestion")}
+                    twohandRangeName="caloriesRangeSlider"
+                    minCalories={userData.customSets.minCalory}
+                    maxCalories={userData.customSets.maxCalory}
+                />
                 {/* <hr /> */}
                 {/* <PLFSetUps /> */}
                 {/* <BodyConstitution /> */}
-            </TastesNBodyConstition>
+            </PageBlockName>
 
 
             <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
 
 
-            <PageExterior id="section2" name={t("thirdSetsPart.name")}>
+            <PageBlockName id="section2" name={t("thirdSetsPart.name")}>
                 <SubTitle name={t("thirdSetsPart.subtitle1.name")} />
                 <CustomSelect
                     labelName={t("thirdSetsPart.subtitle1.mainQuestion")}
-                    selectorName="languages"
                     options={langs}
                     dbOption={userData.customSets.language}
                     setNewLang={saveLanguageSet}
@@ -381,7 +378,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                         fontset3={t("thirdSetsPart.subtitle4.fontQuestion3")} fontVolume={fontvolume} hookVolume={setFontVolume}
                     />
                 </>}
-            </PageExterior>
+            </PageBlockName>
 
             {dialog && (
                 <DialogView question={

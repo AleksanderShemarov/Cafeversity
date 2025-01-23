@@ -1,12 +1,12 @@
 "use client";
 
-import { useId, useRef, useState, forwardRef, useImperativeHandle, useEffect } from "react";
+import { useId, useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import imgEditStyles from "./imgEditor.module.css";
-import Image from "next/image";
+import ImageContainer from "./ImageContainer";
+import ImageEditButtons from "./ImageEditBtns";
 
 
 interface ImageIditorTypes {
-    setsPartName: string,
     photoEditorName: string,
     getImagePath: string | null,
     btnName1: string,
@@ -18,7 +18,6 @@ interface ImageIditorTypes {
         imageFileId: string,
     ) => void,
     disabled?: boolean,
-    id?: string,
 }
 
 interface ImageEditorRef {
@@ -27,7 +26,7 @@ interface ImageEditorRef {
 
 // eslint-disable-next-line react/display-name
 const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({
-    setsPartName, photoEditorName, getImagePath, btnName1, btnName2, setImagePath, setImageFileId, disabled, id
+    photoEditorName, getImagePath, btnName1, btnName2, setImagePath, setImageFileId, disabled
 }, ref) => {
 
     const templatePhoto: string = "/uploads/tempUserImage.png";
@@ -117,122 +116,20 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({
 
     return (
         <>
-            <p id={imgEditStyles.commonSettingsName}>{setsPartName}</p>
-            <div className={imgEditStyles.photo_editor} id={id}>
-                <p className={imgEditStyles.photo_edit_name}>{photoEditorName}</p>
-                <div className={imgEditStyles.photo_workplace}>
-                    <ImageContainer img_path={image} />
-                    <ImageEditButtons
-                        btnName1={btnName1}
-                        btnName2={btnName2}
-                        isTemplatePhoto={bool}
-                        onChangeReplace={photoSelect}
-                        onClickDelete={photoDelete}
-                        disabled={disabled}
-                    />
-                </div>
+            <p className={imgEditStyles.photo_edit_name}>{photoEditorName}</p>
+            <div className={imgEditStyles.photo_workplace}>
+                <ImageContainer img_path={image} />
+                <ImageEditButtons
+                    btnName1={btnName1}
+                    btnName2={btnName2}
+                    isTemplatePhoto={bool}
+                    onChangeReplace={photoSelect}
+                    onClickDelete={photoDelete}
+                    disabled={disabled}
+                />
             </div>
         </>
     )
 })
 
 export default ImageEditor;
-
-
-type ImgCont = {
-    img_path: string|null,
-}
-
-type ImgEditBtns = {
-    btnName1: string,
-    btnName2: string,
-    isTemplatePhoto?: boolean,
-    onChangeReplace?: (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => void,
-    onClickDelete?: (
-        event: React.MouseEvent<HTMLButtonElement>,
-    ) => void,
-    disabled?: boolean,
-}
-
-export function ImageContainer({ img_path }: ImgCont) {
-
-    return (
-        <div className={imgEditStyles.photo_container}>
-            <Image
-                src={img_path === null ? "/uploads/tempUserImage.png" : img_path}
-                alt={img_path === null ? "/uploads/tempUserImage.png" : img_path}
-                layout="fill"
-            ></Image>
-        </div>
-    )
-}
-
-export function ImageEditButtons({ btnName1, btnName2, isTemplatePhoto, onChangeReplace, onClickDelete, disabled }: ImgEditBtns) {
-
-
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    const handleImageClick = () => {
-        if (inputRef.current) {
-            inputRef.current.click();
-        }
-    }
-
-    return (
-        <div className={imgEditStyles.photo_edit_buttons}>
-            <input type="file" onChange={onChangeReplace} ref={inputRef} style={{ display: "none" }}/>
-            <button
-                className={imgEditStyles.changeBtn}
-                onClick={handleImageClick}
-                disabled={disabled}
-                style={disabled ?
-                {
-                    backgroundColor: "lightgray",
-                    color: "gray",
-                    pointerEvents: "none",
-                } : {}
-                }
-            >
-                {/* Change Photo */}
-                {btnName1}
-            </button>
-            <button
-                className={imgEditStyles.deleteBtn}
-                disabled={disabled}
-                style={disabled ?
-                {
-                    background: "lightgray",
-                    pointerEvents: "none",
-                } : isTemplatePhoto ? 
-                {
-                    background: "radial-gradient(orange 25% 35%, red 70%)",
-                    pointerEvents: "none",
-                } : {}
-            }
-                onClick={onClickDelete}>
-                    <span
-                        className={imgEditStyles.deleteBtnText}
-                        style={disabled ? 
-                        {
-                            background: "none",
-                            color: "gray",
-                        } :
-                        isTemplatePhoto ?
-                        {
-                            backgroundColor: "white",
-                            backgroundImage: "linear-gradient(90deg, white 5%, lightgray 20% 80%, white 95%)",
-                            backgroundSize: "100%",
-                            backgroundRepeat: "repeat",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                        } :
-                    {}}>
-                        {/* Delete Photo */}
-                        {btnName2}
-                    </span>
-            </button>
-        </div>
-    )
-}

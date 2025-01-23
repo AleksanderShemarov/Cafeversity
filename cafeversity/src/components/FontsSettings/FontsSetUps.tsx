@@ -1,7 +1,8 @@
 import ReactSelect, { CSSObjectWithLabel } from "react-select";
 import Select from "react-select";
-import FontsSetUpStyle from "@/components/FontsSettings/FontsSetUps.module.css";    
 import { Dispatch, SetStateAction } from "react";
+import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
+import HorizontalLine from "../OtherParts/HorizontalLine";
 
 
 const FontsFamilies: {label: string, value: string}[] = [
@@ -202,8 +203,7 @@ export default function FontsFamilySizeWeight({
 
     return (
         <>
-            <div className={FontsSetUpStyle.fontsSetUpBlocks}>
-                <p id={FontsSetUpStyle.describe_name}>{fontset1}</p>
+            <Paragraph question={fontset1} paragraphCSS={{ paddingBottom: "10px" }}>
                 <Select options={FontsFamilies}
                     instanceId="custom-select"
                     menuPlacement="auto"
@@ -220,10 +220,9 @@ export default function FontsFamilySizeWeight({
                     onChange={selectedOption => hookFamily(selectedOption?.value as string)}
                     isSearchable={false}
                 />
-            </div>
-            <hr />
-            <div className={FontsSetUpStyle.fontsSetUpBlocks}>
-                <p id={FontsSetUpStyle.describe_name}>{fontset2}</p>
+            </Paragraph>
+            <HorizontalLine />
+            <Paragraph question={fontset2} paragraphCSS={{ paddingBottom: "10px" }}>
                 <ReactSelect options={FontSizes}
                     instanceId="custom-select"
                     menuPlacement="auto"
@@ -231,10 +230,9 @@ export default function FontsFamilySizeWeight({
                     defaultValue={startFontSize}
                     onChange={selectedOption => hookSize(selectedOption?.value as string)}
                 />
-            </div>
-            <hr />
-            <div className={FontsSetUpStyle.fontsSetUpBlocks}>
-                <p id={FontsSetUpStyle.describe_name}>{fontset3}</p>
+            </Paragraph>
+            <HorizontalLine />
+            <Paragraph question={fontset3} paragraphCSS={{ paddingBottom: "10px" }}>
                 <ReactSelect options={FontVolumes}
                     instanceId="custom-select"
                     menuPlacement="auto"
@@ -250,7 +248,7 @@ export default function FontsFamilySizeWeight({
                         }
                     }}
                 />
-            </div>
+            </Paragraph>
         </>
     )
 }

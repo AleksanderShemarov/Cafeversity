@@ -2,6 +2,7 @@
 
 import tasteCheckboxStyle from "@/components/TastesSettings/MildSpicy/TasteCheckboxes.module.css";
 import { useState } from "react";
+import Paragraph from "@/components/PageBlocks/Paragraphs/Paragraph";
 
 
 const checkboxesAttrs: { id: number|string, attr: string[] }[] = [
@@ -27,32 +28,15 @@ const TastesCheckboxes = ({ questions, props }: TasteCheckboxesProps) => {
         <>
             {
                 checkboxesAttrs.map((checkboxAttrs, index) => (
-                    <ParagraphFor key={index} sentence={`${questions[index]}`}>
+                    <Paragraph key={index} question={`${questions[index]}`} paragraphCSS={{ paddingBottom: "10px" }}>
                         <Checkbox key={checkboxAttrs.id}
                             checkboxId={checkboxAttrs.attr[1]}
                             checkboxName={checkboxAttrs.attr[2]}
                             choisen={props && props[index]}/>
-                    </ParagraphFor>
+                    </Paragraph>
                 ))
             }
         </>
-    )
-}
-
-
-interface ParagraphForTypes {
-    sentence: string,
-    children: React.ReactNode,
-}
-
-const ParagraphFor = ({ sentence, children }: ParagraphForTypes) => {
-    return (
-        <div className={tasteCheckboxStyle.checkboxLine}>
-            <p className={tasteCheckboxStyle.questionPart}>
-                {sentence}
-            </p>
-            {children}
-        </div>
     )
 }
 
@@ -80,7 +64,7 @@ const Checkbox = ({ checkboxId, checkboxName = "", choisen = false }: CheckboxPa
 
 
 export default TastesCheckboxes;
-export { ParagraphFor, Checkbox };
+export { Checkbox };
 
 
 // {/* This code is from "https://getcssscan.com/css-checkboxes-examples" made by #22 Matt Smith */}

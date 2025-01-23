@@ -1,33 +1,21 @@
 "use client";
 
 import stylesOfOptions from "@/components/OptionsChoice/CustomSelect.module.css";
-import { CSSProperties, useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
+import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 
 
 interface CustomSelect {
     labelName: string,
-    selectorName: string,
     options: [string, string, string][],
-    styleDIV?: CSSProperties,
-    styleLABEL?: CSSProperties,
     dbOption: string,
     setNewLang: (
         newLang: string,
     ) => void,
 }
 
-export default function CustomSelect(
-    {
-        labelName,
-        selectorName,
-        options,
-        styleDIV,
-        styleLABEL,
-        dbOption,
-        setNewLang
-    }: CustomSelect
-) {
+export default function CustomSelect({ labelName, options, dbOption, setNewLang }: CustomSelect) {
 
     const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][0]);
     const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[0][2]);
@@ -111,11 +99,7 @@ export default function CustomSelect(
 
 
     return (
-        <div className={stylesOfOptions.optionsBlock} style={styleDIV}>
-            <label htmlFor={selectorName} className={stylesOfOptions.optionsBlockName} style={styleLABEL}>
-                {labelName}
-            </label>
-
+        <Paragraph question={labelName} paragraphCSS={{ paddingBottom: "10px" }}>
             <div className={stylesOfOptions.selectorBox} onClick={() => setIsOpen(!isOpen)} ref={selectBoxRef}>
                 <div className={stylesOfOptions.selectedOption}
                 style={{ width: (maxWidth + 225) }}
@@ -144,6 +128,6 @@ export default function CustomSelect(
                 )}
 
             </div>
-        </div>
+        </Paragraph>
     )
 }

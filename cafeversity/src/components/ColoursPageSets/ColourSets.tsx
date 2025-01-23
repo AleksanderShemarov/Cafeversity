@@ -1,4 +1,5 @@
 import coloursSetStyle from "@/components/ColoursPageSets/ColourSets.module.css";
+import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 //import { useState } from "react";
 
 
@@ -29,8 +30,7 @@ const ColourSets = ({ name, theme, switcher, themeTypes }: ColourSetsTypes) => {
 
 
     return (
-        <>
-            <p id={coloursSetStyle.describe_name}>{name}</p>
+        <Paragraph question={name} paragraphBlockCSS={{ display: "block" }} paragraphCSS={{ paddingBottom: "10px" }}>
             <div id={coloursSetStyle.colours_examples}>
                 {/* {themeClicked.map((theme, index) => (
                     <div key={`theme-${index}`}>
@@ -77,7 +77,7 @@ const ColourSets = ({ name, theme, switcher, themeTypes }: ColourSetsTypes) => {
                     </div>
                 ))}
             </div>
-        </>
+        </Paragraph>
     )
 }
 

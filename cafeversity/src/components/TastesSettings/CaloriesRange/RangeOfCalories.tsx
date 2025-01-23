@@ -1,15 +1,17 @@
 "use client";
 import twohandRangeStyle from "@/components/TastesSettings/CaloriesRange/RangeOfCalories.module.css";
 import { useState } from "react";
+import Paragraph from "@/components/PageBlocks/Paragraphs/Paragraph";
 
 
 type CaloriesRangeSliderTypes = {
+    question: string,
     twohandRangeName?: string,
     minCalories?: number,
     maxCalories?: number,
 }
 
-const RangeInput2Handlers = ({ twohandRangeName = "", minCalories, maxCalories }: CaloriesRangeSliderTypes) => {
+const RangeInput2Handlers = ({ question, twohandRangeName = "", minCalories, maxCalories }: CaloriesRangeSliderTypes) => {
 
     const lowerBorder: number = 1500;
     const upperBorder: number = 3000;
@@ -35,6 +37,7 @@ const RangeInput2Handlers = ({ twohandRangeName = "", minCalories, maxCalories }
     }
 
     return (
+        <Paragraph question={question} paragraphCSS={{ paddingBottom: "10px" }}>
         <div className={twohandRangeStyle.twohandRangeContainer}>
             <div className={twohandRangeStyle.rangeValues}>
                 <span id={twohandRangeStyle.downRange}>{lowerRange}</span>
@@ -59,6 +62,7 @@ const RangeInput2Handlers = ({ twohandRangeName = "", minCalories, maxCalories }
                 value={upperRange} onChange={upperRangeCheck}
             />
         </div>
+        </Paragraph>
     )
 }
 

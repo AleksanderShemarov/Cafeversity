@@ -1,6 +1,7 @@
 "use client";
 import radioStyle from "@/components/RadiosChoice/Radios.module.css";
 import { useState, Dispatch, SetStateAction } from "react";
+import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 
 
 const radioBtns: {id: string, value: string, classLine: string}[] = [
@@ -44,9 +45,7 @@ export default function RadiosChoice({ name, choseRadio, hookFunction }: RadiosC
     }
 
     return (
-        <>
-            <div id={radioStyle.radiosBlock}>
-                <p id={radioStyle.describe_radios_name}>{name}</p>
+        <Paragraph question={name} paragraphCSS={{ paddingBottom: "10px" }}>
                 <form className={radioStyle.radios}>
                     {radioBtns.map((radioBtn, index) => 
                         <input key={index} type="radio" className={`${radioStyle.radio} ${radioBtn.classLine}`}
@@ -54,7 +53,6 @@ export default function RadiosChoice({ name, choseRadio, hookFunction }: RadiosC
                         onChange={() => switchingRadioBtns(index)} />
                     )}                    
                 </form>
-            </div>
-        </>
+        </Paragraph>
     )
 }

@@ -1,4 +1,4 @@
-.appearanceBox {
+.pageBlock {
     /* height: 60vh; */
     border-radius: 1%/2%;
     /* padding: 1em; /* 16px */
@@ -6,7 +6,7 @@
     scroll-margin-top: 205px;
 }
 
-#appearanceBoxName {
+#pageBlockName {
     /* border: 1px solid black; */
     padding-left: 10px;
     padding-right: 10px;
