@@ -1,21 +1,3 @@
-.photo_edit_name {
-    margin-bottom: 0;
-    min-width: fit-content;
-    font-size: 2.2rem;
-    font-style: oblique;
-    font-weight: bolder;
-    font-family: var(--font-family);
-    /* margin-bottom: 0.55em; /* 8.8px */
-    margin-bottom: 0.88rem;
-    text-align: justify;
-    /* text-indent: 2em; /* 32px */
-    text-indent: 3.2rem;
-    color: var(--text-color);
-
-    font-weight: var(--font-volume-weight);
-    font-style: var(--font-volume-style);
-}
-
 .photo_workplace {
     /* outline: 3px dotted purple; */
     display: flex;

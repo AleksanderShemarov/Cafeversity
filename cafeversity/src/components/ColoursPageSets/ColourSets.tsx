@@ -1,5 +1,4 @@
 import coloursSetStyle from "@/components/ColoursPageSets/ColourSets.module.css";
-import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 //import { useState } from "react";
 
 
@@ -9,14 +8,13 @@ const divStyles: [string, string, string][] = [
 ];
 
 type ColourSetsTypes = {
-    name: string,
     theme: string,
     switcher: (index: number) => void,
     themeTypes: string[] 
 }
 
 
-const ColourSets = ({ name, theme, switcher, themeTypes }: ColourSetsTypes) => {
+const ColourSets = ({ theme, switcher, themeTypes }: ColourSetsTypes) => {
 
     // const [themeClicked, setThemeClicked] = useState<boolean[]>([true, false]);
     // 
@@ -30,54 +28,52 @@ const ColourSets = ({ name, theme, switcher, themeTypes }: ColourSetsTypes) => {
 
 
     return (
-        <Paragraph question={name} paragraphBlockCSS={{ display: "block" }} paragraphCSS={{ paddingBottom: "10px" }}>
-            <div id={coloursSetStyle.colours_examples}>
-                {/* {themeClicked.map((theme, index) => (
-                    <div key={`theme-${index}`}>
-                        <div className={coloursSetStyle.colourExampleBlock}>
-                            <div className={`${coloursSetStyle.colourExample} ${divStyles[index][0]}`} key={`ColourTheme${index}`}
-                                onClick={() => { switchBetweenColourThemes(`ColourTheme${index}`); }}
-                                style={{
-                                    outline: theme ? "5px solid lime" : "none",
-                                    pointerEvents: theme ? "none" : "auto",
-                                }}
-                            >
-                                <div className={`${coloursSetStyle.firstlineDiv1} ${divStyles[index][1]}`}></div>
-                                <div className={`${coloursSetStyle.firstlineDiv2} ${divStyles[index][1]}`}></div>
-                                <div className={`${coloursSetStyle.firstlineDiv3} ${divStyles[index][1]}`}></div>
-                                <div className={`${coloursSetStyle.firstlineDiv4} ${divStyles[index][1]}`}></div>
-                                <div className={`${coloursSetStyle.secondlineDiv} ${divStyles[index][1]}`}></div>
-                                <div className={`${coloursSetStyle.thirdlineDiv} ${divStyles[index][1]}`}></div>
-                                <div className={`${coloursSetStyle.thirdlineDiv} ${divStyles[index][1]}`}></div>
-                            </div>
-                            <p className={coloursSetStyle.colourExampleName}>{divStyles[index][2]}</p>
+        <div id={coloursSetStyle.colours_examples}>
+            {/* {themeClicked.map((theme, index) => (
+                <div key={`theme-${index}`}>
+                    <div className={coloursSetStyle.colourExampleBlock}>
+                        <div className={`${coloursSetStyle.colourExample} ${divStyles[index][0]}`} key={`ColourTheme${index}`}
+                            onClick={() => { switchBetweenColourThemes(`ColourTheme${index}`); }}
+                            style={{
+                                outline: theme ? "5px solid lime" : "none",
+                                pointerEvents: theme ? "none" : "auto",
+                            }}
+                        >
+                            <div className={`${coloursSetStyle.firstlineDiv1} ${divStyles[index][1]}`}></div>
+                            <div className={`${coloursSetStyle.firstlineDiv2} ${divStyles[index][1]}`}></div>
+                            <div className={`${coloursSetStyle.firstlineDiv3} ${divStyles[index][1]}`}></div>
+                            <div className={`${coloursSetStyle.firstlineDiv4} ${divStyles[index][1]}`}></div>
+                            <div className={`${coloursSetStyle.secondlineDiv} ${divStyles[index][1]}`}></div>
+                            <div className={`${coloursSetStyle.thirdlineDiv} ${divStyles[index][1]}`}></div>
+                            <div className={`${coloursSetStyle.thirdlineDiv} ${divStyles[index][1]}`}></div>
                         </div>
+                        <p className={coloursSetStyle.colourExampleName}>{divStyles[index][2]}</p>
                     </div>
-                ))} */}
-                {divStyles.map((style, index) => (
-                    <div key={`theme-${index}`}>
-                        <div className={coloursSetStyle.colourExampleBlock}>
-                            <div className={`${coloursSetStyle.colourExample} ${style[0]}`}
-                                onClick={() => switcher(index)}
-                                style={{
-                                    outline: theme === (index === 0 ? 'light' : 'dark') ? "5px solid var(--accent-color)" : "none",
-                                    pointerEvents: theme === (index === 0 ? 'light' : 'dark') ? "none" : "auto",
-                                }}
-                            >
-                                <div className={`${coloursSetStyle.firstlineDiv1} ${style[1]}`}></div>
-                                <div className={`${coloursSetStyle.firstlineDiv2} ${style[1]}`}></div>
-                                <div className={`${coloursSetStyle.firstlineDiv3} ${style[1]}`}></div>
-                                <div className={`${coloursSetStyle.firstlineDiv4} ${style[1]}`}></div>
-                                <div className={`${coloursSetStyle.secondlineDiv} ${style[1]}`}></div>
-                                <div className={`${coloursSetStyle.thirdlineDiv} ${style[1]}`}></div>
-                                <div className={`${coloursSetStyle.thirdlineDiv} ${style[1]}`}></div>
-                            </div>
-                            <p className={coloursSetStyle.colourExampleName}>{themeTypes[index]}</p>
+                </div>
+            ))} */}
+            {divStyles.map((style, index) => (
+                <div key={`theme-${index}`}>
+                    <div className={coloursSetStyle.colourExampleBlock}>
+                        <div className={`${coloursSetStyle.colourExample} ${style[0]}`}
+                            onClick={() => switcher(index)}
+                            style={{
+                                outline: theme === (index === 0 ? 'light' : 'dark') ? "5px solid var(--accent-color)" : "none",
+                                pointerEvents: theme === (index === 0 ? 'light' : 'dark') ? "none" : "auto",
+                            }}
+                        >
+                            <div className={`${coloursSetStyle.firstlineDiv1} ${style[1]}`}></div>
+                            <div className={`${coloursSetStyle.firstlineDiv2} ${style[1]}`}></div>
+                            <div className={`${coloursSetStyle.firstlineDiv3} ${style[1]}`}></div>
+                            <div className={`${coloursSetStyle.firstlineDiv4} ${style[1]}`}></div>
+                            <div className={`${coloursSetStyle.secondlineDiv} ${style[1]}`}></div>
+                            <div className={`${coloursSetStyle.thirdlineDiv} ${style[1]}`}></div>
+                            <div className={`${coloursSetStyle.thirdlineDiv} ${style[1]}`}></div>
                         </div>
+                        <p className={coloursSetStyle.colourExampleName}>{themeTypes[index]}</p>
                     </div>
-                ))}
-            </div>
-        </Paragraph>
+                </div>
+            ))}
+        </div>
     )
 }
 

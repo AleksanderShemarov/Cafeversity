@@ -1,4 +1,4 @@
-import setStyles from "@/components/SettingsPage/settings.module.css";
+import navbarPartStyle from "./StickyNavbarPart.module.css";
 import { useTranslations } from "next-intl";
 
 
@@ -29,7 +29,7 @@ export default function StickyNavbarPart({
                 document.querySelector(`#section${actionIndex}`)?.scrollIntoView({ behavior: "smooth" });
                 switchFunc(actionIndex);
             }}
-            className={setStyles.bar_link}
+            className={navbarPartStyle.bar_link}
             style={{
                 borderBottom: checkingBools[actionIndex] ? "3px solid #714efe" : "none",
                 pointerEvents: checkingBools[actionIndex] ? "none" : "auto",

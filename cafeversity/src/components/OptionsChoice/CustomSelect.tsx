@@ -3,11 +3,9 @@
 import stylesOfOptions from "@/components/OptionsChoice/CustomSelect.module.css";
 import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
-import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 
 
 interface CustomSelect {
-    labelName: string,
     options: [string, string, string][],
     dbOption: string,
     setNewLang: (
@@ -15,7 +13,8 @@ interface CustomSelect {
     ) => void,
 }
 
-export default function CustomSelect({ labelName, options, dbOption, setNewLang }: CustomSelect) {
+
+export default function CustomSelect({ options, dbOption, setNewLang }: CustomSelect) {
 
     const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][0]);
     const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[0][2]);
@@ -99,35 +98,32 @@ export default function CustomSelect({ labelName, options, dbOption, setNewLang 
 
 
     return (
-        <Paragraph question={labelName} paragraphCSS={{ paddingBottom: "10px" }}>
-            <div className={stylesOfOptions.selectorBox} onClick={() => setIsOpen(!isOpen)} ref={selectBoxRef}>
-                <div className={stylesOfOptions.selectedOption}
-                style={{ width: (maxWidth + 225) }}
-                >
-                    {/* <img src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35} /> */}
-                    <Image src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35}></Image>
-                    <p>{selectedOptionValue}</p>
-                    &#x2B9F;
-                </div>
-
-                {isOpen && (
-                <div className={`${stylesOfOptions.optionsList} 
-                ${selectDropping === "up" ? stylesOfOptions.optionsList_up : stylesOfOptions.optionsList_down}`}>
-                    {options.map((option, index) => (
-                        <div key={option[0]}
-                            className={stylesOfOptions.option}
-                            onClick={() => handleOptionClick(option, index)}
-                            ref={el => { optionRefs.current[index] = el; }}
-                        >
-                            {/* <img src={option[2]} alt={option[2]} width={25} height={25} /> */}
-                            <Image src={option[2]} alt={option[2]} width={25} height={25}></Image>
-                            <p>{option[0]}</p>
-                        </div>
-                    ))}
-                </div>
-                )}
-
+        <div className={stylesOfOptions.selectorBox} onClick={() => setIsOpen(!isOpen)} ref={selectBoxRef}>
+            <div className={stylesOfOptions.selectedOption}
+            style={{ width: (maxWidth + 225) }}
+            >
+                {/* <img src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35} /> */}
+                <Image src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35}></Image>
+                <p>{selectedOptionValue}</p>
+                &#x2B9F;
             </div>
-        </Paragraph>
+
+            {isOpen && (
+            <div className={`${stylesOfOptions.optionsList} 
+            ${selectDropping === "up" ? stylesOfOptions.optionsList_up : stylesOfOptions.optionsList_down}`}>
+                {options.map((option, index) => (
+                    <div key={option[0]}
+                        className={stylesOfOptions.option}
+                        onClick={() => handleOptionClick(option, index)}
+                        ref={el => { optionRefs.current[index] = el; }}
+                    >
+                        {/* <img src={option[2]} alt={option[2]} width={25} height={25} /> */}
+                        <Image src={option[2]} alt={option[2]} width={25} height={25}></Image>
+                        <p>{option[0]}</p>
+                    </div>
+                ))}
+            </div>
+            )}
+        </div>
     )
 }

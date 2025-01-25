@@ -8,36 +8,25 @@ type ImgEditBtns = {
     btnName1: string,
     btnName2: string,
     isTemplatePhoto?: boolean,
-    onChangeReplace?: (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => void,
-    onClickDelete?: (
-        event: React.MouseEvent<HTMLButtonElement>,
-    ) => void,
+    onChangeReplace?: (event: React.ChangeEvent<HTMLInputElement>) => void,
+    onClickDelete?: (event: React.MouseEvent<HTMLButtonElement>) => void,
     disabled?: boolean,
 }
 
 
-export default function ImageEditButtons({
-    btnName1,
-    btnName2,
-    isTemplatePhoto,
-    onChangeReplace,
-    onClickDelete,
-    disabled
-}: ImgEditBtns) {
+export default function ImageEditButtons({ btnName1, btnName2, isTemplatePhoto, onChangeReplace, onClickDelete, disabled }: ImgEditBtns) {
 
-    const inputRef = useRef<HTMLInputElement>(null);
+    const changeImageRef = useRef<HTMLInputElement>(null);
 
     const handleImageClick = () => {
-        if (inputRef.current) {
-            inputRef.current.click();
+        if (changeImageRef.current) {
+            changeImageRef.current.click();
         }
     }
 
     return (
         <div className={imgEditStyles.photo_edit_buttons}>
-            <input type="file" onChange={onChangeReplace} ref={inputRef} style={{ display: "none" }}/>
+            <input type="file" onChange={onChangeReplace} style={{ display: "none" }} ref={changeImageRef} />
             <button
                 className={imgEditStyles.changeBtn}
                 onClick={handleImageClick}

@@ -3,12 +3,12 @@
 import ImageEditor from "@/components/ImageEditor/ImageEditor";
 import { useState, useReducer, useEffect, useRef } from "react";
 import setStyles from "./settings.module.css";
-import TextFormField from "@/components/FormFields/TextFormField";
+import TextField from "@/components/FormFields/TextField";
 import DialogView from "@/components/Dialog/DialogView";
 import AccessBtn, { DenyBtn } from "@/components/Buttons/DifferentButtons";
 import CustomSelect from "@/components/OptionsChoice/CustomSelect";
 import ColourSets from "@/components/ColoursPageSets/ColourSets";
-import RadiosChoice from "@/components/RadiosChoice/Radios";
+import RadiosBlock from "@/components/RadiosChoice/Radios";
 import FontsFamilySizeWeight from "@/components/FontsSettings/FontsSetUps";
 import TastesCheckboxes from "@/components/TastesSettings/MildSpicy/TasteCheckboxes";
 import RangeInput2Handlers from "@/components/TastesSettings/CaloriesRange/RangeOfCalories";
@@ -23,6 +23,9 @@ import useFontVolumeSet from "@/hooks/fontVolume";
 import { useTranslations } from "next-intl";
 import { UserDataTypes } from "@/app/[authorizedUser]/settingsPage/page";
 import PageBlockName from "@/components/PageBlocks/PageBlockName";
+import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
+import SaveDenyPanel from "../SaveDenyPanel/SaveDenyPanel";
+import FormBlock from "../FormFields/FormBlock";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
 
@@ -236,73 +239,50 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     // font volume (weight and style) settings
     const [fontvolume, setFontVolume] = useFontVolumeSet();
 
-    // const t = (str: string) => str;
+
     const t = useTranslations("SettingsPage");
 
     return (
         <>
             <PageBlockName id="section0" name={t("firstSetsPart.name")} pageBlockCSS={{ scrollMarginTop: "302px" }}>
-                <ImageEditor ref={imageEditorRef}
-                    photoEditorName={t("firstSetsPart.photoEditor.name")}
-                    getImagePath={state.userPhoto}
-                    btnName1={t("firstSetsPart.photoEditor.changePhotoButton")}
-                    btnName2={t("firstSetsPart.photoEditor.deletePhotoButton")}
-                    setImagePath={setImagePath}
-                    setImageFileId={setImageFileId}
-                    disabled={buttons}
-                />
-                <form className={setStyles.commonSet}>
+                <Paragraph question={t("firstSetsPart.photoEditor.name")}
+                    paragraphBlockCSS={{ display: "block" }}
+                    paragraphCSS={{
+                        minWidth: "fit-content",
+                        marginBottom: "0.88rem",
+                        textIndent: "1rem",//! An important moment
+                    }}
+                >
+                    <ImageEditor ref={imageEditorRef}
+                        getImagePath={state.userPhoto}
+                        setImagePath={setImagePath}
+                        setImageFileId={setImageFileId}
+                        disabled={buttons}
+                    />
+                </Paragraph>
+
+                <FormBlock className={setStyles.commonSet}>
                     {settingsTextFormFields.map((settingTextFormField, index) => 
-                        <TextFormField
+                        <TextField
                             key={`SettingTextField__${index}`}
-                            // fieldName={settingTextFormField.fieldName}
                             fieldName={t(`firstSetsPart.input${index + 1}`)}
                             fieldValue={settingTextFormField.fieldValue}
                             fieldPlaceholder={settingTextFormField.fieldPlaceholder}
-                            inputStyles={setStyles.textInput}
-                            labelStyles={setStyles.inputLabel}
                             onChange={settingTextFormField.changeFunc}
                             disabled={buttons}
                         />
                     )}
-                </form>
-                <div className={setStyles.commonSetsBtns}>
-                    <button
-                        className={setStyles.cancelBtn}
-                        disabled={buttons}
-                        style={buttons ? {
-                            backgroundColor: "lightgray",
-                            color: "gray",
-                            pointerEvents: "none",
-                        } : {}}
-                        onClick={() => {
-                            if (buttons) setButtons(!buttons);
-                            else {
-                                setDialog("Deny_Button");
-                                document.body.style.overflow = 'hidden';
-                            }
-                        }}
-                    >
-                        <span className={setStyles.btn_name}>{t("firstSetsPart.cancelButton")}</span>
-                    </button>
-                    <button
-                        className={setStyles.saveBtn}
-                        onClick={() => {
-                            if (buttons) setButtons(!buttons);
-                            else {
-                                setDialog("Save_Button");
-                                document.body.style.overflow = 'hidden';
-                            }
-                        }}
-                    >
-                        <span className={setStyles.btn_name}>{`${buttons ? t("firstSetsPart.saveButtonType1") : t("firstSetsPart.saveButtonType2")}`}</span>
-                    </button>
-                </div>
+                </FormBlock>
+                
+                <SaveDenyPanel
+                    enableBtns={buttons}
+                    translate="SettingsPage"
+                    setButtonsFunc={setButtons}
+                    setDialogFunc={setDialog}
+                />
             </PageBlockName>
 
-
             <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
-
 
             <PageBlockName id="section1" name={t("secondSetsPart.name")}>
                 <SubTitle name={t("secondSetsPart.subtitle1.name")} />
@@ -322,51 +302,61 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                 <HorizontalLine />
 
                 <SubTitle name={t("secondSetsPart.subtitle2.name")} />
-                <RangeInput2Handlers
-                    question={t("secondSetsPart.subtitle2.mainQuestion")}
-                    twohandRangeName="caloriesRangeSlider"
-                    minCalories={userData.customSets.minCalory}
-                    maxCalories={userData.customSets.maxCalory}
-                />
+                    <Paragraph question={t("secondSetsPart.subtitle2.mainQuestion")}
+                        paragraphCSS={{ paddingBottom: "10px" }}
+                    >
+                        <RangeInput2Handlers
+                            twohandRangeName="caloriesRangeSlider"
+                            minCalories={userData.customSets.minCalory}
+                            maxCalories={userData.customSets.maxCalory}
+                        />
+                    </Paragraph>
                 {/* <hr /> */}
                 {/* <PLFSetUps /> */}
                 {/* <BodyConstitution /> */}
             </PageBlockName>
 
-
             <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
-
 
             <PageBlockName id="section2" name={t("thirdSetsPart.name")}>
                 <SubTitle name={t("thirdSetsPart.subtitle1.name")} />
-                <CustomSelect
-                    labelName={t("thirdSetsPart.subtitle1.mainQuestion")}
-                    options={langs}
-                    dbOption={userData.customSets.language}
-                    setNewLang={saveLanguageSet}
-                />
+                <Paragraph question={t("thirdSetsPart.subtitle1.mainQuestion")}
+                    paragraphCSS={{ paddingBottom: "10px" }}
+                >
+                    <CustomSelect
+                        options={langs}
+                        dbOption={userData.customSets.language}
+                        setNewLang={saveLanguageSet}
+                    />
+                </Paragraph>
 
                 <HorizontalLine />
 
-                {mounted &&
-                <>
+                {mounted && <>
                     <SubTitle name={t("thirdSetsPart.subtitle2.name")} />
-                    <ColourSets
-                        name={t("thirdSetsPart.subtitle2.mainQuestion")}
-                        theme={theme}
-                        switcher={switchBetweenColourThemes}
-                        themeTypes={[t("thirdSetsPart.subtitle2.lightTheme"), t("thirdSetsPart.subtitle2.darkTheme")]}
-                    />
+                    <Paragraph question={t("thirdSetsPart.subtitle2.mainQuestion")}
+                        paragraphBlockCSS={{ display: "block" }}
+                        paragraphCSS={{ paddingBottom: "10px" }}
+                    >
+                        <ColourSets
+                            theme={theme}
+                            switcher={switchBetweenColourThemes}
+                            themeTypes={[t("thirdSetsPart.subtitle2.lightTheme"), t("thirdSetsPart.subtitle2.darkTheme")]}
+                        />
+                    </Paragraph>
                 </>}
 
                 <HorizontalLine />
 
                 <SubTitle name={t("thirdSetsPart.subtitle3.name")} />
-                <RadiosChoice
-                    name={t("thirdSetsPart.subtitle3.mainQuestion")}
-                    choseRadio={accentColour}
-                    hookFunction={setAccentColour}
-                />
+                <Paragraph question={t("thirdSetsPart.subtitle3.mainQuestion")}
+                    paragraphCSS={{ paddingBottom: "10px" }}
+                >    
+                    <RadiosBlock
+                        choseRadio={accentColour}
+                        hookFunction={setAccentColour}
+                    />
+                </Paragraph>
 
                 <HorizontalLine />
                 
@@ -387,7 +377,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                     (/Deny/.test(dialog) && t("firstSetsPart.changesDialog.mainQuestion2"))
                 }>
                     <AccessBtn
-                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px" }}
+                        additionalStyle={{ paddingLeft: "60px", paddingRight: "60px" }}
                         onClick={() => {
                             if (/Save/.test(dialog)) saveNewCommonUserData();
                             if (/Deny/.test(dialog)) denyNewCommonUserData();
@@ -398,7 +388,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                         buttonName={t("firstSetsPart.changesDialog.accessButton")}
                     />
                     <DenyBtn
-                        uniqueStyle={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
+                        additionalStyle={{ paddingLeft: "60px", paddingRight: "60px", backgroundColor: "orange" }}
                         onClick={() => {
                             setDialog("");
                             document.body.style.overflow = 'auto';

@@ -1,7 +1,8 @@
 "use client";
+
 import radioStyle from "@/components/RadiosChoice/Radios.module.css";
 import { useState, Dispatch, SetStateAction } from "react";
-import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
+import RadioBtn from "./RadioBtn";
 
 
 const radioBtns: {id: string, value: string, classLine: string}[] = [
@@ -16,13 +17,12 @@ let startRadioBtns: boolean[] = [ true, false, false, false, false ];
 
 
 type RadiosChoiceTypes = {
-    name: string,
     choseRadio: string,
     hookFunction: Dispatch<SetStateAction<string>>
 }
 
 
-export default function RadiosChoice({ name, choseRadio, hookFunction }: RadiosChoiceTypes) {   
+export default function RadiosBlock({ choseRadio, hookFunction }: RadiosChoiceTypes) {   
     
     if (choseRadio) {
         for (let i = 0; i < radioBtns.length; i++) {
@@ -45,14 +45,12 @@ export default function RadiosChoice({ name, choseRadio, hookFunction }: RadiosC
     }
 
     return (
-        <Paragraph question={name} paragraphCSS={{ paddingBottom: "10px" }}>
-                <form className={radioStyle.radios}>
-                    {radioBtns.map((radioBtn, index) => 
-                        <input key={index} type="radio" className={`${radioStyle.radio} ${radioBtn.classLine}`}
-                        id={radioBtn.id} name="color_pointer" value={radioBtn.value} checked={checkedRadioBtn[index]}
-                        onChange={() => switchingRadioBtns(index)} />
-                    )}                    
-                </form>
-        </Paragraph>
+        <form className={radioStyle.radios}>
+            {radioBtns.map((radioBtn, index) => 
+                <RadioBtn key={index} radioClass={`${radioStyle.radio} ${radioBtn.classLine}`}
+                radioId={radioBtn.id} radioName="color_pointer" radioValue={radioBtn.value} isChecked={checkedRadioBtn[index]}
+                onChange={() => switchingRadioBtns(index)} />
+            )}
+        </form>
     )
 }
