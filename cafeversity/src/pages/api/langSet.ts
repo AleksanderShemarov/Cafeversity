@@ -4,10 +4,8 @@ import prisma from "../../../lib/utils/prismaClient";
 
 const NewUserLanguage: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
-        console.log("langSet API ->", req.body);
-
-        const [name, surname]: [string, string] = req.body["userName"].split("_");
-        const lang: string = req.body["newLang"];
+        const [name, surname]: [string, string] = req.body.userName.split("_");
+        const lang: string = req.body.newLang;
         const user = await prisma.users.findFirst({
             where: {
                 firstName: name,

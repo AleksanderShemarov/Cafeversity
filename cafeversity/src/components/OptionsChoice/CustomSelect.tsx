@@ -15,34 +15,23 @@ interface CustomSelect {
 
 
 export default function CustomSelect({ options, dbOption, setNewLang }: CustomSelect) {
-
-    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][0]);
-    const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[0][2]);
+    
+    const initialIndex = Math.max(
+        options.findIndex(opt => opt[1] === dbOption), 0
+    );
+    //const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(initialIndex);
+    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[initialIndex][0]);
+    const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[initialIndex][2]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
-    console.log(selectedOptionIndex);
 
-    useEffect(() => {
-        if (dbOption) {
-            for (let i = 0; i < options.length; i++) {
-                if (options[i][1].includes(dbOption)) {
-                    setSelectedOptionValue(options[i][0]);
-                    setSelectedOptionImage(options[i][2]);
-                    setSelectedOptionIndex(i);
-                    break;
-                }
-            }
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dbOption]);
-
-    const handleOptionClick = (option: [string, string, string], index: number) => {
+    //const handleOptionClick = (option: [string, string, string], index: number) => {
+    const handleOptionClick = (option: [string, string, string]) => {
         setSelectedOptionValue(option[0]);
         setSelectedOptionImage(option[2]);
         setIsOpen(false);
 
-        setSelectedOptionIndex(index);
+        //setSelectedOptionIndex(index);
         setNewLang(option[1]);
     }
 
@@ -88,7 +77,7 @@ export default function CustomSelect({ options, dbOption, setNewLang }: CustomSe
             // console.log(window.innerHeight);
             // console.log(spaceAbove, spaceBelow);
 
-            if (spaceBelow < 345 && spaceAbove > spaceBelow) {
+            if (spaceBelow < 145 && spaceAbove > spaceBelow) {
                 setSelectDropping("up");
             } else {
                 setSelectDropping("down");
@@ -114,7 +103,8 @@ export default function CustomSelect({ options, dbOption, setNewLang }: CustomSe
                 {options.map((option, index) => (
                     <div key={option[0]}
                         className={stylesOfOptions.option}
-                        onClick={() => handleOptionClick(option, index)}
+                        // onClick={() => handleOptionClick(option, index)}
+                        onClick={() => handleOptionClick(option)}
                         ref={el => { optionRefs.current[index] = el; }}
                     >
                         {/* <img src={option[2]} alt={option[2]} width={25} height={25} /> */}

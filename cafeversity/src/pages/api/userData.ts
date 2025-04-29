@@ -4,7 +4,6 @@ import prisma from "../../../lib/utils/prismaClient";
 
 const userCommonData: NextApiHandler = async (request:NextApiRequest, response: NextApiResponse) => {
     if (request.method === "GET") {
-        console.log(request.query);
         const { name } = request.query;
         const { page } = request.query;
         if (name && typeof name === "string") {
@@ -49,14 +48,12 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         }
                     }
                 });
-                console.log("user API ->", user);
                 return response.status(200).json(user);
             } else {
                 return response.status(400).json({ message: "Incorrect connect." });
             }
         }
     } else if (request.method === "POST") {
-        console.log("userData API ->", request.query);
         const { page } = request.query;
         if (page === "settings") {
             const oldName: string = request.body.oldName;

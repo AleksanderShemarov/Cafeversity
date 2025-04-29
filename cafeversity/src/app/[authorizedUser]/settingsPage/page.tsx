@@ -19,7 +19,7 @@ export interface UserDataTypes {
 }
 
 async function fetchData(authorizedUser: string) {
-    const response = await fetch(`http://localhost:3000/api/userData?name=${authorizedUser}&page=settings`);
+    const response = await fetch(`http://localhost:3000/api/userData?name=${authorizedUser}&page=settings`, { cache: "no-store" });
     const userData = await response.json();
     return userData;
 }

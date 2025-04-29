@@ -27,7 +27,8 @@ export default async function RootLayout({
     // <html lang="en">
     <html lang={locale}>
       <body className={inter.className}>
-        <NextIntlClientProvider messages={messages}>
+        <NextIntlClientProvider messages={messages} locale={locale} now={new Date()}>
+          {/* I use "locale" in NextIntlClientProvider as the mistakes protection */}
           <CommonLayout>
             {children}
           </CommonLayout>

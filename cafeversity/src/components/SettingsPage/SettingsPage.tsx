@@ -28,6 +28,8 @@ import SaveDenyPanel from "../SaveDenyPanel/SaveDenyPanel";
 import FormBlock from "../FormFields/FormBlock";
 // import PLFSetUps from "@/components/TastesSettings/ProteinLipidFat/PLFSetUps";
 
+import { useRouter } from "next/navigation";// for "saveLanguageSet" function
+
 
 interface ActualUser {
     authorizedUser: string,
@@ -102,8 +104,10 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     const [imagePath, setImagePath] = useState<string>("/uploads/tempUserImage.png");
     const [imageFileId, setImageFileId] = useState<string>("");
 
-
     const [state, dispatch] = useReducer(reducer, userData);
+
+    const router = useRouter();
+
 
     function firstNameChange(event: React.ChangeEvent<HTMLInputElement>) {
         dispatch({
@@ -176,24 +180,30 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
 
 
     async function saveLanguageSet (newLanguage: string) {
-        const userLanguage = {
-            userName: authorizedUser,
-            newLang: newLanguage,
-        };
+        
+        try {
+            const response = await fetch("http://localhost:3000/api/langSet", {
+                method: "POST",
+                headers:{ 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    userName: authorizedUser,
+                    newLang: newLanguage,
+                }),
+            });
 
-        await fetch("http://localhost:3000/api/langSet", {
-            method: "POST",
-            headers:{ 'Content-Type': 'application/json' },
-            body: JSON.stringify(userLanguage),
-        })
-        .then((res) => {
-            console.log(res.status);
-            return res.json();
-        })
-        .then((data) => {
+            if(!response.ok) {
+                throw new Error("Failed to update language");
+            }
+
+            const data = await response.json();
             console.log(data.message);
-            window.location.reload();
-        });
+            
+            await fetch("/api/revalidate?path=/settings");// revalidation of settingsPage
+            router.refresh();
+        } catch (error) {
+            console.error("Language update error:", error);
+            alert("Failed to change language. Please try again.");
+        }
     }
 
 
