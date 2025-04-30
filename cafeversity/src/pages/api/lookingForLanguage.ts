@@ -5,7 +5,7 @@ import prisma from "@/../../lib/utils/prismaClient";
 const LookingForUserLanguage: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
     if (req.method === "POST") {
         const userSessionId = req.body["value"];
-        console.log("API has the sessionId have got from the request body ->", userSessionId);
+        // console.log("API has the sessionId have got from the request body ->", userSessionId);
         if (userSessionId !== undefined) {
             const user = await prisma.users.findUnique({
                 where: {

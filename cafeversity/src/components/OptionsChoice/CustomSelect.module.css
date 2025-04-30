@@ -5,6 +5,8 @@
     border: 2px solid var(--text-color);
     padding: 5px;
     position: relative;
+    cursor: default;
+    user-select: none;
 
     font-family: var(--font-family);
 

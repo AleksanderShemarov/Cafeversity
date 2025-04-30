@@ -30,6 +30,9 @@ import FormBlock from "../FormFields/FormBlock";
 
 import { useRouter } from "next/navigation";// for "saveLanguageSet" function
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/ReactToastify.css";
+
 
 interface ActualUser {
     authorizedUser: string,
@@ -179,8 +182,8 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     }
 
 
-    async function saveLanguageSet (newLanguage: string) {
-        
+    async function saveLanguageSet (newLanguage: string)
+    {
         try {
             const response = await fetch("http://localhost:3000/api/langSet", {
                 method: "POST",
@@ -196,10 +199,11 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
             }
 
             const data = await response.json();
-            console.log(data.message);
             
             await fetch("/api/revalidate?path=/settings");// revalidation of settingsPage
             router.refresh();
+
+            toast.info(data.message, { position: "top-right", style: { fontSize: "1.5rem" } });
         } catch (error) {
             console.error("Language update error:", error);
             alert("Failed to change language. Please try again.");
@@ -407,6 +411,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                     />
                 </DialogView>
             )}
+            <ToastContainer theme="light" />
         </>
     )
 }
