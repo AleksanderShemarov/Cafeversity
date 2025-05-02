@@ -260,6 +260,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
 
 
     const t = useTranslations("SettingsPage");
+    console.log(userData);
 
     return (
         <>
@@ -313,9 +314,10 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                     ]}
                     props={[
                         userData.customSets.spicy,
-                        userData.customSets.veget,
+                        userData.customSets.vegetarian,
                         userData.customSets.vegan
                     ]}
+                    userId={userData.id}
                 />
                 
                 <HorizontalLine />

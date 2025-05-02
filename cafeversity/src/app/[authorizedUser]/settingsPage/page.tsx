@@ -4,13 +4,14 @@ import SettingsPage from "@/components/SettingsPage/SettingsPage";
 
 
 export interface UserDataTypes {
+    id: number,
     firstName: string,
     lastName: string,
     nickName: string,
     userPhoto: string|null,
     customSets: {
         spicy: boolean,
-        veget: boolean,
+        vegetarian: boolean,
         vegan: boolean,
         minCalory: number,
         maxCalory: number,

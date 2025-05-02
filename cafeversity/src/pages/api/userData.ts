@@ -32,6 +32,7 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         ],
                     },
                     select: {
+                        id: true,
                         firstName: true,
                         lastName: true,
                         nickName: true,
