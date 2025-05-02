@@ -65,30 +65,38 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
             const { newUserPhoto } = request.body;
 
             console.log(request.body);
-            if (oldName && oldNickname && newName !== "" && newSurname !== "" && newNickname !== undefined && newUserPhoto !== undefined) {
-                const user = await prisma.users.findFirst({
-                    where:  {
-                        AND: [
-                            { firstName: oldName.split("_")[0] },
-                            { lastName: oldName.split("_")[1] },
-                            { nickName: oldNickname },
-                        ],
-                    },
+
+            if (oldName && newName && newSurname) {
+                const [oldFirstName, oldLastName] = oldName.split("_");
+
+                await prisma.$transaction(async (tx) => {
+                    const user = await tx.users.findFirst({
+                        where: {
+                            firstName: oldFirstName,
+                            lastName: oldLastName,
+                            nickName: oldNickname
+                        }
+                    });
+
+                    if (!user) throw new Error("User not found!");
+
+                    await tx.users.update({
+                        where: {
+                            id: user.id
+                        },
+                        data: {
+                            firstName: newName,
+                            lastName: newSurname,
+                            nickName: newNickname,
+                            userPhoto: newUserPhoto
+                        }
+                    });
                 });
-                await prisma.users.update({
-                    where: {
-                        id: user?.id,
-                    },
-                    data: {
-                        firstName: newName,
-                        lastName: newSurname,
-                        nickName: newNickname,
-                        userPhoto: newUserPhoto,
-                    }
+
+                return response.status(200).json({
+                    status: "Success",
+                    redirect: `/${newName}_${newSurname}/settingsPage`
                 });
-                return response.status(201).json({ status: "Success", redirect: `/${newName}_${newSurname}/settingsPage` });
-            } else {
-                return response.status(400).json({ status: "Error", message: "Check your data! Whatever is incorrect." });
             }
         } else {
             return response.status(400).json({ message: "Incorrect connect." });

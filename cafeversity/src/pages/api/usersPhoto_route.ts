@@ -2,8 +2,6 @@ import { NextApiRequest, NextApiResponse, NextApiHandler } from "next";
 import fs from "node:fs/promises";
 import path from "path";
 import { IncomingForm } from "formidable";
-import type { File } from "formidable";
-
 
 export const config = {
     api: {
@@ -11,80 +9,81 @@ export const config = {
     }
 }
 
+
 const UserMainPhotoServerSave: NextApiHandler = async (request: NextApiRequest, response: NextApiResponse) => {
-    if (request.method === "POST") {
-
-        const formData = new IncomingForm();
-        const uploadDir = path.join(process.cwd(), 'public/uploads');
-        try {
-            await fs.access(uploadDir);
-            console.log("Folder exists!");
-        } catch (error) {
-            await fs.mkdir(uploadDir, { recursive: true });
-            console.log("Folder was not created and is created!");
-        }
-
-        formData.parse(request, async (err, fields, files) => {
-            if (err) {
-                return response.status(500).json({ status: "Error", message: `Error parsing form data: ${err}` });
-            }
-
-            const photoId = fields.imageId ? fields.imageId[0] as string : undefined;
-            const photoFile = files.imageFile ? files.imageFile[0] as File : undefined;
-
-            console.log("Request is passed. (UserMainPhotoServerSave)");
-            console.dir(fields);
-            console.dir(files);
-
-            if (photoFile && photoId) {
-                console.log("Condition is passed: OK");
-                if (photoFile.filepath) {
-                    console.log("Condition is passed: OK");
-
-                    try {
-                        // const arrayBuffer = Buffer.from(photoFile, "base64");
-                        
-                        //const arrayBuffer = await fs.readFile(photoFile.filepath);
-                        // const buffer = new Uint8Array(arrayBuffer);
-                        await fs.stat(photoFile.filepath);
-
-                        let fileName = photoFile.originalFilename as string;
-                        const fileNameArray = fileName.split("");
-                        const sanitizedPhotoId = photoId.replace(/[^a-zA-Z0-9_]/g, '');
-                        fileNameArray.splice(fileName.lastIndexOf("."), 0, `_${sanitizedPhotoId}`);
-                        fileName = fileNameArray.join("");
-                        const imageFilePath = path.join(uploadDir, fileName);
-                        
-                        // const imageFilePath = path.join(process.cwd(), `public/uploads`, fileName);
-                        // const imageFilePath = path.join(process.cwd(), `public/uploads`, `${photoFile.originalFilename}_${photoId}`);
-                        // console.log("imageFilePath is created!");
-
-                        console.log(`File path: ${photoFile.filepath}`);
-                        console.log(`Destination path: ${imageFilePath}`);
-
-                        // await fs.writeFile(imageFilePath, Buffer.from(arrayBuffer));
-                        // await fs.writeFile(imageFilePath, buffer);// await fs.writeFile(`./public/uploads/${imageFile.name}`, buffer);
-                        
-                        await fs.copyFile(photoFile.filepath, imageFilePath);
-                        return response.status(200).json({ 
-                            status: "Success",
-                            message: `Your new account photo (${photoFile.originalFilename}) is saved on the server.`
-                        });
-                        // } catch (error) {
-                        //     return response.status(500).json({ status: "Error", message: `Error of photo saving! Error: ${error}.` });
-                        // }
-                    } catch (readError) {
-                        return response.status(500).json({ status: "Error", message: `Error reading file: ${readError}` });
-                    }
-            } else {
-                return response.status(400).json({ status: "No Datum", message: "No file provided." });
-            }
-        }
-    });
-    } else {
+    if (request.method !== "POST") {
         response.setHeader('Allow', ['POST']);
-        response.status(405).end(`Method ${request.method} Not Allowed`);
+        return response.status(405).end(`Method ${request.method} Not Allowed`);
     }
-}
+  
+    const formData = new IncomingForm();
+    const uploadDir = path.join(process.cwd(), 'public/uploads');
+  
+    try {
+        await fs.mkdir(uploadDir, { recursive: true });
+
+
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        const { fields, files } = await new Promise<{ fields: any; files: any }>((resolve, reject) => {
+            formData.parse(request, (err, fields, files) => {
+                if (err) reject(err);
+                else resolve({ fields, files });
+            });
+        });
+
+
+        const photoFile = files.imageFile?.[0];
+        const photoId = fields.imageId?.[0];
+  
+        if (!photoFile || !photoId) {
+            return response.status(400).json({ 
+                status: "Error", 
+                message: "Missing file or ID" 
+            });
+        }
+
+
+        const sanitizeId = (id: string) => id.replace(/[^a-zA-Z0-9_-]/g, '');
+        const safePhotoId = sanitizeId(photoId);
+  
+        const originalName = photoFile.originalFilename || 'uploaded_file';
+        const ext = path.extname(originalName);
+        const baseName = path.basename(originalName, ext).replace(/[^a-zA-Z0-9_-]/g, '');
+        const fileName = `${baseName}_${safePhotoId}${ext}`;
+        const filePath = path.join(uploadDir, fileName);
+  
+        
+        try {
+            await fs.access(photoFile.filepath);
+        } catch {
+            return response.status(400).json({ 
+                status: "Error", 
+                message: "Temp file not found" 
+            });
+        }
+  
+
+        await fs.copyFile(photoFile.filepath, filePath);
+      
+
+        try {
+            await fs.unlink(photoFile.filepath);
+        } catch (unlinkError) {
+            console.warn("Failed to delete temp file:", unlinkError);
+        }
+  
+        return response.status(200).json({
+            status: "Success",
+            path: `/uploads/${fileName}`
+        });
+    } catch (error) {
+        console.error("Upload error:", error);
+        return response.status(500).json({ 
+            status: "Error", 
+            message: "Internal server error" 
+        });
+    }
+};
+
 
 export default UserMainPhotoServerSave;

@@ -50,7 +50,8 @@ type Action =
 | { type: "SET_REAL_USER_DATA"; payload: State }
 | { type: "firstNameChange"; firstName: string }
 | { type: "lastNameChange"; lastName: string }
-| { type: "nicknameChange"; nickName: string };
+| { type: "nicknameChange"; nickName: string }
+| { type: "photoChange"; photoPath: string|null };
 
 
 function reducer(state: State, action: Action): State {
@@ -78,6 +79,12 @@ function reducer(state: State, action: Action): State {
                 ...state,
                 nickName: action.nickName,
             };
+        }
+        case "photoChange": {
+            return {
+                ...state,
+                userPhoto: action.photoPath,
+            }
         }
         default: {
             // return state;
@@ -118,62 +125,60 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
             firstName: event.target.value
         })
     }
-
     function lastNameChange(event: React.ChangeEvent<HTMLInputElement>) {
         dispatch({
             type: "lastNameChange",
             lastName: event.target.value
         })
     }
-
     function nicknameChange(event: React.ChangeEvent<HTMLInputElement>) {
         dispatch({
             type: "nicknameChange",
             nickName: event.target.value
         })
     }
+    function photoChange(newPhotoPath: string|null) {
+        dispatch({
+            type: "photoChange",
+            photoPath: newPhotoPath
+        })
+    }
     
-    const imageEditorRef = useRef<{ photoServerSave: () => Promise<void> }>(null);
 
+    const imageEditorRef = useRef<{ photoServerSave: () => Promise<{ status: string, path: string|null }> }>(null);
 
     async function saveNewCommonUserData() {
         const imagePathArray = imagePath.split("");
         const deletedNotAccessSymbols = imageFileId.replace(/[^a-zA-Z0-9_]/g, '');
         imagePathArray.splice(imagePath.lastIndexOf("."), 0, `_${deletedNotAccessSymbols}`);
-
-        const dataForm = {
-            oldName: authorizedUser,
-            oldNickname: userData.nickName,
-
-            newName: state.firstName,
-            newSurname: state.lastName,
-            newNickname: state.nickName,
-
-            newUserPhoto: imagePath !== "/uploads/tempUserImage.png" ?
-            `/uploads/${imagePathArray.join("")}` :
-            null,
-        }
-
-        await fetch("http://localhost:3000/api/userData?page=settings", {
+        const finalImagePath = imagePath !== "/uploads/tempUserImage.png"
+            ? `/uploads/${imagePathArray.join("")}`
+            : null;
+        
+        console.log("imagePath ->", imagePath);
+        console.log("finalImagePath ->", finalImagePath);
+        photoChange(finalImagePath);
+        
+        const photoResponse = imageEditorRef.current
+            ? await imageEditorRef.current.photoServerSave()
+            : { status: "Success", path: userData.userPhoto };
+        
+        
+        await fetch("/api/userData?page=settings", {
             method: "POST",
-            headers:{ 'Content-Type': 'application/json' },
-            body: JSON.stringify(dataForm),
-        })
-        .then((res) => {
-            console.log(res.status);
-            return res.json();
-        })
-        .then(async (data) => {
-            console.log(data);
-            let serverAnswer;
-            if (imageEditorRef.current) {
-                serverAnswer = await imageEditorRef.current.photoServerSave(); // Save the image to the server
-            }
-            if (data.status === "Success" && data.status === serverAnswer) {
-                window.location.href = data.redirect;
-            }
-        })
-        .catch((error) => console.error(error));
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                oldName: authorizedUser,
+                oldNickname: userData.nickName,
+                newName: state.firstName,
+                newSurname: state.lastName,
+                newNickname: state.nickName,
+                newUserPhoto: photoResponse.path,
+            })
+        });
+        
+        router.push(`/${state.firstName}_${state.lastName}/settingsPage`);
+        router.refresh();
     }
 
 

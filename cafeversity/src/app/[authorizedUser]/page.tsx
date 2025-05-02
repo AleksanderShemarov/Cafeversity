@@ -19,7 +19,7 @@ async function fetchData(params: { authorizedUser: string; }) {
     const { authorizedUser } = params;
     console.log(params, authorizedUser);
 
-    const response = await fetch(`http://localhost:3000/api/userData?name=${authorizedUser}`);
+    const response = await fetch(`http://localhost:3000/api/userData?name=${authorizedUser}`, { cache: "no-store" });
     const userData = await response.json();
 
     return userData;

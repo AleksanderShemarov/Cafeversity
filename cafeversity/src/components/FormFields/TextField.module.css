@@ -11,10 +11,10 @@
     column-count: auto;
     line-height: 1.5;
     margin-bottom: 15px;
+
     color: var(--text-color);
-
+    background-color: var(--background-color);
     font-family: var(--font-family);
-
     font-style: var(--font-volume-style);
 }
 .textInput:focus {

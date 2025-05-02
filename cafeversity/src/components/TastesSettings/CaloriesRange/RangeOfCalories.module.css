@@ -51,7 +51,7 @@
     border: 0.3rem solid grey;
     cursor: pointer;
     /* margin-top: -0.5em; /* -8px */
-    margin-top: -0.8rem;
+    margin-top: -1.2rem;
     pointer-events: all;
 }
 .twohandRangeContainer > input[type="range"]:active::-webkit-slider-thumb {
@@ -77,7 +77,7 @@
     border: 0.3rem solid grey;
     cursor: pointer;
     /* margin-top: -0.5em; /* -8px */
-    margin-top: -0.8rem;
+    margin-top: -1.2rem;
     pointer-events: all;
 }
 .twohandRangeContainer > input[type="range"]:active::-ms-thumb {

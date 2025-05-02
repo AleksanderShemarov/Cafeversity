@@ -16,7 +16,7 @@ interface ImageIditorTypes {
 }
 
 interface ImageEditorRef {
-    photoServerSave: () => Promise<void>;
+    photoServerSave: () => Promise<{ status: string, path: string|null }>;
 }
 
 // eslint-disable-next-line react/display-name
@@ -24,27 +24,22 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(
     ({ 
         getImagePath, setImagePath, setImageFileId, disabled, translate = "SettingsPage"
     }, ref) => {
-
         const templatePhoto: string = "/uploads/tempUserImage.png";
         const [image, setImage] = useState<string|null>(getImagePath);
         const bool = image === templatePhoto;
-
-        useEffect(() => {
-            setImage(getImagePath);
-        }, [getImagePath]);
-
-        useEffect(() => {
-            disabled && setImage(getImagePath);
-        }, [disabled, getImagePath]);
-
 
         const [imageFile, setImageFile] = useState<File | null>(null);
 
         function photoSelect (event: React.ChangeEvent<HTMLInputElement>) {
             if (event.target.files && event.target.files.length > 0) {
-                setImageFile(event.target.files[0]);
-                setImage(URL.createObjectURL(event.target.files[0]));
-                setImagePath(event.target.files[0].name);
+                const file = event.target.files[0];
+                const tempURL = URL.createObjectURL(file);
+
+                setImageFile(file);
+                setImage(tempURL);
+                setImagePath(file.name);
+
+                return () => URL.revokeObjectURL(tempURL);
             }
         }
 
@@ -83,6 +78,10 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(
 
 
         async function photoServerSave() {
+            console.log("photoServerSave imageFile ->", imageFile);
+            console.log("photoServerSave image ->", image);
+            console.log("photoServerSave getImagePath ->", getImagePath);
+
             if (imageFile !== null) {
                 const imageFileFormData = new FormData();
                 imageFileFormData.append("imageId", pictureId);
@@ -94,21 +93,22 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(
                 });
 
                 const apiResult = await apiResponse.json();
-                console.dir(apiResult.message);
-                return apiResult.status;
-            } else {
+                console.dir(apiResult.path);
+                return apiResult;
+            }
+            else if (imageFile === null && image !== null) {
+                console.dir("System has left your prevoius photo");
+                return { status: "Success", path: image };
+            }
+            else {
                 console.dir("Your account photo is the common temporary User's image");
-                return "Success";
+                return { status: "Success", path: null };
             }
         }
 
         useImperativeHandle(ref, () => ({
             photoServerSave,
         }));
-
-        // console.dir(image);
-        // console.dir(imageFile);
-        // console.dir(getImagePath);
 
         const t = useTranslations(translate);
 
