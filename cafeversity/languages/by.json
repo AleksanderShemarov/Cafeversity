@@ -24,7 +24,8 @@
                 "mainQuestion2": "Хочаш адмовіць змены?",
                 "accessButton": "Так",
                 "denyButton": "Не"
-            }
+            },
+            "updatedSetsSaving": "Захаваць змены ў працы вэб-старонак?"
         },
         "secondSetsPart": {
             "name": "Смакі & Цялесная Канстытуцыя",

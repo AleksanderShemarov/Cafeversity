@@ -24,7 +24,8 @@
                 "mainQuestion2": "Chceš změny odmítnout?",
                 "accessButton": "Ano",
                 "denyButton": "Ne"
-            }
+            },
+            "updatedSetsSaving": "Uložit změny u praci web-stranek?"
         },
         "secondSetsPart": {
             "name": "Chuti & Tělesná Konstituce",

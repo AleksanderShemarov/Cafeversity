@@ -1,7 +1,7 @@
 "use client";
 
 import ImageEditor from "@/components/ImageEditor/ImageEditor";
-import { useState, useReducer, useEffect, useRef } from "react";
+import { useState, useReducer, useRef, startTransition } from "react";
 import setStyles from "./settings.module.css";
 import TextField from "@/components/FormFields/TextField";
 import DialogView from "@/components/Dialog/DialogView";
@@ -33,6 +33,8 @@ import { useRouter } from "next/navigation";// for "saveLanguageSet" function
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 
+import { allSetsUpdate } from "@/app/actions/settings";
+
 
 interface ActualUser {
     authorizedUser: string,
@@ -53,41 +55,24 @@ type Action =
 | { type: "nicknameChange"; nickName: string }
 | { type: "photoChange"; photoPath: string|null };
 
-
 function reducer(state: State, action: Action): State {
     switch (action.type) {
         case "SET_REAL_USER_DATA": {
-            return {
-                ...state,
-                ...action.payload,
-            };
+            return { ...state, ...action.payload };
         }
         case "firstNameChange": {
-            return {
-                ...state,
-                firstName: action.firstName,  
-            };
+            return { ...state, firstName: action.firstName };
         }
         case "lastNameChange": {
-            return {
-                ...state,
-                lastName: action.lastName,
-            };
+            return { ...state, lastName: action.lastName };
         }
         case "nicknameChange": {
-            return {
-                ...state,
-                nickName: action.nickName,
-            };
+            return { ...state, nickName: action.nickName };
         }
         case "photoChange": {
-            return {
-                ...state,
-                userPhoto: action.photoPath,
-            }
+            return { ...state, userPhoto: action.photoPath };
         }
         default: {
-            // return state;
             const exhaustiveCheck: never = action;
             throw new Error(`Unknown action: ${exhaustiveCheck}`);
         }
@@ -110,15 +95,82 @@ const langs: [string, string, string][] = [
 ];
 
 
+export interface SetsState {
+    spicy: boolean,
+    vegetarian: boolean,
+    vegan: boolean,
+    minCalory: number,
+    maxCalory: number,
+    pageTheme: "light"|"dark",
+    brandColor: string,
+    fontFamily: string,
+    fontSize: string,
+    fontVolume: string,
+}
+
+type SetsAction = 
+| { type: "SET_REAL_USER_SETS"; payload: SetsState }
+| { type: "spicyCheck"; spicy: boolean }
+| { type: "vegetarianCheck"; vegetarian: boolean }
+| { type: "veganCheck"; vegan: boolean }
+| { type: "minCaloryNum"; minCalory: number }
+| { type: "maxCaloryNum"; maxCalory: number }
+| { type: "pageThemeChange"; pageTheme: "light"|"dark" }
+| { type: "brandColorChange"; brandColor: string }
+| { type: "fontFamilyChange"; fontFamily: string }
+| { type: "fontSizeChange"; fontSize: string }
+| { type: "fontVolumeChange"; fontVolume: string };
+
+function setsReducer(setState: SetsState, action: SetsAction): SetsState {
+    switch (action.type) {
+        case "SET_REAL_USER_SETS": {
+            return { ...setState, ...action.payload };
+        }
+        case "spicyCheck": {
+            return { ...setState, spicy: action.spicy };
+        }
+        case "vegetarianCheck": {
+            return { ...setState, vegetarian: action.vegetarian };
+        }
+        case "veganCheck": {
+            return { ...setState, vegan: action.vegan };
+        }
+        case "minCaloryNum": {
+            return { ...setState, minCalory: action.minCalory };
+        }
+        case "maxCaloryNum": {
+            return { ...setState, maxCalory: action.maxCalory };
+        }
+        case "pageThemeChange": {
+            return { ...setState, pageTheme: action.pageTheme };
+        }
+        case "brandColorChange": {
+            return { ...setState, brandColor: action.brandColor };
+        }
+        case "fontFamilyChange": {
+            return { ...setState, fontFamily: action.fontFamily };
+        }
+        case "fontSizeChange": {
+            return { ...setState, fontSize: action.fontSize };
+        }
+        case "fontVolumeChange": {
+            return { ...setState, fontVolume: action.fontVolume };
+        }
+        default: {
+            const exhaustiveCheck: never = action;
+            throw new Error(`Unknown action: ${exhaustiveCheck}`);
+        }
+    }
+}
+
+
 export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     const [imagePath, setImagePath] = useState<string>("/uploads/tempUserImage.png");
     const [imageFileId, setImageFileId] = useState<string>("");
-
-    const [state, dispatch] = useReducer(reducer, userData);
-
     const router = useRouter();
 
 
+    const [state, dispatch] = useReducer(reducer, userData);
     function firstNameChange(event: React.ChangeEvent<HTMLInputElement>) {
         dispatch({
             type: "firstNameChange",
@@ -143,10 +195,105 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
             photoPath: newPhotoPath
         })
     }
+    function denyNewCommonUserData() {
+        dispatch({ type: 'SET_REAL_USER_DATA', payload: userData });
+    }
+
+    const settingsTextFormFields = [
+        { fieldName: "First Name", fieldValue: state.firstName, fieldPlaceholder: state.firstName, changeFunc: firstNameChange, },
+        { fieldName: "Last Name", fieldValue: state.lastName, fieldPlaceholder: state.lastName, changeFunc: lastNameChange, },
+        { fieldName: "Nickname", fieldValue: state.nickName, fieldPlaceholder: state.nickName, changeFunc: nicknameChange, },
+    ];
+
+
+    type CustomSetsSubset = Pick<UserDataTypes['customSets'], keyof SetsState>;
+    const setsUserData: SetsState = {...(userData.customSets as CustomSetsSubset)};
     
+    const [newSets, setNewSets] = useState<SetsState>(setsUserData);
+    const [setState, setsDispatch] = useReducer(setsReducer, newSets);
+
+    useAccentColourSet(setState.brandColor);
+    useFontFamilySet(setState.fontFamily);
+    useFontSizeSet(setState.fontSize);
+    useFontVolumeSet(setState.fontVolume);
+
+    function spicyCheck(isSpicy: boolean) {
+        setsDispatch({
+            type: "spicyCheck",
+            spicy: isSpicy
+        });
+        setSetsChanged(true);
+    }
+    function vegetarianCheck(isVegetarian: boolean) {
+        setsDispatch({
+            type: "vegetarianCheck",
+            vegetarian: isVegetarian
+        });
+        setSetsChanged(true);
+    }
+    function veganCheck(isVegan: boolean) {
+        setsDispatch({
+            type: "veganCheck",
+            vegan: isVegan
+        });
+        setSetsChanged(true);
+    }
+    function minCaloryNum(newMinCalory: number) {
+        setsDispatch({
+            type: "minCaloryNum",
+            minCalory: newMinCalory
+        })
+    }
+    function maxCaloryNum(newMaxCalory: number) {
+        setsDispatch({
+            type: "maxCaloryNum",
+            maxCalory: newMaxCalory
+        })
+    }
+    function pageThemeChange(theme: "light"|"dark") {
+        setsDispatch({
+            type: "pageThemeChange",
+            pageTheme: theme
+        })
+        setTheme(theme);
+    }
+    function brandColorChange(newBrandColour: string) {
+        setsDispatch({
+            type: "brandColorChange",
+            brandColor: newBrandColour
+        });
+        setSetsChanged(true);
+    }
+    function fontFamilyChange(newFontFamily: string) {
+        setsDispatch({
+            type: "fontFamilyChange",
+            fontFamily: newFontFamily
+        });
+        setSetsChanged(true);
+    }
+    function fontSizeChange(newFontSize: string) {
+        setsDispatch({
+            type: "fontSizeChange",
+            fontSize: newFontSize
+        });
+        setSetsChanged(true);
+    }
+    function fontVolumeChange(newFontVolume: string) {
+        setsDispatch({
+            type: "fontVolumeChange",
+            fontVolume: newFontVolume
+        });
+        setSetsChanged(true);
+    }
+    function denyUpdatedSetsUserData() {
+        setsDispatch({ type: "SET_REAL_USER_SETS", payload: newSets });
+    }
+    
+    
+    console.log(setState);
+
 
     const imageEditorRef = useRef<{ photoServerSave: () => Promise<{ status: string, path: string|null }> }>(null);
-
     async function saveNewCommonUserData() {
         const imagePathArray = imagePath.split("");
         const deletedNotAccessSymbols = imageFileId.replace(/[^a-zA-Z0-9_]/g, '');
@@ -182,8 +329,20 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     }
 
 
-    function denyNewCommonUserData() {
-        dispatch({ type: 'SET_REAL_USER_DATA', payload: userData });
+    async function saveUpdatedSetsUserData() {
+        startTransition(() => {
+        allSetsUpdate(userData.id, setState)
+            .then(result => {
+                if(!result.success) {
+                    denyUpdatedSetsUserData();
+                }
+                else {
+                    setsDispatch({ type: "SET_REAL_USER_SETS", payload: setState });
+                    setNewSets(setState);
+                    console.log("Settings are updated.", result.success);
+                }
+            });
+        });
     }
 
 
@@ -216,51 +375,23 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     }
 
 
-    const settingsTextFormFields = [
-        { fieldName: "First Name", fieldValue: state.firstName, fieldPlaceholder: state.firstName, changeFunc: firstNameChange, },
-        { fieldName: "Last Name", fieldValue: state.lastName, fieldPlaceholder: state.lastName, changeFunc: lastNameChange, },
-        { fieldName: "Nickname", fieldValue: state.nickName, fieldPlaceholder: state.nickName, changeFunc: nicknameChange, },
-    ];
-
-
     const [buttons, setButtons] = useState<boolean>(true);
     const [dialog, setDialog] = useState<string>("");
+    const [setsChanged, setSetsChanged] = useState<boolean>(false);
 
 
     // light/dark theme settings
-    const [theme, setTheme] = useThemeSets();
+    const [theme, setTheme] = useThemeSets(setsUserData.pageTheme);
     function switchBetweenColourThemes(index: number) {
         const newTheme = index === 0 ? 'light' : 'dark';
+        setSetsChanged(true);
         setTheme(newTheme);
+        pageThemeChange(newTheme);
     }
-    /*
-    Clicking on "Refresh" button in a browser makes the changing between
-    different page's modes (page's theme; font's family, size or weight) 
-    broken using localStorage because of desynchronization between
-    Server and Client parts. useEffect solves that problem.
-    */
-    const [mounted, setMounted] = useState(false);
-    useEffect(() => setMounted(true), []);
-
-
-    // accent colour settings
-    const [accentColour, setAccentColour] = useAccentColourSet();
-
-    
-    // font family settings
-    const [fontFamilyType, setFontFamilyType] = useFontFamilySet();
-
-
-    // font size settings
-    const [fontsize, setFontSize] = useFontSizeSet();
-
-
-    // font volume (weight and style) settings
-    const [fontvolume, setFontVolume] = useFontVolumeSet();
 
 
     const t = useTranslations("SettingsPage");
-    console.log(userData);
+    //console.log(userData);
 
     return (
         <>
@@ -312,12 +443,8 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                         t("secondSetsPart.subtitle1.preferQuestion2"),
                         t("secondSetsPart.subtitle1.preferQuestion3"),
                     ]}
-                    props={[
-                        userData.customSets.spicy,
-                        userData.customSets.vegetarian,
-                        userData.customSets.vegan
-                    ]}
-                    userId={userData.id}
+                    props={[ setState.spicy, setState.vegetarian, setState.vegan ]}
+                    funcs={[ spicyCheck, vegetarianCheck, veganCheck ]}
                 />
                 
                 <HorizontalLine />
@@ -327,9 +454,18 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                         paragraphCSS={{ paddingBottom: "10px" }}
                     >
                         <RangeInput2Handlers
+                            key={`range-${setState.minCalory}-${setState.maxCalory}`}
                             twohandRangeName="caloriesRangeSlider"
-                            minCalories={userData.customSets.minCalory}
-                            maxCalories={userData.customSets.maxCalory}
+                            minCalories={setState.minCalory}
+                            minCaloriesFunc={(calory: number) => {
+                                minCaloryNum(calory);
+                                setSetsChanged(true);
+                            }}
+                            maxCalories={setState.maxCalory}
+                            maxCaloriesFunc={(calory: number) => {
+                                maxCaloryNum(calory);
+                                setSetsChanged(true);
+                            }}
                         />
                     </Paragraph>
                 {/* <hr /> */}
@@ -353,19 +489,17 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
 
                 <HorizontalLine />
 
-                {mounted && <>
-                    <SubTitle name={t("thirdSetsPart.subtitle2.name")} />
-                    <Paragraph question={t("thirdSetsPart.subtitle2.mainQuestion")}
-                        paragraphBlockCSS={{ display: "block" }}
-                        paragraphCSS={{ paddingBottom: "10px" }}
-                    >
-                        <ColourSets
-                            theme={theme}
-                            switcher={switchBetweenColourThemes}
-                            themeTypes={[t("thirdSetsPart.subtitle2.lightTheme"), t("thirdSetsPart.subtitle2.darkTheme")]}
-                        />
-                    </Paragraph>
-                </>}
+                <SubTitle name={t("thirdSetsPart.subtitle2.name")} />
+                <Paragraph question={t("thirdSetsPart.subtitle2.mainQuestion")}
+                    paragraphBlockCSS={{ display: "block" }}
+                    paragraphCSS={{ paddingBottom: "10px" }}
+                >
+                    <ColourSets
+                        theme={theme ?? setState.pageTheme}
+                        switcher={switchBetweenColourThemes}
+                        themeTypes={[t("thirdSetsPart.subtitle2.lightTheme"), t("thirdSetsPart.subtitle2.darkTheme")]}
+                    />
+                </Paragraph>
 
                 <HorizontalLine />
 
@@ -374,22 +508,66 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                     paragraphCSS={{ paddingBottom: "10px" }}
                 >    
                     <RadiosBlock
-                        choseRadio={accentColour}
-                        hookFunction={setAccentColour}
+                        key={`brandcolor-${setState.brandColor}`}
+                        currentColor={setState.brandColor}
+                        onColorChange={brandColorChange}
                     />
                 </Paragraph>
 
                 <HorizontalLine />
                 
-                {mounted && <>
-                    <SubTitle name={t("thirdSetsPart.subtitle4.name")} />
-                    <FontsFamilySizeWeight
-                        fontset1={t("thirdSetsPart.subtitle4.fontQuestion1")} fontFamily={fontFamilyType} hookFamily={setFontFamilyType}
-                        fontset2={t("thirdSetsPart.subtitle4.fontQuestion2")} fontSize={fontsize} hookSize={setFontSize}
-                        fontset3={t("thirdSetsPart.subtitle4.fontQuestion3")} fontVolume={fontvolume} hookVolume={setFontVolume}
-                    />
-                </>}
+                <SubTitle name={t("thirdSetsPart.subtitle4.name")} />
+                <FontsFamilySizeWeight
+                    key={`fontsfamilysizeweight-${setState.fontFamily}-${setState.fontSize}-${setState.fontVolume}`}
+
+                    fontset1={t("thirdSetsPart.subtitle4.fontQuestion1")}
+                    fontFamily={setState.fontFamily} familyChange={fontFamilyChange}
+
+                    fontset2={t("thirdSetsPart.subtitle4.fontQuestion2")}
+                    fontSize={setState.fontSize} sizeChange={fontSizeChange}
+
+                    fontset3={t("thirdSetsPart.subtitle4.fontQuestion3")}
+                    fontVolume={setState.fontVolume} volumeChange={fontVolumeChange}
+                />
             </PageBlockName>
+            
+            {setsChanged && (<div style={{ height: "12.5rem" }}></div>)}
+            {setsChanged && (
+                <div style={{ position: "fixed", bottom: "0", right: "25%", width: "50%"}}>
+                    <div style={{
+                        display: "flex", justifyContent: "center", alignItems: "center", gap: "1rem",
+                        height: "10rem", marginBottom: "5rem", borderRadius: "1.5rem",
+                        backgroundColor: "rgba(120, 120, 120, 0.4)", backdropFilter: "blur(1rem)",
+                        WebkitBackdropFilter: "blur(1rem)"
+                    }}>
+                        <p style={{
+                            fontFamily: "var(--font-family)",
+                            fontSize: "2rem",
+                            fontWeight: "var(--font-volume-weight)",
+                            fontStyle: "var(--font-volume-style)",
+                            textAlign: "center"
+                        }}>
+                            {t("firstSetsPart.updatedSetsSaving")}
+                        </p>
+                        <AccessBtn
+                            onClick={() => {
+                                saveUpdatedSetsUserData();
+                                setSetsChanged(false);
+                            }}
+                            additionalStyle={{ maxWidth: "3rem", minWidth: "1rem" }}
+                            buttonName={t("firstSetsPart.changesDialog.accessButton")}
+                        />
+                        <DenyBtn
+                            onClick={() => {
+                                denyUpdatedSetsUserData();
+                                setSetsChanged(false);
+                            }}
+                            additionalStyle={{  }}
+                            buttonName={t("firstSetsPart.changesDialog.denyButton")}
+                        />
+                    </div>
+                </div>
+            )}
 
             {dialog && (
                 <DialogView question={

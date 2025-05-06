@@ -20,6 +20,20 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         firstName: true,
                         lastName: true,
                         userPhoto: true,
+                        customSets: {
+                            select: {
+                                spicy: true,
+                                vegetarian: true,
+                                vegan: true,
+                                minCalory: true,
+                                maxCalory: true,
+                                pageTheme: true,
+                                brandColor: true,
+                                fontFamily: true,
+                                fontSize: true,
+                                fontVolume: true,
+                            }
+                        }
                     }
                 });
                 return response.status(200).json(user);
@@ -45,6 +59,11 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                                 minCalory: true,
                                 maxCalory: true,
                                 language: true,
+                                pageTheme: true,
+                                brandColor: true,
+                                fontFamily: true,
+                                fontSize: true,
+                                fontVolume: true,
                             }
                         }
                     }

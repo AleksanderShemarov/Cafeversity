@@ -1,8 +1,9 @@
 import ReactSelect, { CSSObjectWithLabel } from "react-select";
 import Select from "react-select";
-import { Dispatch, SetStateAction } from "react";
+// import { Dispatch, SetStateAction } from "react";
 import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 import HorizontalLine from "../OtherParts/HorizontalLine";
+import { parseFontVolume } from "@/hooks/fontVolume";
 
 
 const FontsFamilies: {label: string, value: string}[] = [
@@ -29,54 +30,69 @@ const FontVolumes: { label: string, value: string }[] = [
 type FontsTypes = {
     fontset1: string,
     fontFamily: string,
-    hookFamily: Dispatch<SetStateAction<string>>,
+    familyChange: (
+        fontFamily: string
+    ) => void,
+    // hookFamily: Dispatch<SetStateAction<string>>,
     fontset2: string,
     fontSize: string,
-    hookSize: Dispatch<SetStateAction<string>>,
-    // fontWeight?: string,
+    sizeChange: (
+        fontSize: string
+    ) => void,
+    // hookSize: Dispatch<SetStateAction<string>>,
     fontset3: string,
-    fontVolume: { fontWeight: string, fontStyle: string },
-    hookVolume: Dispatch<SetStateAction<{ fontWeight: string, fontStyle: string }>>,
+    fontVolume: string,
+    volumeChange: (
+        fontVolume: string
+    ) => void
+    // fontVolume: { fontWeight: string, fontStyle: string },
+    // hookVolume: Dispatch<SetStateAction<{ fontWeight: string, fontStyle: string }>>,
 }
 
 
 export default function FontsFamilySizeWeight({
-    fontset1, fontFamily, hookFamily, fontset2, fontSize, hookSize, fontset3, fontVolume, hookVolume
+    fontset1, fontFamily, familyChange, fontset2, fontSize, sizeChange, fontset3, fontVolume, volumeChange
 }: FontsTypes) {
 
-    let startFontFamily = { label: "Consolas", value: "Consolas, monospace" };
-    let startFontSize = { label: "10px", value: "10px" };
-    let startFontWeight = { label: "Normal", value: "normal" };
+    // let startFontFamily = { label: "Consolas", value: "Consolas, monospace" };
+    // let startFontSize = { label: "10px", value: "10px" };
+    // let startFontWeight = { label: "Normal", value: "normal" };
+    
+    // if (fontFamily) {
+    //     for (let i = 0; i < FontsFamilies.length; i++) {
+    //         if (fontFamily === FontsFamilies[i].value) {
+    //             startFontFamily = FontsFamilies[i];
+    //             break;
+    //         }
+    //     }
+    // }
+    // if (fontSize) {
+    //     for (let j = 0; j < FontSizes.length; j++) {
+    //         if (fontSize === FontSizes[j].value) {
+    //             startFontSize = FontSizes[j];
+    //             break;
+    //         }
+    //     }
+    // }
+    // if (fontVolume) {
+    //     let volumeType = ""
+    //     if (fontVolume.fontWeight !== "normal" && fontVolume.fontStyle === "normal") volumeType = "bold"
+    //     else if (fontVolume.fontWeight === "normal" && fontVolume.fontStyle !== "normal") volumeType = "italic"
+    //     else volumeType = "normal"
+    //     for (let y = 0; y < FontVolumes.length; y++) {
+    //         if (volumeType === FontVolumes[y].value) {
+    //             startFontWeight = FontVolumes[y];
+    //             break;
+    //         }
+    //     }
+    // }
 
-    if (fontFamily) {
-        for (let i = 0; i < FontsFamilies.length; i++) {
-            if (fontFamily === FontsFamilies[i].value) {
-                startFontFamily = FontsFamilies[i];
-                break;
-            }
-        }
-    }
-    if (fontSize) {
-        for (let j = 0; j < FontSizes.length; j++) {
-            if (fontSize === FontSizes[j].value) {
-                startFontSize = FontSizes[j];
-                break;
-            }
-        }
-    }
-    if (fontVolume) {
-        let volumeType = ""
-        if (fontVolume.fontWeight !== "normal" && fontVolume.fontStyle === "normal") volumeType = "bold"
-        else if (fontVolume.fontWeight === "normal" && fontVolume.fontStyle !== "normal") volumeType = "italic"
-        else volumeType = "normal"
-        for (let y = 0; y < FontVolumes.length; y++) {
-            if (volumeType === FontVolumes[y].value) {
-                startFontWeight = FontVolumes[y];
-                break;
-            }
-        }
-    }
-
+    const currentFontFamily = FontsFamilies.find(font => font.value === fontFamily);
+    const currentFontSize = FontSizes.find(font => font.value === fontSize);
+    
+    const fontVolumeObject: { fontWeight: string, fontStyle: string } = parseFontVolume(fontVolume);
+    const key = fontVolumeObject.fontWeight === "bold" ? "bold" : fontVolumeObject.fontStyle === "italic" ? "italic" : "normal";
+    const currentFontWeight = FontVolumes.find(font => font.value === key);
 
     const familySelectOptionWidth = {
         menu: (base: CSSObjectWithLabel) => ({
@@ -216,8 +232,12 @@ export default function FontsFamilySizeWeight({
                             <p style={{ paddingTop: 0, marginLeft: "5px" }}>{FontFamily.label}</p>
                         </div>
                     )}
-                    defaultValue={startFontFamily}
-                    onChange={selectedOption => hookFamily(selectedOption?.value as string)}
+                    defaultValue={currentFontFamily}
+                    onChange={selectedOption => {
+                            // hookFamily(selectedOption?.value as string)
+                            familyChange(selectedOption?.value as string);
+                        }
+                    }
                     isSearchable={false}
                 />
             </Paragraph>
@@ -227,8 +247,12 @@ export default function FontsFamilySizeWeight({
                     instanceId="custom-select"
                     menuPlacement="auto"
                     styles={sizeSelectOptionWidth}
-                    defaultValue={startFontSize}
-                    onChange={selectedOption => hookSize(selectedOption?.value as string)}
+                    defaultValue={currentFontSize}
+                    onChange={selectedOption => {
+                            // hookSize(selectedOption?.value as string)
+                            sizeChange(selectedOption?.value as string);
+                        }
+                    }
                 />
             </Paragraph>
             <HorizontalLine />
@@ -237,14 +261,17 @@ export default function FontsFamilySizeWeight({
                     instanceId="custom-select"
                     menuPlacement="auto"
                     styles={weightSelectOptionWidth}
-                    defaultValue={startFontWeight}
+                    defaultValue={currentFontWeight}
                     onChange={selectedOption => {
                         if (selectedOption?.value === "bold") {
-                            hookVolume({ fontWeight: selectedOption?.value, fontStyle: "normal" });
+                            // hookVolume({ fontWeight: selectedOption?.value, fontStyle: "normal" });
+                            volumeChange(JSON.stringify({ fontWeight: selectedOption?.value, fontStyle: "normal" }));
                         } else if (selectedOption?.value === "italic") {
-                            hookVolume({ fontWeight: "normal", fontStyle: selectedOption?.value });
+                            // hookVolume({ fontWeight: "normal", fontStyle: selectedOption?.value });
+                            volumeChange(JSON.stringify({ fontWeight: "normal", fontStyle: selectedOption?.value }));
                         } else {
-                            hookVolume({ fontWeight: "normal", fontStyle: "normal" });
+                            // hookVolume({ fontWeight: "normal", fontStyle: "normal" });
+                            volumeChange(JSON.stringify({ fontWeight: "normal", fontStyle: "normal" }));
                         }
                     }}
                 />

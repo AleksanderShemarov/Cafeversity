@@ -16,6 +16,11 @@ export interface UserDataTypes {
         minCalory: number,
         maxCalory: number,
         language: string,
+        pageTheme: "light"|"dark",
+        brandColor: string,
+        fontFamily: string,
+        fontSize: string,
+        fontVolume: string,
     }
 }
 

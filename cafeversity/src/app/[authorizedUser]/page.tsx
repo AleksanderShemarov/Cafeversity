@@ -2,16 +2,28 @@ import Image from "next/image";
 import styles from "@/app/[authorizedUser]/authorized.module.css";
 import { use } from "react";
 import ThemeManager from "@/hooks/GetThemeSets";
-import AccentColourManager from "@/hooks/GetAccentColour";
-import GetFontFamily from "@/hooks/GetFontFamily";
-import GetFontSize from "@/hooks/GetFontSize";
-import GetFontVolume from "@/hooks/GetFontVolume";
+// import AccentColourManager from "@/hooks/GetAccentColour";
+// import GetFontFamily from "@/hooks/GetFontFamily";
+// import GetFontSize from "@/hooks/GetFontSize";
+// import GetFontVolume from "@/hooks/GetFontVolume";
 
 
 type UserDataTypes = {
     firstName: string,
     lastName: string,
     userPhoto: string,
+    customSets: {
+        spicy: boolean,
+        vegetarian: boolean,
+        vegan: boolean,
+        minCalory: number,
+        maxCalory: number,
+        pageTheme: "light"|"dark",
+        brandColor: string,
+        fontFamily: string,
+        fontSize: string,
+        fontVolume: string,
+    }
 }
 
 
@@ -31,7 +43,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
     const data: UserDataTypes = use(fetchData(params));
 
     return (
-        <>
+        <>          
             <div style={{
                 display: "flex",
                 border: "3px dashed orange",
@@ -49,14 +61,12 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                 </div>
                 <p className={styles.userName}>{data.firstName}<br />{data.lastName}</p>
             </div>
-            <ThemeManager />
-            <AccentColourManager />
-            <GetFontFamily />
-            <GetFontSize />
-            <GetFontVolume />
-            {/* <div className={styles.exit_cover}>
-                <div id={styles.exit_field}></div>
-            </div> */}
+            
+            <ThemeManager initialTheme={data.customSets?.pageTheme} />
+            {/* <AccentColourManager /> */}
+            {/* <GetFontFamily /> */}
+            {/* <GetFontSize /> */}
+            {/* <GetFontVolume /> */}
         </>
     )
 }

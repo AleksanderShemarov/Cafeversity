@@ -3,18 +3,21 @@
 import { useEffect } from "react";
 import useThemeSets from "@/hooks/themeSets";
 
-const ThemeManager = () => {
-    const [, setTheme] = useThemeSets();
 
+const ThemeManager = ({ initialTheme }: { initialTheme: "light"|"dark" }) => {
+    const [theme, setTheme] = useThemeSets(initialTheme);
+    
     useEffect(() => {
-        if (typeof window !== 'undefined') {
-            const savedTheme = localStorage.getItem("theme");
-            if (savedTheme) {
-                setTheme(savedTheme);
-            }
+        document.documentElement.setAttribute('data-theme', theme);
+    
+        const handleStorage = (e: StorageEvent) => {
+            if (e.key === "theme") setTheme(e.newValue as "light"|"dark");
         }
-    }, [setTheme]);
-
+    
+        window.addEventListener('storage', handleStorage);
+        return () => window.removeEventListener('storage', handleStorage);
+    }, [theme, setTheme]);
+    
     return null;
 };
 

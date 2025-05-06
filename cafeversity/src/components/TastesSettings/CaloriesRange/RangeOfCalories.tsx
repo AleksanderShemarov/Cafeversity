@@ -7,11 +7,19 @@ import { useState } from "react";
 type CaloriesRangeSliderTypes = {
     twohandRangeName?: string,
     minCalories?: number,
+    minCaloriesFunc: (
+        minCalory: number
+    ) => void
     maxCalories?: number,
+    maxCaloriesFunc: (
+        maxCalory: number
+    ) => void
 }
 
 
-const RangeInput2Handlers = ({ twohandRangeName = "", minCalories, maxCalories }: CaloriesRangeSliderTypes) => {
+const RangeInput2Handlers = ({
+    twohandRangeName = "", minCalories, minCaloriesFunc, maxCalories, maxCaloriesFunc
+}: CaloriesRangeSliderTypes) => {
 
     const lowerBorder: number = 1500;
     const upperBorder: number = 3000;
@@ -24,16 +32,18 @@ const RangeInput2Handlers = ({ twohandRangeName = "", minCalories, maxCalories }
         event.preventDefault();
         const lowerRangeNum = Number(event.target.value);
 
-        if (lowerRangeNum <= upperRange - 50) { setLowerRange(lowerRangeNum); }
-        // setLowerRange(Math.min(lowerRangeNum, upperRange - 50)); // This is the same code as the condition above
+        if (lowerRangeNum <= upperRange - 50) {
+            setLowerRange(lowerRangeNum);
+        }
     }
 
     function upperRangeCheck(event: React.ChangeEvent<HTMLInputElement>) {
         event.preventDefault();
         const upperRangeNum = Number(event.target.value);
 
-        if (upperRangeNum >= lowerRange + 50) { setUpperRange(upperRangeNum); }
-        // setUpperRange(Math.max(upperRangeNum, lowerRange + 50)); // This is the same code as the condition above
+        if (upperRangeNum >= lowerRange + 50) {
+            setUpperRange(upperRangeNum);
+        }
     }
 
     return (
@@ -55,10 +65,12 @@ const RangeInput2Handlers = ({ twohandRangeName = "", minCalories, maxCalories }
             <input type="range" id="downRangePart" name={twohandRangeName}
                 min={lowerBorder} max={upperBorder} step={step}
                 value={lowerRange} onChange={lowerRangeCheck}
+                onMouseUp={() => minCaloriesFunc(lowerRange)}
             />
             <input type="range" id="upRangePart" name={twohandRangeName}
                 min={lowerBorder} max={upperBorder} step={step}
                 value={upperRange} onChange={upperRangeCheck}
+                onMouseUp={() => maxCaloriesFunc(upperRange)}
             />
         </div>
     )

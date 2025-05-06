@@ -1,24 +1,22 @@
 import { useState, useEffect, Dispatch, SetStateAction} from "react";
 
 
-const useThemeSets = (): [string, Dispatch<SetStateAction<string>>] => {
+const useThemeSets = (initialTheme?: "light"|"dark"): ["light"|"dark", Dispatch<SetStateAction<"light"|"dark">>] => {
 
     const [theme, setTheme] = useState(() => {
+        if (initialTheme) return initialTheme;
         if (typeof window !== 'undefined') {
-            const savedTheme = localStorage.getItem("theme");
-            return savedTheme ? savedTheme : 'light';
+            return localStorage.getItem("theme") as "light"|"dark" || "light";
         }
         return 'light';
     });
 
     useEffect(() => {
-        if (typeof window !== 'undefined') { 
-            document.body.dataset.theme = theme;
-            localStorage.setItem("theme", theme);
-        }
+        document.body.dataset.theme = theme;
+        localStorage.setItem("theme", theme);
     }, [theme]);
 
-    return [theme, setTheme];
+    return [theme, setTheme] as const;
 }
 
 export default useThemeSets;

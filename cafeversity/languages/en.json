@@ -24,7 +24,8 @@
                 "mainQuestion2": "Do You want to deny the changes?",
                 "accessButton": "Yes",
                 "denyButton": "No"
-            }
+            },
+            "updatedSetsSaving": "Save changes for working of webpages?"
         },
         "secondSetsPart": {
             "name": "Tasties & Body Constitution",
