@@ -1,11 +1,7 @@
 import Image from "next/image";
 import styles from "@/app/[authorizedUser]/authorized.module.css";
 import { use } from "react";
-import ThemeManager from "@/hooks/GetThemeSets";
-// import AccentColourManager from "@/hooks/GetAccentColour";
-// import GetFontFamily from "@/hooks/GetFontFamily";
-// import GetFontSize from "@/hooks/GetFontSize";
-// import GetFontVolume from "@/hooks/GetFontVolume";
+import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
 
 
 type UserDataTypes = {
@@ -62,7 +58,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                 <p className={styles.userName}>{data.firstName}<br />{data.lastName}</p>
             </div>
             
-            <ThemeManager initialTheme={data.customSets?.pageTheme} />
+            <LocalStorageStyles {...data.customSets} />
             {/* <AccentColourManager /> */}
             {/* <GetFontFamily /> */}
             {/* <GetFontSize /> */}
