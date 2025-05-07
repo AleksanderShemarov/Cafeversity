@@ -1,17 +1,3 @@
-#describe_name {
-    /* font-size: 1.375em; */ /* equivalent of 22px  */
-    font-size: 2.2rem;
-    font-weight: 400;
-    padding-top: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    color: var(--text-color);
-
-    font-family: var(--font-family);
-
-    font-style: var(--font-volume-style);
-}
-
 #colours_examples {
     display: flex;
     justify-content: space-around;

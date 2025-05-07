@@ -8,6 +8,9 @@ import GitHub from "@/../../public/github_icon.webp";
 import React, { useEffect, useState } from "react";
 import TextFormField from "./TextFormField";
 
+import { toast } from "react-toastify";
+import "react-toastify/ReactToastify.css";
+
 
 export default function LogIn() {
 
@@ -44,10 +47,11 @@ export default function LogIn() {
             return res.json() as Promise<LoginResponse>;
         })
         .then((data) => {
-            console.log(data);
             if (data.redirect) {
+                toast.success(data.message, { position: "top-center" });
                 window.location.href = data.redirect;
             }
+            else toast.error(data.message, { position: "top-center" });
         })
         .catch((error) => console.error(error));
     }

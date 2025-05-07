@@ -21,16 +21,25 @@ const Register: NextApiHandler = async (req: NextApiRequest, res: NextApiRespons
             },
         });
 
-        if (sameUserEmail === null) {
-            await prisma.users.create({
-                data: {
+        if (sameUserEmail === null) {            
+            await prisma.$transaction(async (prisma) => {
+                const user = await prisma.users.create({
+                  data: {
                     firstName: name,
                     lastName: surname,
                     nickName: nickname,
                     email: email,
                     password: hashedWord,
-                }
+                  }
+                });
+            
+                await prisma.customSets.create({
+                  data: {
+                    userId: user.id,
+                  }
+                });
             });
+            
             return res.status(201).json({
                 message: "User Registration is successfully ended!",
             });

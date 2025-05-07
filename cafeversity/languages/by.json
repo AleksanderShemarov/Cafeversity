@@ -1,0 +1,67 @@
+{
+    "SettingsPage": {
+        "stickyNavbar": {
+            "name": "Налады Акаўнту",
+            "part1": "Агульныя Налады",
+            "part2": "Смакі & Цялесная Канстытуцыя",
+            "part3": "Выгляд Старонкі"
+        },
+        "firstSetsPart": {
+            "name": "Агульныя Налады",
+            "photoEditor": {
+                "name": "Рэдактар Фота Карыстальніку",
+                "changePhotoButton": "Змяніць Фота",
+                "deletePhotoButton": "Выдаліць Фота"
+            },
+            "input1": "Імя",
+            "input2": "Прозвішча",
+            "input3": "Мянушка",
+            "cancelButton": "Адмена",
+            "saveButtonType1": "Змена",
+            "saveButtonType2": "Захова",
+            "changesDialog": {
+                "mainQuestion1": "Ці згодзен Ты са зменамі?",
+                "mainQuestion2": "Хочаш адмовіць змены?",
+                "accessButton": "Так",
+                "denyButton": "Не"
+            },
+            "updatedSetsSaving": "Захаваць змены ў працы вэб-старонак?"
+        },
+        "secondSetsPart": {
+            "name": "Смакі & Цялесная Канстытуцыя",
+            "subtitle1": {
+                "name": "Абяры свае перавагі",
+                "preferQuestion1": "Ці хочаш есці вострыя стравы?",
+                "preferQuestion2": "Ці аддаеш перавагу да вегетарыянскіх страў?",
+                "preferQuestion3": "Ты веган?"
+            },
+            "subtitle2": {
+                "name": "Сярэдняя колькасць калорыяў у дзень",
+                "mainQuestion": "Колькі калорыяў хочаш атрымаўваць у дзень?"
+            } 
+        },
+        "thirdSetsPart": {
+            "name": "Выгляд Старонкі",
+            "subtitle1": {
+                "name": "Мова",
+                "mainQuestion": "Абяры сваю родную мову: "
+            },
+            "subtitle2": {
+                "name": "Рэжым Старонцы",
+                "mainQuestion": "Наладзь рэжым фарбаў",
+                "lightTheme": "Светлыя",
+                "darkTheme": "Цёмныя"
+            },
+            "subtitle3": {
+                "name": "Колер Вылучэння",
+                "mainQuestion": "Абяры адзін з колераў"
+            },
+            "subtitle4": {
+                "name": "Налады Шрыфту",
+                "fontQuestion1": "Абяры Сямейства Шрыфтаў",
+                "fontQuestion2": "Абяры Памер Шрыфту",
+                "fontQuestion3": "Абяры Таўшчыню Шрыфту"
+            }
+        }
+    }
+}

@@ -1,0 +1,11 @@
+.commonSet {
+    /* outline: 4px double purple; */
+    display: flex;
+    /* padding-left: 1em;
+    padding-right: 1em; */
+    min-width: fit-content;
+    padding: 5px 10px;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 15px;
+}

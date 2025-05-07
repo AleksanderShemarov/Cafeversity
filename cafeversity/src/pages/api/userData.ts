@@ -4,7 +4,6 @@ import prisma from "../../../lib/utils/prismaClient";
 
 const userCommonData: NextApiHandler = async (request:NextApiRequest, response: NextApiResponse) => {
     if (request.method === "GET") {
-        console.log(request.query);
         const { name } = request.query;
         const { page } = request.query;
         if (name && typeof name === "string") {
@@ -21,6 +20,20 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         firstName: true,
                         lastName: true,
                         userPhoto: true,
+                        customSets: {
+                            select: {
+                                spicy: true,
+                                vegetarian: true,
+                                vegan: true,
+                                minCalory: true,
+                                maxCalory: true,
+                                pageTheme: true,
+                                brandColor: true,
+                                fontFamily: true,
+                                fontSize: true,
+                                fontVolume: true,
+                            }
+                        }
                     }
                 });
                 return response.status(200).json(user);
@@ -33,20 +46,34 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
                         ],
                     },
                     select: {
+                        id: true,
                         firstName: true,
                         lastName: true,
                         nickName: true,
                         userPhoto: true,
+                        customSets: {
+                            select: {
+                                spicy: true,
+                                vegetarian: true,
+                                vegan: true,
+                                minCalory: true,
+                                maxCalory: true,
+                                language: true,
+                                pageTheme: true,
+                                brandColor: true,
+                                fontFamily: true,
+                                fontSize: true,
+                                fontVolume: true,
+                            }
+                        }
                     }
                 });
-                // console.log(user);
                 return response.status(200).json(user);
             } else {
                 return response.status(400).json({ message: "Incorrect connect." });
             }
         }
     } else if (request.method === "POST") {
-        console.log(request.query);
         const { page } = request.query;
         if (page === "settings") {
             const oldName: string = request.body.oldName;
@@ -58,30 +85,38 @@ const userCommonData: NextApiHandler = async (request:NextApiRequest, response: 
             const { newUserPhoto } = request.body;
 
             console.log(request.body);
-            if (oldName && oldNickname && newName !== "" && newSurname !== "" && newNickname !== undefined && newUserPhoto !== undefined) {
-                const user = await prisma.users.findFirst({
-                    where:  {
-                        AND: [
-                            { firstName: oldName.split("_")[0] },
-                            { lastName: oldName.split("_")[1] },
-                            { nickName: oldNickname },
-                        ],
-                    },
+
+            if (oldName && newName && newSurname) {
+                const [oldFirstName, oldLastName] = oldName.split("_");
+
+                await prisma.$transaction(async (tx) => {
+                    const user = await tx.users.findFirst({
+                        where: {
+                            firstName: oldFirstName,
+                            lastName: oldLastName,
+                            nickName: oldNickname
+                        }
+                    });
+
+                    if (!user) throw new Error("User not found!");
+
+                    await tx.users.update({
+                        where: {
+                            id: user.id
+                        },
+                        data: {
+                            firstName: newName,
+                            lastName: newSurname,
+                            nickName: newNickname,
+                            userPhoto: newUserPhoto
+                        }
+                    });
                 });
-                await prisma.users.update({
-                    where: {
-                        id: user?.id,
-                    },
-                    data: {
-                        firstName: newName,
-                        lastName: newSurname,
-                        nickName: newNickname,
-                        userPhoto: newUserPhoto,
-                    }
+
+                return response.status(200).json({
+                    status: "Success",
+                    redirect: `/${newName}_${newSurname}/settingsPage`
                 });
-                return response.status(201).json({ status: "Success", redirect: `/${newName}_${newSurname}/settingsPage` });
-            } else {
-                return response.status(400).json({ status: "Error", message: "Check your data! Whatever is incorrect." });
             }
         } else {
             return response.status(400).json({ message: "Incorrect connect." });

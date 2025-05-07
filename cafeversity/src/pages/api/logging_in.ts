@@ -12,7 +12,10 @@ const LoggingIn: NextApiHandler = async (req: NextApiRequest, res: NextApiRespon
         const user = await prisma.users.findUnique({
             where: {
                 email: email,
-            }
+            },
+            // include: {
+            //     customSets: true,
+            // }
         });
         if (user) {
             const isTheSamePassword = await comparePasswords(password, user ? user.password : "");
@@ -26,10 +29,14 @@ const LoggingIn: NextApiHandler = async (req: NextApiRequest, res: NextApiRespon
                         sessionId: sessionId,
                     }
                 });
+
+                // const userLanguage = user.customSets?.language;
+
                 res.setHeader("Set-Cookie", `sessionId=${sessionId}; Path=/; HttpOnly; Secure; Max-Age=3600; SameSite=Strict`);// Cookie-file for an 1 hour
                 return res.status(201).json({
                     message: "Entrance is accepted!",
                     redirect: `/${user.firstName}_${user.lastName}`,
+                    // redirect: `/${userLanguage}/${user.firstName}_${user.lastName}`,
                 });
             } else {
                 res.status(409).json({

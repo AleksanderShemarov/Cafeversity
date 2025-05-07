@@ -1,0 +1,61 @@
+.textInput {
+    font-size: 20px;
+    font-weight: 500;
+    min-width: 400px;
+    max-width: fit-content;
+    height: 40px;
+    border: 3px #714efe solid;
+    border-radius: 7px;
+    padding-left: 10px;
+    padding-right: 10px;
+    column-count: auto;
+    line-height: 1.5;
+    margin-bottom: 15px;
+
+    color: var(--text-color);
+    background-color: var(--background-color);
+    font-family: var(--font-family);
+    font-style: var(--font-volume-style);
+}
+.textInput:focus {
+    border: 3px #714efe solid;
+    outline: none;
+    box-shadow: lightgray 0 0 5px 7px;
+}
+.textInput::placeholder,
+.textInput::-webkit-input-placeholder,
+.textInput::-moz-placeholder,
+.textInput::-ms-placeholder {
+    font-family: var(--font-family);
+    font-weight: var(--font-volume-weight);
+    font-style: var(--font-volume-style);
+}
+
+.inputLabel {
+    position: absolute;
+    top: 50%;
+    /* left: 0.3125rem; /* 5px when default value is 16px */
+    left: 0.5rem;
+    display: flex;
+
+    transform: translateY(-50%);
+    -webkit-transform: translateY(-50%);
+    -moz-transform: translateY(-50%);
+    -ms-transform: translateY(-50%);
+    -o-transform: translateY(-50%);
+
+    pointer-events: none;
+    border: none;
+    border-radius: 5px;
+    background-color: #fff;
+    color: #714efe;
+    /* padding-left: 0.5rem; /* 8px */
+    /* padding-right: 0.5rem; /* 8px */
+    padding-left: 0.8rem;
+    padding-right: 0.8rem;
+    transition: top 0.1s ease-in-out, scale 0.1s ease-in-out;
+    top: 0;
+    transform: translateY(-50%) scale(0.75);
+    font-family: var(--font-family);
+    font-size: 20px;
+}

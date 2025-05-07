@@ -3,17 +3,18 @@ import { CSSProperties } from "react";
 
 
 interface BtnCommonInterface {
-    uniqueStyle?: CSSProperties,
-    onClick: (
-        event: React.MouseEvent<HTMLButtonElement>
-    ) => void,
+    disabled?: boolean,
+    additionalStyle?: CSSProperties,
+    onClick: (event: React.MouseEvent<HTMLButtonElement>) => void,
     buttonName: string,
 }
 
-export default function AccessBtn({ uniqueStyle, onClick, buttonName = "Button" }: BtnCommonInterface) {
+
+export default function AccessBtn({ disabled = false, additionalStyle, onClick, buttonName = "Button" }: BtnCommonInterface) {
     return (
         <button className={commonBtnStyle.accessBtn}
-            style={uniqueStyle}// 
+            disabled={disabled}
+            style={additionalStyle}// 
             onClick={onClick}
         >
             <span className={commonBtnStyle.btn_name}>{buttonName}</span>
@@ -22,10 +23,11 @@ export default function AccessBtn({ uniqueStyle, onClick, buttonName = "Button" 
 }
 
 
-export function DenyBtn({ uniqueStyle, onClick, buttonName = "Button" }: BtnCommonInterface) {
+export function DenyBtn({ disabled = false, additionalStyle, onClick, buttonName = "Button" }: BtnCommonInterface) {
     return (
         <button className={commonBtnStyle.denyBtn}
-            style={uniqueStyle}
+            disabled={disabled}
+            style={additionalStyle}
             onClick={onClick}
         >
             <span className={commonBtnStyle.btn_name}>{buttonName}</span>

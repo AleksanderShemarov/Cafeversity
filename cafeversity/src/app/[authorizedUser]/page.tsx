@@ -1,17 +1,25 @@
 import Image from "next/image";
 import styles from "@/app/[authorizedUser]/authorized.module.css";
 import { use } from "react";
-import ThemeManager from "@/hooks/GetThemeSets";
-import AccentColourManager from "@/hooks/GetAccentColour";
-import GetFontFamily from "@/hooks/GetFontFamily";
-import GetFontSize from "@/hooks/GetFontSize";
-import GetFontVolume from "@/hooks/GetFontVolume";
+import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
 
 
 type UserDataTypes = {
     firstName: string,
     lastName: string,
     userPhoto: string,
+    customSets: {
+        spicy: boolean,
+        vegetarian: boolean,
+        vegan: boolean,
+        minCalory: number,
+        maxCalory: number,
+        pageTheme: "light"|"dark",
+        brandColor: string,
+        fontFamily: string,
+        fontSize: string,
+        fontVolume: string,
+    }
 }
 
 
@@ -19,7 +27,7 @@ async function fetchData(params: { authorizedUser: string; }) {
     const { authorizedUser } = params;
     console.log(params, authorizedUser);
 
-    const response = await fetch(`http://localhost:3000/api/userData?name=${authorizedUser}`);
+    const response = await fetch(`http://localhost:3000/api/userData?name=${authorizedUser}`, { cache: "no-store" });
     const userData = await response.json();
 
     return userData;
@@ -31,7 +39,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
     const data: UserDataTypes = use(fetchData(params));
 
     return (
-        <>
+        <>          
             <div style={{
                 display: "flex",
                 border: "3px dashed orange",
@@ -42,18 +50,19 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             }}>
                 <div className={styles.userImage}>
                     <Image
-                        src={data ? data.userPhoto : "/uploads/tempUserImage.png"}
-                        alt={data ? data.userPhoto : "/uploads/tempUserImage.png"}
+                        src={data.userPhoto ?? "/uploads/tempUserImage.png"}
+                        alt={data.userPhoto ?? "/uploads/tempUserImage.png"}
                         layout="fill"
                     ></Image>
                 </div>
                 <p className={styles.userName}>{data.firstName}<br />{data.lastName}</p>
             </div>
-            <ThemeManager />
-            <AccentColourManager />
-            <GetFontFamily />
-            <GetFontSize />
-            <GetFontVolume />
+            
+            <LocalStorageStyles {...data.customSets} />
+            {/* <AccentColourManager /> */}
+            {/* <GetFontFamily /> */}
+            {/* <GetFontSize /> */}
+            {/* <GetFontVolume /> */}
         </>
     )
 }

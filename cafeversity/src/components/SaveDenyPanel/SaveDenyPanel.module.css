@@ -1,0 +1,9 @@
+.btnsBlock {
+    display: flex;
+    /* outline: 2px dotted orange; */
+    justify-content: flex-end;
+    gap: 2%;
+    padding-right: 5%;
+    margin-top: 25px;
+    margin-bottom: 25px;
+}

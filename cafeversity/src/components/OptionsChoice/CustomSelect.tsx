@@ -1,53 +1,34 @@
 "use client";
 
 import stylesOfOptions from "@/components/OptionsChoice/CustomSelect.module.css";
-import { CSSProperties, useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 
 
 interface CustomSelect {
-    labelName: string,
-    selectorName: string,
-    options?: [string, string, string][],
-    styleDIV?: CSSProperties,
-    styleLABEL?: CSSProperties,
-    dbOption?: string,
+    options: [string, string, string][],
+    dbOption: string,
+    setNewLang: (
+        newLang: string,
+    ) => void,
 }
 
-export default function CustomSelect(
-    {
-        labelName, selectorName, options = [["option1", "option", "/earth_planet.webp"]],
-        styleDIV, styleLABEL, dbOption
-    }: CustomSelect
-) {
 
-    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[0][1]);
-    const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[0][2]);
+export default function CustomSelect({ options, dbOption, setNewLang }: CustomSelect) {
+    const elemsAmount = options.length;
+    const initialIndex = Math.max(options.findIndex(opt => opt[1] === dbOption), 0);
+    
+    const [selectedOptionValue, setSelectedOptionValue] = useState<string>(options[initialIndex][0]);
+    const [selectedOptionImage, setSelectedOptionImage] = useState<string>(options[initialIndex][2]);
     const [isOpen, setIsOpen] = useState<boolean>(false);
 
-    const [selectedOptionIndex, setSelectedOptionIndex] = useState<number>(0);
-    console.log(selectedOptionIndex);
 
-    useEffect(() => {
-        if (dbOption) {
-            for (let i = 0; i < options.length; i++) {
-                if (options[i][0].includes(dbOption)) {
-                    setSelectedOptionValue(options[i][1]);
-                    setSelectedOptionImage(options[i][2]);
-                    setSelectedOptionIndex(i);
-                    break;
-                }
-            }
-        }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [dbOption]);
-
-    const handleOptionClick = (option: [string, string, string], index: number) => {
-        setSelectedOptionValue(option[1]);
+    const handleOptionClick = (option: [string, string, string]) => {
+        setSelectedOptionValue(option[0]);
         setSelectedOptionImage(option[2]);
         setIsOpen(false);
 
-        setSelectedOptionIndex(index);
+        setNewLang(option[1]);
     }
 
 
@@ -88,53 +69,44 @@ export default function CustomSelect(
             const spaceBelow = window.innerHeight - rect.bottom;
             const spaceAbove = rect.top;
 
-            // console.dir(rect);
-            // console.log(window.innerHeight);
-            // console.log(spaceAbove, spaceBelow);
-
-            if (spaceBelow < 345 && spaceAbove > spaceBelow) {
+            if (spaceBelow < (40 * elemsAmount) && spaceAbove > spaceBelow) {
                 setSelectDropping("up");
             } else {
                 setSelectDropping("down");
             }
         }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isOpen]);
 
 
     return (
-        <div className={stylesOfOptions.optionsBlock} style={styleDIV}>
-            <label htmlFor={selectorName} className={stylesOfOptions.optionsBlockName} style={styleLABEL}>
-                {labelName}
-            </label>
-
-            <div className={stylesOfOptions.selectorBox} onClick={() => setIsOpen(!isOpen)} ref={selectBoxRef}>
-                <div className={stylesOfOptions.selectedOption}
-                style={{ width: (maxWidth + 225) }}
-                >
-                    {/* <img src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35} /> */}
-                    <Image src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35}></Image>
-                    <p>{selectedOptionValue}</p>
-                    &#x2B9F;
-                </div>
-
-                {isOpen && (
-                <div className={`${stylesOfOptions.optionsList} 
-                ${selectDropping === "up" ? stylesOfOptions.optionsList_up : stylesOfOptions.optionsList_down}`}>
-                    {options.map((option, index) => (
-                        <div key={option[0]}
-                            className={stylesOfOptions.option}
-                            onClick={() => handleOptionClick(option, index)}
-                            ref={el => { optionRefs.current[index] = el; }}
-                        >
-                            {/* <img src={option[2]} alt={option[2]} width={25} height={25} /> */}
-                            <Image src={option[2]} alt={option[2]} width={25} height={25}></Image>
-                            <p>{option[1]}</p>
-                        </div>
-                    ))}
-                </div>
-                )}
-
+        <div className={stylesOfOptions.selectorBox} onClick={() => setIsOpen(!isOpen)} ref={selectBoxRef}>
+            <div className={stylesOfOptions.selectedOption}
+            style={{ width: (maxWidth + 225) }}
+            >
+                {/* <img src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35} /> */}
+                <Image src={selectedOptionImage} alt={selectedOptionImage} width={35} height={35}></Image>
+                <p>{selectedOptionValue}</p>
+                &#x2B9F;
             </div>
+
+            {isOpen && (
+            <div className={`${stylesOfOptions.optionsList} 
+            ${selectDropping === "up" ? stylesOfOptions.optionsList_up : stylesOfOptions.optionsList_down}`}>
+                {options.filter((_option, index) => index != initialIndex)
+                    .map((option, index) => (
+                    <div key={option[0]}
+                        className={stylesOfOptions.option}
+                        onClick={() => handleOptionClick(option)}
+                        ref={el => { optionRefs.current[index] = el; }}
+                    >
+                        {/* <img src={option[2]} alt={option[2]} width={25} height={25} /> */}
+                        <Image src={option[2]} alt={option[2]} width={25} height={25}></Image>
+                        <p>{option[0]}</p>
+                    </div>
+                ))}
+            </div>
+            )}
         </div>
     )
 }

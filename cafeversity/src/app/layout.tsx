@@ -3,6 +3,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import CommonLayout from "@/components/CommonLayout";
 
+import { getLocale, getMessages } from "next-intl/server";
+import { NextIntlClientProvider } from "next-intl";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -11,17 +14,25 @@ export const metadata: Metadata = {
   description: "The Part for Common Users",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+
+  const locale = await getLocale();
+  const messages = await getMessages();
+
   return (
-    <html lang="en">
+    // <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
-        <CommonLayout>
-          {children}
-        </CommonLayout>
+        <NextIntlClientProvider messages={messages} locale={locale} now={new Date()}>
+          {/* I use "locale" in NextIntlClientProvider as the mistakes protection */}
+          <CommonLayout>
+            {children}
+          </CommonLayout>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

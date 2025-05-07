@@ -93,23 +93,3 @@ I have repeated his code and have changed design for my checkboxes
     /* transform: translateX(3em); /* 48px */
     transform: translateX(4.8rem);
 }
-
-
-.checkboxLine {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    flex-wrap: wrap;
-}
-.questionPart {
-    font-family: var(--font-family);
-    /* font-size: 1.375em; /* 22px */
-    font-size: 2.2rem;
-    font-weight: 400;
-    padding-top: 0;
-    padding-right: 10px;
-    padding-left: 10px;
-    color: var(--text-color);
-
-    font-style: var(--font-volume-style);
-}

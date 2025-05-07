@@ -1,226 +1,131 @@
 "use client";
 
-import { useId, useRef, useState, forwardRef, useImperativeHandle, useEffect } from "react";
+import { useId, useState, forwardRef, useImperativeHandle, useEffect } from "react";
 import imgEditStyles from "./imgEditor.module.css";
-import Image from "next/image";
+import ImageContainer from "./ImageContainer";
+import ImageEditButtons from "./ImageEditBtns";
+import { useTranslations } from "next-intl";
 
 
 interface ImageIditorTypes {
     getImagePath: string | null,
-    setImagePath: (
-        imagePath: string,
-    ) => void,
-    setImageFileId: (
-        imageFileId: string,
-    ) => void,
+    setImagePath: (imagePath: string) => void,
+    setImageFileId: (imageFileId: string) => void,
     disabled?: boolean,
-    id?: string,
+    translate?: string,
 }
 
 interface ImageEditorRef {
-    photoServerSave: () => Promise<void>;
+    photoServerSave: () => Promise<{ status: string, path: string|null }>;
 }
 
 // eslint-disable-next-line react/display-name
-const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(({ getImagePath, setImagePath, setImageFileId, disabled, id }, ref) => {
+const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(
+    ({ 
+        getImagePath, setImagePath, setImageFileId, disabled, translate = "SettingsPage"
+    }, ref) => {
+        const templatePhoto: string = "/uploads/tempUserImage.png";
+        const [image, setImage] = useState<string|null>(getImagePath);
+        const bool = image === templatePhoto;
 
-    const templatePhoto: string = "/uploads/tempUserImage.png";
-    const [image, setImage] = useState<string|null>(getImagePath);
-    const bool = image === templatePhoto;
+        const [imageFile, setImageFile] = useState<File | null>(null);
 
-    useEffect(() => {
-        setImage(getImagePath);
-    }, [getImagePath]);
+        function photoSelect (event: React.ChangeEvent<HTMLInputElement>) {
+            if (event.target.files && event.target.files.length > 0) {
+                const file = event.target.files[0];
+                const tempURL = URL.createObjectURL(file);
 
-    useEffect(() => {
-        disabled && setImage(getImagePath);
-    }, [disabled, getImagePath]);
+                setImageFile(file);
+                setImage(tempURL);
+                setImagePath(file.name);
 
-
-    const [imageFile, setImageFile] = useState<File | null>(null);
-
-    function photoSelect (event: React.ChangeEvent<HTMLInputElement>) {
-        if (event.target.files && event.target.files.length > 0) {
-            setImageFile(event.target.files[0]);
-            setImage(URL.createObjectURL(event.target.files[0]));
-            setImagePath(event.target.files[0].name);
+                return () => URL.revokeObjectURL(tempURL);
+            }
         }
-    }
 
-    const photoDelete = () => {
-        if (image !== null && getImagePath !== null && image === getImagePath) {
-            setImageFile(null);
-            setImage("/uploads/tempUserImage.png");
-            setImagePath("/uploads/tempUserImage.png");
-        } else if (image !== null && getImagePath !== null && image !== getImagePath) {
-            URL.revokeObjectURL(image);
-            setImageFile(null);
-            setImage("/uploads/tempUserImage.png");
-            setImagePath("/uploads/tempUserImage.png");
-        } else if (image !== null && getImagePath !== null) {
-            URL.revokeObjectURL(image);
-            setImageFile(null);
-            setImage(getImagePath);
-            setImagePath(getImagePath);
-        } else if (image !== null) {
-            URL.revokeObjectURL(image);
-            setImageFile(null);
-            setImage("/uploads/tempUserImage.png");
-            setImagePath("/uploads/tempUserImage.png");
-        } else {
-            setImageFile(null);
-            setImage("/uploads/tempUserImage.png");
-            setImagePath("/uploads/tempUserImage.png");
+        const photoDelete = () => {
+            if (image !== null && getImagePath !== null && image === getImagePath) {
+                setImageFile(null);
+                setImage("/uploads/tempUserImage.png");
+                setImagePath("/uploads/tempUserImage.png");
+            } else if (image !== null && getImagePath !== null && image !== getImagePath) {
+                URL.revokeObjectURL(image);
+                setImageFile(null);
+                setImage("/uploads/tempUserImage.png");
+                setImagePath("/uploads/tempUserImage.png");
+            } else if (image !== null && getImagePath !== null) {
+                URL.revokeObjectURL(image);
+                setImageFile(null);
+                setImage(getImagePath);
+                setImagePath(getImagePath);
+            } else if (image !== null) {
+                URL.revokeObjectURL(image);
+                setImageFile(null);
+                setImage("/uploads/tempUserImage.png");
+                setImagePath("/uploads/tempUserImage.png");
+            } else {
+                setImageFile(null);
+                setImage("/uploads/tempUserImage.png");
+                setImagePath("/uploads/tempUserImage.png");
+            }
         }
-    }
 
 
-    const pictureId = useId();
-    useEffect(() => {
-        setImageFileId(pictureId);
-    }, [pictureId, setImageFileId]);
+        const pictureId = useId();
+        useEffect(() => {
+            setImageFileId(pictureId);
+        }, [pictureId, setImageFileId]);
 
 
-    async function photoServerSave() {
-        if (imageFile !== null) {
-            const imageFileFormData = new FormData();
-            imageFileFormData.append("imageId", pictureId);
-            imageFileFormData.append("imageFile", imageFile);
+        async function photoServerSave() {
+            console.log("photoServerSave imageFile ->", imageFile);
+            console.log("photoServerSave image ->", image);
+            console.log("photoServerSave getImagePath ->", getImagePath);
 
-            const apiResponse = await fetch("http://localhost:3000/api/usersPhoto_route", {
-                method: "POST",
-                body: imageFileFormData,
-            });
+            if (imageFile !== null) {
+                const imageFileFormData = new FormData();
+                imageFileFormData.append("imageId", pictureId);
+                imageFileFormData.append("imageFile", imageFile);
 
-            const apiResult = await apiResponse.json();
-            console.dir(apiResult.message);
-            return apiResult.status;
-        } else {
-            console.dir("Your account photo is the common temporary User's image");
-            return "Success";
+                const apiResponse = await fetch("http://localhost:3000/api/usersPhoto_route", {
+                    method: "POST",
+                    body: imageFileFormData,
+                });
+
+                const apiResult = await apiResponse.json();
+                console.dir(apiResult.path);
+                return apiResult;
+            }
+            else if (imageFile === null && image !== null) {
+                console.dir("System has left your prevoius photo");
+                return { status: "Success", path: image };
+            }
+            else {
+                console.dir("Your account photo is the common temporary User's image");
+                return { status: "Success", path: null };
+            }
         }
-    }
 
-    useImperativeHandle(ref, () => ({
-        photoServerSave,
-    }));
+        useImperativeHandle(ref, () => ({
+            photoServerSave,
+        }));
 
-    // console.dir(image);
-    // console.dir(imageFile);
-    // console.dir(getImagePath);
+        const t = useTranslations(translate);
 
-    return (
-        <>
-            <p id={imgEditStyles.commonSettingsName}>Common Settings</p>
-            <div className={imgEditStyles.photo_editor} id={id}>
-                <p className={imgEditStyles.photo_edit_name}>User Image Editor</p>
-                <div className={imgEditStyles.photo_workplace}>
-                    <ImageContainer img_path={image} />
-                    <ImageEditButtons
-                        isTemplatePhoto={bool}
-                        onChangeReplace={photoSelect}
-                        onClickDelete={photoDelete}
-                        disabled={disabled}
-                    />
-                </div>
+        return (
+            <div className={imgEditStyles.photo_workplace}>
+                <ImageContainer img_path={image} />
+                <ImageEditButtons
+                    btnName1={t("firstSetsPart.photoEditor.changePhotoButton")}
+                    btnName2={t("firstSetsPart.photoEditor.deletePhotoButton")}
+                    isTemplatePhoto={bool}
+                    onChangeReplace={photoSelect}
+                    onClickDelete={photoDelete}
+                    disabled={disabled}
+                />
             </div>
-        </>
-    )
-})
+        )
+    }
+)
 
 export default ImageEditor;
-
-
-type ImgCont = {
-    img_path: string|null,
-}
-
-type ImgEditBtns = {
-    isTemplatePhoto?: boolean,
-    onChangeReplace?: (
-        event: React.ChangeEvent<HTMLInputElement>
-    ) => void,
-    onClickDelete?: (
-        event: React.MouseEvent<HTMLButtonElement>,
-    ) => void,
-    disabled?: boolean,
-}
-
-export function ImageContainer({ img_path }: ImgCont) {
-
-    return (
-        <div className={imgEditStyles.photo_container}>
-            <Image
-                src={img_path === null ? "/uploads/tempUserImage.png" : img_path}
-                alt={img_path === null ? "/uploads/tempUserImage.png" : img_path}
-                layout="fill"
-            ></Image>
-        </div>
-    )
-}
-
-export function ImageEditButtons({ isTemplatePhoto, onChangeReplace, onClickDelete, disabled }: ImgEditBtns) {
-
-
-    const inputRef = useRef<HTMLInputElement>(null);
-
-    const handleImageClick = () => {
-        if (inputRef.current) {
-            inputRef.current.click();
-        }
-    }
-
-    return (
-        <div className={imgEditStyles.photo_edit_buttons}>
-            <input type="file" onChange={onChangeReplace} ref={inputRef} style={{ display: "none" }}/>
-            <button
-                className={imgEditStyles.changeBtn}
-                onClick={handleImageClick}
-                disabled={disabled}
-                style={disabled ?
-                {
-                    backgroundColor: "lightgray",
-                    color: "gray",
-                    pointerEvents: "none",
-                } : {}
-                }
-            >
-                Change Photo
-            </button>
-            <button
-                className={imgEditStyles.deleteBtn}
-                disabled={disabled}
-                style={disabled ?
-                {
-                    background: "lightgray",
-                    pointerEvents: "none",
-                } : isTemplatePhoto ? 
-                {
-                    background: "radial-gradient(orange 25% 35%, red 70%)",
-                    pointerEvents: "none",
-                } : {}
-            }
-                onClick={onClickDelete}>
-                    <span
-                        className={imgEditStyles.deleteBtnText}
-                        style={disabled ? 
-                        {
-                            background: "none",
-                            color: "gray",
-                        } :
-                        isTemplatePhoto ?
-                        {
-                            backgroundColor: "white",
-                            backgroundImage: "linear-gradient(90deg, white 5%, lightgray 20% 80%, white 95%)",
-                            backgroundSize: "100%",
-                            backgroundRepeat: "repeat",
-                            WebkitBackgroundClip: "text",
-                            WebkitTextFillColor: "transparent",
-                        } :
-                    {}}>
-                        Delete Photo
-                    </span>
-            </button>
-        </div>
-    )
-}

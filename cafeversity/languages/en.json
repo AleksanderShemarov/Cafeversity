@@ -1,0 +1,67 @@
+{
+    "SettingsPage": {
+        "stickyNavbar": {
+            "name": "Account Settings",
+            "part1": "Common Settings",
+            "part2": "Tasties & Body Constitution",
+            "part3": "Page Appearance"
+        },
+        "firstSetsPart": {
+            "name": "Common Settings",
+            "photoEditor": {
+                "name": "User Image Editor",
+                "changePhotoButton": "Change Photo",
+                "deletePhotoButton": "Delete Photo"
+            },
+            "input1": "First Name",
+            "input2": "Last Name",
+            "input3": "Nickname",
+            "cancelButton": "Cancel",
+            "saveButtonType1": "Change",
+            "saveButtonType2": "Save",
+            "changesDialog": {
+                "mainQuestion1": "Are You agreed with the changes?",
+                "mainQuestion2": "Do You want to deny the changes?",
+                "accessButton": "Yes",
+                "denyButton": "No"
+            },
+            "updatedSetsSaving": "Save changes for working of webpages?"
+        },
+        "secondSetsPart": {
+            "name": "Tasties & Body Constitution",
+            "subtitle1": {
+                "name": "Choose your preferences",
+                "preferQuestion1": "Do you want to eat spicy dishes?",
+                "preferQuestion2": "Do you prefer to eat vegetarian dishes?",
+                "preferQuestion3": "Are you vegan?"
+            },
+            "subtitle2": {
+                "name": "Average amount of calories per day",
+                "mainQuestion": "How many calories do you want to get per day?"
+            } 
+        },
+        "thirdSetsPart": {
+            "name": "Page Appearance",
+            "subtitle1": {
+                "name": "Language",
+                "mainQuestion": "Choose your native language: "
+            },
+            "subtitle2": {
+                "name": "Interface Themes",
+                "mainQuestion": "Customise your application theme",
+                "lightTheme": "Light Theme",
+                "darkTheme": "Dark Theme"
+            },
+            "subtitle3": {
+                "name": "Brand (Accent) Colours",
+                "mainQuestion": "Choose one of the colours"
+            },
+            "subtitle4": {
+                "name": "Font Settings",
+                "fontQuestion1": "Choose a Font Family",
+                "fontQuestion2": "Choose a Font Size",
+                "fontQuestion3": "Choose a Font Weight"
+            }
+        }
+    }
+}

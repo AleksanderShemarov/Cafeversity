@@ -1,4 +1,4 @@
-import SubTitleStyle from "@/components/OtherParts/SubTitle/SubTitle.module.css";
+import SubTitleStyle from "./SubTitle.module.css";
 
 
 export default function SubTitle({ name }: { name: string }) {
