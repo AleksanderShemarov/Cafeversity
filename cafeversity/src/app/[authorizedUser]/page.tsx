@@ -54,9 +54,6 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             <GetFontFamily />
             <GetFontSize />
             <GetFontVolume />
-            {/* <div className={styles.exit_cover}>
-                <div id={styles.exit_field}></div>
-            </div> */}
         </>
     )
 }
