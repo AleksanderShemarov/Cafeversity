@@ -2,7 +2,7 @@
 
 import React from "react";
 import BottomMenu, { BottomButtonsContext } from "@/components/BottomMenu/BottomMenu";
-import { usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";//
 
 
 type bottomBtns = {
@@ -13,10 +13,10 @@ type bottomBtns = {
     path?: string,
 }
 
-export default function Layout ({ children }: Readonly<{children: React.ReactNode}>) {
+
+export default function Layout ({ children }: Readonly<{ children: React.ReactNode }>) {
 
     const pathname = usePathname()?.substring(1);
-    console.log(pathname);
 
     let BottomBtns: bottomBtns[];
 
@@ -39,10 +39,10 @@ export default function Layout ({ children }: Readonly<{children: React.ReactNod
 
     return (
         <>
-        <BottomButtonsContext.Provider value={BottomBtns}>
-            {children}
-            <BottomMenu />
-        </BottomButtonsContext.Provider>
+            <BottomButtonsContext.Provider value={BottomBtns}>
+                {children}
+                <BottomMenu />
+            </BottomButtonsContext.Provider>
         </>
     )
 }

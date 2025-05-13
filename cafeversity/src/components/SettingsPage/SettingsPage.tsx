@@ -21,7 +21,7 @@ import useFontSizeSet from "@/hooks/fontSizeSet";
 import useFontVolumeSet from "@/hooks/fontVolume";
 
 import { useTranslations } from "next-intl";
-import { UserDataTypes } from "@/app/(commonSite)/[authorizedUser]/settingsPage/page";
+import { UserDataTypes } from "@/app/(userPage)/[authorizedUser]/settingsPage/page";
 import PageBlockName from "@/components/PageBlocks/PageBlockName";
 import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 import SaveDenyPanel from "../SaveDenyPanel/SaveDenyPanel";
