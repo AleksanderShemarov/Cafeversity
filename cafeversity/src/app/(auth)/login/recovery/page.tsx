@@ -1,4 +1,4 @@
-import styles from "@/pages/login/LoginPage.module.css";
+import styles from "@/app/(auth)/login/LoginPage.module.css";
 import Recovery from "@/components/Recovery";
 
 

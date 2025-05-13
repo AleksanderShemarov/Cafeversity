@@ -1,4 +1,18 @@
 {
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Menu",
+            "main": "General",
+            "news": "News",
+            "settings": "Account Settings"
+        },
+        "exitButton": {
+            "name": "Exit",
+            "question": "Do you really want to exit?",
+            "access": "Yes",
+            "deny": "No"
+        }
+    },
     "SettingsPage": {
         "stickyNavbar": {
             "name": "Account Settings",
@@ -63,5 +77,8 @@
                 "fontQuestion3": "Choose a Font Weight"
             }
         }
+    },
+    "ExitPage": {
+        "name": "Exit in progress. Await, please..."
     }
 }

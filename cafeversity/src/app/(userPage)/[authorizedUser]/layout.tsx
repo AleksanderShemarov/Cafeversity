@@ -2,7 +2,9 @@
 
 import React from "react";
 import BottomMenu, { BottomButtonsContext } from "@/components/BottomMenu/BottomMenu";
-import { usePathname } from "next/navigation";//
+import { usePathname } from "next/navigation";
+
+import { useTranslations } from "next-intl";
 
 
 type bottomBtns = {
@@ -18,21 +20,23 @@ export default function Layout ({ children }: Readonly<{ children: React.ReactNo
 
     const pathname = usePathname()?.substring(1);
 
+    const t = useTranslations("MainUserPage");
+
     let BottomBtns: bottomBtns[];
 
     if (pathname?.includes("/settingsPage")) {
         BottomBtns = [
-            { name: "Меню", icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", topMargin: 50, },
-            { name: "Агульная", icon: "/account_icon.png", icon_alt: "Account_Icon",
+            { name: t("vanishingNavbar.menu"), icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", topMargin: 50, },
+            { name: t("vanishingNavbar.main"), icon: "/account_icon.png", icon_alt: "Account_Icon",
                 path: `/${pathname.substring(0, pathname.lastIndexOf("/"))}` },
-            { name: "Навіны", icon: "/earth_planet.webp", icon_alt: "Earth_Icon", topMargin: 50, },
+            { name: t("vanishingNavbar.news"), icon: "/earth_planet.webp", icon_alt: "Earth_Icon", topMargin: 50, },
         ];
     } else {
         BottomBtns = [
-            { name: "Налады акаўнту", icon: "/settings-gear.png", icon_alt: "Settings_Icon",
+            { name: t("vanishingNavbar.settings"), icon: "/settings-gear.png", icon_alt: "Settings_Icon",
             topMargin: 50, path: `/${pathname}/settingsPage` },
-            { name: "Меню", icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", },
-            { name: "Навіны", icon: "/earth_planet.webp", icon_alt: "Earth_Icon",
+            { name: t("vanishingNavbar.menu"), icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", },
+            { name: t("vanishingNavbar.news"), icon: "/earth_planet.webp", icon_alt: "Earth_Icon",
             topMargin: 50, },
         ];  
     }

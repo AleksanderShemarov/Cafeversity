@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/pages/login/LoginPage.module.css";
+import styles from "@/app/(auth)/login/LoginPage.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Google from "@/../../public/google_icon.webp";

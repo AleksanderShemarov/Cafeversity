@@ -1,4 +1,18 @@
 {
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Menu",
+            "main": "Obecná",
+            "news": "Noviny",
+            "settings": "Nastavení účtu"
+        },
+        "exitButton": {
+            "name": "Výstup",
+            "question": "Opravdu chcete odejít?",
+            "access": "Ano",
+            "deny": "Ne"
+        }
+    },
     "SettingsPage": {
         "stickyNavbar": {
             "name": "Nastavení Účtu",
@@ -63,5 +77,8 @@
                 "fontQuestion3": "Vzber hmotnost písma"
             }
         }
+    },
+    "ExitPage": {
+        "name": "Probíhá výstup. Čekejte, prosím..."
     }
 }

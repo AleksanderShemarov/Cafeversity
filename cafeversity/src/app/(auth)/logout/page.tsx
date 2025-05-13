@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { useTranslations } from "next-intl";
 
 
 export default function ExitProcessPage () {
@@ -35,6 +36,8 @@ export default function ExitProcessPage () {
         LogOut();
     }, []);
 
+    const t = useTranslations("ExitPage");
+
     return (
         <div style={{
             width: "100%",
@@ -52,7 +55,9 @@ export default function ExitProcessPage () {
                 textAlign: "center",
                 backgroundColor: "rgb(225, 225, 225)",
                 boxShadow: "0 0 10px 10px lightgrey",
-            }}>Адбываецца Выхад. Чакайце...</h1>
+            }}>
+                {t("name")}
+            </h1>
         </div>
     )
 }

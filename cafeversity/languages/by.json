@@ -1,4 +1,18 @@
 {
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Меню",
+            "main": "Агульная",
+            "news": "Навіны",
+            "settings": "Налады акаўнту"
+        },
+        "exitButton": {
+            "name": "Выхад",
+            "question": "Вы на сам рэч хаціце выйсці?",
+            "access": "Так",
+            "deny": "Не"
+        }
+    },
     "SettingsPage": {
         "stickyNavbar": {
             "name": "Налады Акаўнту",
@@ -63,5 +77,8 @@
                 "fontQuestion3": "Абяры Таўшчыню Шрыфту"
             }
         }
+    },
+    "ExitPage": {
+        "name": "Адбываецца Выхад. Чакайце, калі ласка..."
     }
 }

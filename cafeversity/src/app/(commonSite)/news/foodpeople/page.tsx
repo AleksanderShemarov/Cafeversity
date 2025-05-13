@@ -47,7 +47,7 @@ export default function FoodPeople () {
 
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/articles_route", {
+        fetch("http://localhost:3000/api/articles", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",

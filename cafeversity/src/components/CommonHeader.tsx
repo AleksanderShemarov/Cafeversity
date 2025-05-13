@@ -11,6 +11,8 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import DialogView from "./Dialog/DialogView";
 
+import { useTranslations } from "next-intl";
+
 
 // { params }: { params: { authorizedUser: string } }
 export default function CommonHeader () {
@@ -48,6 +50,8 @@ export default function CommonHeader () {
         CookieFinding();
     }, []);
 
+    const t = useTranslations("MainUserPage");
+
     return (
         <>
             <div id={styles.header}>
@@ -74,12 +78,12 @@ export default function CommonHeader () {
                 >
                     <Entrance
                         path={isAuthorized ? '' : '/login/signin'}
-                        sign={isAuthorized ? 'Выхад' : 'Ўваход'}
+                        sign={isAuthorized ? t("exitButton.name") : 'Ўваход'}
                     />
                 </div>
                 {(isAuthorized && exitView) && (
                     <DialogView
-                        question="Вы на сам рэч хаціце выйсці?"
+                        question={t("exitButton.question")}
                         dialog_cover={{ backgroundColor: "rgba(222, 184, 135, 0.8)" }}
                         dialog_container={{ border: "5px solid orange" }}
                         dialog_question={{
@@ -87,10 +91,10 @@ export default function CommonHeader () {
                             fontWeight: "var(--font-volume-weight)", fontStyle: "var(--font-volume-style)",
                         }}
                     >
-                        <Link href="/ExitProcess" style={{ width: "25%" }}>
-                            <input type="button" value="Так" id={styles.accessButton} />
+                        <Link href="/logout" style={{ width: "25%" }}>
+                            <input type="button" value={t("exitButton.access")} id={styles.accessButton} />
                         </Link>
-                        <input type="button" value="Не" id={styles.denyButton} onClick={() => {
+                        <input type="button" value={t("exitButton.deny")} id={styles.denyButton} onClick={() => {
                             isExitView(!exitView);
                             document.body.style.overflow = "auto";
                         }} />
