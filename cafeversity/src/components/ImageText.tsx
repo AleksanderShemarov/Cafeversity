@@ -1,4 +1,4 @@
-import styles from "@/app/commonMenu/commonMenu.module.css";
+import styles from "@/app/(commonSite)/commonMenu/commonMenu.module.css";
 import React from "react";
 
 

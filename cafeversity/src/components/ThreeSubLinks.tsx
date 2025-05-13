@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import styles from "@/app/news/news.module.css";
+import styles from "@/app/(commonSite)/news/news.module.css";
 import { useState } from "react";
 import { clsx } from "clsx";
 

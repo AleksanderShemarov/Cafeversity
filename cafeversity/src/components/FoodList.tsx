@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/app/commonMenu/commonMenu.module.css";
+import styles from "@/app/(commonSite)/commonMenu/commonMenu.module.css";
 import Image from "next/image";
 import ImageText from "./ImageText";
 import React, { useEffect, useState } from "react";

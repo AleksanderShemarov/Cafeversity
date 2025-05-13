@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import styles from "@/app/news/foodpeople/foodpeople.module.css";
+import styles from "@/app/(commonSite)/news/foodpeople/foodpeople.module.css";
 
 
 type SearchLineHandler = {

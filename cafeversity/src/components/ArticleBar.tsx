@@ -1,4 +1,4 @@
-import styles from "@/app/news/foodpeople/foodpeople.module.css";
+import styles from "@/app/(commonSite)/news/foodpeople/foodpeople.module.css";
 // import Gordon_Ramsay from "../../public/Gordon_Ramsay_and_the_dish.jpg";
 import Image, { StaticImageData } from "next/image";
 

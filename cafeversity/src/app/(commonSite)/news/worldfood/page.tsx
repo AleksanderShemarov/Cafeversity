@@ -1,4 +1,4 @@
-import styles from "@/app/news/news.module.css";
+import styles from "@/app/(commonSite)/news/news.module.css";
 
 
 export default function WorldFood () {
