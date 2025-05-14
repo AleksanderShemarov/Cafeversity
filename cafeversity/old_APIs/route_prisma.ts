@@ -1,6 +1,6 @@
 //import { PrismaClient } from "@prisma/client";// Usual "PrismaClient" creates a new prisma-client instance for each calling
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/utils/prismaClient";// "prismaClient.ts"-file has a Singleton creating the only instance of "PrismaClient"
+import prisma from "../lib/utils/prismaClient";// "prismaClient.ts"-file has a Singleton creating the only instance of "PrismaClient"
 
 
 const Handler: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {

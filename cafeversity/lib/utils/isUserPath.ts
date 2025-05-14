@@ -1,11 +1,10 @@
-import { RequestCookie } from "next/dist/compiled/@edge-runtime/cookies";
 import prisma from "./prismaClient";
 
 
-async function isUserByRequestCookieAndUserPath (cookieValue: RequestCookie, userPath: string) {
+async function isUserByRequestCookieAndUserPath (cookieValue: string, userPath: string) {
     const isUser = await prisma.users.findUnique({
         where: {
-            sessionId: String(cookieValue),
+            sessionId: cookieValue,
         }
     });
     if (isUser) {

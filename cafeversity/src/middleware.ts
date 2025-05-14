@@ -24,7 +24,7 @@ export async function middleware(request: NextRequest) {
     
     if (browserSessionId && isRequestPath) {
         let truth;
-        await fetch("http://localhost:3000/api/user_checking", {
+        await fetch(new URL("/api/user_checking", request.url), {
             method: "POST",
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ session: browserSessionId.value, userPath: request.nextUrl.pathname }),
@@ -40,7 +40,7 @@ export async function middleware(request: NextRequest) {
             return NextResponse.next();
         } else {
             const response = NextResponse.redirect(new URL("/login/signin", request.url));
-            response.headers.set('Set-Cookie', 'sessionId=; Path=/; HttpOnly; Secure; Max-Age=0; SameSite=Strict');
+            response.cookies.delete('sessionId');
             return response;
         }
     }

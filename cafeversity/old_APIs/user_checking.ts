@@ -1,5 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import isUserByRequestCookieAndUserPath from "../../../lib/utils/isUserPath";
+import isUserByRequestCookieAndUserPath from "../lib/utils/isUserPath";
 
 
 const UserChecking: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {

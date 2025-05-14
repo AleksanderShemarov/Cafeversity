@@ -41,6 +41,7 @@ export default function LogIn() {
             method: "POST",
             headers:{ 'Content-Type': 'application/json' },
             body: JSON.stringify(formFields),
+            credentials: "include"
         })
         .then((res) => {
             console.log(res.status);

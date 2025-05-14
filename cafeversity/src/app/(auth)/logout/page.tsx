@@ -15,6 +15,7 @@ export default function ExitProcessPage () {
 
         await fetch("http://localhost:3000/api/logging_out", {
             method: "GET",
+            credentials: "include"
         })
         .then((res) => {
             console.log(res.status);

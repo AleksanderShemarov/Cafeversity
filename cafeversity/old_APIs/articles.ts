@@ -1,4 +1,4 @@
-import prisma from "../../../lib/utils/prismaClient";
+import prisma from "../lib/utils/prismaClient";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
 
 

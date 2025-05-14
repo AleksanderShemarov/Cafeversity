@@ -1,7 +1,7 @@
-import prisma from "../../../lib/utils/prismaClient";
+import prisma from "../lib/utils/prismaClient";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import comparePasswords from "../../../lib/utils/passwordUtils";
-import createSessionsIdAndCookies from "../../../lib/utils/sessionID";
+import comparePasswords from "../lib/utils/passwordUtils";
+import createSessionsIdAndCookies from "../lib/utils/sessionID";
 
 
 const LoggingIn: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
