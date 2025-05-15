@@ -51,7 +51,7 @@ model Users {
   id                  Int       @id @default(autoincrement())
   firstName           String
   lastName            String
-  nickName            String?   @unique
+  nickName            String?
   userPhoto           String?
   email               String    @unique
   password            String

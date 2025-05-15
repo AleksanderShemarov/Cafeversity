@@ -1,5 +1,5 @@
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/utils/prismaClient";
+import prisma from "../lib/utils/prismaClient";
 
 
 const userCommonData: NextApiHandler = async (request:NextApiRequest, response: NextApiResponse) => {

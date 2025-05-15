@@ -294,6 +294,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
 
 
     const imageEditorRef = useRef<{ photoServerSave: () => Promise<{ status: string, path: string|null }> }>(null);
+
     async function saveNewCommonUserData() {
         const imagePathArray = imagePath.split("");
         const deletedNotAccessSymbols = imageFileId.replace(/[^a-zA-Z0-9_]/g, '');
@@ -310,6 +311,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
             ? await imageEditorRef.current.photoServerSave()
             : { status: "Success", path: userData.userPhoto };
         
+        console.log("before fetch for saving new data at Settings Page.");
         
         await fetch("/api/userData?page=settings", {
             method: "POST",
@@ -353,7 +355,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                 method: "POST",
                 headers:{ 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    userName: authorizedUser,
+                    userName: `${state.firstName}_${state.lastName}`,// userName: authorizedUser,
                     newLang: newLanguage,
                 }),
             });

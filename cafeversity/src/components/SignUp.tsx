@@ -4,6 +4,7 @@ import styles from "@/app/(auth)/login/LoginPage.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import TextFormField from "./TextFormField";
+import { toast } from "react-toastify";
 
 
 export default function SignUp() {
@@ -31,8 +32,7 @@ export default function SignUp() {
             lastName: surname,
             nickName: nickname,
             email: email,
-            password1: password1,
-            password2: password2,
+            password: password2,
         }
 
         await fetch("http://localhost:3000/api/register", {
@@ -44,7 +44,11 @@ export default function SignUp() {
             console.log(res.status);
             return res.json();
         })
-        .then((data) => console.log(data))
+        .then((data) => {
+            // console.log(data);
+            if (data.status === "Success") toast.success(data.message, { position: "top-center" });
+            if (data.status === "Error") toast.error(data.message, { position: "top-center" });
+        })
         .catch((error) => console.error(error));
     }
 

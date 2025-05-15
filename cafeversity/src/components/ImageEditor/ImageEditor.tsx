@@ -87,10 +87,10 @@ const ImageEditor = forwardRef<ImageEditorRef, ImageIditorTypes>(
                 imageFileFormData.append("imageId", pictureId);
                 imageFileFormData.append("imageFile", imageFile);
 
-                const apiResponse = await fetch("http://localhost:3000/api/usersPhoto_route", {
+                const apiResponse = await fetch("/api/usersPhoto", {
                     method: "POST",
                     body: imageFileFormData,
-                });
+                });// "http://localhost:3000/api/usersPhoto_route"
 
                 const apiResult = await apiResponse.json();
                 console.dir(apiResult.path);
