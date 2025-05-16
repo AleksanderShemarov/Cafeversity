@@ -5,6 +5,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import TextFormField from "./TextFormField";
 import { toast } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 
 
 export default function SignUp() {

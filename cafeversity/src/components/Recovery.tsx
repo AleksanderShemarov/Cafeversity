@@ -4,6 +4,8 @@ import styles from "@/app/(auth)/login/LoginPage.module.css";
 import TextFormField from "./TextFormField";
 import Link from "next/link";
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 
 
 export default function Recovery() {
@@ -29,7 +31,11 @@ export default function Recovery() {
             console.log(res.status);
             return res.json();
         })
-        .then((data) => console.log(data))
+        .then((data) => {
+            //console.log(data);
+            if (data.messageType === "Success") toast.success(data.message, { position: "top-center" });
+            else if (data.messageType === "Error") toast.error(data.message, { position: "top-center" });
+        })
         .catch((error) => console.error(error));
     }
 

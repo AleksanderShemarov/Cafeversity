@@ -1,6 +1,6 @@
-import prisma from "../../../lib/utils/prismaClient";
+import prisma from "../lib/utils/prismaClient";
 import { NextApiHandler, NextApiRequest, NextApiResponse } from "next";
-import { hashPassword } from "../../../lib/utils/passwordUtils";
+import { hashPassword } from "../lib/utils/passwordUtils";
 
 
 const RecoveryChecking: NextApiHandler = async (req: NextApiRequest, res: NextApiResponse) => {
