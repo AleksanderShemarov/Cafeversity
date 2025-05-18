@@ -1,7 +1,7 @@
 import styles from "./page.module.css";
-// import CommonLayout from "@/components/CommonLayout";
 import Greeting from "@/components/Greeting";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
+import Link from "next/link";
 
 
 type buttonDatum = {
@@ -19,13 +19,15 @@ export default function Home() {
 
     return (
         <>
-        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <div id={styles.main_part}>
                 <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
                 <Greeting />
+
+                {/* Часовае рашэнне (Temporary Solution) */}
+                <Link href="/admin/dashboard" style={{ fontSize: "2.5rem" }}>Admin&#39;s Page (Dashboard)</Link>
+                {/*  */}
             </div>
             <TwoMainBottomButtons data={buttonsData}/>
-        {/* </CommonLayout> */}
         </>
     );
 }
