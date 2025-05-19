@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "../globals.css";
-// import CommonLayout from "@/components/CommonLayout";
 
 import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -27,9 +26,7 @@ export default async function RootAdminLayout({
         <html lang={locale}>
             <body className={inter.className}>
                 <NextIntlClientProvider messages={messages} locale={locale} now={new Date()}>
-                    {/* <CommonLayout> */}
-                        {children}
-                    {/* </CommonLayout> */}
+                    {children}
                 </NextIntlClientProvider>
             </body>
         </html>
