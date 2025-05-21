@@ -7,14 +7,18 @@ import { Chart as ChartJS, registerables, ChartOptions } from 'chart.js';
 ChartJS.register(...registerables);
 
 
-export default function Chartsjs() {
+export default function Chartsjs({
+    dishes, percents
+}: {
+    dishes: string[], percents: number[]
+}) {
 
     const chartData = {
-        labels: ['Студзень', 'Люты', 'Сакавік'], // ось X
+        labels: dishes, // ось X
         datasets: [
             {
-                label: 'Продажы',
-                data: [400, 600, 300],     // ось Y
+                label: 'Папулярнасць страваў па колькасці замоваў (%)',
+                data: percents,     // ось Y
                 backgroundColor: '#8884d8', // Цвет столбцов
             },
         ],
@@ -24,7 +28,7 @@ export default function Chartsjs() {
         responsive: true,
         plugins: {
             legend: {
-                position: 'bottom', // Теперь TypeScript знает, что это допустимое значение
+                display: false
             },
             title: {
                 display: true,
@@ -34,6 +38,13 @@ export default function Chartsjs() {
     };
 
     return (
-        <Bar data={chartData} options={options} style={{ border: "2px solid black" }} />
+        <div style={{ width: "70%", height: "70%", margin: "0 auto",
+            // border: "2px solid black"
+        }}>
+            <Bar data={chartData} options={options} style={{
+                // border: "2px solid orange",
+                margin: "0 auto"
+            }} />
+        </div>
     );
 }

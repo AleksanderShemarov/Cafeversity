@@ -1,8 +1,8 @@
 import dynamic from 'next/dynamic';
 import LoadingMealsTypes from './loading';
 import { ApexOptions } from 'apexcharts';
-const ApexBarChart = dynamic(
-    () => import("@/components/Charts/ApexChart"),
+const ApexPieChart = dynamic(
+    () => import("@/components/Charts/ApexChart").then(mod => mod.ApexPieChart),
     {
         ssr: false,
         loading: () => <LoadingMealsTypes />
@@ -12,36 +12,21 @@ const ApexBarChart = dynamic(
 
 export default function MealsTypes() {
 
-    const options: ApexOptions = {
+    const pieOptions: ApexOptions = {
         chart: {
-            type: 'bar',
-            toolbar: {
-                show: false
-            }, // Скрыть тулбар
+            type: 'pie',
+            toolbar: { show: false },
         },
-        xaxis: {
-            categories: [
-                'Студзень', 'Красавік', 'Травень', 'Чэрвень'
-            ],
-        },
-        plotOptions: {
-            bar: {
-                borderRadius: 4, // Скругление углов
-            },
-        },
-        colors: [
-            '#8884d8'
-        ], // Цвет столбцов
+        labels: [ "Dish1", "Dish2", "Dish3", "Dish4", "Dish5" ],
+        responsive: [{
+            breakpoint: 250,
+            options: {
+                chart: { width: 200 },
+                legend: { position: "right" }
+            }
+        }]
     };
-
-    const series: ApexAxisChartSeries = [
-        {
-            name: 'Продажы',
-            data: [
-                400, 600, 350, 800
-            ],
-        },
-    ];
+    const pieSeries: ApexNonAxisChartSeries = [ 44, 55, 12, 47, 20 ];
 
     return (
         <>
@@ -56,7 +41,11 @@ export default function MealsTypes() {
                 </p>
             </div>
             
-            <ApexBarChart options={options} series={series} />
+            <ApexPieChart options={pieOptions} series={pieSeries} style={{
+                maxHeight: "75%",
+                maxWidth: "75%",
+                margin: "0 auto"
+            }} />
         </>
     );
 }

@@ -1,14 +1,5 @@
-export default async function DashboardLayout({
-    popularDishes,
-    dishesTypes,
-    mealsTypes,
-    commonIncome
-}: Readonly<{
-    children: React.ReactNode
-    popularDishes: React.ReactNode,
-    dishesTypes: React.ReactNode,
-    mealsTypes: React.ReactNode,
-    commonIncome: React.ReactNode
+export default async function DashboardLayout({ popularDishes, dishesTypes, mealsTypes, commonIncome}: Readonly<{
+    children: React.ReactNode, popularDishes: React.ReactNode, dishesTypes: React.ReactNode, mealsTypes: React.ReactNode, commonIncome: React.ReactNode
 }>) {
     return (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr", height: "85vh", gap: "3rem" }}>
