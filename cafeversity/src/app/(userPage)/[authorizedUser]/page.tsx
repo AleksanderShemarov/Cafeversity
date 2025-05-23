@@ -59,10 +59,6 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             </div>
             
             <LocalStorageStyles {...data.customSets} />
-            {/* <AccentColourManager /> */}
-            {/* <GetFontFamily /> */}
-            {/* <GetFontSize /> */}
-            {/* <GetFontVolume /> */}
         </>
     )
 }

@@ -287,10 +287,12 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     }
     function denyUpdatedSetsUserData() {
         setsDispatch({ type: "SET_REAL_USER_SETS", payload: newSets });
+        setTheme(newSets.pageTheme);
+        toast.info("All changes have been discarded.", { position: "top-right" });
     }
     
     
-    console.log(setState);
+    // console.log("setState ->", setState);
 
 
     const imageEditorRef = useRef<{ photoServerSave: () => Promise<{ status: string, path: string|null }> }>(null);
@@ -342,6 +344,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                     setsDispatch({ type: "SET_REAL_USER_SETS", payload: setState });
                     setNewSets(setState);
                     console.log("Settings are updated.", result.success);
+                    toast.success("Settings are updated.", { position: "top-right" });
                 }
             });
         });

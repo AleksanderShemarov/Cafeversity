@@ -28,15 +28,15 @@
 import { useEffect } from "react";
 
 function parseFontVolume(str: string): { fontWeight: string, fontStyle: string } {
-    const parts = str.split(', ');
+    const parts = str.replace(/[{}"]/g, "").split(',');
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result: any = {};
     
     parts.forEach(part => {
-      const [key, value] = part.split(': ');
+      const [key, value] = part.split(':');
       result[key] = value;
     });
-    
+
     return result as { fontWeight: string, fontStyle: string };
 }
 
@@ -44,8 +44,8 @@ const useFontVolumeSet = (fontVolume: string) => {
     useEffect(() => {
         const fontVolumeObject = parseFontVolume(fontVolume);
 
-        document.documentElement.style.setProperty("--font-volume-weight", fontVolumeObject.fontWeight);
-        document.documentElement.style.setProperty("--font-volume-style", fontVolumeObject.fontStyle);
+        document.documentElement.style.setProperty("--font-volume-weight", fontVolumeObject["fontWeight"]);
+        document.documentElement.style.setProperty("--font-volume-style", fontVolumeObject["fontStyle"]);
         localStorage.setItem("font_volume", fontVolume);
     }, [fontVolume]);
 }

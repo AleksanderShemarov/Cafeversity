@@ -90,7 +90,7 @@ export default function FontsFamilySizeWeight({
     const currentFontFamily = FontsFamilies.find(font => font.value === fontFamily);
     const currentFontSize = FontSizes.find(font => font.value === fontSize);
     
-    const fontVolumeObject: { fontWeight: string, fontStyle: string } = parseFontVolume(fontVolume);
+    const fontVolumeObject = parseFontVolume(fontVolume);
     const key = fontVolumeObject.fontWeight === "bold" ? "bold" : fontVolumeObject.fontStyle === "italic" ? "italic" : "normal";
     const currentFontWeight = FontVolumes.find(font => font.value === key);
 
