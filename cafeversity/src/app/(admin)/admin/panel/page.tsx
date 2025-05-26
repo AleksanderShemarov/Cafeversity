@@ -1,17 +1,14 @@
-"use client";
-
 import dynamic from 'next/dynamic';
-import { useMemo } from 'react';
-const MantineReactTable = dynamic(
-    () => import('mantine-react-table').then(mod => mod.MantineReactTable),
+const AdminTable = dynamic(
+    () => import("@/components/AdminTables/UserTable").then(mod => mod.TableComponent),
     {
         ssr: false,
-        loading: () => <p>Loading...</p>
+        loading: () => <p style={{ fontSize: "2rem" }}>Admin&#39;s Users Table Loading...</p>
     }
 );
 
 
-export default function AdminPanel() {
+export default async function AdminPanel() {
 
     // Another data rows
     /* const rowData = [
@@ -28,41 +25,29 @@ export default function AdminPanel() {
 
 
     // Mantine React Table
-    const mantineData = [
-        { id: 1, fullName: "Jayson Steitem", email: "steitem@example.com", role: "Main Admin" },
-        { id: 2, fullName: "John Doe", email: "doe@example.com", role: "Senior Admin" },
-        { id: 3, fullName: "Tomašek Aleksander", email: "aleksander@example.com", role: "Support Admin" },
-        { id: 4, fullName: "Alghary Metallicus", email: "metalicus@example.com", role: "Route Admin" },
-        { id: 5, fullName: "Václav Havel", email: "havel@example.com", role: "User" },
-        { id: 6, fullName: "Francysk Skaryna", email: "skaryna@example.com", role: "User" },
-        { id: 7, fullName: "Aelita Schaffer", email: "schaffer@example.com", role: "User" }
-    ];
+    // const data = [
+    //     { id: 1, fullName: "Jayson Steitem", email: "steitem@example.com", role: "Main Admin" },
+    //     { id: 2, fullName: "John Doe", email: "doe@example.com", role: "Senior Admin" },
+    //     { id: 3, fullName: "Tomašek Aleksander", email: "aleksander@example.com", role: "Support Admin" },
+    //     { id: 4, fullName: "Alghary Metallicus", email: "metalicus@example.com", role: "Route Admin" },
+    //     { id: 5, fullName: "Václav Havel", email: "havel@example.com", role: "User" },
+    //     { id: 6, fullName: "Francysk Skaryna", email: "skaryna@example.com", role: "User" },
+    //     { id: 7, fullName: "Aelita Schaffer", email: "schaffer@example.com", role: "User" }
+    // ];
 
-    const mantineColumns = useMemo(
-        () => [
-            { accessorKey: 'id', header: "ID" },
-            { accessorKey: 'fullName', header: "FullName", editable: true },
-            { accessorKey: 'email', header: "Email", editable: true },
-            { accessorKey: 'role', header: "Role", editable: true }
-        ], [],
-    );
-    //
+    // const mantineColumns = [
+    //     { accessorKey: 'id', header: "ID" },
+    //     { accessorKey: 'fullName', header: "FullName", editable: true },
+    //     { accessorKey: 'email', header: "Email", editable: true },
+    //     { accessorKey: 'role', header: "Role", editable: true }
+    // ];
 
     return (
         <>
-            <p style={{ fontSize: "2rem" }}>Admin&#39;s Panel Page</p>            
-            {/* <p style={{ fontSize: "2rem" }}>Mantine React Table</p> */}
-            <MantineReactTable
-                columns={mantineColumns}
-                data={mantineData}
-                enableColumnFilterModes // Расширенная фильтрация
-                enablePagination // Пагинация
-
-                enableToolbarInternalActions={true}
-                renderTopToolbarCustomActions={() => (
-                    <button onClick={() => {alert("Custom Button's Click")}}>CustomBtn</button>
-                )}
-            />
+            <p style={{ fontSize: "2rem" }}>Admin&#39;s Panel Page</p>
+            <div style={{ width: "95%", margin: "2rem auto", padding: "0.5rem", border: "2px solid", borderRadius: "1rem" }}>
+                <AdminTable />
+            </div>
         </>
     );
 }
