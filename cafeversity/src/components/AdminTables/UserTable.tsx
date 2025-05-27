@@ -27,6 +27,53 @@ const TableComponent = () => {
             name: 'Age',
             selector: (row: { age: number }) => row.age,
             sortable: true,
+        },
+        {
+            name: 'Actions',
+            cell: (row: { id: number }) => (
+                <div style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}>
+                    <button type="button"
+                        style={{
+                            border: "none",
+                            borderRadius: "0.75rem",
+                            height: "30px",
+                            padding: "2px 5px",
+                            color: "whitesmoke",
+                            fontWeight: "400",
+                            backgroundColor: selectedRows?.some(selectedRow => selectedRow?.id === row.id) ? "gold" : "grey",
+                            boxShadow: updateClicked === row.id ? "inset 0 0 4px 2px black" : "none"
+                        }}
+                        onClick={() => {
+                            setUpdateClicked(row.id);
+                        }}
+                        disabled={!selectedRows?.some(selectedRow => selectedRow?.id === row.id)}
+                    >
+                        Update
+                    </button>
+                    <button type="button"
+                        style={{
+                            border: "none",
+                            borderRadius: "0.75rem",
+                            height: "30px",
+                            padding: "2px 5px",
+                            color: "whitesmoke",
+                            fontWeight: "400",
+                            backgroundColor: selectedRows?.some(selectedRow => selectedRow?.id === row.id) ? "red" : "gray",
+                            boxShadow: deleteClicked === row.id ? "inset 0 0 4px 2px black" : "none"
+                        }}
+                        onClick={() =>{
+                            setDeleteClicked(row.id);
+                            
+                            setTimeout(() => {
+                                setDeleteClicked(0);
+                            }, 3000);
+                        }}
+                        disabled={!selectedRows?.some(selectedRow => selectedRow?.id === row.id)}
+                    >
+                        Delete
+                    </button>
+                </div>
+            )
         }
     ];
     
@@ -40,7 +87,7 @@ const TableComponent = () => {
         headCells: {
             style: {
                 fontSize: '2rem',
-                fontWeight: '500',
+                fontWeight: '700',
             },
         },
         cells: {
@@ -48,10 +95,53 @@ const TableComponent = () => {
                 fontSize: '18px',
             },
         },
+        expanderButton: {
+            style: {
+                display: "none",
+            }
+        }
     };
+
+    const UpdateExpander = ({ data }: { data: { id: number, name: string, age: number } }) => {
+        return (
+            <div style={{ border: "2px solid orange", borderRadius: "1.5rem", padding: "0.5rem 1rem" }}>
+                <p style={{ fontSize: "2rem" }}>ID: {data.id}</p>
+                <p style={{ fontSize: "2rem" }}>Name: {data.name}</p>
+                <p style={{ fontSize: "2rem" }}>Age: {data.age}</p>
+                <button type="button"
+                    style={{
+                        border: "none",
+                        borderRadius: "0.75rem",
+                        height: "30px",
+                        padding: "2px 5px",
+                        color: "whitesmoke",
+                        fontWeight: "400",
+                        backgroundColor: "green",
+                    }}
+                    onClick={() => {
+                        setUpdateClicked(0);
+                    }}
+                >
+                    Save
+                </button>
+            </div>
+        );
+    }
     
     const [searchText, setSearchText] = useState("");
     const [searchType, setSearchType] = useState<string>("id");
+    
+    const [openSearch, setOpenSearch] = useState<boolean>(false);
+    const [density, setDensity] = useState<boolean>(false);
+
+    const [selectingRows, setSelectingRows] = useState<boolean>(false);
+    const [selectedRows, setSelectedRows] = useState<{ id: number, name: string, age: number }[]>([]);
+    const [toggleCleared, setToggleCleared] = useState(false);
+
+    const [updateClicked, setUpdateClicked] = useState<number>(0);
+    const [deleteClicked, setDeleteClicked] = useState<number>(0);
+
+    // const [saveClicked, setSaveClicked] = useState<number>(0)
 
     const searchedData = useMemo(() => {
         return data.filter(item => {
@@ -75,8 +165,6 @@ const TableComponent = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [data, searchText, searchType]);
 
-    const [openSearch, setOpenSearch] = useState<boolean>(false);
-    const [density, setDensity] = useState<boolean>(false);
 
     return (
         <>
@@ -154,7 +242,8 @@ const TableComponent = () => {
                                 {openSearch ? <IconSearchOff /> : <IconSearch />}
                             </button>
                         </div>
-                        <button 
+                        <button
+                            // Density Button
                             type="button" 
                             style={{
                                 width: "35px",
@@ -166,13 +255,52 @@ const TableComponent = () => {
                         >
                             {density ? <IconBaselineDensitySmall /> : <IconBaselineDensityLarge />}
                         </button>
+                        <button
+                            type="button" 
+                            style={{
+                                // width: "35px",
+                                border: "none",
+                                borderRadius: "0.75rem",
+                                height: "30px",
+                                padding: "2px 5px",
+                                color: "white",
+                                fontWeight: "400",
+                                backgroundColor: "green",
+                                boxShadow: selectingRows ? "inset 0 0 4px 2px black" : "none"
+                            }}
+                            onClick={() => {
+                                // if there is any amount of checked rows, uncheck them
+                                if (selectingRows && selectedRows.length > 0) {
+                                    setSelectedRows([]);
+                                    setToggleCleared(!toggleCleared);
+                                }
+                                setSelectingRows(!selectingRows);
+                            }}
+                        >
+                            Select a Row
+                        </button>
                     </div>
                 }
                 dense={density}
                 paginationRowsPerPageOptions={[5, 10]}
                 customStyles={customStyles}
-                // defaultSortAsc={true}
-                // expandableRowsComponent={ExpandedComponent}
+                
+                selectableRows={selectingRows}
+                selectableRowsNoSelectAll
+                onSelectedRowsChange={({ selectedRows }) => {
+                    setSelectedRows(selectedRows);
+                    if (selectedRows.length === 0) {
+                        setSelectingRows(false);
+                    }
+                }}
+                selectableRowsHighlight
+                clearSelectedRows={toggleCleared}
+
+                expandableRows
+                expandableRowsHideExpander
+                expandableRowsComponent={UpdateExpander}
+                expandableRowExpanded={row => updateClicked === row.id}
+
             />
         </>
     );
