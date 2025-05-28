@@ -1,5 +1,7 @@
 import Link from "next/link";
 import AdminHeaderBlock from "@/components/AdminHeader/AdminHeaderBlock";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 
 
 export default function AdminPageLayout({ children }: Readonly<{ children: React.ReactNode }>) {
@@ -17,6 +19,7 @@ export default function AdminPageLayout({ children }: Readonly<{ children: React
             <div>
                 {children}
             </div>
+            <ToastContainer />
         </>
     );
 }
