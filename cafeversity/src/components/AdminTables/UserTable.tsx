@@ -5,30 +5,35 @@ import {
     IconBaselineDensitySmall,
     IconBaselineDensityLarge,
     IconSearch, IconSearchOff,
-    IconPlus, IconTrash, IconCheck, IconX
+    IconPlus, IconTrash,
+    IconCheck, IconX,
+    IconLayoutColumns
 } from '@tabler/icons-react';
-import { useCallback, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
 import { toast } from 'react-toastify';
 
 
 const TableComponent = () => {
 
-    const columns = [
+    const columnsSet = [
         {
             name: 'ID',
             selector: (row: { id: number; }) => row.id,
             sortable: true,
+            omit: false
         },
         {
             name: 'Name',
             selector: (row: { name: string }) => row.name,
             sortable: true,
+            omit: false
         },
         {
             name: 'Age',
             selector: (row: { age: number }) => row.age,
             sortable: true,
+            omit: false
         },
         {
             name: '',
@@ -54,7 +59,8 @@ const TableComponent = () => {
                         Update
                     </button>
                 </div>
-            )
+            ),
+            omit: false
         }
     ];
     
@@ -205,6 +211,19 @@ const TableComponent = () => {
                             {openSearch ? <IconSearchOff /> : <IconSearch />}
                         </button>
                     </div>
+                    {/* Table's Columns Showing */}
+                    <button
+                        type="button" 
+                        style={{
+                            width: "35px",
+                            height: "30px",
+                            padding: 0,
+                            paddingTop: "1px"
+                        }}
+                        onClick={() => setColumnsMenu(!columnsMenu)}
+                    >
+                        <IconLayoutColumns />
+                    </button>
                     {/* Density Button */}
                     <button
                         type="button" 
@@ -284,7 +303,8 @@ const TableComponent = () => {
                             </span>
                         </div>
                     </button>
-
+                    
+                    {/* Dialog for Removing Confirmation */}
                     <dialog ref={dialogRef} style={{ border: "none", borderRadius: "1.2rem" }}>
                         <p style={{ fontSize: "2.2rem", fontWeight: "700", textAlign: "center", marginTop: "1rem" }}>
                             Confirm for Remove
@@ -522,6 +542,10 @@ const TableComponent = () => {
 
     // State for opening the adding row zone
     const [addingRow, setAddingRow] = useState<boolean>(false);
+
+    // State for opening the columns menu; state for changing visibility of table's columns
+    const [columnsMenu, setColumnsMenu] = useState<boolean>(false);
+    const [columns, setColumns] = useState(columnsSet);
     
     
     // Searching value in table's data rows by column's name
@@ -598,8 +622,26 @@ const TableComponent = () => {
     }
 
 
+    // Changing visibility of table's columns
+    const toggleColumnsVisibility = (columnName: string) => {
+        setColumns(prev => prev.map(col => col.name === columnName ? { ...col, omit: !col.omit } : col));
+    }
+
+
+    // Closing columns visibility box when mouse clicks outside it
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (!(e.target as Element).closest('.column-menu-container')) {
+                setColumnsMenu(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+
     return (
-        <>
+        <div style={{ position: "relative" }}>
             <DataTable
                 title="Table Under Construction"
                 columns={columns}
@@ -638,7 +680,36 @@ const TableComponent = () => {
                 expandableRowExpanded={row => updateClicked === row.id}
 
             />
-        </>
+
+            {/* Columns Visibility Box */}
+            {columnsMenu && (
+                <div style={{
+                    position: 'absolute',
+                    right: '20.5%',
+                    top: '21.5%',
+                    backgroundColor: 'white',
+                    boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
+                    zIndex: 100,
+                    padding: '0.5rem',
+                    borderRadius: "0.5rem",
+                }}>
+                    {columns.filter(column => column.name !== "").map(column => (
+                        <label key={column.name}
+                            style={{ display: 'flex', alignItems: 'center', fontSize: "1.5rem" }}
+                            htmlFor={`column-${column.name}`}
+                        >
+                            <input
+                                id={`column-${column.name}`}
+                                type="checkbox"
+                                checked={!column.omit}
+                                onChange={() => toggleColumnsVisibility(column.name)}
+                            />
+                            {column.name}
+                        </label>
+                    ))}
+                </div>
+            )}            
+        </div>
     );
 }
 
@@ -672,3 +743,18 @@ This is for CSS-responsive styles
 //         <pre>{JSON.stringify(data, null, 2)}</pre>
 //     );
 // }
+
+/*
+// For big table
+const visibleColumns = useMemo(() => 
+  columns.filter(col => !col.omit), 
+  [columns]
+);
+*/
+/*
+// It is for columns if omit won't work at the future versions
+const dynamicColumns = allColumns.map(col => ({
+  ...col,
+  cell: row => col.hidden ? null : col.selector(row)
+}));
+*/
