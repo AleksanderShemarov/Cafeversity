@@ -5,7 +5,7 @@ import {
     IconBaselineDensitySmall,
     IconBaselineDensityLarge,
     IconSearch, IconSearchOff,
-    IconPlus
+    IconPlus, IconTrash, IconCheck, IconX
 } from '@tabler/icons-react';
 import { useCallback, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
@@ -53,27 +53,6 @@ const TableComponent = () => {
                     >
                         Update
                     </button>
-                    <button type="button"
-                        style={{
-                            border: "none",
-                            borderRadius: "0.75rem",
-                            height: "30px",
-                            padding: "2px 5px",
-                            color: "whitesmoke",
-                            fontWeight: "600",
-                            fontSize: "1.5rem",
-                            backgroundColor: selectedRows?.some(selectedRow => selectedRow?.id === row.id) ? "red" : "gray",
-                            boxShadow: deleteClicked === row.id ? "inset 0 0 4px 2px black" : "none"
-                        }}
-                        onClick={() =>{
-                            setDeleteClicked(row.id);
-                            
-                            handleDelete(row.id);
-                        }}
-                        disabled={!selectedRows?.some(selectedRow => selectedRow?.id === row.id)}
-                    >
-                        Delete
-                    </button>
                 </div>
             )
         }
@@ -109,12 +88,23 @@ const TableComponent = () => {
         onConfirm: (
             newData: { name: string, age: number }
         ) => void,
+        onDelete: () => void
     }
 
-    const HeaderComponent = ({ onConfirm }: HeaderComponentProps) => {
+    const SubHeaderComponent = ({ onConfirm, onDelete }: HeaderComponentProps) => {
+
+        const dialogRef = useRef<HTMLDialogElement>(null);
+        const showDeleteDialog = () => dialogRef.current?.showModal();
+        const removeDeleteDialog = () => {
+            onDelete();
+
+            dialogRef.current?.close();
+        }
+        const closeDeleteDialog = () => dialogRef.current?.close();
+
 
         const formRef = useRef<HTMLFormElement>(null);
-        
+    
         const handleConfirm = (e: React.FormEvent) => {
             e.preventDefault();
             
@@ -215,8 +205,8 @@ const TableComponent = () => {
                             {openSearch ? <IconSearchOff /> : <IconSearch />}
                         </button>
                     </div>
+                    {/* Density Button */}
                     <button
-                        // Density Button
                         type="button" 
                         style={{
                             width: "35px",
@@ -228,6 +218,7 @@ const TableComponent = () => {
                     >
                         {density ? <IconBaselineDensitySmall /> : <IconBaselineDensityLarge />}
                     </button>
+                    {/* Button for (un)locking to choose rows in a table */}
                     <button
                         type="button" 
                         style={{
@@ -237,7 +228,7 @@ const TableComponent = () => {
                             height: "30px",
                             padding: "2px 5px",
                             color: "white",
-                            fontWeight: "400",
+                            fontWeight: "600",
                             backgroundColor: "green",
                             boxShadow: selectingRows ? "inset 0 0 4px 2px black" : "none"
                         }}
@@ -252,6 +243,7 @@ const TableComponent = () => {
                     >
                         Select a Row
                     </button>
+                    {/* Add a new row button */}
                     <button type="button"
                         style={{
                             border: "none",
@@ -259,9 +251,9 @@ const TableComponent = () => {
                             height: "30px",
                             padding: "2px 5px",
                             color: "white",
-                            fontWeight: "400",
+                            fontWeight: "600",
                             backgroundColor: "blue",
-                            boxShadow: selectingRows ? "inset 0 0 4px 2px black" : "none"
+                            // boxShadow: selectingRows ? "inset 0 0 4px 2px black" : "none"
                         }}
                         onClick={() => setAddingRow(!addingRow)}
                     >
@@ -269,6 +261,78 @@ const TableComponent = () => {
                             <IconPlus /><span style={{ textIndent: "5px" }}>Add</span>
                         </div>
                     </button>
+                    {/* Button for removing from one to many rows */}
+                    <button type="button"
+                        style={{
+                            border: "none",
+                            borderRadius: "0.75rem",
+                            height: "30px",
+                            padding: "2px 5px",
+                            color: "whitesmoke",
+                            fontWeight: "600",
+                            fontSize: "1.5rem",
+                            backgroundColor: selectedRows.length > 0 ? "red" : "gray",
+                            boxShadow: deleteClicked ? "inset 0 0 4px 2px black" : "none"
+                        }}
+                        onClick={showDeleteDialog}
+                        disabled={selectedRows.length === 0}
+                    >
+                        <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+                            <IconTrash />
+                            <span style={{ textIndent: "5px" }}>
+                                Delete {selectedRows.length} {selectedRows.length === 1 ? "row" : "rows"}
+                            </span>
+                        </div>
+                    </button>
+
+                    <dialog ref={dialogRef} style={{ border: "none", borderRadius: "1.2rem" }}>
+                        <p style={{ fontSize: "2.2rem", fontWeight: "700", textAlign: "center", marginTop: "1rem" }}>
+                            Confirm for Remove
+                        </p>
+                        <p style={{ margin: "1.5rem 0.5rem", fontSize: "1.8rem", textAlign: "justify", textIndent: "2px" }}>
+                            Are you agreed to remove selected rows?
+                        </p>
+                        <div style={{ width: "90%", display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 auto" }}>
+                            <button type="button"
+                                style={{
+                                    border: "none",
+                                    borderRadius: "0.75rem",
+                                    height: "30px",
+                                    padding: "2px 5px",
+                                    color: "whitesmoke",
+                                    fontWeight: "600",
+                                    fontSize: "1.5rem",
+                                    backgroundColor: "green",
+                                    cursor: "pointer",
+                                }}
+                                onClick={removeDeleteDialog}
+                            >
+                                <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+                                    <IconCheck />
+                                    <span style={{ textIndent: "5px" }}>Yes</span>
+                                </div>
+                            </button>
+                            <button type="button"
+                                style={{
+                                    border: "none",
+                                    borderRadius: "0.75rem",
+                                    height: "30px",
+                                    padding: "2px 5px",
+                                    color: "whitesmoke",
+                                    fontWeight: "600",
+                                    fontSize: "1.5rem",
+                                    backgroundColor: "red",
+                                    cursor: "pointer",
+                                }}
+                                onClick={closeDeleteDialog}
+                            >
+                                <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+                                    <IconX />
+                                    <span style={{ textIndent: "5px" }}>No</span>
+                                </div>
+                            </button>
+                        </div>
+                    </dialog>
                 </div>
 
                 <div style={{ width: "100%", overflow: "hidden" }}>
@@ -452,6 +516,8 @@ const TableComponent = () => {
     
     // State for row's updating; state for row's deletion
     const [updateClicked, setUpdateClicked] = useState<number>(0);
+
+    // const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const [deleteClicked, setDeleteClicked] = useState<number>(0);
 
     // State for opening the adding row zone
@@ -490,20 +556,23 @@ const TableComponent = () => {
         
         setUpdateClicked(0);
     }, []);
-    
 
-    // Deletion a selected row
-    const handleDelete = (id: number) => {
-        setData(prevData => prevData.filter(item => item.id !== id));
 
-        toast.success("The row has been deleted!", { position: "top-right", style: { fontSize: "1.5rem" } });
+    // Removing of selected rows
+    const handleDelete = () => {
+        
+        const len = selectedRows.length;
+
+        const idsSet = new Set(selectedRows.map(obj => obj.id));
+        setData(prevData => prevData.filter(item => !idsSet.has(item.id)));
+
+        toast.success(`${len} ${len > 1 ? "rows have" : "row has"} been deleted!`, { position: "top-right", style: { fontSize: "1.5rem" } });
         
         setDeleteClicked(0);
-        if (selectedRows.length === 1) {
-            setSelectedRows([]);
-            setToggleCleared(!toggleCleared);
-            setSelectingRows(!selectingRows);
-        }
+
+        setSelectedRows([]);
+        setToggleCleared(!toggleCleared);
+        setSelectingRows(!selectingRows);
     };
 
 
@@ -544,13 +613,13 @@ const TableComponent = () => {
                 // progressComponent //!
                 
                 subHeader
-                subHeaderComponent={<HeaderComponent onConfirm={handleSaveConfirm} />}
+                subHeaderComponent={<SubHeaderComponent onConfirm={handleSaveConfirm} onDelete={handleDelete} />}
                 dense={density}
                 paginationRowsPerPageOptions={[5, 10]}
                 customStyles={customStyles}
                 
                 selectableRows={selectingRows}
-                selectableRowsSingle
+                // selectableRowsSingle
                 selectableRowsNoSelectAll
                 onSelectedRowsChange={({ selectedRows }) => {
                     setSelectedRows(selectedRows);
