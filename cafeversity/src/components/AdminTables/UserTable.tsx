@@ -16,58 +16,106 @@ import { toast } from 'react-toastify';
 
 const TableComponent = () => {
 
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     const columnsSet = [
         {
             name: 'ID',
             selector: (row: { id: number; }) => row.id,
             sortable: true,
-            omit: false
+            omit: false,
+            width: "10rem",
+            grow: 0.25
         },
         {
             name: 'Name',
             selector: (row: { name: string }) => row.name,
             sortable: true,
-            omit: false
+            omit: false,
+            width: "20rem",
+            grow: 1
+        },
+        {
+            name: 'Email',
+            selector: (row: { email: string }) => row.email,
+            sortable: false,
+            omit: false,
+            width: "32rem",
+            grow: 1.5
+        },
+        {
+            name: 'City',
+            selector: (row: { city: string }) => row.city,
+            omit: false,
+            width: "25rem",
+            grow: 1 
+        },
+        {
+            name: 'Country',
+            selector: (row: { country: string }) => row.country,
+            sortable: true,
+            omit: false,
+            width: "25rem",
+            grow: 1
+        },
+        {
+            name: 'Phone',
+            selector: (row: { phone: string }) => row.phone,
+            omit: false,
+            width: "22rem",
+            grow: 1
         },
         {
             name: 'Age',
             selector: (row: { age: number }) => row.age,
             sortable: true,
-            omit: false
+            omit: false,
+            width: "10rem",
+            grow: 0.5
         },
         {
             name: '',
-            cell: (row: { id: number }) => (
-                <div style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}>
-                    <button type="button"
-                        style={{
-                            border: "none",
-                            borderRadius: "0.75rem",
-                            height: "30px",
-                            padding: "2px 5px",
-                            color: "whitesmoke",
-                            fontWeight: "600",
-                            fontSize: "1.5rem",
-                            backgroundColor: selectedRows?.some(selectedRow => selectedRow?.id === row.id) ? "#FFBA0D" : "grey",
-                            boxShadow: updateClicked === row.id ? "inset 0 0 4px 2px black" : "none"
-                        }}
-                        onClick={() => {
-                            setUpdateClicked(row.id);
-                        }}
-                        disabled={!selectedRows?.some(selectedRow => selectedRow?.id === row.id)}
-                    >
-                        Update
-                    </button>
-                </div>
-            ),
-            omit: false
+            cell: (row: { id: number }) => {
+                const isSelected = selectedRows.some(s => s.id === row.id);
+                return (
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}>
+                        <button type="button"
+                            style={{
+                                border: "none",
+                                borderRadius: "0.75rem",
+                                height: "30px",
+                                padding: "2px 5px",
+                                color: "whitesmoke",
+                                fontWeight: "600",
+                                fontSize: "1.5rem",
+                                backgroundColor: isSelected ? "#FFBA0D" : "grey",
+                                boxShadow: updateClicked === row.id ? "inset 0 0 4px 2px black" : "none",
+                            }}
+                            onClick={() => {
+                                setUpdateClicked(row.id);
+                            }}
+                            disabled={!isSelected}
+                        >
+                            Update
+                        </button>
+                    </div>
+                )
+            },
+            omit: false,
+            width: "10rem",
+            grow: 0.25
         }
     ];
     
     const initialData = [
-        { id: 1, name: 'John', age: 20 }, { id: 2, name: 'Jane', age: 29 }, { id: 3, name: 'Abraham', age: 30 },
-        { id: 4, name: 'Kate', age: 19 }, { id: 5, name: 'Alexander', age: 26 }, { id: 6, name: 'Chloe', age: 25 },
-        { id: 7, name: 'Alghary', age: 28 }, { id: 8, name: 'Filicia', age: 21 }, { id: 9, name: 'Mario', age: 22 },
+        { id: 1, name: 'John', email: 'john@example.com', city: 'New York', country: 'USA', phone: '+1 212 986-36-15', age: 20 },
+        { id: 2, name: 'Jane', email: "jane@example.com", city: "Liverpool", country: "UK", phone: "+44 151 07-29-83", age: 29 },
+        { id: 3, name: 'Abraham', email: "abraham@example.com", city: "Lyon", country: "France", phone: "+33 47 146-99-06", age: 30 },
+        { id: 4, name: 'Kate', email: "kate@example.com", city: "Milan", country: "Italy", phone: "+39 02 671-54-01", age: 19 },
+        { id: 5, name: 'Alexander', email: "alexander@example.com", city: "Hrodna", country: "Belarus", phone: "+375 15 278-20-91", age: 26 },
+        { id: 6, name: 'Chloe', email: "chloe@example.com", city: "Wloclawek", country: "Poland", phone: "+48 54 767-12-65", age: 25 },
+        { id: 7, name: 'Alghary', email: "alghary@example.com", city: "České Budějovice", country: "Czech Republic", phone: "+420 38 719-86-27", age: 28 },
+        { id: 8, name: 'Filicia', email: "filicia@example.com", city: "San Paulo", country: "Brasil", phone: "+55 11 5128-0893", age: 21 },
+        { id: 9, name: 'Mario', email: "mario@example.com", city: "Osaka", country: "Japan", phone: "+81 6 4912-9073", age: 22 },
     ];
     
     const customStyles = {
@@ -80,6 +128,8 @@ const TableComponent = () => {
         cells: {
             style: {
                 fontSize: '18px',
+                overflow: 'auto',
+                textOverflow: 'ellipsis'
             },
         },
         expanderButton: {
@@ -92,18 +142,16 @@ const TableComponent = () => {
 
     interface HeaderComponentProps {
         onConfirm: (
-            newData: { name: string, age: number }
+            newData: { name: string, age: number, email: string, city: string, country: string, phone: string }
         ) => void,
         onDelete: () => void
     }
-
     const SubHeaderComponent = ({ onConfirm, onDelete }: HeaderComponentProps) => {
 
         const dialogRef = useRef<HTMLDialogElement>(null);
         const showDeleteDialog = () => dialogRef.current?.showModal();
         const removeDeleteDialog = () => {
             onDelete();
-
             dialogRef.current?.close();
         }
         const closeDeleteDialog = () => dialogRef.current?.close();
@@ -137,10 +185,24 @@ const TableComponent = () => {
                 );
                 return;
             }
+            const email = formData.get("email") as string;
+            if (email === "") {
+                toast.error("User's email is empty!",
+                    { position: "top-right", style: { fontSize: "1.5rem" } }
+                );
+                return;
+            }
+            const city = formData.get("city") as string;
+            const country = formData.get("country") as string;
+            const phone = formData.get("phone") as string;
 
             const newData = {
                 name: name,
                 age: age,
+                email: email,
+                city: city,
+                country: country,
+                phone: phone
             }
             onConfirm(newData);
         }
@@ -186,7 +248,7 @@ const TableComponent = () => {
                                     style={{ visibility: openSearch ? "visible" : "collapse" }}
                                 >
                                     <option value="id">ID</option>
-                                    {columns.map((column, index) => 
+                                    {visibleColumns.filter(col => col.name && col.name !== '').map((column, index) => 
                                         (index > 0 && column.name !== "") && <option key={index} value={column.name.toLowerCase()}>{column.name}</option>
                                     )}
                                 </select>
@@ -211,6 +273,7 @@ const TableComponent = () => {
                             {openSearch ? <IconSearchOff /> : <IconSearch />}
                         </button>
                     </div>
+
                     {/* Table's Columns Showing */}
                     <button
                         type="button" 
@@ -224,6 +287,7 @@ const TableComponent = () => {
                     >
                         <IconLayoutColumns />
                     </button>
+
                     {/* Density Button */}
                     <button
                         type="button" 
@@ -237,6 +301,7 @@ const TableComponent = () => {
                     >
                         {density ? <IconBaselineDensitySmall /> : <IconBaselineDensityLarge />}
                     </button>
+
                     {/* Button for (un)locking to choose rows in a table */}
                     <button
                         type="button" 
@@ -262,6 +327,7 @@ const TableComponent = () => {
                     >
                         Select a Row
                     </button>
+
                     {/* Add a new row button */}
                     <button type="button"
                         style={{
@@ -271,15 +337,19 @@ const TableComponent = () => {
                             padding: "2px 5px",
                             color: "white",
                             fontWeight: "600",
-                            backgroundColor: "blue",
-                            // boxShadow: selectingRows ? "inset 0 0 4px 2px black" : "none"
+                            backgroundColor: addingRow ? "gray" : "blue",
                         }}
                         onClick={() => setAddingRow(!addingRow)}
+                        disabled={addingRow}
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
-                            <IconPlus /><span style={{ textIndent: "5px" }}>Add</span>
+                            <IconPlus />
+                            <span style={{ textIndent: "5px" }}>
+                                Add
+                            </span>
                         </div>
                     </button>
+
                     {/* Button for removing from one to many rows */}
                     <button type="button"
                         style={{
@@ -373,44 +443,83 @@ const TableComponent = () => {
                                 ref={formRef}
                                 onSubmit={handleConfirm}
                                 >
-                                    <div style={{
-                                        display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
-                                        alignItems: "center", justifyContent: "center", gap: "1.5rem",
-                                        padding: "0.5rem 1rem", width: "48%",
-                                    }}>
-                                        <label htmlFor="name" style={{ fontSize: "1.5rem" }}>Name:</label>
-                                        <input id="name" placeholder="John" style={{
-                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
-                                        }} name="name" />
-                                    </div>
-                                    <div style={{
-                                        display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
-                                        alignItems: "center", justifyContent: "center", gap: "1.5rem",
-                                        padding: "0.5rem 1rem", width: "48%",
-                                    }}>
-                                        <label htmlFor="age" style={{ fontSize: "1.5rem" }}>Age:</label>
-                                        <input id="age" placeholder="25" style={{
-                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
-                                        }} name="age" />
-                                    </div>
+                                    {columnsSet.map((columnSet, index) => {
+                                        if (columnSet.name.toLowerCase() === "email") {
+                                            return (
+                                                <div key={index} style={{
+                                                    display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
+                                                    alignItems: "center", justifyContent: "center", gap: "1.5rem",
+                                                    padding: "0.5rem 1rem", width: "48%",
+                                                }}>
+                                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
+                                                        {columnSet.name}:
+                                                    </label>
+                                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
+                                                        style={{
+                                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
+                                                        }}
+                                                        name={columnSet.name.toLowerCase()}
+                                                        type={columnSet.name.toLowerCase()}
+                                                    />
+                                                </div>
+                                            )
+                                        }
+                                        else if (columnSet.name.toLowerCase() !== "" && columnSet.name.toLowerCase() !== "id") {
+                                            return (
+                                                <div key={index} style={{
+                                                    display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
+                                                    alignItems: "center", justifyContent: "center", gap: "1.5rem",
+                                                    padding: "0.5rem 1rem", width: "48%",
+                                                }}>
+                                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
+                                                        {columnSet.name}:
+                                                    </label>
+                                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
+                                                        style={{
+                                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
+                                                        }}
+                                                        name={columnSet.name.toLowerCase()}
+                                                    />
+                                                </div>
+                                            )
+                                        }
+                                    })}
 
                                     <div style={{
-                                        width: "100%", padding: "8px 6px", display: "inline-flex",
+                                        width: "100%", padding: "8px 6px", display: "inline-flex", gap: "0.5rem",
                                         alignItems: "center", flexDirection: "row", justifyContent: "flex-start",
                                     }}>
                                         <button type="submit"
-                                        style={{
-                                            border: "none",
-                                            borderRadius: "0.75rem",
-                                            height: "30px",
-                                            padding: "2px 5px",
-                                            color: "whitesmoke",
-                                            fontWeight: "600",
-                                            backgroundColor: "green",
-                                            fontSize: "1.5rem",
-                                        }}
+                                            style={{
+                                                border: "none",
+                                                borderRadius: "0.75rem",
+                                                height: "30px",
+                                                padding: "2px 5px",
+                                                color: "whitesmoke",
+                                                fontWeight: "600",
+                                                backgroundColor: "green",
+                                                fontSize: "1.5rem",
+                                            }}
                                         >
                                             Confirm
+                                        </button>
+                                        <button type="button"
+                                            style={{
+                                                border: "none",
+                                                borderRadius: "0.75rem",
+                                                height: "30px",
+                                                padding: "2px 5px",
+                                                color: "whitesmoke",
+                                                fontWeight: "600",
+                                                backgroundColor: "red",
+                                                fontSize: "1.5rem",
+                                                cursor: "pointer",
+                                            }}
+                                            onClick={() => {
+                                                setAddingRow(!addingRow);
+                                            }}
+                                        >
+                                            Cancel
                                         </button>
                                     </div>
                                 </form>
@@ -424,13 +533,12 @@ const TableComponent = () => {
 
 
     interface UpdateExpanderProps {
-        data: { id: number, name: string, age: number },
+        data: { id: number, name: string, age: number, email: string, city: string, country: string, phone: string },
         onSave: (
             id: number,
-            updatedData: Partial<{ name: string, age: number }>
+            updatedData: { name: string, age: number, email: string, city: string, country: string, phone: string }
         ) => void,
     }
-    
     const UpdateExpander = ({ data, onSave }: UpdateExpanderProps) => {
         
         const formRef = useRef<HTMLFormElement>(null);
@@ -449,16 +557,36 @@ const TableComponent = () => {
                 return;
             }
             const age = parseInt(formData.get("age") as string);
+            if (isNaN(age)) {
+                toast.error("Please, input a correct age (the only numbers are available)!",
+                    { position: "top-right", style: { fontSize: "1.5rem" } }
+                );
+                return;
+            }
             if (age < 0) {
                 toast.error("Please, input a correct age (starting with 0)!",
                     { position: "top-right", style: { fontSize: "1.5rem" } }
                 );
                 return;
             }
+            const email = formData.get("email") as string;
+            if (email === "") {
+                toast.error("User's email is empty!",
+                    { position: "top-right", style: { fontSize: "1.5rem" } }
+                );
+                return;
+            }
+            const city = formData.get("city") as string;
+            const country = formData.get("country") as string;
+            const phone = formData.get("phone") as string;
 
             const updatedData = {
                 name: name,
                 age: age,
+                email: email,
+                city: city,
+                country: country,
+                phone: phone
             }
             onSave(data.id, updatedData);
         }
@@ -472,44 +600,83 @@ const TableComponent = () => {
                 ref={formRef}
                 onSubmit={handleSubmit}
                 >
-                    <div style={{
-                        display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
-                        alignItems: "center", justifyContent: "center", gap: "1.5rem",
-                        padding: "0.5rem 1rem", width: "48%",
-                    }}>
-                        <label htmlFor="name" style={{ fontSize: "1.5rem" }}>Name:</label>
-                        <input id="name" defaultValue={data.name} style={{
-                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
-                        }} name="name" />
-                    </div>
-                    <div style={{
-                        display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
-                        alignItems: "center", justifyContent: "center", gap: "1.5rem",
-                        padding: "0.5rem 1rem", width: "48%",
-                    }}>
-                        <label htmlFor="age" style={{ fontSize: "1.5rem" }}>Age:</label>
-                        <input id="age" defaultValue={data.age} style={{
-                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
-                        }} name="age" />
-                    </div>
+                    {columnsSet.map((columnSet, index) => {
+                        if (columnSet.name.toLowerCase() === "email") {
+                            return (
+                                <div key={index} style={{
+                                    display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
+                                    alignItems: "center", justifyContent: "center", gap: "1.5rem",
+                                    padding: "0.5rem 1rem", width: "48%",
+                                }}>
+                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
+                                        {columnSet.name}:
+                                    </label>
+                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
+                                        style={{
+                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
+                                        }}
+                                        name={columnSet.name.toLowerCase()}
+                                        type={columnSet.name.toLowerCase()}
+                                    />
+                                </div>
+                            )
+                        }
+                        else if (columnSet.name.toLowerCase() !== "" && columnSet.name.toLowerCase() !== "id") {
+                            return (
+                                <div key={index} style={{
+                                    display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
+                                    alignItems: "center", justifyContent: "center", gap: "1.5rem",
+                                    padding: "0.5rem 1rem", width: "48%",
+                                }}>
+                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
+                                        {columnSet.name}:
+                                    </label>
+                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
+                                        style={{
+                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
+                                        }}
+                                        name={columnSet.name.toLowerCase()}
+                                    />
+                                </div>
+                            )
+                        }
+                    })}
 
                     <div style={{
-                        width: "100%", padding: "8px 6px", display: "inline-flex",
+                        width: "100%", padding: "8px 6px", display: "inline-flex", gap: "0.5rem",
                         alignItems: "center", flexDirection: "row", justifyContent: "flex-start",
                     }}>
                         <button type="submit"
-                        style={{
-                            border: "none",
-                            borderRadius: "0.75rem",
-                            height: "30px",
-                            padding: "2px 5px",
-                            color: "whitesmoke",
-                            fontWeight: "600",
-                            backgroundColor: "green",
-                            fontSize: "1.5rem",
-                        }}
+                            style={{
+                                border: "none",
+                                borderRadius: "0.75rem",
+                                height: "30px",
+                                padding: "2px 5px",
+                                color: "whitesmoke",
+                                fontWeight: "600",
+                                backgroundColor: "green",
+                                fontSize: "1.5rem",
+                            }}
                         >
-                        Save
+                            Save
+                        </button>
+                        <button type="button"
+                            style={{
+                                border: "none",
+                                borderRadius: "0.75rem",
+                                height: "30px",
+                                padding: "2px 5px",
+                                color: "whitesmoke",
+                                fontWeight: "600",
+                                backgroundColor: "red",
+                                fontSize: "1.5rem",
+                                cursor: "pointer",
+                            }}
+                            onClick={() => {
+                                setUpdateClicked(0);
+                            }}
+                        >
+                            Cancel
                         </button>
                     </div>
                 </form>
@@ -531,13 +698,11 @@ const TableComponent = () => {
     
     // State for availability for rows' selecting; state for selecting (a) row(-s); state for rows' leaving 
     const [selectingRows, setSelectingRows] = useState<boolean>(false);
-    const [selectedRows, setSelectedRows] = useState<{ id: number, name: string, age: number }[]>([]);
+    const [selectedRows, setSelectedRows] = useState<{ id: number, name: string, age: number, email: string, city: string, country: string, phone: string }[]>([]);
     const [toggleCleared, setToggleCleared] = useState(false);
     
     // State for row's updating; state for row's deletion
     const [updateClicked, setUpdateClicked] = useState<number>(0);
-
-    // const [deleteModal, setDeleteModal] = useState<boolean>(false);
     const [deleteClicked, setDeleteClicked] = useState<number>(0);
 
     // State for opening the adding row zone
@@ -545,8 +710,14 @@ const TableComponent = () => {
 
     // State for opening the columns menu; state for changing visibility of table's columns
     const [columnsMenu, setColumnsMenu] = useState<boolean>(false);
-    const [columns, setColumns] = useState(columnsSet);
-    
+    const [hiddenColumns, setHiddenColumns] = useState<string[]>([]);
+
+    // Filtering of visible and non-visible columns
+    const visibleColumns = useMemo(
+        () => columnsSet.filter(col => !hiddenColumns.includes(col.name || '')),
+        [hiddenColumns, columnsSet]
+    );
+
     
     // Searching value in table's data rows by column's name
     const searchedData = useMemo(() => {
@@ -557,7 +728,7 @@ const TableComponent = () => {
                 return String(item.id).includes(searchText);
             }
             
-            const column = columns.find(col => 
+            const column = columnsSet.find(col => 
                 col.name.toLowerCase() === searchType
             );
         
@@ -573,7 +744,7 @@ const TableComponent = () => {
     
 
     // Saving data in updated row
-    const handleSave = useCallback((id: number, updatedData: Partial<{ name: string; age: number }>) => {
+    const handleSave = useCallback((id: number, updatedData: { name: string, age: number, email: string, city: string, country: string, phone: string }) => {
         setData(prevData => prevData.map(item => item.id === id ? { ...item, ...updatedData } : item));
         
         toast.success("The row has been updated!", { position: "top-right", style: { fontSize: "1.5rem" } });
@@ -601,7 +772,7 @@ const TableComponent = () => {
 
 
     // Adding a new row
-    const handleSaveConfirm = (newData: { name: string; age: number }) => {
+    const handleSaveConfirm = (newData: { name: string, age: number, email: string, city: string, country: string, phone: string }) => {
         setData(prevData => {
             // ID by the last row
             const maxId = prevData.length > 0 ? Math.max(...prevData.map(item => item.id)) : 0;
@@ -611,7 +782,11 @@ const TableComponent = () => {
                 {
                     id: maxId + 1,
                     name: newData.name,
-                    age: newData.age
+                    age: newData.age,
+                    email: newData.email,
+                    city: newData.city,
+                    country: newData.country,
+                    phone: newData.phone
                 }
             ];
         });
@@ -624,14 +799,15 @@ const TableComponent = () => {
 
     // Changing visibility of table's columns
     const toggleColumnsVisibility = (columnName: string) => {
-        setColumns(prev => prev.map(col => col.name === columnName ? { ...col, omit: !col.omit } : col));
+        // setColumns(prev => prev.map(col => col.name === columnName ? { ...col, omit: !col.omit } : col));
+        setHiddenColumns(prev => prev.includes(columnName) ? prev.filter(name => name !== columnName) : [...prev, columnName]);
     }
 
 
     // Closing columns visibility box when mouse clicks outside it
     useEffect(() => {
         const handleClickOutside = (e: MouseEvent) => {
-            if (!(e.target as Element).closest('.column-menu-container')) {
+            if (!(e.target as Element).closest('#column-menu-container')) {
                 setColumnsMenu(false);
             }
         };
@@ -644,7 +820,7 @@ const TableComponent = () => {
         <div style={{ position: "relative" }}>
             <DataTable
                 title="Table Under Construction"
-                columns={columns}
+                columns={visibleColumns}
                 data={searchedData}
                 pagination
                 highlightOnHover
@@ -692,8 +868,8 @@ const TableComponent = () => {
                     zIndex: 100,
                     padding: '0.5rem',
                     borderRadius: "0.5rem",
-                }}>
-                    {columns.filter(column => column.name !== "").map(column => (
+                }} id="column-menu-container">
+                    {columnsSet.filter(column => column.name !== "").map(column => (
                         <label key={column.name}
                             style={{ display: 'flex', alignItems: 'center', fontSize: "1.5rem" }}
                             htmlFor={`column-${column.name}`}
@@ -701,14 +877,14 @@ const TableComponent = () => {
                             <input
                                 id={`column-${column.name}`}
                                 type="checkbox"
-                                checked={!column.omit}
+                                checked={!hiddenColumns.includes(column.name || '')}
                                 onChange={() => toggleColumnsVisibility(column.name)}
                             />
                             {column.name}
                         </label>
                     ))}
                 </div>
-            )}            
+            )}
         </div>
     );
 }
