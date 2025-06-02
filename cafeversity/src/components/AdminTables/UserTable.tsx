@@ -7,7 +7,8 @@ import {
     IconSearch, IconSearchOff,
     IconPlus, IconTrash,
     IconCheck, IconX,
-    IconLayoutColumns
+    IconLayoutColumns,
+    IconClock
 } from '@tabler/icons-react';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { motion, AnimatePresence } from "framer-motion";
@@ -15,6 +16,18 @@ import { toast } from 'react-toastify';
 
 
 const TableComponent = () => {
+    
+    // State for table's data loading; simulation of 3 second table's data loading
+    const [tableLoad, setTableLoad] = useState<boolean>(true);
+    useEffect(() => {
+        const seconds = setTimeout(() => {
+            setData(initialData);
+            setTableLoad(false); 
+        }, 3000);
+        return () => clearTimeout(seconds);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
     const columnsSet = [
@@ -686,7 +699,7 @@ const TableComponent = () => {
     
     
     // State for DataTable data values
-    const [data, setData] = useState(initialData);
+    const [data, setData] = useState<{ id: number, name: string, age: number, email: string, city: string, country: string, phone: string }[]>([]);
     
     // State for table's searching line
     const [searchText, setSearchText] = useState("");
@@ -816,6 +829,8 @@ const TableComponent = () => {
     }, []);
 
 
+
+
     return (
         <div style={{ position: "relative" }}>
             <DataTable
@@ -827,8 +842,23 @@ const TableComponent = () => {
                 paginationPerPage={5}
                 responsive
                 fixedHeader
-                // progressPending //!
-                // progressComponent //!
+                progressPending={tableLoad} //!
+                progressComponent={
+                    <div style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                        padding: '2rem',
+                        background: 'rgba(255,255,255,0.9)',
+                        borderRadius: '8px'
+                    }}>
+                        <IconClock size={48} style={{ animation: 'spin 1s linear infinite' }} />
+                        <p style={{ fontSize: '1.8rem', margin: '1rem 0 0', fontWeight: 600 }}>
+                            Data Loading...
+                        </p>
+                    </div>
+                } //!
                 
                 subHeader
                 subHeaderComponent={<SubHeaderComponent onConfirm={handleSaveConfirm} onDelete={handleDelete} />}
@@ -837,7 +867,6 @@ const TableComponent = () => {
                 customStyles={customStyles}
                 
                 selectableRows={selectingRows}
-                // selectableRowsSingle
                 selectableRowsNoSelectAll
                 onSelectedRowsChange={({ selectedRows }) => {
                     setSelectedRows(selectedRows);
@@ -855,6 +884,23 @@ const TableComponent = () => {
                 )}
                 expandableRowExpanded={row => updateClicked === row.id}
 
+                noDataComponent={<div style={{ width: "auto" }}>
+                    {
+                        !tableLoad && data.length === 0
+                        ?
+                        <p style={{ fontSize: "1.8rem", fontWeight: 600, textAlign: "center" }}>
+                            Data aren&apos;t found. Click on the browser&apos;s &#34;Refresh&#34; button
+                        </p>
+                        :
+                        <p style={{ fontSize: "1.8rem", fontWeight: 600, textAlign: "center" }}>
+                            No rows are found by &#34;<span style={{ textDecoration: "underline 2.5px" }}>
+                                {searchType === "id"
+                                ? searchType.toUpperCase() :
+                                searchType.charAt(0).toUpperCase() + searchType.slice(1)}
+                            </span>&#34; table&apos;s column
+                        </p>
+                    }
+                </div>}
             />
 
             {/* Columns Visibility Box */}
