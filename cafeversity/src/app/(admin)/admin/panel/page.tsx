@@ -1,14 +1,38 @@
-import dynamic from 'next/dynamic';
-const AdminTable = dynamic(
-    () => import("@/components/AdminTables/UserTable").then(mod => mod.TableComponent),
-    {
-        ssr: false,
-        loading: () => <p style={{ fontSize: "2rem" }}>Admin&#39;s Users Table Loading...</p>
+import { use } from 'react';
+import { UsersAdminTable } from '@/components/AdminTables/UserTableColumns';
+
+
+type UsersTableTypes = {
+    id: number,
+    firstName: string,
+    lastName: string,
+    nickName: string|null,
+    userPhoto: string|null,
+    email: string,
+    password: string,
+    sessionId: string|null,
+    resetToken: string|null,
+    resetTokenExpiry: Date|null
+    customSets: {
+        id: number
     }
-);
+}
 
 
-export default async function AdminPanel() {
+async function fetchData() {
+    const response = await fetch("http://localhost:3000/api/admin/usersTable?page=dashboard/panel", { cache: "no-store" });
+    if (!response.ok) {
+        throw new Error('Failed to fetch data');
+    }
+    const users = await response.json();
+
+    return users;
+}
+
+
+export default function AdminPanel() {
+
+    const data: UsersTableTypes[] = use(fetchData());
 
     // Another data rows
     /* const rowData = [
@@ -46,7 +70,7 @@ export default async function AdminPanel() {
         <>
             <p style={{ fontSize: "2rem" }}>Admin&#39;s Panel Page</p>
             <div style={{ width: "95%", margin: "2rem auto", padding: "0.5rem", border: "2px solid", borderRadius: "1rem" }}>
-                <AdminTable />
+                <UsersAdminTable data={data} />
             </div>
         </>
     );

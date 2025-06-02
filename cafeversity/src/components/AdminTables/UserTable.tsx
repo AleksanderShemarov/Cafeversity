@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import DataTable from 'react-data-table-component';
@@ -15,22 +16,84 @@ import { motion, AnimatePresence } from "framer-motion";
 import { toast } from 'react-toastify';
 
 
-const TableComponent = () => {
+export type ColumnConfig<T> = {
+    name: string,
+    selector: (row: T) => any,
+    format?: (value: any) => React.ReactNode,
+    sortable?: boolean,
+    omit?: boolean,
+    width?: string,
+    grow?: number,
+    type?: string,
+};
+
+type TableComponentProps<T> = {
+    initialData: T[],
+    initialColumns: ColumnConfig<T>[],
+    loading?: boolean,
+    title?: string,
+    onRowAdd?: (newData: Omit<T, 'id'>) => Promise<void>,
+    onRowUpdate?: (id: number, updatedData: Partial<T>) => Promise<void>,
+    onRowsDelete?: (ids: Set<number>) => Promise<void>,
+    defaultSortField?: string
+};
+
+
+const TableComponent = <T extends { id: number }>({
+    initialData,
+    initialColumns,
+    loading = false,
+    title= "Data Table",
+    onRowAdd,
+    onRowUpdate,
+    onRowsDelete,
+    defaultSortField = "id"
+}: TableComponentProps<T>) => {
     
     // State for table's data loading; simulation of 3 second table's data loading
-    const [tableLoad, setTableLoad] = useState<boolean>(true);
+    const [tableLoad, setTableLoad] = useState<boolean>(loading);
+
+    // State for DataTable data values
+    const [data, setData] = useState<T[]>(initialData);
+    
+    // State for table's searching line
+    const [searchText, setSearchText] = useState("");
+    const [searchType, setSearchType] = useState<string>(defaultSortField);
+    
+    // State for opening the table's searching line 
+    const [openSearch, setOpenSearch] = useState<boolean>(false);
+    const [density, setDensity] = useState<boolean>(false);
+    
+    // State for availability for rows' selecting; state for selecting (a) row(-s); state for rows' leaving 
+    const [selectingRows, setSelectingRows] = useState<boolean>(false);
+    const [selectedRows, setSelectedRows] = useState<T[]>([]);
+    const [toggleCleared, setToggleCleared] = useState(false);
+    
+    // State for row's updating; state for row's deletion
+    const [updateClicked, setUpdateClicked] = useState<number>(0);
+    const [deleteClicked, setDeleteClicked] = useState<number>(0);
+
+    // State for opening the adding row zone
+    const [addingRow, setAddingRow] = useState<boolean>(false);
+
+    // State for opening the columns menu; state for changing visibility of table's columns
+    const [columnsMenu, setColumnsMenu] = useState<boolean>(false);
+    const [hiddenColumns, setHiddenColumns] = useState<string[]>([]);
+
+    
+    //
     useEffect(() => {
-        const seconds = setTimeout(() => {
-            setData(initialData);
-            setTableLoad(false); 
-        }, 3000);
-        return () => clearTimeout(seconds);
+        setData(initialData);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [initialData]);
 
+    useEffect(() => {
+        setTableLoad(loading);
+    }, [loading]);
+    //
 
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    const columnsSet = [
+    // // eslint-disable-next-line react-hooks/exhaustive-deps
+    /* const columnsSet = [
         {
             name: 'ID',
             selector: (row: { id: number; }) => row.id,
@@ -117,9 +180,48 @@ const TableComponent = () => {
             width: "10rem",
             grow: 0.25
         }
-    ];
+    ]; */
+
+
+    const columnsSet = useMemo(() => {
+        const actionColumn = {
+            name: '',
+            selector: () => '',
+            cell: (row: T) => {
+                const isSelected = selectedRows.some(s => s.id === row.id);
+                return (
+                    <div style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}>
+                        <button type="button"
+                            style={{
+                                border: "none",
+                                borderRadius: "0.75rem",
+                                height: "30px",
+                                padding: "2px 5px",
+                                color: "whitesmoke",
+                                fontWeight: "600",
+                                fontSize: "1.5rem",
+                                backgroundColor: isSelected ? "#FFBA0D" : "grey",
+                                boxShadow: updateClicked === row.id ? "inset 0 0 4px 2px black" : "none",
+                            }}
+                            onClick={() => setUpdateClicked(row.id)}
+                            disabled={!isSelected}
+                        >
+                            Update
+                        </button>
+                    </div>
+                )
+            },
+            sortable: false,
+            omit: false,
+            width: "10rem",
+            grow: 0.25
+        };
+
+        return [...initialColumns, actionColumn];
+    }, [initialColumns, selectedRows, updateClicked]);
+
     
-    const initialData = [
+    /* const initialData = [
         { id: 1, name: 'John', email: 'john@example.com', city: 'New York', country: 'USA', phone: '+1 212 986-36-15', age: 20 },
         { id: 2, name: 'Jane', email: "jane@example.com", city: "Liverpool", country: "UK", phone: "+44 151 07-29-83", age: 29 },
         { id: 3, name: 'Abraham', email: "abraham@example.com", city: "Lyon", country: "France", phone: "+33 47 146-99-06", age: 30 },
@@ -129,7 +231,7 @@ const TableComponent = () => {
         { id: 7, name: 'Alghary', email: "alghary@example.com", city: "České Budějovice", country: "Czech Republic", phone: "+420 38 719-86-27", age: 28 },
         { id: 8, name: 'Filicia', email: "filicia@example.com", city: "San Paulo", country: "Brasil", phone: "+55 11 5128-0893", age: 21 },
         { id: 9, name: 'Mario', email: "mario@example.com", city: "Osaka", country: "Japan", phone: "+81 6 4912-9073", age: 22 },
-    ];
+    ]; */
     
     const customStyles = {
         headCells: {
@@ -153,15 +255,125 @@ const TableComponent = () => {
     };
 
 
+    // Filtering of visible and non-visible columns
+    const visibleColumns = useMemo(
+        () => columnsSet.filter(col => !hiddenColumns.includes(col.name || '')),
+        [hiddenColumns, columnsSet]
+    );
+
+    
+    // Searching value in table's data rows by column's name
+    const searchedData = useMemo(() => {
+        return data.filter(item => {
+            if (!searchText) return true;
+            
+            if (searchType === 'id') {
+                return String(item.id).includes(searchText);
+            }
+            
+            const column = columnsSet.find(col => 
+                col.name.toLowerCase() === searchType
+            );
+        
+            if (column?.selector) {
+                const value = column.selector(item);
+                return String(value).toLowerCase().includes(searchText.toLowerCase());
+            }
+            
+            return true;
+        });
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [data, searchText, searchType, columnsSet]);
+    
+
+    // Saving data in updated row
+    const handleSave = useCallback(async (id: number, updatedData: Partial<T>) => {
+        try {
+            if (onRowUpdate) {
+                await onRowUpdate(id, updatedData);
+            }
+
+            setData(prevData => prevData.map(item => item.id === id ? { ...item, ...updatedData }: item));
+
+            toast.success("The row has been updated!", { position: "top-right", style: { fontSize: "1.5rem" } });
+        
+            setUpdateClicked(0);
+        } catch (error) {
+            toast.error("Failed to update row", { position: "top-right", style: { fontSize: "1.5rem" } });
+        }
+    }, [onRowUpdate]);
+
+
+    // Removing of selected rows
+    const handleDelete = async () => {
+        try {
+            const len = selectedRows.length;
+            const ids = new Set(selectedRows.map(obj => obj.id));
+            
+            if (onRowsDelete) {
+                await onRowsDelete(ids);
+            }
+            setData(prevData => prevData.filter(item => !ids.has(item.id)));
+        
+            toast.success(`${len} ${len > 1 ? "rows have" : "row has"} been deleted!`, { position: "top-right", style: { fontSize: "1.5rem" } });
+            setDeleteClicked(0);
+
+            setSelectedRows([]);
+            setToggleCleared(!toggleCleared);
+            setSelectingRows(!selectingRows);
+        } catch (error) {
+            toast.error("Failed to delete rows", { position: "top-right", style: { fontSize: "1.5rem" } });
+        }
+    };
+
+
+    // Adding a new row
+    const handleSaveConfirm = async (newData: Omit<T, 'id'>) => {
+        try {
+            if (onRowAdd) {
+                await onRowAdd(newData);
+            }
+
+            setData(prevData => {
+                const maxId = prevData.length > 0 ? Math.max(...prevData.map(item => item.id)) : 0;
+                return [...prevData, { id: maxId + 1, ...newData } as T]
+            });
+
+            toast.success("A new row has been added!", { position: "top-right", style: { fontSize: "1.5rem" } });
+            setAddingRow(false);
+        } catch (error) {
+            toast.error("Failed to add row", { position: "top-right", style: { fontSize: "1.5rem" } });
+        }        
+    }
+
+
+    // Changing visibility of table's columns
+    const toggleColumnsVisibility = (columnName: string) => {
+        // setColumns(prev => prev.map(col => col.name === columnName ? { ...col, omit: !col.omit } : col));
+        setHiddenColumns(prev => prev.includes(columnName) ? prev.filter(name => name !== columnName) : [...prev, columnName]);
+    }
+
+
+    // Closing columns visibility box when mouse clicks outside it
+    useEffect(() => {
+        const handleClickOutside = (e: MouseEvent) => {
+            if (!(e.target as Element).closest('#column-menu-container')) {
+                setColumnsMenu(false);
+            }
+        };
+        document.addEventListener('mousedown', handleClickOutside);
+        return () => document.removeEventListener('mousedown', handleClickOutside);
+    }, []);
+
+
     interface HeaderComponentProps {
-        onConfirm: (
-            newData: { name: string, age: number, email: string, city: string, country: string, phone: string }
-        ) => void,
+        onConfirm: (newData: Omit<T, 'id'>) => void,
         onDelete: () => void
     }
     const SubHeaderComponent = ({ onConfirm, onDelete }: HeaderComponentProps) => {
 
         const dialogRef = useRef<HTMLDialogElement>(null);
+
         const showDeleteDialog = () => dialogRef.current?.showModal();
         const removeDeleteDialog = () => {
             onDelete();
@@ -174,50 +386,57 @@ const TableComponent = () => {
     
         const handleConfirm = (e: React.FormEvent) => {
             e.preventDefault();
-            
             if (!formRef.current) return;
             
             const formData = new FormData(formRef.current);
-            const name = formData.get("name") as string;
-            if (name === "") {
-                toast.error("User's name is empty!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            const age = parseInt(formData.get("age") as string);
-            if (isNaN(age)) {
-                toast.error("Please, input a correct age (the only numbers are available)!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            if (age < 0) {
-                toast.error("Please, input a correct age (starting with 0)!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            const email = formData.get("email") as string;
-            if (email === "") {
-                toast.error("User's email is empty!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            const city = formData.get("city") as string;
-            const country = formData.get("country") as string;
-            const phone = formData.get("phone") as string;
-
-            const newData = {
-                name: name,
-                age: age,
-                email: email,
-                city: city,
-                country: country,
-                phone: phone
-            }
-            onConfirm(newData);
+            const newData: Record<string, unknown> = {};
+            // const name = formData.get("name") as string;
+            // if (name === "") {
+            //     toast.error("User's name is empty!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // const age = parseInt(formData.get("age") as string);
+            // if (isNaN(age)) {
+            //     toast.error("Please, input a correct age (the only numbers are available)!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // if (age < 0) {
+            //     toast.error("Please, input a correct age (starting with 0)!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // const email = formData.get("email") as string;
+            // if (email === "") {
+            //     toast.error("User's email is empty!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // const city = formData.get("city") as string;
+            // const country = formData.get("country") as string;
+            // const phone = formData.get("phone") as string;
+            //
+            // const newData = {
+            //     name: name,
+            //     age: age,
+            //     email: email,
+            //     city: city,
+            //     country: country,
+            //     phone: phone
+            // }
+            initialColumns.forEach(column => {
+                if (column.name && column.name !== "") {
+                    const value = formData.get(column.name.toLowerCase());
+                    newData[column.name.toLowerCase()] = column.type === "number" && value
+                        ? Number(value) : value;
+                }
+            });
+            onConfirm(newData as Omit<T, 'id'>);
         }
 
         return (
@@ -280,7 +499,7 @@ const TableComponent = () => {
                             onClick={() => {
                                 openSearch && setSearchText("");///!!!!!
                                 setOpenSearch(!openSearch);
-                                setSearchType("id");
+                                setSearchType(defaultSortField);
                             }}
                         >
                             {openSearch ? <IconSearchOff /> : <IconSearch />}
@@ -326,7 +545,7 @@ const TableComponent = () => {
                             padding: "2px 5px",
                             color: "white",
                             fontWeight: "600",
-                            backgroundColor: "green",
+                            backgroundColor: selectingRows ? "#FFBA0D" : "green",
                             boxShadow: selectingRows ? "inset 0 0 4px 2px black" : "none"
                         }}
                         onClick={() => {
@@ -456,46 +675,29 @@ const TableComponent = () => {
                                 ref={formRef}
                                 onSubmit={handleConfirm}
                                 >
-                                    {columnsSet.map((columnSet, index) => {
-                                        if (columnSet.name.toLowerCase() === "email") {
+                                    {initialColumns.map((column, index) => {
+                                        if (column.name && column.name !== "" && column.name.toLowerCase() !== "id") {
                                             return (
                                                 <div key={index} style={{
                                                     display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
                                                     alignItems: "center", justifyContent: "center", gap: "1.5rem",
                                                     padding: "0.5rem 1rem", width: "48%",
                                                 }}>
-                                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
-                                                        {columnSet.name}:
+                                                    <label htmlFor={column.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
+                                                        {column.name}:
                                                     </label>
-                                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
+                                                    <input id={column.name.toLowerCase()} placeholder={`${column.name.toLowerCase()}...`}
                                                         style={{
                                                             fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
                                                         }}
-                                                        name={columnSet.name.toLowerCase()}
-                                                        type={columnSet.name.toLowerCase()}
+                                                        name={column.name.toLowerCase()}
+                                                        type={column.type || "text"}
                                                     />
                                                 </div>
                                             )
                                         }
-                                        else if (columnSet.name.toLowerCase() !== "" && columnSet.name.toLowerCase() !== "id") {
-                                            return (
-                                                <div key={index} style={{
-                                                    display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
-                                                    alignItems: "center", justifyContent: "center", gap: "1.5rem",
-                                                    padding: "0.5rem 1rem", width: "48%",
-                                                }}>
-                                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
-                                                        {columnSet.name}:
-                                                    </label>
-                                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
-                                                        style={{
-                                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
-                                                        }}
-                                                        name={columnSet.name.toLowerCase()}
-                                                    />
-                                                </div>
-                                            )
-                                        }
+
+                                        return null;
                                     })}
 
                                     <div style={{
@@ -546,62 +748,65 @@ const TableComponent = () => {
 
 
     interface UpdateExpanderProps {
-        data: { id: number, name: string, age: number, email: string, city: string, country: string, phone: string },
-        onSave: (
-            id: number,
-            updatedData: { name: string, age: number, email: string, city: string, country: string, phone: string }
-        ) => void,
+        data: T,
+        onSave: (id: number, updatedData: Partial<T>) => void,
     }
     const UpdateExpander = ({ data, onSave }: UpdateExpanderProps) => {
-        
         const formRef = useRef<HTMLFormElement>(null);
         
         const handleSubmit = (e: React.FormEvent) => {
             e.preventDefault();
-            
             if (!formRef.current) return;
             
             const formData = new FormData(formRef.current);
-            const name = formData.get("name") as string;
-            if (name === "") {
-                toast.error("User's name is empty!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            const age = parseInt(formData.get("age") as string);
-            if (isNaN(age)) {
-                toast.error("Please, input a correct age (the only numbers are available)!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            if (age < 0) {
-                toast.error("Please, input a correct age (starting with 0)!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            const email = formData.get("email") as string;
-            if (email === "") {
-                toast.error("User's email is empty!",
-                    { position: "top-right", style: { fontSize: "1.5rem" } }
-                );
-                return;
-            }
-            const city = formData.get("city") as string;
-            const country = formData.get("country") as string;
-            const phone = formData.get("phone") as string;
-
-            const updatedData = {
-                name: name,
-                age: age,
-                email: email,
-                city: city,
-                country: country,
-                phone: phone
-            }
-            onSave(data.id, updatedData);
+            const updatedData: Record<string, unknown> = {};
+            // const name = formData.get("name") as string;
+            // if (name === "") {
+            //     toast.error("User's name is empty!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // const age = parseInt(formData.get("age") as string);
+            // if (isNaN(age)) {
+            //     toast.error("Please, input a correct age (the only numbers are available)!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // if (age < 0) {
+            //     toast.error("Please, input a correct age (starting with 0)!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // const email = formData.get("email") as string;
+            // if (email === "") {
+            //     toast.error("User's email is empty!",
+            //         { position: "top-right", style: { fontSize: "1.5rem" } }
+            //     );
+            //     return;
+            // }
+            // const city = formData.get("city") as string;
+            // const country = formData.get("country") as string;
+            // const phone = formData.get("phone") as string;
+            //
+            // const updatedData = {
+            //     name: name,
+            //     age: age,
+            //     email: email,
+            //     city: city,
+            //     country: country,
+            //     phone: phone
+            // }
+            initialColumns.forEach(column => {
+                if (column.name && column.name !== "") {
+                    const value = formData.get(column.name.toLowerCase());
+                    updatedData[column.name.toLowerCase()] = column.type === "number" && value
+                        ? Number(value) : value;
+                }
+            })
+            onSave(data.id, updatedData as Partial<T>);
         }
         
         return (
@@ -613,46 +818,31 @@ const TableComponent = () => {
                 ref={formRef}
                 onSubmit={handleSubmit}
                 >
-                    {columnsSet.map((columnSet, index) => {
-                        if (columnSet.name.toLowerCase() === "email") {
+                    {initialColumns.map((column, index) => {
+                        if (column.name && column.name !== "") {
+                            const value = data[column.name.toLowerCase() as keyof T];
                             return (
                                 <div key={index} style={{
                                     display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
                                     alignItems: "center", justifyContent: "center", gap: "1.5rem",
                                     padding: "0.5rem 1rem", width: "48%",
                                 }}>
-                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
-                                        {columnSet.name}:
+                                    <label htmlFor={column.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
+                                        {column.name}:
                                     </label>
-                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
+                                    <input id={column.name.toLowerCase()} placeholder={`${column.name.toLowerCase()}...`}
                                         style={{
                                             fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
                                         }}
-                                        name={columnSet.name.toLowerCase()}
-                                        type={columnSet.name.toLowerCase()}
+                                        name={column.name.toLowerCase()}
+                                        type={column.type || "text"}
+                                        defaultValue={String(value)}
                                     />
                                 </div>
                             )
                         }
-                        else if (columnSet.name.toLowerCase() !== "" && columnSet.name.toLowerCase() !== "id") {
-                            return (
-                                <div key={index} style={{
-                                    display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
-                                    alignItems: "center", justifyContent: "center", gap: "1.5rem",
-                                    padding: "0.5rem 1rem", width: "48%",
-                                }}>
-                                    <label htmlFor={columnSet.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
-                                        {columnSet.name}:
-                                    </label>
-                                    <input id={columnSet.name.toLowerCase()} placeholder={`${columnSet.name.toLowerCase()}...`}
-                                        style={{
-                                            fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
-                                        }}
-                                        name={columnSet.name.toLowerCase()}
-                                    />
-                                </div>
-                            )
-                        }
+                        
+                        return null;
                     })}
 
                     <div style={{
@@ -685,9 +875,7 @@ const TableComponent = () => {
                                 fontSize: "1.5rem",
                                 cursor: "pointer",
                             }}
-                            onClick={() => {
-                                setUpdateClicked(0);
-                            }}
+                            onClick={() => setUpdateClicked(0)}
                         >
                             Cancel
                         </button>
@@ -696,145 +884,12 @@ const TableComponent = () => {
             </div>
         );
     }
-    
-    
-    // State for DataTable data values
-    const [data, setData] = useState<{ id: number, name: string, age: number, email: string, city: string, country: string, phone: string }[]>([]);
-    
-    // State for table's searching line
-    const [searchText, setSearchText] = useState("");
-    const [searchType, setSearchType] = useState<string>("id");
-    
-    // State for opening the table's searching line 
-    const [openSearch, setOpenSearch] = useState<boolean>(false);
-    const [density, setDensity] = useState<boolean>(false);
-    
-    // State for availability for rows' selecting; state for selecting (a) row(-s); state for rows' leaving 
-    const [selectingRows, setSelectingRows] = useState<boolean>(false);
-    const [selectedRows, setSelectedRows] = useState<{ id: number, name: string, age: number, email: string, city: string, country: string, phone: string }[]>([]);
-    const [toggleCleared, setToggleCleared] = useState(false);
-    
-    // State for row's updating; state for row's deletion
-    const [updateClicked, setUpdateClicked] = useState<number>(0);
-    const [deleteClicked, setDeleteClicked] = useState<number>(0);
-
-    // State for opening the adding row zone
-    const [addingRow, setAddingRow] = useState<boolean>(false);
-
-    // State for opening the columns menu; state for changing visibility of table's columns
-    const [columnsMenu, setColumnsMenu] = useState<boolean>(false);
-    const [hiddenColumns, setHiddenColumns] = useState<string[]>([]);
-
-    // Filtering of visible and non-visible columns
-    const visibleColumns = useMemo(
-        () => columnsSet.filter(col => !hiddenColumns.includes(col.name || '')),
-        [hiddenColumns, columnsSet]
-    );
-
-    
-    // Searching value in table's data rows by column's name
-    const searchedData = useMemo(() => {
-        return data.filter(item => {
-            if (!searchText) return true;
-            
-            if (searchType === 'id') {
-                return String(item.id).includes(searchText);
-            }
-            
-            const column = columnsSet.find(col => 
-                col.name.toLowerCase() === searchType
-            );
-        
-            if (column?.selector) {
-                const value = column.selector(item);
-                return String(value).toLowerCase().includes(searchText.toLowerCase());
-            }
-            
-            return true;
-        });
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, searchText, searchType]);
-    
-
-    // Saving data in updated row
-    const handleSave = useCallback((id: number, updatedData: { name: string, age: number, email: string, city: string, country: string, phone: string }) => {
-        setData(prevData => prevData.map(item => item.id === id ? { ...item, ...updatedData } : item));
-        
-        toast.success("The row has been updated!", { position: "top-right", style: { fontSize: "1.5rem" } });
-        
-        setUpdateClicked(0);
-    }, []);
-
-
-    // Removing of selected rows
-    const handleDelete = () => {
-        
-        const len = selectedRows.length;
-
-        const idsSet = new Set(selectedRows.map(obj => obj.id));
-        setData(prevData => prevData.filter(item => !idsSet.has(item.id)));
-
-        toast.success(`${len} ${len > 1 ? "rows have" : "row has"} been deleted!`, { position: "top-right", style: { fontSize: "1.5rem" } });
-        
-        setDeleteClicked(0);
-
-        setSelectedRows([]);
-        setToggleCleared(!toggleCleared);
-        setSelectingRows(!selectingRows);
-    };
-
-
-    // Adding a new row
-    const handleSaveConfirm = (newData: { name: string, age: number, email: string, city: string, country: string, phone: string }) => {
-        setData(prevData => {
-            // ID by the last row
-            const maxId = prevData.length > 0 ? Math.max(...prevData.map(item => item.id)) : 0;
-            
-            return [
-                ...prevData,
-                {
-                    id: maxId + 1,
-                    name: newData.name,
-                    age: newData.age,
-                    email: newData.email,
-                    city: newData.city,
-                    country: newData.country,
-                    phone: newData.phone
-                }
-            ];
-        });
-
-        toast.success("A new row has been added!", { position: "top-right", style: { fontSize: "1.5rem" } });
-
-        setAddingRow(false);
-    }
-
-
-    // Changing visibility of table's columns
-    const toggleColumnsVisibility = (columnName: string) => {
-        // setColumns(prev => prev.map(col => col.name === columnName ? { ...col, omit: !col.omit } : col));
-        setHiddenColumns(prev => prev.includes(columnName) ? prev.filter(name => name !== columnName) : [...prev, columnName]);
-    }
-
-
-    // Closing columns visibility box when mouse clicks outside it
-    useEffect(() => {
-        const handleClickOutside = (e: MouseEvent) => {
-            if (!(e.target as Element).closest('#column-menu-container')) {
-                setColumnsMenu(false);
-            }
-        };
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
-
-
 
 
     return (
         <div style={{ position: "relative" }}>
             <DataTable
-                title="Table Under Construction"
+                title={title}
                 columns={visibleColumns}
                 data={searchedData}
                 pagination
@@ -884,23 +939,25 @@ const TableComponent = () => {
                 )}
                 expandableRowExpanded={row => updateClicked === row.id}
 
-                noDataComponent={<div style={{ width: "auto" }}>
-                    {
-                        !tableLoad && data.length === 0
-                        ?
-                        <p style={{ fontSize: "1.8rem", fontWeight: 600, textAlign: "center" }}>
-                            Data aren&apos;t found. Click on the browser&apos;s &#34;Refresh&#34; button
-                        </p>
-                        :
-                        <p style={{ fontSize: "1.8rem", fontWeight: 600, textAlign: "center" }}>
-                            No rows are found by &#34;<span style={{ textDecoration: "underline 2.5px" }}>
-                                {searchType === "id"
-                                ? searchType.toUpperCase() :
-                                searchType.charAt(0).toUpperCase() + searchType.slice(1)}
-                            </span>&#34; table&apos;s column
-                        </p>
-                    }
-                </div>}
+                noDataComponent={
+                    <div style={{ width: "auto" }}>
+                        {
+                            !tableLoad && data.length === 0
+                            ?
+                            <p style={{ fontSize: "1.8rem", fontWeight: 600, textAlign: "center" }}>
+                                Data aren&apos;t found. Click on the browser&apos;s &#34;Refresh&#34; button
+                            </p>
+                            :
+                            <p style={{ fontSize: "1.8rem", fontWeight: 600, textAlign: "center" }}>
+                                No rows are found by &#34;<span style={{ textDecoration: "underline 2.5px" }}>
+                                    {searchType === "id"
+                                    ? searchType.toUpperCase() :
+                                    searchType.charAt(0).toUpperCase() + searchType.slice(1)}
+                                </span>&#34; table&apos;s column
+                            </p>
+                        }
+                    </div>
+                }
             />
 
             {/* Columns Visibility Box */}
@@ -914,8 +971,10 @@ const TableComponent = () => {
                     zIndex: 100,
                     padding: '0.5rem',
                     borderRadius: "0.5rem",
-                }} id="column-menu-container">
-                    {columnsSet.filter(column => column.name !== "").map(column => (
+                }}
+                    id="column-menu-container"
+                >
+                    {columnsSet.filter(column => column.name && column.name !== "").map(column => (
                         <label key={column.name}
                             style={{ display: 'flex', alignItems: 'center', fontSize: "1.5rem" }}
                             htmlFor={`column-${column.name}`}
@@ -923,7 +982,7 @@ const TableComponent = () => {
                             <input
                                 id={`column-${column.name}`}
                                 type="checkbox"
-                                checked={!hiddenColumns.includes(column.name || '')}
+                                checked={!hiddenColumns.includes(column.name)}
                                 onChange={() => toggleColumnsVisibility(column.name)}
                             />
                             {column.name}
