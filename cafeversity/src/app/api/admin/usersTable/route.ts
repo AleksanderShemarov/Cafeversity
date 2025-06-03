@@ -18,6 +18,7 @@ const GET = async (request: NextRequest) => {
                 ...user,
                 resetTokenExpiry: user.resetTokenExpiry?.toISOString() !== undefined
                     ? user.resetTokenExpiry?.toISOString() : null,
+                customSets: user.customSets?.id
             }));
 
             return NextResponse.json(serializedUsers, { status: 200 });

@@ -2,12 +2,13 @@
 "use client";
 
 import dynamic from "next/dynamic";
-import { ColumnConfig } from "./UserTable";
-const TableComponent = dynamic(
-    () => import("@/components/AdminTables/UserTable").then(mod => mod.TableComponent),
+import { ColumnConfig } from "@/components/AdminTables/TableParts/TableBody";
+import { TableLoadingComponent } from "./TableParts/TableLoading";
+const TableOnParts = dynamic(
+    () => import("@/components/AdminTables/TableParts/TableBody").then(mod => mod.TableBody),
     {
         ssr: false,
-        loading: () => <p style={{ fontSize: "2rem" }}>Admin&#39;s Users Data Table Loading...</p>
+        loading: () => <TableLoadingComponent loadingText="Users Table Loading..." />
     }
 );
 
@@ -25,15 +26,15 @@ export function UsersAdminTable({ data }: { data: any[] }) {
         { name: 'SessionId', selector: (u) => u.sessionId, sortable: false, omit: false },
         { name: 'ResetToken', selector: (u) => u.resetToken, sortable: false, omit: false },
         { name: 'ResetTokenExpiry', selector: (u) => u.resetTokenExpiry, sortable: false, omit: false },
-        { name: 'CustomSetsId', selector: (u) => u.customSets.id, sortable: true, omit: false },
+        { name: 'CustomSets', selector: (u) => u.customSets.id, sortable: true, omit: false },
     ];
 
     return (
-        <TableComponent
+        <TableOnParts
             initialData={data}
             initialColumns={columns}
             loading={false}
-            title="Users Data Table"
+            title="Users Data Table (Divided on Parts)"
         />
     );
 }
