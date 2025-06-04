@@ -5,6 +5,9 @@ import { hashPassword } from "../../../../lib/utils/passwordUtils";
 
 const POST = async (request: Request) => {
     const { firstName, lastName, nickName, email, password } = await request.json();
+    
+    const searchParams = new URL(request.url).searchParams;
+    const page = searchParams.get("page");
 
     const hashedWord = await hashPassword(password);
 
@@ -15,7 +18,7 @@ const POST = async (request: Request) => {
         },
     });
 
-    if (sameUserEmail !== null) {
+    if (sameUserEmail?.email === email ) {
         return NextResponse.json(
             {
                 message: `This User is already existed\nwith this email: ${email}!`,
@@ -31,7 +34,7 @@ const POST = async (request: Request) => {
         },
     });
 
-    if (sameUserNickName !== null) {
+    if (sameUserNickName?.nickName !== null && sameUserNickName?.nickName === nickName) {
         return NextResponse.json(
             {
                 message: `This User is already existed\nwith this nickname: ${nickName}!`,
@@ -59,6 +62,36 @@ const POST = async (request: Request) => {
             }
         });
     });
+
+    if (page === "dashboard/panel") {
+
+        const user = await prisma.users.findUnique({
+            where: {
+                email: email
+            },
+            include: {
+                customSets: {
+                    select: {
+                        id: true
+                    }
+                }
+            }
+        });
+
+        const newUser = {
+            ...user,
+            customSets: user?.customSets?.id
+        };
+
+        return NextResponse.json(
+            {
+                message: "User is successfully added.",
+                status: "Success",
+                newTableRow: newUser
+            },
+            { status: 201 }
+        );
+    }
     
     return NextResponse.json(
         {

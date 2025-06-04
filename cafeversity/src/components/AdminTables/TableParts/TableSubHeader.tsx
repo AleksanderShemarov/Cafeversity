@@ -13,7 +13,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ColumnConfig } from "./TableBody";
 
 
-interface SubHeaderComponentProps<T> {
+export interface SubHeaderComponentProps<T> {
     initialColumns: ColumnConfig<T>[],
     visibleColumns: ColumnConfig<T>[],
 
@@ -37,7 +37,8 @@ interface SubHeaderComponentProps<T> {
 
     defaultSortField: string,
 
-    onConfirm: (newData: Omit<T, 'id'>) => void,
+    // onConfirm: (newData: Omit<T, 'id'>) => void,
+    onConfirm: (newData: Partial<T>) => void,
     onDelete: () => void
 }
 const SubHeaderComponent = <T extends { id: number }>({
@@ -114,13 +115,14 @@ const SubHeaderComponent = <T extends { id: number }>({
         } */
         
         initialColumns.forEach(column => {
-            if (column.name && column.name !== "") {
-                const value = formData.get(column.name.toLowerCase());
-                newData[column.name.toLowerCase()] = column.type === "number" && value
-                    ? Number(value) : value;
+            if (column.name && column.name !== "" && column.name.toLowerCase() !== "id") {
+                const value = formData.get(column.name.charAt(0).toLowerCase() + column.name.slice(1));
+                newData[column.name.charAt(0).toLowerCase() + column.name.slice(1)] = column.type === "number" && value
+                    ? Number(value) : value === "" ? null : value;
             }
         });
-        onConfirm(newData as Omit<T, 'id'>);
+
+        onConfirm(newData as Partial<T>);
     }
 
     return (
@@ -361,7 +363,9 @@ const SubHeaderComponent = <T extends { id: number }>({
                             onSubmit={handleConfirm}
                             >
                                 {initialColumns.map((column, index) => {
-                                    if (column.name && column.name !== "" && column.name.toLowerCase() !== "id") {
+                                    if (column.name && column.name !== ""
+                                        && column.name !== "ID" && !column.name.endsWith("Id")
+                                        && !column.name.startsWith("_") && !column.name.endsWith("s")) {
                                         return (
                                             <div key={index} style={{
                                                 display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
@@ -375,7 +379,7 @@ const SubHeaderComponent = <T extends { id: number }>({
                                                     style={{
                                                         fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
                                                     }}
-                                                    name={column.name.toLowerCase()}
+                                                    name={column.name.charAt(0).toLowerCase() + column.name.slice(1)}
                                                     type={column.type || "text"}
                                                 />
                                             </div>

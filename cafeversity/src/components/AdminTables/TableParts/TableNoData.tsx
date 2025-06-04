@@ -1,4 +1,4 @@
-interface NoDataComponentProps<T> {
+export interface NoDataComponentProps<T> {
     tableLoad: boolean,
     data: T[],
     searchType: string,

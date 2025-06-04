@@ -4,7 +4,7 @@ import { Dispatch, SetStateAction, useRef } from "react";
 import { ColumnConfig } from "./TableBody";
 
 
-interface UpdateExpanderProps<T> {
+export interface TableRowExpanderProps<T> {
     initialColumns: ColumnConfig<T>[],
     setUpdateClicked: Dispatch<SetStateAction<number>>,
 
@@ -14,7 +14,7 @@ interface UpdateExpanderProps<T> {
 const TableRowExpander = <T extends { id: number }>({
     initialColumns, setUpdateClicked,
     data, onSave
-}: UpdateExpanderProps<T>) => {
+}: TableRowExpanderProps<T>) => {
     const formRef = useRef<HTMLFormElement>(null);
     
     const handleSubmit = (e: React.FormEvent) => {
@@ -64,17 +64,19 @@ const TableRowExpander = <T extends { id: number }>({
             phone: phone
         } */
 
-        initialColumns.forEach(column => {
-            if (column.name && column.name !== "") {
-                const value = formData.get(column.name.toLowerCase());
-                updatedData[column.name.toLowerCase()] = column.type === "number" && value
-                    ? Number(value) : value;
+        initialColumns.map(column => column.name.startsWith("_") ? { ...column, name: column.name.slice(1) } : column)
+        .forEach(column => {
+            if (column.name && column.name !== "" && column.name.toLowerCase() !== "id") {
+                const value = formData.get(column.name.charAt(0).toLowerCase() + column.name.slice(1));
+                updatedData[column.name.charAt(0).toLowerCase() + column.name.slice(1)] = column.type === "number" && value
+                    ? Number(value) : value === "null" ? null : value;
             }
         })
+
+        console.dir(updatedData);
+
         onSave(data.id, updatedData as Partial<T>);
     }
-
-    console.log(data);
     
     return (
         <div style={{ border: "2px solid orange", borderRadius: "1.5rem", padding: "0.5rem 1rem", maxHeight: "50rem", overflowY: "auto" }}>
@@ -85,10 +87,11 @@ const TableRowExpander = <T extends { id: number }>({
             ref={formRef}
             onSubmit={handleSubmit}
             >
-                {initialColumns.map((column, index) => {
-                    if (column.name && column.name !== "" && column.name.toLowerCase() !== "id") {
+                {initialColumns.map(column => column.name.startsWith("_") ? { ...column, name: column.name.slice(1) } : column)
+                .map((column, index) => {
+                    if (column.name && column.name !== ""
+                        && column.name !== "ID" && !column.name.endsWith("Id") || column.name.startsWith("Session")) {
                         const value = data[column.name.charAt(0).toLowerCase() + column.name.slice(1) as keyof T];
-                        console.log(value);
                         return (
                             <div key={index} style={{
                                 display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
@@ -102,7 +105,31 @@ const TableRowExpander = <T extends { id: number }>({
                                     style={{
                                         fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem"
                                     }}
-                                    name={column.name.toLowerCase()}
+                                    name={column.name.charAt(0).toLowerCase() + column.name.slice(1)}
+                                    type={column.type || "text"}
+                                    defaultValue={String(value)}
+                                />
+                            </div>
+                        )
+                    } else if (column.name && column.name.endsWith("Id")) {
+                        const value = data[column.name.charAt(0).toLowerCase() + column.name.slice(1, -2) as keyof T];
+                        return (
+                            <div key={index} style={{
+                                display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
+                                alignItems: "center", justifyContent: "center", gap: "1.5rem",
+                                padding: "0.5rem 1rem", width: "48%",
+                            }}>
+                                <label htmlFor={column.name.toLowerCase()} style={{ fontSize: "1.5rem",
+                                        visibility: "collapse"
+                                }}>
+                                    {column.name}:
+                                </label>
+                                <input id={column.name.toLowerCase()} placeholder={`${column.name.toLowerCase()}...`}
+                                    style={{
+                                        fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem",
+                                        visibility: "collapse"
+                                    }}
+                                    name={column.name.charAt(0).toLowerCase() + column.name.slice(1)}
                                     type={column.type || "text"}
                                     defaultValue={String(value)}
                                 />

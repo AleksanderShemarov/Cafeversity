@@ -2,7 +2,7 @@ import { use } from 'react';
 import { UsersAdminTable } from '@/components/AdminTables/UserTableColumns';
 
 
-type UsersTableTypes = {
+export type UsersTableTypes = {
     id: number,
     firstName: string,
     lastName: string,
@@ -13,9 +13,7 @@ type UsersTableTypes = {
     sessionId: string|null,
     resetToken: string|null,
     resetTokenExpiry: Date|null
-    customSets: {
-        id: number
-    }
+    customSets: number
 }
 
 
