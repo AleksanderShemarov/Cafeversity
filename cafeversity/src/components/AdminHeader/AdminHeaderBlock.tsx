@@ -58,7 +58,7 @@ export default function AdminHeaderBlock() {
                 </div>
             </div>
 
-            <AdminHeaderOptions isOptionsOpen={isOptionsOpen} />
+            <AdminHeaderOptions isOptionsOpen={isOptionsOpen} setIsOptionsOpen={setIsOptionsOpen} />
         </>
     )
 }

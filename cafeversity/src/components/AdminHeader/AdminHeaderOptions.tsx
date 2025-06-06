@@ -1,103 +1,106 @@
-import { useState } from "react";
-import ImageContainer from "../ImageEditor/ImageContainer"
+"use client";
+
+import { Dispatch, SetStateAction, useState } from "react";
+import ImageContainer from "../ImageEditor/ImageContainer";
+import { motion, AnimatePresence } from "framer-motion";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 
-export default function AdminHeaderOptions({ isOptionsOpen }: { isOptionsOpen: boolean }) {
+export default function AdminHeaderOptions({
+    isOptionsOpen, setIsOptionsOpen
+}: {
+    isOptionsOpen: boolean, setIsOptionsOpen: Dispatch<SetStateAction<boolean>>
+}) {
 
-    const [isHovered, setIsHovered] = useState<boolean>(false);
+    const [isHoveredItem, setIsHoveredItem] = useState<number|null>(null);
+
+    const pageNames: { id: number, text: string, icon: string, url: string }[] = [
+        { id: 1, text: "Admin Dashboard", icon: "/menu_list_icon.webp", url: "/admin/dashboard" },
+        { id: 2, text: "Users Panel", icon: "/menu_list_icon.webp", url: "/admin/panel" },
+        { id: 3, text: "Gretting Page", icon: "/menu_list_icon.webp", url: "/" },
+    ];
+
+    const page = usePathname();
 
     return (
-        <>
-            <div style={{
-                maxWidth: "100%", backgroundColor: "rgba(184, 135, 11, 0.215)", padding: "2rem 5rem",
-                display: isOptionsOpen ? "block" : "none", position: "absolute", left: 0, right: 0,
-                marginTop: "0.5rem", zIndex: 1, backdropFilter: "blur(1rem)"
-            }}>
-                <div style={{
-                    display: "flex", flexDirection: "row", flexWrap: "wrap",
-                    justifyContent: "space-between", alignItems: "center",
-                    width: "100%"
-                }}>
-                    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
-                        style={{
-                            // border: "2px solid",
-                            display: "flex", flexDirection: "column", alignItems: "center",
-                            padding: "1.5rem 5rem", position: "relative",
-                            height: "5rem"
-                        }}
-                    >
-                        <div style={{
-                            width: "5rem", cursor: "pointer", position: "absolute", top: isHovered ? 0 : "20%"
-                        }}>
-                            <ImageContainer img_path="/menu_list_icon.webp"
-                            style={{
-                                height: "90%", width: "90%",
-                                marginTop: 0, marginBottom: 0,
-                                boxShadow: "wheat 0 0 2px 3px",
-                                margin: "0 auto",
-                                backgroundColor: "whitesmoke"
-                            }}/>
-                        </div>
-                        <p style={{
-                            margin: "1rem 0 0 0", display: isHovered ? "block" : "none", textAlign: "center",
-                            fontSize: "2rem", fontWeight: "400", position: "absolute",
-                            bottom: isHovered ? 0 : "50%"
-                        }}>
-                            Page1
-                        </p>
-                    </div>
+        <AnimatePresence>
+            { isOptionsOpen &&
+                <motion.div
+                    initial={{ opacity: 0, height: 0 }}
+                    animate={{ opacity: 1, height: "auto" }}
+                    exit={{ opacity: 0, height: 0 }}
+                    transition={{ duration: 0.5 }}
 
-                    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
-                        style={{
-                            display: "flex", flexDirection: "column", alignItems: "center",
-                            padding: "1.5rem 5rem", position: "relative",
-                            height: "5rem"
-                        }}
-                    >
-                        <div style={{ width: "5rem", cursor: "pointer", position: "absolute", top: isHovered ? 0 : "20%" }}>
-                            <ImageContainer img_path="/menu_list_icon.webp" style={{
-                                height: "90%", width: "90%",
-                                marginTop: 0, marginBottom: 0,
-                                boxShadow: "wheat 0 0 2px 3px",
-                                margin: "0 auto",
-                                backgroundColor: "whitesmoke"
-                            }} />
-                        </div>
-                        <p style={{
-                            margin: "1rem 0 0 0", display: isHovered ? "block" : "none", textAlign: "center",
-                            fontSize: "2rem", fontWeight: "400", position: "absolute",
-                            bottom: isHovered ? 0 : "50%"
-                        }}>
-                            Page2
-                        </p>
-                    </div>
+                    style={{
+                        maxWidth: "100%", backgroundColor: "rgba(184, 135, 11, 0.215)", padding: "2rem 5rem",
+                        position: "absolute", left: 0, right: 0,
+                        marginTop: "0.5rem", zIndex: 1, backdropFilter: "blur(1rem)",
+                        overflow: "hidden"
+                    }}
+                >
+                    <div style={{
+                        display: "flex", flexDirection: "row", flexWrap: "wrap",
+                        justifyContent: "space-between", alignItems: "center",
+                        width: "100%"
+                    }}>
+                        {pageNames.map((pageName, index) => 
+                        <Link key={index} href={pageName.url === page ? "#" : pageName.url}>
+                            <div onMouseEnter={() => setIsHoveredItem(pageName.id)} onMouseLeave={() => setIsHoveredItem(null)}
+                                onClick={() => pageName.url === page ? {} : setIsOptionsOpen(false)}
+                                style={{
+                                    // border: "2px solid",
+                                    display: "flex", flexDirection: "column", alignItems: "center",
+                                    padding: "1.5rem 5rem", position: "relative",
+                                    height: "5rem", marginLeft: "1rem", marginRight: "1rem",
+                                    cursor: pageName.url === page ? "default" : "pointer",
+                                }}
+                            >
+                                <motion.div
+                                    initial={false}
+                                    animate={{ top: isHoveredItem === pageName.id ? 0 : "20%"}}
+                                    transition={{ type: "spring", stiffness: 300 }}
 
-                    <div onMouseEnter={() => setIsHovered(true)} onMouseLeave={() => setIsHovered(false)}
-                        style={{
-                            display: "flex", flexDirection: "column", alignItems: "center",
-                            padding: "1.5rem 5rem", position: "relative",
-                            height: "5rem"
-                        }}
-                    >
-                        <div style={{ width: "5rem", cursor: "pointer", position: "absolute", top: isHovered ? 0 : "20%" }}>
-                            <ImageContainer img_path="/menu_list_icon.webp" style={{
-                                height: "90%", width: "90%",
-                                marginTop: 0, marginBottom: 0,
-                                boxShadow: "wheat 0 0 2px 3px",
-                                margin: "0 auto",
-                                backgroundColor: "whitesmoke"
-                            }} />
-                        </div>
-                        <p style={{
-                            margin: "1rem 0 0 0", display: isHovered ? "block" : "none", textAlign: "center",
-                            fontSize: "2rem", fontWeight: "400", position: "absolute",
-                            bottom: isHovered ? 0 : "50%"
-                        }}>
-                            Page3
-                        </p>
+                                    style={{
+                                        width: "5rem",
+                                        position: "absolute"
+                                    }}
+                                >
+                                    <ImageContainer img_path={pageName.icon}
+                                        style={{
+                                            height: "90%", width: "90%",
+                                            marginTop: 0, marginBottom: 0,
+                                            margin: "0 auto",
+                                            boxShadow: "wheat 0 0 2px 3px",
+                                            backgroundColor: "whitesmoke"
+                                        }}
+                                    />
+                                </motion.div>
+                                <motion.p
+                                    initial={false}
+                                    animate={{
+                                        opacity: isHoveredItem === pageName.id ? 1 : 0,
+                                        bottom: isHoveredItem === pageName.id ? 0 : "50%",
+                                    }}
+
+                                    style={{
+                                        margin: "1rem 0 0 0",
+                                        textAlign: "center",
+                                        fontSize: "2rem",
+                                        fontWeight: "400",
+                                        position: "absolute",
+                                        textWrap: "nowrap",
+                                        color: "black",
+                                    }}
+                                >
+                                    {pageName.text}
+                                </motion.p>
+                            </div>
+                        </Link>
+                        )}
                     </div>
-                </div>                
-            </div>
-        </>
+                </motion.div>
+            }
+        </AnimatePresence> 
     );
 }
