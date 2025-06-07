@@ -1,24 +1,28 @@
 "use client";
 
-import { Dispatch, SetStateAction, useState } from "react";
+import { forwardRef, useState } from "react";
 import ImageContainer from "../ImageEditor/ImageContainer";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 
-export default function AdminHeaderOptions({
-    isOptionsOpen, setIsOptionsOpen
-}: {
-    isOptionsOpen: boolean, setIsOptionsOpen: Dispatch<SetStateAction<boolean>>
-}) {
+interface AdminHeaderOptionsProps {
+    isOptionsOpen: boolean,
+    setIsOptionsOpen: (value: boolean) => void,
+}
+
+const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
+    function AdminHeaderOptions({ isOptionsOpen, setIsOptionsOpen }, ref) {
 
     const [isHoveredItem, setIsHoveredItem] = useState<number|null>(null);
 
     const pageNames: { id: number, text: string, icon: string, url: string }[] = [
-        { id: 1, text: "Admin Dashboard", icon: "/menu_list_icon.webp", url: "/admin/dashboard" },
-        { id: 2, text: "Users Panel", icon: "/menu_list_icon.webp", url: "/admin/panel" },
-        { id: 3, text: "Gretting Page", icon: "/menu_list_icon.webp", url: "/" },
+        { id: 1, text: "Admin Dashboard", icon: "/dashboard_icon.jpg", url: "/admin/dashboard" },
+        { id: 2, text: "Users Panel", icon: "/users_icon.png", url: "/admin/panel" },
+        { id: 3, text: "Another Panel #2", icon: "/menu_list_icon.webp", url: "#" },
+        { id: 4, text: "Another Panel #3", icon: "/menu_list_icon.webp", url: "#" },
+        { id: 5, text: "Another Panel #4", icon: "/menu_list_icon.webp", url: "#" },
     ];
 
     const page = usePathname();
@@ -26,7 +30,7 @@ export default function AdminHeaderOptions({
     return (
         <AnimatePresence>
             { isOptionsOpen &&
-                <motion.div
+                <motion.div ref={ref}
                     initial={{ opacity: 0, height: 0 }}
                     animate={{ opacity: 1, height: "auto" }}
                     exit={{ opacity: 0, height: 0 }}
@@ -103,4 +107,6 @@ export default function AdminHeaderOptions({
             }
         </AnimatePresence> 
     );
-}
+});
+
+export default AdminHeaderOptions;
