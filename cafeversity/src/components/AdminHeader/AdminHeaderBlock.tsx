@@ -26,6 +26,11 @@ export default function AdminHeaderBlock() {
         router.push("/");
     }
 
+    // Routing to the admin's setups page
+    const setupsHandle = () => {
+        router.push("/admin/setups");
+    }
+
     // Clearing the timeout timer for before showing and hiding the hidden menu
     const clearHoverTimeout = () => {
         if (hoverTimeoutRef.current) {
@@ -152,7 +157,7 @@ export default function AdminHeaderBlock() {
                                         cursor: "pointer", background: menuLineFocus === 1 ? "lightgray" : "none",
                                         borderRadius: "1rem"
                                     }}
-                                    onClick={() => alert("Admin's Page Settings will be loading after clicking here.")}
+                                    onClick={setupsHandle}
                                     tabIndex={0}
                                     onMouseEnter={() => setMenuLineFocus(1)}
                                     onMouseLeave={() => setMenuLineFocus(null)}
