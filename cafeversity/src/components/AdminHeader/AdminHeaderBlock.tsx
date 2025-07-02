@@ -5,8 +5,9 @@ import ImageContainer from "../ImageEditor/ImageContainer"
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import AdminHeaderOptions from "./AdminHeaderOptions";
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { IconDoorExit } from "@tabler/icons-react";
 
 
 export default function AdminHeaderBlock() {
@@ -28,8 +29,13 @@ export default function AdminHeaderBlock() {
 
     // Routing to the admin's setups page
     const setupsHandle = () => {
+        // clearHoverTimeout();
+        // setIsMenuVisible(false);
         router.push("/admin/setups");
     }
+
+    // Checking a route path for showing admin's icon with hovering menu or an exit system button
+    const routePath = usePathname();
 
     // Clearing the timeout timer for before showing and hiding the hidden menu
     const clearHoverTimeout = () => {
@@ -92,104 +98,117 @@ export default function AdminHeaderBlock() {
                     <p style={{ fontSize: "3rem", margin: 0 }}>Admin&#39;s Menu</p>
                 </div>
                 <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center", gap: "4.5rem" }}>
-                    <AccessBtn onClick={() => {
-                        if (!dark) {
-                            setDark(!dark);
-                            alert("DARK THEME");
-                        } else {
-                            setDark(!dark);
-                            alert("LIGHT THEME");
-                        }
-                    }} buttonName={dark ? "Light" : "Dark"}
-                    additionalStyle={{
-                        paddingLeft: "6rem", paddingRight: "6rem",
-                        backgroundColor: dark ? "whitesmoke" : "darkgray",
-                        color: !dark ? "whitesmoke" : "darkgray",
-                        boxShadow: "gray 0 0 3px 2px",
-                        cursor: "pointer"
-                    }} />
-                    <div style={{ width: "7.5rem",
-                        // outline: "2px solid black",
-                        position: "relative"
-                    }}
-                        onMouseEnter={showMenu}
-                        onMouseLeave={hideMenu}
-                    >
-                        <ImageContainer img_path={null} style={{
-                            height: "90%", width: "90%",
-                            marginTop: 0, marginBottom: 0,
-                            boxShadow: "black 0 0 2px 3px",
-                            margin: "0 auto"
-                        }} />
+                    <AccessBtn buttonName={dark ? "Light" : "Dark"}
+                        onClick={() => {
+                            if (!dark) {
+                                setDark(!dark);
+                                alert("DARK THEME");
+                            } else {
+                                setDark(!dark);
+                                alert("LIGHT THEME");
+                            }
+                        }}
+                        additionalStyle={{
+                            paddingLeft: "6rem", paddingRight: "6rem",
+                            backgroundColor: dark ? "whitesmoke" : "darkgray",
+                            color: !dark ? "whitesmoke" : "darkgray",
+                            boxShadow: "gray 0 0 3px 2px",
+                            cursor: "pointer"
+                        }}
+                    />
 
-                        <AnimatePresence>
-                        {isMenuVisible && 
-                            // Zone with email, "settings' page" button and "signing out" button
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: isMenuVisible ? 1 : 0 }}
-                                exit={{ opacity: 0 }}
-                                transition={{ duration: 0.2 }}
+                    {routePath === "/admin/setups" ?
+                        <button onClick={greetHandle}
+                            style={{
+                                border: "1px solid red", backgroundColor: "transparent",
+                                color: "red", fontSize: "2rem", fontWeight: 600,
+                                display: "inline-flex", flexDirection: "row", justifyContent: "space-between",
+                                alignItems: "center", gap: "1rem", borderRadius: "1rem",
+                                padding: "8px 16px", cursor: "pointer",
+                            }}
+                        >
+                            <IconDoorExit style={{ color: "red" }} /> Exit
+                        </button>
+                    :
+                        <div onMouseEnter={showMenu} onMouseLeave={hideMenu}
+                            style={{ width: "7.5rem", position: "relative" }}
+                        >
+                            <ImageContainer img_path={null} style={{
+                                height: "90%", width: "90%",
+                                marginTop: 0, marginBottom: 0,
+                                boxShadow: "black 0 0 2px 3px",
+                                margin: "0 auto"
+                            }} />
 
-                                style={{
-                                    position: "absolute", display: "flex", outline: "2px solid lightgray", right: "-1rem",
-                                    background: "whitesmoke", borderRadius: "1.5rem", paddingLeft: "0.5rem",
-                                    paddingRight: "0.5rem", top: "6.9rem", flexDirection: "column",
-                                    zIndex: 10
-                                }}
-                                onMouseEnter={showMenu}
-                                onMouseLeave={hideMenu}
-                            >
-                                <div style={{
-                                    display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
-                                    // outline: "1px solid"
-                                }}>
-                                    <Image src="/email_icon.jpg" alt="Email Icon" width={30} height={30}
-                                        style={{ borderRadius: "0.5rem", background: "whitesmoke" }}
-                                    >
-                                    </Image>
-                                    <p style={{ fontSize: "1.5rem" }}>emailAddress@example.com</p>
-                                </div>
-                                <div id="menuLine1"
+                            <AnimatePresence>
+                            {isMenuVisible && 
+                                // Zone with email, "settings' page" button and "signing out" button
+                                <motion.div
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: isMenuVisible ? 1 : 0 }}
+                                    exit={{ opacity: 0 }}
+                                    transition={{ duration: 0.2 }}
+
                                     style={{
-                                        display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
-                                        // outline: "1px double"
-                                        cursor: "pointer", background: menuLineFocus === 1 ? "lightgray" : "none",
-                                        borderRadius: "1rem"
+                                        position: "absolute", display: "flex", outline: "2px solid lightgray", right: "-1rem",
+                                        background: "whitesmoke", borderRadius: "1.5rem", paddingLeft: "0.5rem",
+                                        paddingRight: "0.5rem", top: "6.9rem", flexDirection: "column",
+                                        zIndex: 10
                                     }}
-                                    onClick={setupsHandle}
-                                    tabIndex={0}
-                                    onMouseEnter={() => setMenuLineFocus(1)}
-                                    onMouseLeave={() => setMenuLineFocus(null)}
+                                    onMouseEnter={showMenu}
+                                    onMouseLeave={hideMenu}
                                 >
-                                    <Image src="/settings-gear.png" alt="Sets Icon" width={30} height={30}
-                                        style={{ borderRadius: "0.5rem", background: menuLineFocus === 1 ? "lightgray" : "whitesmoke" }}
-                                    >
-                                    </Image>
-                                    <p style={{ fontSize: "1.5rem" }}>Settings</p>
-                                </div>
-                                <div id="menuLine2"
-                                    style={{
+                                    <div style={{
                                         display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
-                                        // outline: "1px dashed",
-                                        cursor: "pointer", background: menuLineFocus === 2 ? "lightgray" : "none",
-                                        borderRadius: "1rem"
-                                    }}
-                                    onClick={greetHandle}
-                                    tabIndex={0}
-                                    onMouseEnter={() => setMenuLineFocus(2)}
-                                    onMouseLeave={() => setMenuLineFocus(null)}
-                                >
-                                    <Image src="/exit_icon.png" alt="Exit Icon" width={30} height={30}
-                                        style={{ borderRadius: "0.5rem", background: menuLineFocus === 2 ? "lightgray" : "whitesmoke" }}
+                                        // outline: "1px solid"
+                                    }}>
+                                        <Image src="/email_icon.jpg" alt="Email Icon" width={30} height={30}
+                                            style={{ borderRadius: "0.5rem", background: "whitesmoke" }}
+                                        >
+                                        </Image>
+                                        <p style={{ fontSize: "1.5rem" }}>emailAddress@example.com</p>
+                                    </div>
+                                    <div id="menuLine1"
+                                        style={{
+                                            display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
+                                            // outline: "1px double"
+                                            cursor: "pointer", background: menuLineFocus === 1 ? "lightgray" : "none",
+                                            borderRadius: "1rem"
+                                        }}
+                                        onClick={setupsHandle}
+                                        tabIndex={0}
+                                        onMouseEnter={() => setMenuLineFocus(1)}
+                                        onMouseLeave={() => setMenuLineFocus(null)}
                                     >
-                                    </Image>
-                                    <p style={{ fontSize: "1.5rem" }}>Sign Out</p>
-                                </div>
-                            </motion.div>
-                        }
-                        </AnimatePresence>
-                    </div>
+                                        <Image src="/settings-gear.png" alt="Sets Icon" width={30} height={30}
+                                            style={{ borderRadius: "0.5rem", background: menuLineFocus === 1 ? "lightgray" : "whitesmoke" }}
+                                        >
+                                        </Image>
+                                        <p style={{ fontSize: "1.5rem" }}>Settings</p>
+                                    </div>
+                                    <div id="menuLine2"
+                                        style={{
+                                            display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
+                                            // outline: "1px dashed",
+                                            cursor: "pointer", background: menuLineFocus === 2 ? "lightgray" : "none",
+                                            borderRadius: "1rem"
+                                        }}
+                                        onClick={greetHandle}
+                                        tabIndex={0}
+                                        onMouseEnter={() => setMenuLineFocus(2)}
+                                        onMouseLeave={() => setMenuLineFocus(null)}
+                                    >
+                                        <Image src="/exit_icon.png" alt="Exit Icon" width={30} height={30}
+                                            style={{ borderRadius: "0.5rem", background: menuLineFocus === 2 ? "lightgray" : "whitesmoke" }}
+                                        >
+                                        </Image>
+                                        <p style={{ fontSize: "1.5rem" }}>Sign Out</p>
+                                    </div>
+                                </motion.div>
+                            }
+                            </AnimatePresence>
+                        </div>
+                    }
                 </div>
             </div>
 

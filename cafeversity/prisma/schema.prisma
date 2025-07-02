@@ -77,3 +77,21 @@ model CustomSets {
   userId              Int       @unique
   user                Users     @relation(fields: [userId], references: [id])
 }
+
+model AdminUsers {
+  ID                  Int       @id @default(autoincrement())
+  Name                String
+  Surname             String
+  Email               String    @unique
+  EmailConfirmed      Boolean
+  Telephone           String?
+  Role                String
+  Photo               String
+  Language            String
+  Theme               String
+  SessionId           String?   @unique
+  Password            String
+  SecretWord          String    @unique
+  ResetToken          String?   @unique
+  ResetTokenExpiry    DateTime?
+}
