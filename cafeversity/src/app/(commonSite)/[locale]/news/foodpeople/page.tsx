@@ -1,10 +1,11 @@
 "use client";
 
-import styles from "@/app/(commonSite)/news/foodpeople/foodpeople.module.css";
+import styles from "@/app/(commonSite)/[locale]/news/foodpeople/foodpeople.module.css";
 import SearchLine from "@/components/SearchLine";
 import ArticleBar from "@/components/ArticleBar";
 import Link from "next/link";
 import { SetStateAction, useEffect, useState } from "react";
+import { usePathname } from "next/navigation";
 
 
 export default function FoodPeople () {
@@ -79,6 +80,7 @@ export default function FoodPeople () {
         setIsLoaded(true);// Articles data is loaded and will be shown for Users
     }, [query, articleData]);
 
+    const pathname = usePathname();
 
     return (
         <div id={styles.main_part}>
@@ -100,7 +102,7 @@ export default function FoodPeople () {
                     return (
                         <Link
                             key={index}
-                            href={`/news/foodpeople/${articleBar.id}`}
+                            href={`${pathname.slice(0, 3)}/news/foodpeople/${articleBar.id}`}
                             style={{ textDecoration: 'none', color: 'inherit' }}
                         >
                             <ArticleBar

@@ -1,6 +1,6 @@
 import CommonLayout from "@/components/CommonLayout";
 import type { Metadata } from "next";
-import "../globals.css";
+import "../../globals.css";
 import { Inter } from "next/font/google";
 
 import { getLocale, getMessages } from "next-intl/server";

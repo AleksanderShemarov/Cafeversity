@@ -1,18 +1,20 @@
 "use client";
 
-import styles from "@/app/(auth)/login/LoginPage.module.css";
+import styles from "@/app/(auth)/[locale]/login/LoginPage.module.css";
 import Link from "next/link";
 import Image from "next/image";
 import Google from "@/../../public/google_icon.webp";
 import GitHub from "@/../../public/github_icon.webp";
 import React, { useEffect, useState } from "react";
 import TextFormField from "./TextFormField";
-
+import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 
 
 export default function LogIn() {
+
+    const pathname = usePathname();
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -112,7 +114,7 @@ export default function LogIn() {
                             pointerEvents: "none",
                         }}
                     >Увайсці</button>
-                    <Link href="/"><input type="button" value="Ўзад" id={styles.closeButton} /></Link>
+                    <Link href={pathname.slice(0, 3)}><input type="button" value="Ўзад" id={styles.closeButton} /></Link>
                 </div>
 
                 <div>
@@ -156,8 +158,8 @@ export default function LogIn() {
                     </div>
                 </div>
                 <div className={styles.help_block}>
-                    <p>Калі забыліся пра паролю, перайдзіце <Link href="/login/recovery">сюды</Link>.</p>
-                    <p>Яшчэ не рэгістраваліся? Калі ласка, націскніце <Link href="/login/signup">тут</Link>.</p>
+                    <p>Калі забыліся пра паролю, перайдзіце <Link href={`${pathname.slice(0, 3)}/login/recovery`}>сюды</Link>.</p>
+                    <p>Яшчэ не рэгістраваліся? Калі ласка, націскніце <Link href={`${pathname.slice(0, 3)}/login/signup`}>тут</Link>.</p>
                 </div>
             </form>
         </>

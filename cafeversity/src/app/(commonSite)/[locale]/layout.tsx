@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import "../globals.css";
+import "../../globals.css";
 import CommonLayout from "@/components/CommonLayout";
 
 import { getLocale, getMessages } from "next-intl/server";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default async function RootLayout({
-  children,
+  children
 }: Readonly<{
   children: React.ReactNode;
 }>) {

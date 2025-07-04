@@ -1,5 +1,5 @@
 import Image from "next/image";
-import styles from "@/app/(userPage)/[authorizedUser]/authorized.module.css";
+import styles from "@/app/(userPage)/authorized/[authorizedUser]/authorized.module.css";
 import { use } from "react";
 import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
 

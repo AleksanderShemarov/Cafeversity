@@ -1,14 +1,17 @@
 "use client";
 
-import styles from "@/app/(auth)/login/LoginPage.module.css";
+import styles from "@/app/(auth)/[locale]/login/LoginPage.module.css";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import TextFormField from "./TextFormField";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import { usePathname } from "next/navigation";
 
 
 export default function SignUp() {
+
+    const pathname = usePathname();
 
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
@@ -144,11 +147,11 @@ export default function SignUp() {
                             pointerEvents: "none",
                         }}
                     >Рэгістрацыя</button>
-                    <Link href="/"><input type="button" value="Выйсці" id={styles.closeButton} /></Link>
+                    <Link href={pathname.slice(0, 3)}><input type="button" value="Выйсці" id={styles.closeButton} /></Link>
                 </div>
 
                 <div className={styles.help_block}>
-                    <p>Ўжо зарэгістраваныя – калі ласка, <Link href="/login/signin">сюды</Link>!</p>
+                    <p>Ўжо зарэгістраваныя – калі ласка, <Link href={`${pathname.slice(0, 3)}/login/signin`}>сюды</Link>!</p>
                 </div>
             </form>
         </>

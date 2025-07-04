@@ -1,13 +1,13 @@
-import styles from "@/app/(auth)/login/LoginPage.module.css";
-import Recovery from "@/components/Recovery";
+import styles from "@/app/(auth)/[locale]/login/LoginPage.module.css" 
+import LogIn from "@/components/LogIn";
 import { ToastContainer } from "react-toastify";
 
 
-export default function RecoveryPage() {
+export default function SignInPage() {
     return (
         <>
             <div className={styles.login_field}>
-                <Recovery />
+                <LogIn />
             </div>
             <div>
                 <ToastContainer theme="light" />

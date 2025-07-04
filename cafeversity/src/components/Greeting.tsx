@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/app/(commonSite)/page.module.css";
+import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import Image, { StaticImageData } from "next/image";
 // import emptyImg from '../../public/no_image1.jpg';
 import quality from "../../public/якасць.jpeg";

@@ -1,4 +1,4 @@
-import styles from "@/app/(commonSite)/news/news.module.css";
+import styles from "@/app/(commonSite)/[locale]/news/news.module.css";
 
 
 export default function RecipeDay () {

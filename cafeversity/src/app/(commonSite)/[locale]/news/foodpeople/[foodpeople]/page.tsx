@@ -1,4 +1,4 @@
-import styles from "@/app/(commonSite)/news/foodpeople/[foodpeople]/article.module.css";
+import styles from "@/app/(commonSite)/[locale]/news/foodpeople/[foodpeople]/article.module.css";
 import Image from "next/image";
 // import Chef from "@/../../public/Chef_Gordon_Ramsay.jpg";
 // import Gordon from "@/../../public/Gordon_Ramsay.jpg";

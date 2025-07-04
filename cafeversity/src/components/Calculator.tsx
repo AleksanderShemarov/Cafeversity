@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/(commonSite)/commonMenu/commonMenu.module.css";
+import styles from "@/app/(commonSite)/[locale]/commonMenu/commonMenu.module.css";
 import { useCallback, useEffect, useState } from "react";
 import deleteIcon from "../../public/delete_cross_icon.png";
 import Image from "next/image";

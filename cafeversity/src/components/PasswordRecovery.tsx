@@ -1,14 +1,17 @@
 "use client";
 
-import styles from "@/app/(auth)/login/LoginPage.module.css";
+import styles from "@/app/(auth)/[locale]/login/LoginPage.module.css";
 import { useState, useEffect } from "react";
 import TextFormField from "@/components/TextFormField";
 import Link from "next/link";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import { usePathname } from "next/navigation";
 
 
 export default function PasswordRecovery() {
+
+    const pathname = usePathname();
 
     const [newPassword, setNewPassword] = useState<string>("");
     const [confirmedNewPassword, setConfirmedNewPassword] = useState<string>("");
@@ -127,9 +130,9 @@ export default function PasswordRecovery() {
                         <div className={styles.error_block}>
                             <p>
                                 Прабачце, калі ласка, але час актыўнасці спасылцы ўжо скончыўся.
-                                Каб запатрабаваць новую, сціскніце <Link href="/login/recovery">тут</Link>.
+                                Каб запатрабаваць новую, сціскніце <Link href={`${pathname.slice(0, 3)}/login/recovery`}>тут</Link>.
                             </p>
-                            <Link href="/"><input type="button" value="Да Галоўнай" id={styles.closeButton} /></Link>
+                            <Link href={pathname.slice(0, 3)}><input type="button" value="Да Галоўнай" id={styles.closeButton} /></Link>
                         </div>
                     )}
                 </>) : <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>

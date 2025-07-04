@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/(commonSite)/page.module.css";
+import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import Image from "next/image";
 import sunny from "../../public/sunny.png";
 // import dynamic from "next/dynamic";
@@ -10,12 +10,13 @@ import { Clock2, Clock3 } from "@/components/Clock";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import DialogView from "./Dialog/DialogView";
-
+import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
 
 
-// { params }: { params: { authorizedUser: string } }
 export default function CommonHeader () {
+
+    const pathname = usePathname();
 
     // const Clock = dynamic(
     //     () => import('@/components/Clock'), {
@@ -62,7 +63,6 @@ export default function CommonHeader () {
                     <WeatherWeekday />
                 </div>
 
-                {/* <Clock /> */}
                 <Clock2 />{/* Clock2 rewritings are stood in useEffect hook and don't need to be as a dynamic component  */}
                 <Clock3 />{/* Clock3 Component doesn't convert a Date object into hours, minutes and seconds in useEffect hook.
                 Therefore it shows time more exactly than Clock2 and doesn't call an error of dynamic process as Clock1.
@@ -77,7 +77,7 @@ export default function CommonHeader () {
                     }}
                 >
                     <Entrance
-                        path={isAuthorized ? '' : '/login/signin'}
+                        path={isAuthorized ? '' : `${pathname.slice(0, 3)}/login/signin`}
                         sign={isAuthorized ? t("exitButton.name") : 'Ўваход'}
                     />
                 </div>
@@ -91,7 +91,7 @@ export default function CommonHeader () {
                             fontWeight: "var(--font-volume-weight)", fontStyle: "var(--font-volume-style)",
                         }}
                     >
-                        <Link href="/logout" style={{ width: "25%" }}>
+                        <Link href={`${pathname.slice(0, 3)}/logout`} style={{ width: "25%" }}>
                             <input type="button" value={t("exitButton.access")} id={styles.accessButton} />
                         </Link>
                         <input type="button" value={t("exitButton.deny")} id={styles.denyButton} onClick={() => {

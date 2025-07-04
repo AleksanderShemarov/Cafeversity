@@ -2,28 +2,39 @@ import { getRequestConfig } from "next-intl/server";
 import { cookies } from "next/headers";
 
 
-export default getRequestConfig(async () => {
+export default getRequestConfig(async ({ requestLocale: routeLocale }) => {
     
+    const foundLocale = await routeLocale;
+    console.log("getRequestConfig", foundLocale);
+
     const session = cookies().get("sessionId");
-    
-    let userLanguage;
+    // console.log("Available locale files:", await fs.readdir(path.join(process.cwd(), 'languages')));
+
     if (session) {
-        userLanguage = await fetch("http://localhost:3000/api/lookingForLanguage", {
+        const userLanguage = await fetch("http://localhost:3000/api/lookingForLanguage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(session)
         })
         .then(res => res.json());
-    }
-    const locale = userLanguage ? userLanguage.language : 'en';
-    // console.log("Found User Locale ->", locale);
+        // const locale = session ? (userLanguage?.language || 'en') : routeLocale;
+        const locale = userLanguage ? userLanguage.language : 'by';
+        // console.log("Found User Locale ->", locale);
 
-    // const locale = 'by';
-    // const locale = 'cz';
-    // const locale = 'en';
+        // const locale = 'by';
+        // const locale = 'cz';
+        // const locale = 'en';
+
+        console.log("const locale =", locale);
+
+        return {
+            locale,
+            messages: (await import(`../languages/${locale}.json`)).default
+        };
+    }
 
     return {
-        locale,
-        messages: (await import(`../languages/${locale}.json`)).default
+        locale: foundLocale,
+        messages: (await import(`../languages/${foundLocale}.json`)).default
     };
 });

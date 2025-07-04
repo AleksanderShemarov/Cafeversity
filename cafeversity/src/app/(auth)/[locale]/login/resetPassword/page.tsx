@@ -1,4 +1,4 @@
-import styles from "@/app/(auth)/login/LoginPage.module.css";
+import styles from "@/app/(auth)/[locale]/login/LoginPage.module.css";
 import PasswordRecovery from "@/components/PasswordRecovery";
 import { ToastContainer } from "react-toastify";
 

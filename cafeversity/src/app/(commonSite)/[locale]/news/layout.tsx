@@ -1,8 +1,11 @@
+"use client";
+
 import React from "react";
 // import CommonLayout from "@/components/CommonLayout";
 import ThreeSubLinks from "@/components/ThreeSubLinks";
-import styles from "@/app/(commonSite)/page.module.css";
+import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
+import { usePathname } from "next/navigation";
 
 
 type buttonDatum = {
@@ -13,9 +16,12 @@ type buttonDatum = {
 
 export default function Layout ({ children }: Readonly<{children: React.ReactNode}>) {
 
+    const pathname = usePathname();
+    // console.log("actual pathname -->", pathname);
+
     const buttonsData : buttonDatum[] = [
-        { path: "/commonMenu", id_style: styles.food_today, button_name: "Сённяшнія Стравы" },
-        { path: "/", id_style: styles.main_view, button_name: "Галоўная старонка" },
+        { path: `${pathname.slice(0, 3)}/commonMenu`, id_style: styles.food_today, button_name: "Сённяшнія Стравы" },
+        { path: pathname.slice(0, 3), id_style: styles.main_view, button_name: "Галоўная старонка" },
     ];
 
     return (

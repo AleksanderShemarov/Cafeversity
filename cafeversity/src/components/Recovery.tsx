@@ -1,14 +1,17 @@
 "use client";
 
-import styles from "@/app/(auth)/login/LoginPage.module.css";
+import styles from "@/app/(auth)/[locale]/login/LoginPage.module.css";
 import TextFormField from "./TextFormField";
 import Link from "next/link";
 import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import { usePathname } from "next/navigation";
 
 
 export default function Recovery() {
+
+    const pathname = usePathname();
 
     const [email, setEmail] = useState<string>("");
     const [enableRecovery, setEnableRecovery] = useState<boolean>(false);
@@ -75,12 +78,12 @@ export default function Recovery() {
                             pointerEvents: "none",
                         }}
                     >Даслаць</button>
-                    <Link href="/"><input type="button" value="Да Галоўнай" id={styles.closeButton} /></Link>
+                    <Link href={pathname.slice(0, 3)}><input type="button" value="Да Галоўнай" id={styles.closeButton} /></Link>
                 </div>
 
                 <div className={styles.help_block}>
-                    <p>Яшчэ не рэгістраваліся? Калі ласка, націскніце <Link href="/login/signup">тут</Link>.</p>
-                    <p>Ўжо успомнілі паролю? =&gt; <Link href="/login/signin">Пераходзьце сюды</Link>!</p>
+                    <p>Яшчэ не рэгістраваліся? Калі ласка, націскніце <Link href={`${pathname.slice(0, 3)}/login/signup`}>тут</Link>.</p>
+                    <p>Ўжо успомнілі паролю? =&gt; <Link href={`${pathname.slice(0, 3)}/login/signin`}>Пераходзьце сюды</Link>!</p>
                 </div>
             </form>
         </>

@@ -1,7 +1,10 @@
+"use client";
+
 import styles from "./page.module.css";
 import Greeting from "@/components/Greeting";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 
 type buttonDatum = {
@@ -12,9 +15,12 @@ type buttonDatum = {
 
 export default function Home() {
 
+    const pathname = usePathname();
+    // console.log("actual pathname -->", pathname);
+
     const buttonsData : buttonDatum[] = [
-        { path: "/commonMenu", id_style: styles.food_today, button_name: "Сённяшнія Стравы" },
-        { path: "/news/foodpeople", id_style: styles.food_news, button_name: "Ежа Свету" },
+        { path: `${pathname}/commonMenu`, id_style: styles.food_today, button_name: "Сённяшнія Стравы" },
+        { path: `${pathname}/news/foodpeople`, id_style: styles.food_news, button_name: "Ежа Свету" },
     ];
 
     return (

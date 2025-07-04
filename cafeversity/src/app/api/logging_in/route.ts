@@ -102,7 +102,7 @@ const POST = async (request: Request) => {
 
     const response = NextResponse.json({
             message: "Entrance is accepted!",
-            redirect: `/${user.firstName}_${user.lastName}`,
+            redirect: `/authorized/${user.firstName}_${user.lastName}`,
             // redirect: `/${userLanguage}/${user.firstName}_${user.lastName}`,
         },
         { status: 201 }

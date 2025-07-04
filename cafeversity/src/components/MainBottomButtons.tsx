@@ -1,4 +1,4 @@
-import styles from "@/app/(commonSite)/page.module.css";
+import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import Link from "next/link";
 
 

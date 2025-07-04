@@ -6,6 +6,7 @@ import FoodList from "@/components/FoodList";
 import React, { useState } from "react";
 import Calculator from "@/components/Calculator";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
+import { usePathname } from "next/navigation";
 
 
 type buttonDatum = {
@@ -15,6 +16,9 @@ type buttonDatum = {
 }// These types are for the TwoMainBottomButtons Component's array in 'data' variable and are the same in OptionData interface
 
 export default function CommonMenuPage() {
+    
+    const pathname = usePathname();
+    // console.log("actual pathname -->", pathname);
 
     const [click, setClick] = useState<boolean>(false);
     const [food, setFood] = useState<[number, string, number, number]>([0, "", 0, 0.00]);
@@ -30,9 +34,10 @@ export default function CommonMenuPage() {
         console.log(`Product Index: ${product_index}`);
         setFood([product_id, product_name, 1, product_cost]);
     }
+
     const buttonsData : buttonDatum[] = [
-        { path: "/", id_style: styles.food_news, button_name: "Галоўная старонка" },
-        { path: "/news/foodpeople", id_style: styles.food_news, button_name: "Ежа Свету" },
+        { path: pathname.slice(0, 3), id_style: styles.food_news, button_name: "Галоўная старонка" },
+        { path: `${pathname.slice(0, 3)}/news/foodpeople`, id_style: styles.food_news, button_name: "Ежа Свету" },
     ];
 
     return (
