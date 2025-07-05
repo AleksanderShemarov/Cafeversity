@@ -52,6 +52,7 @@ export default function CommonHeader () {
     }, []);
 
     const t = useTranslations("MainUserPage");
+    const entrance = useTranslations("HeaderComponents");
 
     return (
         <>
@@ -78,7 +79,7 @@ export default function CommonHeader () {
                 >
                     <Entrance
                         path={isAuthorized ? '' : `${pathname.slice(0, 3)}/login/signin`}
-                        sign={isAuthorized ? t("exitButton.name") : 'Ўваход'}
+                        sign={isAuthorized ? t("exitButton.name") : entrance("Entrance")}
                     />
                 </div>
                 {(isAuthorized && exitView) && (

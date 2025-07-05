@@ -5,6 +5,7 @@ import Greeting from "@/components/Greeting";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 type buttonDatum = {
@@ -18,15 +19,17 @@ export default function Home() {
     const pathname = usePathname();
     // console.log("actual pathname -->", pathname);
 
+    const greetings = useTranslations("GreetingPage");
+
     const buttonsData : buttonDatum[] = [
-        { path: `${pathname}/commonMenu`, id_style: styles.food_today, button_name: "Сённяшнія Стравы" },
-        { path: `${pathname}/news/foodpeople`, id_style: styles.food_news, button_name: "Ежа Свету" },
+        { path: `${pathname}/commonMenu`, id_style: styles.food_today, button_name: greetings("bottomButtons.left") },
+        { path: `${pathname}/news/foodpeople`, id_style: styles.food_news, button_name: greetings("bottomButtons.right") },
     ];
 
     return (
         <>
             <div id={styles.main_part}>
-                <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
+                {/* <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1> */}
                 <Greeting />
 
                 {/* Часовае рашэнне (Temporary Solution) */}

@@ -1,4 +1,57 @@
 {
+    "HeaderComponents": {
+        "WeatherWeekday": {
+            "weekdays": {
+                "sun": "Ne",
+                "mon": "Po",
+                "tue": "Út",
+                "wed": "St",
+                "thu": "Čt",
+                "fri": "Pá",
+                "sat": "So"
+            }
+        },
+        "Dating": {
+            "months": {
+                "jan": "Leden",
+                "feb": "Únor",
+                "mar": "Březen",
+                "apr": "Duben",
+                "may": "Květen",
+                "jun": "Červen",
+                "jul": "Červenec",
+                "aug": "Srpen",
+                "sep": "Září",
+                "oct": "Říjen",
+                "nov": "Listopad",
+                "dec": "Prosinec"
+            }
+        },
+        "Entrance": "Vstup"
+    },
+    "GreetingPage": {
+        "slidesText": {
+            "slide1": {
+                "line1": "The first line: Lorem, ipsum dolor.",
+                "line2": "The second line: Lorem ipsum dolor sit amet.",
+                "line3": "The third line: Lorem ipsum dolor sit."
+            },
+            "slide2": {
+                "line4": "The fourth line: Lorem, ipsum dolor.",
+                "line5": "The fifth line: Lorem ipsum dolor sit amet.",
+                "line6": "The sixth line: Lorem ipsum dolor sit."
+            },
+            "slide3": {
+                "line7": "The seventh line: Lorem, ipsum dolor.",
+                "line8": "The eighth line: Lorem ipsum dolor sit amet.",
+                "line9": "The nineth line: Lorem ipsum dolor sit."
+            }
+        },
+        "bottomButtons": {
+            "left": "Dnešní Jídla",
+            "right": "Jídlo Světu"
+        }
+    },
     "MainUserPage": {
         "vanishingNavbar": {
             "menu": "Menu",

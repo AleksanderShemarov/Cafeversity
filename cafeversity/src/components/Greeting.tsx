@@ -8,6 +8,7 @@ import city_map from "../../public/гарадзкая_мапа.jpeg";
 import fresh_food from "../../public/карысная_ежа.jpeg";
 import { useState } from "react";
 import { clsx } from "clsx";
+import { useTranslations } from "next-intl";
 
 
 export default function Greeting() {
@@ -55,6 +56,8 @@ export default function Greeting() {
     // };
 
 
+    const slidesText = useTranslations("GreetingPage");
+
     const staticImages : StaticImageData[] = [
         fresh_food,
         city_map,
@@ -62,19 +65,19 @@ export default function Greeting() {
     ];
     const strings : string[][] = [
         [
-            "The first line: Lorem, ipsum dolor.",
-            "The second line: Lorem ipsum dolor sit amet.",
-            "The third line: Lorem ipsum dolor sit.",
+            slidesText("slidesText.slide1.line1"),
+            slidesText("slidesText.slide1.line2"),
+            slidesText("slidesText.slide1.line3"),
         ],
         [
-            "The fourth line: Lorem, ipsum dolor.",
-            "The fifth line: Lorem ipsum dolor sit amet.",
-            "The sixth line: Lorem ipsum dolor sit.",
+            slidesText("slidesText.slide2.line4"),
+            slidesText("slidesText.slide2.line5"),
+            slidesText("slidesText.slide2.line6"),
         ],
         [
-            "The seventh line: Lorem, ipsum dolor.",
-            "The eighth line: Lorem ipsum dolor sit amet.",
-            "The nineth line: Lorem ipsum dolor sit.",
+            slidesText("slidesText.slide3.line7"),
+            slidesText("slidesText.slide3.line8"),
+            slidesText("slidesText.slide3.line9"),
         ],
     ]
     const booleans : boolean[] = [
