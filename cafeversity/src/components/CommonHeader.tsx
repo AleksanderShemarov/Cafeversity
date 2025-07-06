@@ -12,6 +12,7 @@ import Link from "next/link";
 import DialogView from "./Dialog/DialogView";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import LangSwitcher from "./PublicLangSwitcher/LangSwitcher";
 
 
 export default function CommonHeader () {
@@ -70,6 +71,11 @@ export default function CommonHeader () {
                 Thanks for Joeward Peralta (https://github.com/joewardperalta/digital-clock) */}
                 
                 <Dating />
+
+                {!isAuthorized &&
+                    <LangSwitcher />
+                }
+
                 <div
                     style={{ margin: "auto 0" }} 
                     onClick={() => {
@@ -77,11 +83,13 @@ export default function CommonHeader () {
                         document.body.style.overflow = "hidden";
                     }}
                 >
+
                     <Entrance
                         path={isAuthorized ? '' : `${pathname.slice(0, 3)}/login/signin`}
                         sign={isAuthorized ? t("exitButton.name") : entrance("Entrance")}
                     />
                 </div>
+
                 {(isAuthorized && exitView) && (
                     <DialogView
                         question={t("exitButton.question")}
