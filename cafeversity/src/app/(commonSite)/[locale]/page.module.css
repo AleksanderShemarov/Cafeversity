@@ -435,6 +435,10 @@ body {
 /* Buttons Part */
 .buttons {
   display: flex;
+  position: fixed;
+  bottom: 7px;
+  left: 5px;
+  right: 5px;
 }
 
 #food_today,

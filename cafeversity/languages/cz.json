@@ -52,6 +52,41 @@
             "right": "Jídlo Světu"
         }
     },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Zavřít Kalkulačku",
+            "open": "Otevřít Kalkulačku",
+            "calcName": "Jídelní Pult",
+            "foodName": "Název Jídla",
+            "portion": "Počet Porcí",
+            "cost": "Cena",
+            "cancel": "Zrušit",
+            "tipForUse": "Chceš-li přidat jídlo do kalkulačky, klikní na jeho cenu.",
+            "notification": "Zpráva",
+            "costSum": "Součet cen"
+        },
+        "bottomButtons": {
+            "left": "Hlavní Stránka",
+            "right": "Jídlo Světu"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Hledání...",
+            "searchLineTip": "Zadej svůj požadavek!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Recept Dne",
+            "food&peopleSubLink": "Lidé a Jídlo",
+            "foodEventsSublink": "Svět Jídla"
+        },
+        "bottomButtons": {
+            "left": "Dnešní Jídla",
+            "right": "Hlavní stránka"
+        }
+    },
     "MainUserPage": {
         "vanishingNavbar": {
             "menu": "Menu",

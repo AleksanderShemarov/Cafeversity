@@ -2,6 +2,7 @@
 
 import React, { useState } from "react";
 import styles from "@/app/(commonSite)/[locale]/news/foodpeople/foodpeople.module.css";
+import { useTranslations } from "next-intl";
 
 
 type SearchLineHandler = {
@@ -12,6 +13,8 @@ type SearchLineHandler = {
 
 export default function SearchLine({ searchingHandler }: SearchLineHandler) {
 
+    const searchLine = useTranslations("NewsPage.Food&People");
+
     const [line, setLine] = useState<string>("");
 
     const valueChanging = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
@@ -20,11 +23,10 @@ export default function SearchLine({ searchingHandler }: SearchLineHandler) {
 
     return (
         <>
-        {/* <div id={styles.searchline}> */}
-            <div id={styles.searchline_box}>
+            <div id={styles.searchline_box} style={{ outline: "1px solid" }}>
                 <input
                     id={styles.searchline_zone}
-                    title="Увядзі свой запыт!"//"Type your query here!"
+                    title={searchLine("searchLineTip")}
                     type="text"
                     value={line}
                     // onChange={(e) => valueChanging(e, setLine)}
@@ -32,13 +34,12 @@ export default function SearchLine({ searchingHandler }: SearchLineHandler) {
                         searchingHandler(e);
                         valueChanging(e, setLine);
                     }}
-                    placeholder="Пошук..."//"Search..."
+                    placeholder={searchLine("searchLine")}
                  />
             </div>
             <div className={styles.temporary_answer}>
                 <p className={styles.temporary_answer_line}>{line}</p>
             </div>
-        {/* </div> */}
         </>
     )
 }

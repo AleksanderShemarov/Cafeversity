@@ -52,6 +52,41 @@
             "right": "Ежа Свету"
         }
     },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Зачыніць Калькулятар",
+            "open": "Адчыніць Калькулятар",
+            "calcName": "Лічыльнык страў",
+            "foodName": "Назва Стравы",
+            "portion": "Кол-сць порцый",
+            "cost": "Кошт",
+            "cancel": "Адмена",
+            "tipForUse": "Каб дадаць страву ў калькулятар, націскніце на яе кошт.",
+            "notification": "Паведамленне",
+            "costSum": "Сума коштаў"
+        },
+        "bottomButtons": {
+            "left": "Галоўная старонка",
+            "right": "Ежа Свету"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Пошук...",
+            "searchLineTip": "Увядзі свой запыт!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Рэцэпт Дня",
+            "food&peopleSubLink": "Людзі і Ежа",
+            "foodEventsSublink": "Свет Ежы"
+        },
+        "bottomButtons": {
+            "left": "Сённяшнія Стравы",
+            "right": "Галоўная старонка"
+        }
+    },
     "MainUserPage": {
         "vanishingNavbar": {
             "menu": "Меню",

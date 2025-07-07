@@ -13,7 +13,7 @@ interface OptionDataArray {
 
 export default function TwoMainBottomButtons({ data } : OptionDataArray) {
     return (
-        <>
+        <div style={{ height: "110px" }}>
             <div className={styles.buttons}>
                 {data.map((datum, index) => 
                     <Link key={index} href={datum.path} id={datum.id_style}>
@@ -21,6 +21,6 @@ export default function TwoMainBottomButtons({ data } : OptionDataArray) {
                     </Link>
                 )}
             </div>
-        </>
+        </div>
     );
 }

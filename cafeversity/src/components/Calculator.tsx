@@ -7,6 +7,7 @@ import Image from "next/image";
 import additionIcon from "../../public/addition_icon.png";
 import subtractIcon from "../../public/subtraction_icon.png";
 import exclamation from "../../public/exclamation_icon.png";
+import { useTranslations } from "next-intl";
 
 
 type CalculatorProps = {
@@ -14,6 +15,8 @@ type CalculatorProps = {
 }
 
 export default function Calculator({ params }: CalculatorProps) {
+
+    const calculator = useTranslations("CommonMenu.Calcultor");
 
     type ChoiceFood = {
         id: number,
@@ -117,15 +120,15 @@ export default function Calculator({ params }: CalculatorProps) {
 
     return (
         <div id={styles.calculator}>
-            <p id={styles.calculator_name}>Лічыльнык страў</p>
+            <p id={styles.calculator_name}>{calculator("calcName")}</p>
             <table className={styles.food_zone}>
                 <thead>
                     <tr className={styles.food_lines}>
                         <th className={styles.food_pos}>№</th>
-                        <th className={styles.food_name}>Назва Стравы</th>
-                        <th className={styles.portions}>Кол-сць порцый</th>
-                        <th className={styles.food_price}>Кошт</th>
-                        <th className={styles.food_canceling}>Адмена</th>{/* it will be hidden late */}
+                        <th className={styles.food_name}>{calculator("foodName")}</th>
+                        <th className={styles.portions}>{calculator("portion")}</th>
+                        <th className={styles.food_price}>{calculator("cost")}</th>
+                        <th className={styles.food_canceling}>{calculator("cancel")}</th>{/* it will be hidden late */}
                     </tr>
                 </thead>
                 <tbody>
@@ -204,7 +207,7 @@ export default function Calculator({ params }: CalculatorProps) {
                         </tr>
                     ) : (
                         <tr>
-                            <td colSpan={5} id={styles.empty_table}>Каб дадаць страву ў калькулятар, націскніце на яе кошт.</td>
+                            <td colSpan={5} id={styles.empty_table}>{calculator("tipForUse")}</td>
                         </tr>
                     )}
                 </tbody>
@@ -221,10 +224,10 @@ export default function Calculator({ params }: CalculatorProps) {
                                 borderRadius: "50%",
                             }}
                         ></Image>
-                        Паведамленне
+                        {calculator("notification")}
                     </div>
                 </div>
-                <div className={styles.price_sum}>Сума коштаў -&gt; {common_cost.toFixed(2)}</div>
+                <div className={styles.price_sum}>{calculator("costSum")} -&gt; {common_cost.toFixed(2)}</div>
             </div>
         </div>
     )

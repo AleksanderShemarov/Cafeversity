@@ -7,6 +7,7 @@ import React, { useState } from "react";
 import Calculator from "@/components/Calculator";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 type buttonDatum = {
@@ -19,7 +20,9 @@ export default function CommonMenuPage() {
     
     const pathname = usePathname();
     // console.log("actual pathname -->", pathname);
-
+    
+    const commonMenu = useTranslations("CommonMenu");
+    
     const [click, setClick] = useState<boolean>(false);
     const [food, setFood] = useState<[number, string, number, number]>([0, "", 0, 0.00]);
 
@@ -36,15 +39,14 @@ export default function CommonMenuPage() {
     }
 
     const buttonsData : buttonDatum[] = [
-        { path: pathname.slice(0, 3), id_style: styles.food_news, button_name: "Галоўная старонка" },
-        { path: `${pathname.slice(0, 3)}/news/foodpeople`, id_style: styles.food_news, button_name: "Ежа Свету" },
+        { path: pathname.slice(0, 3), id_style: styles.food_news, button_name: commonMenu("bottomButtons.left") },
+        { path: `${pathname.slice(0, 3)}/news/foodpeople`, id_style: styles.food_news, button_name: commonMenu("bottomButtons.right") },
     ];
 
     return (
         <>
-        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <div id={styles.main_part}>
-                <h1>Просты спіс ежы на сённяшні дзень.</h1>
+                {/* <h1>Просты спіс ежы на сённяшні дзень.</h1> */}
                 <div id={styles.calculator_div} style={{
                     right: click ? "0px" : "-500px",
                 }}>
@@ -58,14 +60,13 @@ export default function CommonMenuPage() {
                         }}
                         onClick={() => setClick(!click)}
                     >
-                        {click ? "Close Calculator" : "Open Calculator"}
+                        {click ? commonMenu("Calcultor.close") : commonMenu("Calcultor.open")}
                     </button>
                     <Calculator params={food} />
                 </div>
                 <FoodList onClick={foodIncluding} />
             </div>
             <TwoMainBottomButtons data={buttonsData} />
-        {/* </CommonLayout> */}
         </>
     )
 }

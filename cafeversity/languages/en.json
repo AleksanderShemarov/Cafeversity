@@ -2,13 +2,13 @@
     "HeaderComponents": {
         "WeatherWeekday": {
             "weekdays": {
-                "sun": "Sun",
-                "mon": "Mon",
-                "tue": "Tue",
-                "wed": "Wed",
-                "thu": "Thu",
-                "fri": "Fri",
-                "sat": "Sat"
+                "sun": "Su",
+                "mon": "Mo",
+                "tue": "Tu",
+                "wed": "We",
+                "thu": "Th",
+                "fri": "Fr",
+                "sat": "Sa"
             }
         },
         "Dating": {
@@ -49,7 +49,42 @@
         },
         "bottomButtons": {
             "left": "Today's Meals",
-            "right": "World Food"
+            "right": "World of Food"
+        }
+    },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Close Calculator",
+            "open": "Open Calculator",
+            "calcName": "Meals Calculator",
+            "foodName": "Food Name",
+            "portion": "Portions Amount",
+            "cost": "Cost",
+            "cancel": "Cancel",
+            "tipForUse": "Add a meal into the calculator by clicking on its cost.",
+            "notification": "Notification",
+            "costSum": "Common cost"
+        },
+        "bottomButtons": {
+            "left": "Main Page",
+            "right": "World of Food"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Search...",
+            "searchLineTip": "Type your query here!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Best Recipe",
+            "food&peopleSubLink": "Food & People",
+            "foodEventsSublink": "Food Events"
+        },
+        "bottomButtons": {
+            "left": "Today's Meals",
+            "right": "Main Page"
         }
     },
     "MainUserPage": {

@@ -47,6 +47,7 @@ export default function FoodPeople () {
     };
 
 
+
     useEffect(() => {
         fetch("http://localhost:3000/api/articles", {
             method: "GET",
@@ -84,7 +85,7 @@ export default function FoodPeople () {
 
     return (
         <div id={styles.main_part}>
-            <h1>Знакамітыя людзі аб Ежы</h1>
+            {/* <h1>Знакамітыя людзі аб Ежы</h1> */}
             <SearchLine searchingHandler={newQuery} />
             {!isLoaded ? 
             (<div style={{

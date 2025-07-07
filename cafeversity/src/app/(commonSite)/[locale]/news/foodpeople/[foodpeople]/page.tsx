@@ -75,7 +75,7 @@ export default async function ArticlePage({ params }: { params: {foodpeople: num
 
     return (
         <div id={styles.main_part}>
-            <h1>Тут будзе адабраны для прагляду артыкул.</h1>
+            {/* <h1>Тут будзе адабраны для прагляду артыкул.</h1> */}
             <div id={styles.article_body}>
                 <div id={styles.article_enter_image}>
                     <Image
