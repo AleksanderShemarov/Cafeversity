@@ -7,11 +7,14 @@ import { useState, useEffect } from "react";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 export default function Recovery() {
 
     const pathname = usePathname();
+
+    const recovery = useTranslations("AuthPages");
 
     const [email, setEmail] = useState<string>("");
     const [enableRecovery, setEnableRecovery] = useState<boolean>(false);
@@ -53,14 +56,14 @@ export default function Recovery() {
     return (
         <>
             <form action="" method="post" id={styles.loginForm} onSubmit={sendRecoveryKey}>
-                <p id={styles.formTitle}>Аднаўленне Доступу</p>
+                <p id={styles.formTitle}>{recovery("titles.accessUpdate")}</p>
 
                 <TextFormField
-                    label="E-пошта"
+                    label={recovery("fields.emailField.name")}
                     inputType="email"
                     inputName="eMail"
                     styleId={styles.eMail}
-                    placeholder="email@example.com"
+                    placeholder={recovery("fields.emailField.placeholder")}
                     value={email}
                     onChange={(e) => valueChange(e, setEmail)}
                 />
@@ -77,13 +80,25 @@ export default function Recovery() {
                             outline: "2px dashed black",
                             pointerEvents: "none",
                         }}
-                    >Даслаць</button>
-                    <Link href={pathname.slice(0, 3)}><input type="button" value="Да Галоўнай" id={styles.closeButton} /></Link>
+                    >{recovery("buttons.send")}</button>
+                    <Link href={pathname.slice(0, 3)}><input type="button" value={recovery("buttons.mainPage")} id={styles.closeButton} /></Link>
                 </div>
 
                 <div className={styles.help_block}>
-                    <p>Яшчэ не рэгістраваліся? Калі ласка, націскніце <Link href={`${pathname.slice(0, 3)}/login/signup`}>тут</Link>.</p>
-                    <p>Ўжо успомнілі паролю? =&gt; <Link href={`${pathname.slice(0, 3)}/login/signin`}>Пераходзьце сюды</Link>!</p>
+                    <p>
+                        {recovery("links.toSignUp.part1")}
+                        <Link href={`${pathname.slice(0, 3)}/login/signup`}>
+                            {recovery("links.toSignUp.part2")}
+                        </Link>
+                        .
+                    </p>
+                    <p>
+                        {recovery("links.rememberedPassword.part1")} =&gt;&#8201;
+                        <Link href={`${pathname.slice(0, 3)}/login/signin`}>
+                            {recovery("links.rememberedPassword.part2")}
+                        </Link>
+                        !
+                    </p>
                 </div>
             </form>
         </>

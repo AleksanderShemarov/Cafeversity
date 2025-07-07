@@ -87,6 +87,75 @@
             "right": "Hlavní stránka"
         }
     },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Obnovení Hesla",
+            "accessUpdate": "Obnovení Přístupu",
+            "registration": "Registrační Formulář",
+            "enterGate": "Vstupní Brána"
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Heslo",
+                "nameNew": "Nové Heslo",
+                "repeatName": "Zopakujte Heslo",
+                "placeholder": "Kódové Slovo"
+            },
+            "emailField": {
+                "name": "E-pošta",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Havel@gmail.com"
+            },
+            "nameField": {
+                "name": "Jmeno",
+                "placeholder": "Václav"
+            },
+            "surnameField": {
+                "name": "Příjmení",
+                "placeholder": "Havel"
+            },
+            "nicknameField": {
+                "name": "Přezdívka (Nickname)",
+                "placeholder": "Ota Vávra"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Změnit Heslo",
+            "enterGate": "Do Vstupní Brány",
+            "send": "Odeslat",
+            "mainPage": "Na Hlavní",
+            "signUp": "Registrace",
+            "exit": "Výstup",
+            "logIn": "Přihlášení",
+            "back": "Zpět"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "Je nám líto, ale platnost odkazu vypršela. Chcete-li požádat o nový, stiskněte ",
+                "part2": "zde"
+            },
+            "toSignUp": {
+                "part1": "Ještě jste se nezaregistrovali? Klikněte, prosím, ",
+                "part2": "zde"
+            },
+            "rememberedPassword": {
+                "part1": "Už si pamatuješ heslo?",
+                "part2": "Jdi sem"
+            },
+            "alreadySinedUp": {
+                "part1": "Již zaregistrovaný – prosím ",
+                "part2": "tady"
+            },
+            "forgottenPassword": {
+                "part1": "Pokud jste zapomněli heslo, přejděte ",
+                "part2": "sem"
+            }
+        },
+        "others": {
+            "loading": "Načítání...",
+            "networks": "Přihlášení pomocí sítí"
+        }
+    },
     "MainUserPage": {
         "vanishingNavbar": {
             "menu": "Menu",

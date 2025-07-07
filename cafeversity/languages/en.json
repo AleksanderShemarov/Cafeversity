@@ -87,6 +87,75 @@
             "right": "Main Page"
         }
     },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Password Recovery",
+            "accessUpdate": "Access Restoring",
+            "registration": "Registartion Form",
+            "enterGate": "Entrance Gate"
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Password",
+                "nameNew": "New Password",
+                "repeatName": "Repeat Password",
+                "placeholder": "Code Word"
+            },
+            "emailField": {
+                "name": "E-mail",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Churchill@gmail.com"
+            },
+            "nameField": {
+                "name": "Name",
+                "placeholder": "Winston"
+            },
+            "surnameField": {
+                "name": "Surname",
+                "placeholder": "Churchill"
+            },
+            "nicknameField": {
+                "name": "Nickname",
+                "placeholder": "Colonel Warden"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Change Password",
+            "enterGate": "To the Entrance",
+            "send": "Send",
+            "mainPage": "To Main Page",
+            "signUp": "Signing Up",
+            "exit": "Exit",
+            "logIn": "Logging In",
+            "back": "Back"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "We're sorry, but the link has already expired. To request a new one, click ",
+                "part2": "here"
+            },
+            "toSignUp": {
+                "part1": "Not registered yet? Please click ",
+                "part2": "here"
+            },
+            "rememberedPassword": {
+                "part1": "Have you remembered your password yet?",
+                "part2": "Jump here"
+            },
+            "alreadySinedUp": {
+                "part1": "Already registered – please, ",
+                "part2": "here"
+            },
+            "forgottenPassword": {
+                "part1": "If you forgot your password, go to ",
+                "part2": "here"
+            }
+        },
+        "others": {
+            "loading": "Loading...",
+            "networks": "Login using networks"
+        }
+    },
     "MainUserPage": {
         "vanishingNavbar": {
             "menu": "Menu",

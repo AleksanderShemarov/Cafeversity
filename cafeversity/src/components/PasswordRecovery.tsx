@@ -7,11 +7,14 @@ import Link from "next/link";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 export default function PasswordRecovery() {
 
     const pathname = usePathname();
+
+    const passwordRecovery = useTranslations("AuthPages");
 
     const [newPassword, setNewPassword] = useState<string>("");
     const [confirmedNewPassword, setConfirmedNewPassword] = useState<string>("");
@@ -81,26 +84,26 @@ export default function PasswordRecovery() {
     return (
         <>
             <form action="" method="post" id={styles.loginForm} onSubmit={PasswordRecovery}>
-                <p id={styles.formTitle}>Аднаўленне Паролі</p>
+                <p id={styles.formTitle}>{passwordRecovery("titles.passwordRecovery")}</p>
                 {pageLoaded ? (<>
                     {token ? (<>
                         <TextFormField
-                            label="Новая Пароля"
+                            label={passwordRecovery("fields.passwordField.nameNew")}
                             inputType="password"
                             inputName="password1"
                             styleId={styles.password}
-                            placeholder="Кодавае Слова"
+                            placeholder={passwordRecovery("fields.passwordField.placeholder")}
                             value={newPassword}
                             onChange={(e) => valueChange(e, setNewPassword)}
                             style={passwordStyle}
                         />
 
                         <TextFormField
-                            label="Паўтарыце Паролю"
+                            label={passwordRecovery("fields.passwordField.repeatName")}
                             inputType="password"
                             inputName="password2"
                             styleId={styles.password_again}
-                            placeholder="Кодавае Слова"
+                            placeholder={passwordRecovery("fields.passwordField.placeholder")}
                             value={confirmedNewPassword}
                             onChange={(e) => valueChange(e, setConfirmedNewPassword)}
                             style={passwordStyle}
@@ -119,24 +122,26 @@ export default function PasswordRecovery() {
                                         outline: "2px dashed black",
                                         pointerEvents: "none",
                                     }}
-                                >Змяніць Паролю</button>
+                                >{passwordRecovery("buttons.passwordChange")}</button>
                             </div>
                         ) : (
-                            <Link href="/login/signin">
-                                <input type="button" value="Да Ўваходу" id={styles.submitButton} />
+                            <Link href={`${pathname.slice(0, 3)}/login/signin`}>
+                                <input type="button" value={passwordRecovery("buttons.enterGate")} id={styles.submitButton} />
                             </Link>
                         )}
                     </>) : (
                         <div className={styles.error_block}>
                             <p>
-                                Прабачце, калі ласка, але час актыўнасці спасылцы ўжо скончыўся.
-                                Каб запатрабаваць новую, сціскніце <Link href={`${pathname.slice(0, 3)}/login/recovery`}>тут</Link>.
+                                {passwordRecovery("links.newRecovery.part1")}
+                                <Link href={`${pathname.slice(0, 3)}/login/recovery`}>
+                                    {passwordRecovery("links.newRecovery.part2")}
+                                </Link>.
                             </p>
-                            <Link href={pathname.slice(0, 3)}><input type="button" value="Да Галоўнай" id={styles.closeButton} /></Link>
+                            <Link href={pathname.slice(0, 3)}><input type="button" value={passwordRecovery("buttons.mainPage")} id={styles.closeButton} /></Link>
                         </div>
                     )}
                 </>) : <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
-                        <p style={{ fontSize: "22px", fontStyle: "italic" }}>Loading...</p>
+                        <p style={{ fontSize: "22px", fontStyle: "italic" }}>{passwordRecovery("others.loading")}</p>
                     </div>
                 }
             </form>

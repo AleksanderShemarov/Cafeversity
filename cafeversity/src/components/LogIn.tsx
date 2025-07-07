@@ -10,11 +10,14 @@ import TextFormField from "./TextFormField";
 import { usePathname } from "next/navigation";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import { useTranslations } from "next-intl";
 
 
 export default function LogIn() {
 
     const pathname = usePathname();
+
+    const loggingIn = useTranslations("AuthPages");
 
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
@@ -70,24 +73,24 @@ export default function LogIn() {
     return (
         <>
             <form action="" method="post" id={styles.loginForm} onSubmit={UserSigningIn}>
-                <p id={styles.formTitle}>Уваходная Брама</p>
+                <p id={styles.formTitle}>{loggingIn("titles.enterGate")}</p>
 
                 <TextFormField
-                    label="E-пошта"
+                    label={loggingIn("fields.emailField.name")}
                     inputType="email"
                     inputName="eMail"
                     styleId={styles.eMail}
-                    placeholder="email@example.com"
+                    placeholder={loggingIn("fields.emailField.placeholder")}
                     value={email}
                     onChange={(e) => valueChange(e, setEmail)}
                 />
 
                 <TextFormField
-                    label="Пароля"
+                    label={loggingIn("fields.passwordField.name")}
                     inputType="password"
                     inputName="passwordl"
                     styleId={styles.password}
-                    placeholder="Кодавае Слова"
+                    placeholder={loggingIn("fields.passwordField.placeholder")}
                     value={password}
                     onChange={(e) => valueChange(e, setPassword)}
                 />
@@ -113,8 +116,8 @@ export default function LogIn() {
                             outline: "2px dashed black",
                             pointerEvents: "none",
                         }}
-                    >Увайсці</button>
-                    <Link href={pathname.slice(0, 3)}><input type="button" value="Ўзад" id={styles.closeButton} /></Link>
+                    >{loggingIn("buttons.logIn")}</button>
+                    <Link href={pathname.slice(0, 3)}><input type="button" value={loggingIn("buttons.back")} id={styles.closeButton} /></Link>
                 </div>
 
                 <div>
@@ -130,7 +133,7 @@ export default function LogIn() {
                             border-bottom-right-radius 0.5s ease-in-out,
                             border-top-left-radius 0.5s ease-in-out,
                             border-top-right-radius 0.5s ease-in-out`,
-                        }}>Уваход з дапамогай сетак</p>
+                        }}>{loggingIn("others.networks")}</p>
                     <div
                         id={styles.social_buttons}
                         style={{ 
@@ -158,8 +161,20 @@ export default function LogIn() {
                     </div>
                 </div>
                 <div className={styles.help_block}>
-                    <p>Калі забыліся пра паролю, перайдзіце <Link href={`${pathname.slice(0, 3)}/login/recovery`}>сюды</Link>.</p>
-                    <p>Яшчэ не рэгістраваліся? Калі ласка, націскніце <Link href={`${pathname.slice(0, 3)}/login/signup`}>тут</Link>.</p>
+                    <p>
+                        {loggingIn("links.forgottenPassword.part1")}
+                        <Link href={`${pathname.slice(0, 3)}/login/recovery`}>
+                            {loggingIn("links.forgottenPassword.part2")}
+                        </Link>
+                        .
+                    </p>
+                    <p>
+                        {loggingIn("links.toSignUp.part1")}
+                        <Link href={`${pathname.slice(0, 3)}/login/signup`}>
+                            {loggingIn("links.toSignUp.part2")}
+                        </Link>
+                        .
+                    </p>
                 </div>
             </form>
         </>

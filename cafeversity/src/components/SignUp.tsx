@@ -7,11 +7,14 @@ import TextFormField from "./TextFormField";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 export default function SignUp() {
 
     const pathname = usePathname();
+
+    const signingUp = useTranslations("AuthPages");
 
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
@@ -72,62 +75,62 @@ export default function SignUp() {
     return (
         <>
             <form action="" method="post" id={styles.loginForm} onSubmit={UserRegistration}>
-                <p id={styles.formTitle}>Рэгістрацыйная Форма</p>
+                <p id={styles.formTitle}>{signingUp("titles.registration")}</p>
                 
                 <TextFormField
-                    label="Імя"
+                    label={signingUp("fields.nameField.name")}
                     inputName="firstName"
                     styleId={styles.firstname}
-                    placeholder="Тадэўш"
+                    placeholder={signingUp("fields.nameField.placeholder")}
                     value={name}
                     onChange={(e) => valueChange(e, setName)}
                 />
 
                 <TextFormField
-                    label="Прозвішча"
+                    label={signingUp("fields.surnameField.name")}
                     inputName="lastName"
                     styleId={styles.lastname}
-                    placeholder="Касцюшка"
+                    placeholder={signingUp("fields.surnameField.placeholder")}
                     value={surname}
                     onChange={(e) => valueChange(e, setSurname)}
                 />
 
                 <TextFormField
-                    label="Мянушка (Нікнэйм)"
+                    label={signingUp("fields.nicknameField.name")}
                     inputName="nickName"
                     styleId={styles.nickname}
-                    placeholder="Андрэйка"
+                    placeholder={signingUp("fields.nicknameField.placeholder")}
                     value={nickname}
                     onChange={(e) => valueChange(e, setNickname)}
                 />
 
                 <TextFormField
-                    label="E-пошта"
+                    label={signingUp("fields.emailField.name")}
                     inputType="email"
                     inputName="eMail"
                     styleId={styles.eMail}
-                    placeholder="Kastiushka@gmail.com"
+                    placeholder={signingUp("fields.emailField.namedPlaceholder")}
                     value={email}
                     onChange={(e) => valueChange(e, setEmail)}
                 />
 
                 <TextFormField
-                    label="Пароля"
+                    label={signingUp("fields.passwordField.name")}
                     inputType="password"
                     inputName="password"
                     styleId={styles.password}
-                    placeholder="Кодавае Слова"
+                    placeholder={signingUp("fields.passwordField.placeholder")}
                     value={password1}
                     onChange={(e) => valueChange(e, setPassword1)}
                     style={passwordStyle}
                 />
 
                 <TextFormField
-                    label="Паўтарыце Паролю"
+                    label={signingUp("fields.passwordField.repeatName")}
                     inputType="password"
                     inputName="passwordAgain"
                     styleId={styles.password_again}
-                    placeholder="Кодавае Слова"
+                    placeholder={signingUp("fields.passwordField.placeholder")}
                     value={password2}
                     onChange={(e) => valueChange(e, setPassword2)}
                     style={passwordStyle}
@@ -146,12 +149,18 @@ export default function SignUp() {
                             outline: "2px dashed black",
                             pointerEvents: "none",
                         }}
-                    >Рэгістрацыя</button>
-                    <Link href={pathname.slice(0, 3)}><input type="button" value="Выйсці" id={styles.closeButton} /></Link>
+                    >{signingUp("buttons.signUp")}</button>
+                    <Link href={pathname.slice(0, 3)}><input type="button" value={signingUp("buttons.exit")} id={styles.closeButton} /></Link>
                 </div>
 
                 <div className={styles.help_block}>
-                    <p>Ўжо зарэгістраваныя – калі ласка, <Link href={`${pathname.slice(0, 3)}/login/signin`}>сюды</Link>!</p>
+                    <p>
+                        {signingUp("links.alreadySinedUp.part1")}
+                        <Link href={`${pathname.slice(0, 3)}/login/signin`}>
+                            {signingUp("links.alreadySinedUp.part2")}
+                        </Link>
+                        !
+                    </p>
                 </div>
             </form>
         </>

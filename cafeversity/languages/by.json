@@ -87,6 +87,75 @@
             "right": "Галоўная старонка"
         }
     },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Аднаўленне Паролі",
+            "accessUpdate": "Аднаўленне Доступу",
+            "registration": "Рэгістрацыйная Форма",
+            "enterGate": "Уваходная Брама"
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Пароля",
+                "nameNew": "Новая Пароля",
+                "repeatName": "Паўтарыце Паролю",
+                "placeholder": "Кодавае Слова"
+            },
+            "emailField": {
+                "name": "E-пошта",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Kastiushka@gmail.com"
+            },
+            "nameField": {
+                "name": "Імя",
+                "placeholder": "Тадэўш"
+            },
+            "surnameField": {
+                "name": "Прозвішча",
+                "placeholder": "Касцюшка"
+            },
+            "nicknameField": {
+                "name": "Мянушка (Нікнэйм)",
+                "placeholder": "Андрэйка Банавентура"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Змяніць Паролю",
+            "enterGate": "Да Ўваходнай Брамы",
+            "send": "Даслаць",
+            "mainPage": "Да Галоўнай",
+            "signUp": "Рэгістрацыя",
+            "exit": "Выхад",
+            "logIn": "Увайсці",
+            "back": "Ўзад"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "Прабачце, калі ласка, але час актыўнасці спасылцы ўжо скончыўся. Каб запатрабаваць новую, сціскніце ",
+                "part2": "тут"
+            },
+            "toSignUp": {
+                "part1": "Яшчэ не рэгістраваліся? Калі ласка, націскніце ",
+                "part2": "тут"
+            },
+            "rememberedPassword": {
+                "part1": "Ўжо успомнілі паролю?",
+                "part2": "Пераходзьце сюды"
+            },
+            "alreadySinedUp": {
+                "part1": "Ўжо зарэгістраваныя – калі ласка, ",
+                "part2": "сюды"
+            },
+            "forgottenPassword": {
+                "part1": "Калі забыліся пра паролю, перайдзіце ",
+                "part2": "сюды"
+            }
+        },
+        "others": {
+            "loading": "Загрузка...",
+            "networks": "Уваход з дапамогай сетак"
+        }
+    },
     "MainUserPage": {
         "vanishingNavbar": {
             "menu": "Меню",
