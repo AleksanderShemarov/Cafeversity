@@ -92,7 +92,16 @@
             "passwordRecovery": "Аднаўленне Паролі",
             "accessUpdate": "Аднаўленне Доступу",
             "registration": "Рэгістрацыйная Форма",
-            "enterGate": "Уваходная Брама"
+            "enterGate": "Уваходная Брама",
+            "adminGate": "Адмінаўская Брама",
+            "adminReg": "Рэгістрацыя Адмінаў",
+            "codeConfirmation": "Пацвярджэнне Ўваходу"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "На Ваш адрас эляктроннай пошты '",
+                "part2": "' быў дасланы спецыяльны код для пацвярдэння ўваходу як адмін."
+            }
         },
         "fields": {
             "passwordField": {
@@ -117,6 +126,22 @@
             "nicknameField": {
                 "name": "Мянушка (Нікнэйм)",
                 "placeholder": "Андрэйка Банавентура"
+            },
+            "unknownwordField": {
+                "name": "Таемнае Слова",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Нумар Мабільнага Тэлефону",
+                "placeholder": "+375(**)***-**-**"
+            },
+            "emailCodeConfirmField": {
+                "name": "Код Пацвярджэння (****-*****-****)",
+                "placeholder": "****-*****-****"
+            },
+            "otherNames": {
+                "adminRole": "Роля Адміну",
+                "language": "Мова"
             }
         },
         "buttons": {
@@ -127,7 +152,9 @@
             "signUp": "Рэгістрацыя",
             "exit": "Выхад",
             "logIn": "Увайсці",
-            "back": "Ўзад"
+            "back": "Ўзад",
+            "confirm": "Пацвярджэнне",
+            "adminEntrance": "Да Адмінаўскай Брамы"
         },
         "links": {
             "newRecovery": {

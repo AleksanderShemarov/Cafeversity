@@ -53,9 +53,7 @@ export default function PopularDishes() {
                     fontSize: '1.2rem',
                     fontFamily: 'Consolas, monospace',
                 },
-                formatter: function(value: string) {
-                    return value.length > 15 ? value.split(" ") : value;
-                }
+                formatter: (value: string) => value.length > 15 ? value.split(" ") : value
             }
         },
         yaxis: {
@@ -79,9 +77,7 @@ export default function PopularDishes() {
         },
         tooltip: {
             y: {
-                formatter: function (val: number) {
-                    return val + "%";
-                }
+                formatter: (val: number) => val + "%"
             },
             theme: "light",
             // custom: ({ series, seriesIndex, dataPointIndex, w }) => {
@@ -105,23 +101,10 @@ export default function PopularDishes() {
         }
     ];
 
-    return (
-        <>
-            <div>
-                <p style={{
-                    fontSize: "20px",
-                    fontWeight: "bolder",
-                    fontStyle: "italic",
-                    fontPalette: "light",
-                }}>
-                    PopularDishes Component
-                </p>
-            </div>
-            
-            <ApexBars options={apexChartOptions} series={apexChartSeries}
-                height="300"
-                style={{ margin: "0 auto", width: "90%" }}
-            />
-        </>
+    return (        
+        <ApexBars options={apexChartOptions} series={apexChartSeries}
+            height="300"
+            // style={{ margin: "0 auto", width: "90%" }}
+        />
     );
 }

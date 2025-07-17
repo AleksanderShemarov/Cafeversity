@@ -16,17 +16,27 @@
     max-width: 30vw;
     border: 1px solid grey;
     border-radius: 30px;
-    display: block;
+    /* display: block; */
+    display: flex;
+    flex-direction: column;
     padding: 20px 30px;
     margin: auto;
     background-color: rgb(255, 250, 250);
     box-shadow: 0 10px 20px 5px grey;
+    overflow: hidden;
 }
 
 #formTitle {
     font-size: 27px;
     font-weight: bolder;
     text-align: center;
+}
+
+#formText {
+    font-size: 2rem;
+    font-weight: 400;
+    text-align: justify;
+    text-indent: 2rem;
 }
 
 #loginForm label {

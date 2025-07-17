@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from "next/dynamic";
 import LoadingDishesTypes from "./loading";
 import { ApexOptions } from 'apexcharts';
@@ -29,23 +31,10 @@ export default function DishesTypes() {
     const donutSeries: ApexNonAxisChartSeries = [ 67, 42, 18, 56, 9 ];
 
     return (
-        <>
-            <div>
-                <p style={{
-                    fontSize: "20px",
-                    fontWeight: "bolder",
-                    fontStyle: "italic",
-                    fontPalette: "light",
-                }}>
-                    DishesTypes Component
-                </p>
-            </div>
-
-            <ApexDonutChart options={donutOptions} series={donutSeries} style={{
-                maxHeight: "75%",
-                maxWidth: "75%",
-                margin: "0 auto"
-            }} />
-        </>
+        <ApexDonutChart options={donutOptions} series={donutSeries} style={{
+            maxHeight: "75%",
+            maxWidth: "75%",
+            margin: "0 auto"
+        }} />
     );
 }

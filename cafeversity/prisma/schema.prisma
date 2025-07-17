@@ -83,15 +83,17 @@ model AdminUsers {
   Name                String
   Surname             String
   Email               String    @unique
-  EmailConfirmed      Boolean
+  EmailConfirmed      Boolean   @default(false)
   Telephone           String?
   Role                String
-  Photo               String
+  SentCode            String?
+  Photo               String    @default("")
   Language            String
-  Theme               String
+  Theme               String    @default("light")
   SessionId           String?   @unique
   Password            String
   SecretWord          String    @unique
+  SecretWordUsed      Boolean   @default(false)
   ResetToken          String?   @unique
   ResetTokenExpiry    DateTime?
 }

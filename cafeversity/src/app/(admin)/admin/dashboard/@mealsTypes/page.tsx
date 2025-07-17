@@ -1,3 +1,5 @@
+"use client";
+
 import dynamic from 'next/dynamic';
 import LoadingMealsTypes from './loading';
 import { ApexOptions } from 'apexcharts';
@@ -28,24 +30,11 @@ export default function MealsTypes() {
     };
     const pieSeries: ApexNonAxisChartSeries = [ 44, 55, 12, 47, 20 ];
 
-    return (
-        <>
-            <div>
-                <p style={{
-                    fontSize: "20px",
-                    fontWeight: "bolder",
-                    fontStyle: "italic",
-                    fontPalette: "light",
-                }}>
-                    MealsTypes Component
-                </p>
-            </div>
-            
-            <ApexPieChart options={pieOptions} series={pieSeries} style={{
-                maxHeight: "75%",
-                maxWidth: "75%",
-                margin: "0 auto"
-            }} />
-        </>
+    return (            
+        <ApexPieChart options={pieOptions} series={pieSeries} style={{
+            maxHeight: "75%",
+            maxWidth: "75%",
+            margin: "0 auto"
+        }} />
     );
 }

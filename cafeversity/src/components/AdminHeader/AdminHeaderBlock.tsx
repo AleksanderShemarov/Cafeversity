@@ -24,7 +24,7 @@ export default function AdminHeaderBlock() {
     // Routing to the greeting page (or admin's logging out)
     const router = useRouter();
     const greetHandle = () => {
-        router.push("/");
+        router.push("/en");
     }
 
     // Routing to the admin's setups page

@@ -1,5 +1,20 @@
-export default async function DashboardLayout({ popularDishes, dishesTypes, mealsTypes, commonIncome}: Readonly<{
-    children: React.ReactNode, popularDishes: React.ReactNode, dishesTypes: React.ReactNode, mealsTypes: React.ReactNode, commonIncome: React.ReactNode
+import { Suspense } from "react";
+import LoadingCommonIncome from "./@commonIncome/loading";
+import LoadingDishesTypes from "./@dishesTypes/loading";
+import LoadingMealsTypes from "./@mealsTypes/loading";
+import LoadingPopularDishes from "./@popularDishes/loading";
+
+
+export default function DashboardLayout({
+    popularDishes,
+    dishesTypes,
+    mealsTypes,
+    commonIncome
+}: Readonly<{
+    popularDishes: React.ReactNode,
+    dishesTypes: React.ReactNode,
+    mealsTypes: React.ReactNode,
+    commonIncome: React.ReactNode
 }>) {
     return (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr", height: "85vh", gap: "3rem" }}>
@@ -11,7 +26,9 @@ export default async function DashboardLayout({ popularDishes, dishesTypes, meal
                 backgroundColor: "whitesmoke",
                 boxShadow: "0.2rem 0.3rem 0.7rem 0.25rem #5F5F5F"
             }}>
-                {popularDishes}
+                <Suspense fallback={<LoadingPopularDishes />}>
+                    {popularDishes}
+                </Suspense>
             </div>
 
             <div style={{
@@ -22,7 +39,9 @@ export default async function DashboardLayout({ popularDishes, dishesTypes, meal
                 backgroundColor: "whitesmoke",
                 boxShadow: "0.2rem 0.3rem 0.7rem 0.25rem #5F5F5F"
             }}>
-                {dishesTypes}
+                <Suspense fallback={<LoadingDishesTypes />}>
+                    {dishesTypes}
+                </Suspense>
             </div>
 
             <div style={{
@@ -33,7 +52,9 @@ export default async function DashboardLayout({ popularDishes, dishesTypes, meal
                 backgroundColor: "whitesmoke",
                 boxShadow: "0.2rem 0.3rem 0.7rem 0.25rem #5F5F5F"
             }}>
-                {mealsTypes}
+                <Suspense fallback={<LoadingMealsTypes />}>
+                    {mealsTypes}
+                </Suspense>
             </div>
 
             <div style={{
@@ -44,7 +65,9 @@ export default async function DashboardLayout({ popularDishes, dishesTypes, meal
                 backgroundColor: "whitesmoke",
                 boxShadow: "0.2rem 0.3rem 0.7rem 0.25rem #5F5F5F"
             }}>
-                {commonIncome}
+                <Suspense fallback={<LoadingCommonIncome />}>
+                    {commonIncome}
+                </Suspense>
             </div>
         </div>
     );

@@ -92,7 +92,16 @@
             "passwordRecovery": "Password Recovery",
             "accessUpdate": "Access Restoring",
             "registration": "Registartion Form",
-            "enterGate": "Entrance Gate"
+            "enterGate": "Entrance Gate",
+            "adminGate": "Admin Gate",
+            "adminReg": "Admin Registartion",
+            "codeConfirmation": "Entrance Confirmation"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "Check your email address '",
+                "part2": "'. The special code has been sent for admin's confirmation."
+            }
         },
         "fields": {
             "passwordField": {
@@ -117,6 +126,22 @@
             "nicknameField": {
                 "name": "Nickname",
                 "placeholder": "Colonel Warden"
+            },
+            "unknownwordField": {
+                "name": "Secret Word",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Mobile Phone Number",
+                "placeholder": "+44(**)***-**-**"
+            },
+            "emailCodeConfirmField": {
+                "name": "Confirmation Code (****-*****-****)",
+                "placeholder": "****-***-****"
+            },
+            "otherNames": {
+                "adminRole": "Admin's Role",
+                "language": "Language"
             }
         },
         "buttons": {
@@ -127,7 +152,9 @@
             "signUp": "Signing Up",
             "exit": "Exit",
             "logIn": "Logging In",
-            "back": "Back"
+            "back": "Back",
+            "confirm": "Confirm",
+            "adminEntrance": "To the Admin Gate"
         },
         "links": {
             "newRecovery": {

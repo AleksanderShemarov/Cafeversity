@@ -92,7 +92,16 @@
             "passwordRecovery": "Obnovení Hesla",
             "accessUpdate": "Obnovení Přístupu",
             "registration": "Registrační Formulář",
-            "enterGate": "Vstupní Brána"
+            "enterGate": "Vstupní Brána",
+            "adminGate": "Adminová Brána",
+            "adminReg": "Registrace Adminů",
+            "codeConfirmation": "Potvrzení Vstupu"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "Na Vaši adresu elaktronové pošty '",
+                "part2": "' byl odeslán speciální kod, aby se přihlásily jako admin."
+            }
         },
         "fields": {
             "passwordField": {
@@ -117,6 +126,22 @@
             "nicknameField": {
                 "name": "Přezdívka (Nickname)",
                 "placeholder": "Ota Vávra"
+            },
+            "unknownwordField": {
+                "name": "Tajné Slovo",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Číslo Mobilního Telefonu",
+                "placeholder": "+420(*)***-***-***"
+            },
+            "emailCodeConfirmField": {
+                "name": "Kod Potvrzení (****-*****-****)",
+                "placeholder": "****-***-****"
+            },
+            "otherNames": {
+                "adminRole": "Role Adminu",
+                "language": "Jazyk"
             }
         },
         "buttons": {
@@ -127,7 +152,9 @@
             "signUp": "Registrace",
             "exit": "Výstup",
             "logIn": "Přihlášení",
-            "back": "Zpět"
+            "back": "Zpět",
+            "confirm": "Potvrzení",
+            "adminEntrance": "Do Adminové Brány"
         },
         "links": {
             "newRecovery": {

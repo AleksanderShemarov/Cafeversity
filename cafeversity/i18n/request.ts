@@ -33,6 +33,15 @@ export default getRequestConfig(async ({ requestLocale: routeLocale }) => {
         };
     }
 
+    // Temporary locale's stub for (admin) route group
+    if (foundLocale === undefined) {
+        return {
+            locale: "by",
+            messages: (await import(`../languages/by.json`)).default
+        };
+    }
+    //
+
     return {
         locale: foundLocale,
         messages: (await import(`../languages/${foundLocale}.json`)).default

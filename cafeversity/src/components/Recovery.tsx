@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/(auth)/[locale]/login/LoginPage.module.css";
+import styles from "@/app/(auth)/[locale]/LoginPage.module.css";
 import TextFormField from "./TextFormField";
 import Link from "next/link";
 import { useState, useEffect } from "react";
