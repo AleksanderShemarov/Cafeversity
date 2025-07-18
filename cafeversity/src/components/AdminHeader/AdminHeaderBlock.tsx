@@ -8,11 +8,13 @@ import AdminHeaderOptions from "./AdminHeaderOptions";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { IconDoorExit } from "@tabler/icons-react";
+import { AdminHeaderTypes } from "@/app/(admin)/admin/[adminInside]/layout";
+import { useTranslations } from "next-intl";
 
 
-export default function AdminHeaderBlock() {
+export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
 
-    const [dark, setDark] = useState<boolean>(false);
+    const [dark, setDark] = useState<string>(data.Theme);
     const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
     const [menuLineFocus, setMenuLineFocus] = useState<number|null>(null);
@@ -27,15 +29,17 @@ export default function AdminHeaderBlock() {
         router.push("/en");
     }
 
+    // Checking a route path for showing admin's icon with hovering menu or an exit system button
+    const routePath = usePathname();
+
     // Routing to the admin's setups page
     const setupsHandle = () => {
         // clearHoverTimeout();
         // setIsMenuVisible(false);
-        router.push("/admin/setups");
+        const setUps = routePath.split("/");
+        setUps[3] = "setups"
+        router.push(setUps.join("/"));
     }
-
-    // Checking a route path for showing admin's icon with hovering menu or an exit system button
-    const routePath = usePathname();
 
     // Clearing the timeout timer for before showing and hiding the hidden menu
     const clearHoverTimeout = () => {
@@ -76,6 +80,8 @@ export default function AdminHeaderBlock() {
         return () => document.removeEventListener('mousedown', handleClickOutside);
     }, [isOptionsOpen]);
 
+    const adminHeader = useTranslations("AdminDashboard");
+
     return (
         <>
             <div style={{
@@ -95,29 +101,34 @@ export default function AdminHeaderBlock() {
                             backgroundColor: "whitesmoke"
                         }} />
                     </div>
-                    <p style={{ fontSize: "3rem", margin: 0 }}>Admin&#39;s Menu</p>
+                    <p style={{ fontSize: "3rem", margin: 0 }}>{adminHeader("AdminHeaderBlock.title")}</p>
                 </div>
                 <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center", gap: "4.5rem" }}>
-                    <AccessBtn buttonName={dark ? "Light" : "Dark"}
+                    <AccessBtn
+                        buttonName={
+                            dark !== 'light'
+                            ? adminHeader("AdminHeaderBlock.themes.light")
+                            : adminHeader("AdminHeaderBlock.themes.dark")
+                        }
                         onClick={() => {
-                            if (!dark) {
-                                setDark(!dark);
+                            if (dark === 'light') {
+                                setDark('dark');
                                 alert("DARK THEME");
                             } else {
-                                setDark(!dark);
+                                setDark('light');
                                 alert("LIGHT THEME");
                             }
                         }}
                         additionalStyle={{
                             paddingLeft: "6rem", paddingRight: "6rem",
-                            backgroundColor: dark ? "whitesmoke" : "darkgray",
-                            color: !dark ? "whitesmoke" : "darkgray",
+                            backgroundColor: dark !== 'light' ? "whitesmoke" : "darkgray",
+                            color: dark !== 'dark' ? "whitesmoke" : "darkgray",
                             boxShadow: "gray 0 0 3px 2px",
                             cursor: "pointer"
                         }}
                     />
 
-                    {routePath === "/admin/setups" ?
+                    {routePath.split("/")[3] === "setups" ?
                         <button onClick={greetHandle}
                             style={{
                                 border: "1px solid red", backgroundColor: "transparent",
@@ -133,7 +144,7 @@ export default function AdminHeaderBlock() {
                         <div onMouseEnter={showMenu} onMouseLeave={hideMenu}
                             style={{ width: "7.5rem", position: "relative" }}
                         >
-                            <ImageContainer img_path={null} style={{
+                            <ImageContainer img_path={data.Photo === "" ? null : data.Photo} style={{
                                 height: "90%", width: "90%",
                                 marginTop: 0, marginBottom: 0,
                                 boxShadow: "black 0 0 2px 3px",
@@ -166,7 +177,7 @@ export default function AdminHeaderBlock() {
                                             style={{ borderRadius: "0.5rem", background: "whitesmoke" }}
                                         >
                                         </Image>
-                                        <p style={{ fontSize: "1.5rem" }}>emailAddress@example.com</p>
+                                        <p style={{ fontSize: "1.5rem" }}>{data.Email}</p>
                                     </div>
                                     <div id="menuLine1"
                                         style={{
@@ -184,7 +195,7 @@ export default function AdminHeaderBlock() {
                                             style={{ borderRadius: "0.5rem", background: menuLineFocus === 1 ? "lightgray" : "whitesmoke" }}
                                         >
                                         </Image>
-                                        <p style={{ fontSize: "1.5rem" }}>Settings</p>
+                                        <p style={{ fontSize: "1.5rem" }}>{adminHeader("AdminHeaderBlock.settings")}</p>
                                     </div>
                                     <div id="menuLine2"
                                         style={{
@@ -202,7 +213,7 @@ export default function AdminHeaderBlock() {
                                             style={{ borderRadius: "0.5rem", background: menuLineFocus === 2 ? "lightgray" : "whitesmoke" }}
                                         >
                                         </Image>
-                                        <p style={{ fontSize: "1.5rem" }}>Sign Out</p>
+                                        <p style={{ fontSize: "1.5rem" }}>{adminHeader("AdminHeaderBlock.exit")}</p>
                                     </div>
                                 </motion.div>
                             }

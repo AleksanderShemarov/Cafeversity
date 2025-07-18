@@ -26,7 +26,7 @@ const POST = async (request: NextRequest) => {
             return NextResponse.json(
                 {
                     message: "This Admin User isn't registrated!",
-                    status: 409,
+                    status: "Error",
                 },
                 { status: 409 }
             );
@@ -57,7 +57,7 @@ const POST = async (request: NextRequest) => {
             return NextResponse.json(
                 {
                     message: "The password is input incorrectly!",
-                    status: 409,
+                    status: "Error",
                 },
                 { status: 409 }
             );
@@ -93,8 +93,8 @@ const POST = async (request: NextRequest) => {
             const mailOptions = {
                 from: process.env.EMAIL_USERNAME as string,
                 to: email,
-                subject: "Password Recovery",
-                html: `<h1>Password Recovery for Cafeversity Account</h1>
+                subject: "Cafeversity Admins",
+                html: `<h1>Generated Code for Cafeversity Admin's Account</h1>
                 <h2>Welcome, ${adminUser.Name} ${adminUser.Surname}</h2>
                 <p>You watch this letter because you have requested it for getting a generated code for your Cafeversity's Admin Account.</p>
                 <br />
@@ -110,7 +110,8 @@ const POST = async (request: NextRequest) => {
                 {
                     message: "Check your email address. The entrance code has been sent.",
                     redirect: "/admiN_Login/codeConfirm",
-                    adminId: adminUser.ID
+                    adminId: adminUser.ID,
+                    status: "Success"
                 },
                 { status: 201 }
             );
@@ -119,7 +120,8 @@ const POST = async (request: NextRequest) => {
             const response = NextResponse.json(
                 {
                     message: "There is no Internet connection. Please, wait a moment!",
-                    redirect: "/admiN_Login/codeConfirm"
+                    redirect: "/admiN_Login/codeConfirm",
+                    status: "Success"
                 },
                 { status: 201 }
             );
@@ -138,13 +140,11 @@ const POST = async (request: NextRequest) => {
             return NextResponse.json(
                 {
                     message: "Incorrect input code!",
-                    status: 409,
+                    status: "Error",
                 },
                 { status: 409 }
             );
         }
-
-        sessionStorage.removeItem("admin-id");
 
         const sessionId = createSessionsIdAndCookies();
         await prisma.adminUsers.update({
@@ -153,12 +153,14 @@ const POST = async (request: NextRequest) => {
             },
             data: {
                 SessionId: sessionId,
+                SentCode: null
             }
         });
 
         const response = NextResponse.json({
                 message: "Entrance is accepted!",
-                redirect: `/admin/${adminUser?.Name}_${adminUser?.Surname}`,
+                redirect: `/admin/${adminUser?.Name}_${adminUser?.Surname}/dashboard`,
+                status: "Success"
             },
             { status: 201 }
         );
@@ -167,7 +169,7 @@ const POST = async (request: NextRequest) => {
             value: sessionId,
             httpOnly: true,
             secure: process.env.NODE_ENV === 'production',
-            maxAge: 3600,
+            maxAge: 3600 * 6,// 6 hours
             path: '/',
             sameSite: 'strict'
         });

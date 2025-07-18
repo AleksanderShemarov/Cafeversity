@@ -38,7 +38,7 @@ export default function EmailCodeConfirmation() {
         event.preventDefault();
 
         const formFields = {
-            adminId: sessionStorage.getItem("admin-id"),
+            adminId: Number(sessionStorage.getItem("admin-id")),
             emailCode: code
         }
 
@@ -52,53 +52,55 @@ export default function EmailCodeConfirmation() {
             return res.json();
         })
         .then((data) => {
-            if (data.status === "Success") toast.success(data.message, { position: "top-center" });
-            if (data.status === "Error") toast.error(data.message, { position: "top-center" });
+            if (data.status === "Success") {
+                toast.success(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
+                sessionStorage.removeItem("admin-id");
+                window.location.href = data?.redirect;
+            }
+            if (data.status === "Error") toast.error(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
         })
         .catch((error) => console.error(error));
     }
 
     return (
-        <>
-            <form action="" method="post" id={styles.loginForm} onSubmit={CodeSentOnServer}>
-                <p id={styles.formTitle}>{codeConfirm("titles.codeConfirmation")}</p>
-                <p id={styles.formText}>
-                    {`${
-                        codeConfirm("texts.codeConfirmation.part1")
-                        }email@example.com${
-                        codeConfirm("texts.codeConfirmation.part2")
-                    }`}
-                </p>
-                <TextFormField
-                    label={codeConfirm("fields.emailCodeConfirmField.name")}
-                    inputType="password"
-                    inputName="passwordAgain"
-                    styleId={styles.password}
-                    placeholder={codeConfirm("fields.emailCodeConfirmField.placeholder")}
-                    value={code}
-                    onChange={(e) => valueChange(e, setCode)}
-                />
+        <form action="" method="post" id={styles.loginForm} onSubmit={CodeSentOnServer}>
+            <p id={styles.formTitle}>{codeConfirm("titles.codeConfirmation")}</p>
+            <p id={styles.formText}>
+                {`${
+                    codeConfirm("texts.codeConfirmation.part1")
+                    }email@example.com${
+                    codeConfirm("texts.codeConfirmation.part2")
+                }`}
+            </p>
+            <TextFormField
+                label={codeConfirm("fields.emailCodeConfirmField.name")}
+                inputType="password"
+                inputName="passwordAgain"
+                styleId={styles.password}
+                placeholder={codeConfirm("fields.emailCodeConfirmField.placeholder")}
+                value={code}
+                onChange={(e) => valueChange(e, setCode)}
+            />
 
-                <div className={styles.formButtons}>
-                    <button
-                        id={styles.submitButton}
-                        type="submit"
-                        disabled={!enableReg}
-                        style={enableReg ? {} : { 
-                            color: "white",
-                            fontStyle: "italic",
-                            backgroundColor: "lightgray",
-                            outline: "2px dashed black",
-                            pointerEvents: "none",
-                        }}
-                    >
-                        {codeConfirm("buttons.confirm")}
-                    </button>
-                    <Link href={`${pathname.slice(0, 3)}/admiN_Login`}>
-                        <input type="button" value={codeConfirm("buttons.adminEntrance")} id={styles.closeButton} />
-                    </Link>
-                </div>
-            </form>
-        </>
+            <div className={styles.formButtons}>
+                <button
+                    id={styles.submitButton}
+                    type="submit"
+                    disabled={!enableReg}
+                    style={enableReg ? {} : { 
+                        color: "white",
+                        fontStyle: "italic",
+                        backgroundColor: "lightgray",
+                        outline: "2px dashed black",
+                        pointerEvents: "none",
+                    }}
+                >
+                    {codeConfirm("buttons.confirm")}
+                </button>
+                <Link href={`${pathname.slice(0, 3)}/admiN_Login`}>
+                    <input type="button" value={codeConfirm("buttons.adminEntrance")} id={styles.closeButton} />
+                </Link>
+            </div>
+        </form>
     );
 }

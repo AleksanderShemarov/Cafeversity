@@ -264,5 +264,16 @@
     },
     "ExitPage": {
         "name": "Exit in progress. Await, please..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Admin's Menu",
+            "themes": {
+                "light": "Light",
+                "dark": "Dark"
+            },
+            "settings": "Settings",
+            "exit": "Sign Out"
+        }
     }
 }

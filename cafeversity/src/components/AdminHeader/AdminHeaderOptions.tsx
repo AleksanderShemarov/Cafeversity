@@ -14,99 +14,100 @@ interface AdminHeaderOptionsProps {
 
 const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
     function AdminHeaderOptions({ isOptionsOpen, setIsOptionsOpen }, ref) {
+        
+        const page = usePathname();
 
-    const [isHoveredItem, setIsHoveredItem] = useState<number|null>(null);
+        const [isHoveredItem, setIsHoveredItem] = useState<number|null>(null);
 
-    const pageNames: { id: number, text: string, icon: string, url: string }[] = [
-        { id: 1, text: "Admin Dashboard", icon: "/dashboard_icon.jpg", url: "/admin/dashboard" },
-        { id: 2, text: "Users Panel", icon: "/users_icon.png", url: "/admin/panel" },
-        { id: 3, text: "Another Panel #2", icon: "/menu_list_icon.webp", url: "#" },
-        { id: 4, text: "Another Panel #3", icon: "/menu_list_icon.webp", url: "#" },
-        { id: 5, text: "Another Panel #4", icon: "/menu_list_icon.webp", url: "#" },
-    ];
+        const pageNames: { id: number, text: string, icon: string, url: string }[] = [
+            { id: 1, text: "Admin Dashboard", icon: "/dashboard_icon.jpg", url: `${page.slice(0, page.lastIndexOf("/"))}/dashboard` },
+            { id: 2, text: "Users Panel", icon: "/users_icon.png", url: `${page.slice(0, page.lastIndexOf("/"))}/panel` },
+            { id: 3, text: "Another Panel #2", icon: "/menu_list_icon.webp", url: "#" },
+            { id: 4, text: "Another Panel #3", icon: "/menu_list_icon.webp", url: "#" },
+            { id: 5, text: "Another Panel #4", icon: "/menu_list_icon.webp", url: "#" },
+        ];
 
-    const page = usePathname();
+        return (
+            <AnimatePresence>
+                { isOptionsOpen &&
+                    <motion.div ref={ref}
+                        initial={{ opacity: 0, height: 0 }}
+                        animate={{ opacity: 1, height: "auto" }}
+                        exit={{ opacity: 0, height: 0 }}
+                        transition={{ duration: 0.5 }}
 
-    return (
-        <AnimatePresence>
-            { isOptionsOpen &&
-                <motion.div ref={ref}
-                    initial={{ opacity: 0, height: 0 }}
-                    animate={{ opacity: 1, height: "auto" }}
-                    exit={{ opacity: 0, height: 0 }}
-                    transition={{ duration: 0.5 }}
-
-                    style={{
-                        maxWidth: "100%", backgroundColor: "rgba(184, 135, 11, 0.215)", padding: "2rem 5rem",
-                        position: "absolute", left: 0, right: 0,
-                        marginTop: "0.5rem", zIndex: 1, backdropFilter: "blur(1rem)",
-                        overflow: "hidden"
-                    }}
-                >
-                    <div style={{
-                        display: "flex", flexDirection: "row", flexWrap: "wrap",
-                        justifyContent: "space-between", alignItems: "center",
-                        width: "100%"
-                    }}>
-                        {pageNames.map((pageName, index) => 
-                        <Link key={index} href={pageName.url === page ? "#" : pageName.url}>
-                            <div onMouseEnter={() => setIsHoveredItem(pageName.id)} onMouseLeave={() => setIsHoveredItem(null)}
-                                onClick={() => pageName.url === page ? {} : setIsOptionsOpen(false)}
-                                style={{
-                                    // border: "2px solid",
-                                    display: "flex", flexDirection: "column", alignItems: "center",
-                                    padding: "1.5rem 5rem", position: "relative",
-                                    height: "5rem", marginLeft: "1rem", marginRight: "1rem",
-                                    cursor: pageName.url === page ? "default" : "pointer",
-                                }}
-                            >
-                                <motion.div
-                                    initial={false}
-                                    animate={{ top: isHoveredItem === pageName.id ? 0 : "20%"}}
-                                    transition={{ type: "spring", stiffness: 300 }}
-
+                        style={{
+                            maxWidth: "100%", backgroundColor: "rgba(184, 135, 11, 0.215)", padding: "2rem 5rem",
+                            position: "absolute", left: 0, right: 0,
+                            marginTop: "0.5rem", zIndex: 1, backdropFilter: "blur(1rem)",
+                            overflow: "hidden"
+                        }}
+                    >
+                        <div style={{
+                            display: "flex", flexDirection: "row", flexWrap: "wrap",
+                            justifyContent: "space-between", alignItems: "center",
+                            width: "100%"
+                        }}>
+                            {pageNames.map((pageName, index) => 
+                            <Link key={index} href={pageName.url === page ? "#" : pageName.url}>
+                                <div onMouseEnter={() => setIsHoveredItem(pageName.id)} onMouseLeave={() => setIsHoveredItem(null)}
+                                    onClick={() => pageName.url === page ? {} : setIsOptionsOpen(false)}
                                     style={{
-                                        width: "5rem",
-                                        position: "absolute"
+                                        // border: "2px solid",
+                                        display: "flex", flexDirection: "column", alignItems: "center",
+                                        padding: "1.5rem 5rem", position: "relative",
+                                        height: "5rem", marginLeft: "1rem", marginRight: "1rem",
+                                        cursor: pageName.url === page ? "default" : "pointer",
                                     }}
                                 >
-                                    <ImageContainer img_path={pageName.icon}
+                                    <motion.div
+                                        initial={false}
+                                        animate={{ top: isHoveredItem === pageName.id ? 0 : "20%"}}
+                                        transition={{ type: "spring", stiffness: 300 }}
+
                                         style={{
-                                            height: "90%", width: "90%",
-                                            marginTop: 0, marginBottom: 0,
-                                            margin: "0 auto",
-                                            boxShadow: "wheat 0 0 2px 3px",
-                                            backgroundColor: "whitesmoke"
+                                            width: "5rem",
+                                            position: "absolute"
                                         }}
-                                    />
-                                </motion.div>
-                                <motion.p
-                                    initial={false}
-                                    animate={{
-                                        opacity: isHoveredItem === pageName.id ? 1 : 0,
-                                        bottom: isHoveredItem === pageName.id ? 0 : "50%",
-                                    }}
+                                    >
+                                        <ImageContainer img_path={pageName.icon}
+                                            style={{
+                                                height: "90%", width: "90%",
+                                                marginTop: 0, marginBottom: 0,
+                                                margin: "0 auto",
+                                                boxShadow: "wheat 0 0 2px 3px",
+                                                backgroundColor: "whitesmoke"
+                                            }}
+                                        />
+                                    </motion.div>
+                                    <motion.p
+                                        initial={false}
+                                        animate={{
+                                            opacity: isHoveredItem === pageName.id ? 1 : 0,
+                                            bottom: isHoveredItem === pageName.id ? 0 : "50%",
+                                        }}
 
-                                    style={{
-                                        margin: "1rem 0 0 0",
-                                        textAlign: "center",
-                                        fontSize: "2rem",
-                                        fontWeight: "400",
-                                        position: "absolute",
-                                        textWrap: "nowrap",
-                                        color: "black",
-                                    }}
-                                >
-                                    {pageName.text}
-                                </motion.p>
-                            </div>
-                        </Link>
-                        )}
-                    </div>
-                </motion.div>
-            }
-        </AnimatePresence> 
-    );
-});
+                                        style={{
+                                            margin: "1rem 0 0 0",
+                                            textAlign: "center",
+                                            fontSize: "2rem",
+                                            fontWeight: "400",
+                                            position: "absolute",
+                                            textWrap: "nowrap",
+                                            color: "black",
+                                        }}
+                                    >
+                                        {pageName.text}
+                                    </motion.p>
+                                </div>
+                            </Link>
+                            )}
+                        </div>
+                    </motion.div>
+                }
+            </AnimatePresence> 
+        );
+    }
+);
 
 export default AdminHeaderOptions;

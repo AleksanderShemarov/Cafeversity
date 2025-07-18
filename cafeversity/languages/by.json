@@ -264,5 +264,16 @@
     },
     "ExitPage": {
         "name": "Адбываецца Выхад. Чакайце, калі ласка..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Меню Адміна",
+            "themes": {
+                "light": "Светлая",
+                "dark": "Цёмная"
+            },
+            "settings": "Налады",
+            "exit": "Выхад"
+        }
     }
 }

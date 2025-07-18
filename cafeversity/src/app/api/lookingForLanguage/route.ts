@@ -15,12 +15,22 @@ const POST = async (request: NextRequest) => {
             }
         });
 
-        if (!user) {
-            return undefined;
-        }
+        const adminUser = await tx.adminUsers.findUnique({
+            where: {
+                SessionId: value
+            }
+        });
 
-        const userLanguage = user.customSets?.language;
-        return userLanguage;
+        if (!user) {
+            if (!adminUser)
+                return undefined;
+            else {
+                return adminUser.Language;
+            }
+        } else {
+            const userLanguage = user.customSets?.language;
+            return userLanguage;
+        }
     });
 
     return NextResponse.json(

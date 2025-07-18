@@ -264,5 +264,16 @@
     },
     "ExitPage": {
         "name": "Probíhá výstup. Čekejte, prosím..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Menu Admina",
+            "themes": {
+                "light": "Světlá",
+                "dark": "Temná"
+            },
+            "settings": "Nastavení",
+            "exit": "Výstup"
+        }
     }
 }

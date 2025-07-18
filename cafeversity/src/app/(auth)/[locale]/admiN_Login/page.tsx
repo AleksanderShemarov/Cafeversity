@@ -50,11 +50,11 @@ export default function AdminLogin() {
         })
         .then((data) => {
             if (data.status === "Success") {
-                toast.success(data.message, { position: "top-center" });
+                toast.success(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
                 sessionStorage.setItem("admin-id", JSON.stringify(data?.adminId));
-                window.location.href = data?.redirect;
+                window.location.href = `/${pathname.split("/")[1]}/${data?.redirect}`;
             }
-            if (data.status === "Error") toast.error(data.message, { position: "top-center" });
+            if (data.status === "Error") toast.error(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
         })
         .catch((error) => console.error(error));
     }

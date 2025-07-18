@@ -9,12 +9,16 @@ export default getRequestConfig(async ({ requestLocale: routeLocale }) => {
 
     const session = cookies().get("sessionId");
     // console.log("Available locale files:", await fs.readdir(path.join(process.cwd(), 'languages')));
+    const adminSession = cookies().get("adminSessionId");
 
-    if (session) {
+    if (session || adminSession) {
+        console.dir("session -->", session);
+        console.dir("adminSession -->", adminSession);
+        
         const userLanguage = await fetch("http://localhost:3000/api/lookingForLanguage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(session)
+            body: JSON.stringify(session ?? adminSession)
         })
         .then(res => res.json());
         // const locale = session ? (userLanguage?.language || 'en') : routeLocale;
@@ -33,7 +37,7 @@ export default getRequestConfig(async ({ requestLocale: routeLocale }) => {
         };
     }
 
-    // Temporary locale's stub for (admin) route group
+    // Temporary locale's stub for (name) route groups without [locale]
     if (foundLocale === undefined) {
         return {
             locale: "by",
