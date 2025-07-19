@@ -10,6 +10,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { IconDoorExit } from "@tabler/icons-react";
 import { AdminHeaderTypes } from "@/app/(admin)/admin/[adminInside]/layout";
 import { useTranslations } from "next-intl";
+import { toast } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 
 
 export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
@@ -25,8 +27,14 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
 
     // Routing to the greeting page (or admin's logging out)
     const router = useRouter();
-    const greetHandle = () => {
-        router.push("/en");
+    const greetHandle = async () => {
+        const response = await fetch("http://localhost:3000/api/adminExit", {
+            method: "GET",
+            credentials: "include"
+        });
+        const responseData = await response.json();
+        toast.success(responseData.message, { position: "top-center", style: { fontSize: "1.8rem" } });
+        router.push(`/${data.Language}`);
     }
 
     // Checking a route path for showing admin's icon with hovering menu or an exit system button

@@ -12,8 +12,8 @@ export default getRequestConfig(async ({ requestLocale: routeLocale }) => {
     const adminSession = cookies().get("adminSessionId");
 
     if (session || adminSession) {
-        console.dir("session -->", session);
-        console.dir("adminSession -->", adminSession);
+        // console.log("session -->", session);
+        // console.log("adminSession -->", adminSession);
         
         const userLanguage = await fetch("http://localhost:3000/api/lookingForLanguage", {
             method: "POST",

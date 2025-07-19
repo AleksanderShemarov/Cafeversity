@@ -23,6 +23,7 @@ const GET = async (request: NextRequest) => {
             select: {
                 Email: true,
                 Photo: true,
+                Language: true,
                 Theme: true
             }
         });

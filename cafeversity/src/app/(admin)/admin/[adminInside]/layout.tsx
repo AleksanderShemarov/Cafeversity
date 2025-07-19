@@ -7,6 +7,7 @@ import { use } from "react";
 export type AdminHeaderTypes = {
     Email: string,
     Photo: string,
+    Language: string,
     Theme: string
 }
 
