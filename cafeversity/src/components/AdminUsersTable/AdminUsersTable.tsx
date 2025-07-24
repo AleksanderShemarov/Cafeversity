@@ -16,7 +16,7 @@ const AdminRoles = dynamic(
 export function AdminUsersTable({ data }: { data: any[] }) {
 
     const columns: ColumnConfig<any>[] = [
-        { name: 'ID', selector: (a) => a.ID, sortable: true, omit: false },
+        { name: 'ID', selector: (a) => a.ID, sortable: true, omit: true },
         { name: 'Name', selector: (a) => a.Name, sortable: true, omit: false },
         { name: 'Surname', selector: (a) => a.Surname, sortable: true, omit: false },
         { name: 'Email', selector: (a) => a.Email, sortable: false, omit: false, type: "email" },
@@ -25,19 +25,21 @@ export function AdminUsersTable({ data }: { data: any[] }) {
         { name: 'Role', selector: (a) => a.Role, sortable: false, omit: false },
         { name: 'Photo', selector: (a) => a.Photo, sortable: false, omit: false },
         { name: 'Language', selector: (a) => a.Language, sortable: false, omit: false },
-        { name: 'SessionId', selector: (a) => a.SessionId, sortable: false, omit: false },
-        { name: 'Password', selector: (a) => a.Password, sortable: false, omit: false },
-        { name: 'SecretWord', selector: (a) => a.SecretWord, sortable: true, omit: false },
-        { name: 'ResetToken', selector: (a) => a.resetToken, sortable: false, omit: false },
-        { name: 'ResetTokenExpiry', selector: (a) => a.resetTokenExpiry, sortable: false, omit: false },        
+        { name: 'SessionId', selector: (a) => a.SessionId, sortable: false, omit: true },
+        { name: 'Password', selector: (a) => a.Password, sortable: false, omit: true },
+        { name: 'SecretWord', selector: (a) => a.SecretWord, sortable: true, omit: true },
+        { name: 'ResetToken', selector: (a) => a.resetToken, sortable: false, omit: true },
+        { name: 'ResetTokenExpiry', selector: (a) => a.resetTokenExpiry, sortable: false, omit: true },        
     ];
 
     return (
-        <AdminRoles
-            initialData={data}
-            initialColumns={columns}
-            loading={false}
-            title="Admins' Role (Table) Page"
-        />
+        <div style={{ width: "80vw" }}>
+            <AdminRoles
+                initialData={data}
+                initialColumns={columns}
+                loading={false}
+                title="Admins' Role (Table) Page"
+            />
+        </div>
     )
 }

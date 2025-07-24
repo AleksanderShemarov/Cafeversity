@@ -17,18 +17,18 @@ const langs: [string, string][] = [
 ] as const;
 
 
-const AdminDataComponent = ({ children }: { children: React.ReactNode }) => {
+const AdminDataComponent = ({ photo, language, onSave, children }: { photo: string, language: string, onSave: (newValue: string) => void, children: React.ReactNode }) => {
 
     const languageChange = (language: string) => {
         const lang = langs.filter(langRow => langRow[1] === language).flat();
-        alert(`The Admin's Section will be translated in "${lang[0]}" language.`);
+        onSave(lang[1]);
     }
 
     return (
         <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ width: "18rem" }}>
-                    <ImageContainer img_path={null} style={{
+                    <ImageContainer img_path={photo === "" ? null : photo} style={{
                         height: "90%", width: "90%",
                         marginTop: 0, marginBottom: 0,
                         boxShadow: "black 0 0 2px 3px",
@@ -36,17 +36,18 @@ const AdminDataComponent = ({ children }: { children: React.ReactNode }) => {
                     }} />
                 </div>
                 <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center", gap: "1.75rem" }}>
-                    <button style={{ borderRadius: "1rem", padding: "8px 16px", color: "red",
+                    <button style={{ borderRadius: "1rem", padding: "8px 16px", color: photo === "" ? "#ff6464ff" : "red",
                         display: "flex", justifyContent: "space-between", alignItems: "center",
-                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600"
+                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", cursor: photo === "" ? "auto" : "pointer"
                     }}
+                        disabled={photo === ""}
                         onClick={() => {}}
                     >
-                        <IconTrash style={{ color: "red" }} /> Delete
+                        <IconTrash style={{ color: photo === "" ? "#ff6464ff" : "red" }} /> Delete
                     </button>
                         <button style={{ borderRadius: "1rem", padding: "8px 16px",
                         display: "flex", justifyContent: "space-between", alignItems: "center",
-                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600"
+                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", cursor: "pointer"
                     }}
                         onClick={() => {}}
                     >
@@ -67,8 +68,10 @@ const AdminDataComponent = ({ children }: { children: React.ReactNode }) => {
                     style={{
                         fontSize: "1.6rem", fontWeight: "500", border: "none",
                         padding: "8px 16px 8px 4px", textAlign: "justify",
-                        borderRadius: "1rem", backgroundColor: "rgb(237, 237, 237)"
+                        borderRadius: "1rem", backgroundColor: "rgb(237, 237, 237)",
+                        cursor: "pointer"
                     }}
+                    value={langs.find(lang => lang[1] === language)?.[1]}
                     onChange={e => languageChange(e.target.value)}
                 >
                     {langs.map((lang, index) =>
@@ -76,7 +79,8 @@ const AdminDataComponent = ({ children }: { children: React.ReactNode }) => {
                             style={{
                                 textAlign: "left",
                                 borderRadius: "1rem",
-                                backgroundColor: "rgb(237, 237, 237)"
+                                backgroundColor: "rgb(237, 237, 237)",
+                                display: lang[1] === language ? "none" : "block",
                             }}
                         >
                             {lang[0]}

@@ -9,12 +9,14 @@ export default function DashboardLayout({
     popularDishes,
     dishesTypes,
     mealsTypes,
-    commonIncome
+    commonIncome,
+    children
 }: Readonly<{
     popularDishes: React.ReactNode,
     dishesTypes: React.ReactNode,
     mealsTypes: React.ReactNode,
-    commonIncome: React.ReactNode
+    commonIncome: React.ReactNode,
+    children: React.ReactNode
 }>) {
     return (
         <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr 1fr", gridTemplateRows: "1fr 1fr", height: "85vh", gap: "3rem" }}>
@@ -69,6 +71,8 @@ export default function DashboardLayout({
                     {commonIncome}
                 </Suspense>
             </div>
+
+            {children}
         </div>
     );
 }

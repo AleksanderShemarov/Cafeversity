@@ -7,23 +7,40 @@ import { useRef, useState } from "react";
 type AdminPersonalDataProps = {
     personalDataID: number,
     personalDataName: string,
-    personlData: string
+    personalData: string
 }
 
-const PersonalDataRows = ({ personalDataArray }: { personalDataArray: AdminPersonalDataProps[]}) => {
+
+const PersonalDataRows = (
+    { personalDataArray, onSave }:
+    { personalDataArray: AdminPersonalDataProps[], onSave: (id: number, newValue: string) => void }
+) => {
 
     const [buttonClicked, setButtonClicked] = useState<number|null>(null);
+    const [editedValues, setEditedValues] = useState<Record<number, string>>({});
     const changeDialogRef = useRef<HTMLDialogElement>(null);
     
     const showChangeDialog = () => changeDialogRef.current?.showModal();
     const accessAnswer = () => {
-        setButtonClicked(null);
-        changeDialogRef.current?.close();
+        if (buttonClicked !== null) {
+            onSave(buttonClicked, editedValues[buttonClicked]);
+            setButtonClicked(null);
+            denyAnswer();
+        }
     }
     const denyAnswer = () => changeDialogRef.current?.close();
 
     const [editButtonHovered, setEditButtonHovered] = useState<number|null>(null);
     const [cancelButtonHovered, setCancelButtonHovered] = useState<boolean>(false);
+
+    const handleEdit = (id: number, currentValue: string) => {
+        setEditedValues((prev) => ({ ...prev, [id]: currentValue }));
+        setButtonClicked(id);
+    }
+
+    const handleCancel = () => {
+        setButtonClicked(null);
+    }
 
     return (
         <>
@@ -34,18 +51,20 @@ const PersonalDataRows = ({ personalDataArray }: { personalDataArray: AdminPerso
                             <p style={{ fontSize: "1.5rem", fontWeight: "bolder" }}>
                                 {arrayItem.personalDataName}
                             </p>
-                            {buttonClicked === null || buttonClicked !== arrayItem.personalDataID ?
+                            {buttonClicked !== arrayItem.personalDataID ?
                                 <p style={{ fontSize: "1.5rem" }}>
-                                    {arrayItem.personlData}
+                                    {arrayItem.personalData}
                                 </p>
                                 :
-                                <form>
-                                    <input style={{ fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem" }}
-                                        name={`input-${arrayItem.personalDataID}`}
-                                        type="text"
-                                        defaultValue={String(arrayItem.personlData)}
-                                    />
-                                </form>
+                                <input style={{ fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem" }}
+                                    name={`input-${arrayItem.personalDataID}`}
+                                    type="text"
+                                    value={editedValues[arrayItem.personalDataID] || arrayItem.personalData}
+                                    onChange={(e) => setEditedValues(
+                                        (prev) => ({ ...prev, [arrayItem.personalDataID]: e.target.value })
+                                    )}
+                                />
+                                
                             }
                         </div>
 
@@ -54,11 +73,11 @@ const PersonalDataRows = ({ personalDataArray }: { personalDataArray: AdminPerso
                                 <button style={{ borderRadius: "1rem", width: "auto", padding: "8px 16px",
                                     display: "flex", justifyContent: "space-between", alignItems: "center",
                                     gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", border: "none",
-                                    outline: cancelButtonHovered ? "2px solid red" : undefined
+                                    outline: cancelButtonHovered ? "2px solid red" : undefined, cursor: "pointer"
                                 }}
-                                    disabled={buttonClicked !== null && buttonClicked !== arrayItem.personalDataID}
+                                    disabled={buttonClicked !== arrayItem.personalDataID}
                                     onClick={() => {
-                                        setButtonClicked(null);
+                                        handleCancel();
                                         setCancelButtonHovered(prev => !prev);
                                     }}
                                     onMouseEnter={() => setCancelButtonHovered(prev => !prev)}
@@ -74,18 +93,25 @@ const PersonalDataRows = ({ personalDataArray }: { personalDataArray: AdminPerso
                                 color: buttonClicked === arrayItem.personalDataID ? "green" : undefined,
                                 outline: buttonClicked === arrayItem.personalDataID && editButtonHovered === arrayItem.personalDataID
                                     ? "2px solid green" : editButtonHovered === arrayItem.personalDataID
-                                    ? "2px solid black" : undefined
+                                    ? "2px solid black" : undefined,
+                                cursor: "pointer"
                             }}
                                 disabled={buttonClicked !== null && buttonClicked !== arrayItem.personalDataID}
                                 onClick={() => {
-                                    if (buttonClicked === null) setButtonClicked(arrayItem.personalDataID);
-                                    else if (buttonClicked === arrayItem.personalDataID) showChangeDialog();
+                                    buttonClicked === arrayItem.personalDataID ? showChangeDialog() : handleEdit(arrayItem.personalDataID, arrayItem.personalData);
                                 }}
                                 onMouseEnter={() => setEditButtonHovered(arrayItem.personalDataID)}
                                 onMouseLeave={() => setEditButtonHovered(null)}
                             >
-                                {buttonClicked === arrayItem.personalDataID ? <IconDeviceFloppy style={{ color: "green" }} /> : <IconPencil />}
-                                {buttonClicked === arrayItem.personalDataID ? "Save" : "Edit"}
+                                {buttonClicked === arrayItem.personalDataID ? (
+                                    <>
+                                        <IconDeviceFloppy style={{ color: "green" }} /> Save
+                                    </>
+                                ) : (
+                                    <>
+                                        <IconPencil /> Edit
+                                    </>
+                                )}
                             </button>
                         </div>
                     </div>

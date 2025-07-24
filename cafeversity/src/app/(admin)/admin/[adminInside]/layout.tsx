@@ -2,6 +2,7 @@ import AdminHeaderBlock from "@/components/AdminHeader/AdminHeaderBlock";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { use } from "react";
+import { cookies } from "next/headers";
 
 
 export type AdminHeaderTypes = {
@@ -15,8 +16,13 @@ export type AdminHeaderTypes = {
 async function fetchData(params: { adminInside: string }) {
     const { adminInside } = params;
 
+    const sessionForAdmin = await cookies().get("adminSessionId");
+    console.log("sessionForAdmin", sessionForAdmin);
+
     const response = await fetch(`http://localhost:3000/api/adminData?adminName=${adminInside}`, { cache: "no-store" });
     const userData = await response.json();
+
+    if (userData?.message) throw new Error(userData?.message);
 
     return userData;
 }

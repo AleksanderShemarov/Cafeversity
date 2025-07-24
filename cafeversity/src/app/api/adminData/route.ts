@@ -9,29 +9,44 @@ const GET = async (request: NextRequest) => {
     if (adminName !== null) {
         const nameSurname: string[] = adminName.split("_");
         
-        const admin = await prisma.adminUsers.findFirst({
-            where: {
-                AND: [
-                    {
-                        Name: nameSurname[0]
-                    },
-                    {
-                        Surname: nameSurname[1]
-                    },
-                ],
-            },
-            select: {
-                Email: true,
-                Photo: true,
-                Language: true,
-                Theme: true
-            }
+        const result = await prisma.$transaction(async (tx) => {
+            const admin = await tx.adminUsers.findFirst({
+                where: {
+                    AND: [
+                        { Name: nameSurname[0] },
+                        { Surname: nameSurname[1] }
+                    ],
+                }
+            });
+
+            if (!admin) return false;
+            
+            const foundAdmin = await tx.adminUsers.findUnique({
+                where: {
+                    ID: admin.ID
+                },
+                select: {
+                    Email: true,
+                    Photo: true,
+                    Language: true,
+                    Theme: true
+                }
+            });
+
+            return foundAdmin;
         });
 
-        return NextResponse.json(
-            admin,
-            { status: 200 }
-        );
+        if (result !== false) {
+            return NextResponse.json(
+                result,
+                { status: 200 }
+            );
+        } else {
+            return NextResponse.json(
+                { message: `Your new fullname was saved into database, but the app watches you as "${adminName}"` },
+                { status: 409 }
+            );
+        }
     }
 }
 
