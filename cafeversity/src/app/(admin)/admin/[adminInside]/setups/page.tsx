@@ -85,6 +85,17 @@ const AdminSetUps = (data: AdminPersonTypes) => {
                 const result = await saveAdminDataUpdated({ Photo: newValue });
                 if (result.success) {
                     toast.success("Photo is updated.", { style: { fontSize: "1.5rem" } });
+                    router.refresh();
+                } else {
+                    toast.error("Photo update failed!", { style: { fontSize: "1.5rem" } });
+                }
+            });
+        } else if (newValue === "") {
+            startTransition(async () => {
+                const result = await saveAdminDataUpdated({ Photo: newValue });
+                if (result.success) {
+                    toast.success("Admin's Template Photo is set.", { style: { fontSize: "1.5rem" } });
+                    router.refresh();
                 } else {
                     toast.error("Photo update failed!", { style: { fontSize: "1.5rem" } });
                 }

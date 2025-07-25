@@ -1,5 +1,10 @@
-import { IconTrash, IconUpload } from "@tabler/icons-react";
+"use client";
+
+import { IconCancel, IconDeviceFloppy, IconTrash, IconUpload } from "@tabler/icons-react";
 import ImageContainer from "../ImageEditor/ImageContainer";
+import { startTransition, useRef, useState } from "react";
+import { deleteAdminPhotoDbServer, newAdminPhotoDbServer } from "@/app/actions/adminSetups";
+import { toast } from "react-toastify";
 
 
 const langs: [string, string][] = [
@@ -19,6 +24,62 @@ const langs: [string, string][] = [
 
 const AdminDataComponent = ({ photo, language, onSave, children }: { photo: string, language: string, onSave: (newValue: string) => void, children: React.ReactNode }) => {
 
+    const [adminPhoto, setAdminPhoto] = useState<string>(photo);
+    const [adminPhotoFile, setAdminPhotoFile] = useState<File|"">("");
+    const [adminPhotoFileName, setAdminPhotoFileName] = useState<string>("");
+    const [showAdminPhotoSave, setShowAdminPhotoSave] = useState<boolean>(false);
+
+    const adminPhotoRef = useRef<HTMLInputElement>(null);
+
+    const previewAdminPhoto = () => {
+        adminPhotoRef.current?.click();
+    }
+
+    const removePreviewAdminPhoto = () => {
+        if (adminPhotoRef.current) {
+            adminPhotoRef.current.value = "";
+        }
+    }
+
+    const showingAdminPhoto = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if (event.target.files && event.target.files.length > 0) {
+            const file = event.target.files[0];
+            const tempURL = URL.createObjectURL(file);
+
+            setAdminPhotoFile(file);
+            setAdminPhoto(tempURL);
+            setAdminPhotoFileName(file.name);
+            setShowAdminPhotoSave((prev) => !prev);
+
+            return () => URL.revokeObjectURL(tempURL);
+        }
+    }
+
+    const savingAdminPhoto = () => {
+        startTransition(async () => {
+            const avatarFormData = new FormData();
+            avatarFormData.append("adminAvatar", adminPhotoFile);
+            const result = await newAdminPhotoDbServer(avatarFormData, adminPhotoFileName);
+            if (result.success) toast.success("The new photo is uploaded", { style: { fontSize: "1.5rem" } });
+            else {
+                toast.error(`The new photo upload failed: ${result?.error}`, { style: { fontSize: "1.5rem" } });
+                setShowAdminPhotoSave((prev) => !prev);
+            }
+        });
+    }
+
+    const removeAdminPhoto = () => {
+        startTransition(async () => {
+            const result = await deleteAdminPhotoDbServer(adminPhoto);
+            if (result.success) toast.success("The photo is removed", { style: { fontSize: "1.5rem" } });
+            else {
+                toast.error(`The photo removing failed: ${result?.error}`, { style: { fontSize: "1.5rem" } });
+                setShowAdminPhotoSave((prev) => !prev);
+            }
+        });
+    }
+
+    
     const languageChange = (language: string) => {
         const lang = langs.filter(langRow => langRow[1] === language).flat();
         onSave(lang[1]);
@@ -28,28 +89,61 @@ const AdminDataComponent = ({ photo, language, onSave, children }: { photo: stri
         <div style={{ display: "flex", flexDirection: "column" }}>
             <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center" }}>
                 <div style={{ width: "18rem" }}>
-                    <ImageContainer img_path={photo === "" ? null : photo} style={{
+                    <ImageContainer img_path={adminPhoto === "" ? null : adminPhoto} style={{
                         height: "90%", width: "90%",
                         marginTop: 0, marginBottom: 0,
                         boxShadow: "black 0 0 2px 3px",
                         margin: "0 auto",
                     }} />
+                    <input type="file" style={{ display: "none" }} ref={adminPhotoRef} onChange={showingAdminPhoto} />
                 </div>
                 <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center", gap: "1.75rem" }}>
-                    <button style={{ borderRadius: "1rem", padding: "8px 16px", color: photo === "" ? "#ff6464ff" : "red",
-                        display: "flex", justifyContent: "space-between", alignItems: "center",
-                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", cursor: photo === "" ? "auto" : "pointer"
+                    <button style={{ borderRadius: "1rem", width: "auto", padding: "8px 16px",
+                        display: showAdminPhotoSave ? "flex" : "none", justifyContent: "space-between", alignItems: "center",
+                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", border: "2px solid red",
+                        cursor: "pointer"
                     }}
-                        disabled={photo === ""}
-                        onClick={() => {}}
+                        onClick={() => {
+                            setAdminPhoto(photo);
+                            setShowAdminPhotoSave((prev) => !prev);
+                        }}
                     >
-                        <IconTrash style={{ color: photo === "" ? "#ff6464ff" : "red" }} /> Delete
+                        <IconCancel style={{ color: "red" }} />
                     </button>
-                        <button style={{ borderRadius: "1rem", padding: "8px 16px",
+                    <button style={{ borderRadius: "1rem", padding: "8px 16px", border: "2px solid green", color: "green",
+                        display: showAdminPhotoSave ? "flex" : "none", justifyContent: "space-between", alignItems: "center",
+                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", cursor: "pointer"
+                    }}
+                        onClick={() => {
+                            onSave(`/adminPhotos/${adminPhotoFileName}`);
+                            savingAdminPhoto();
+                            setShowAdminPhotoSave((prev) => !prev);
+                        }}
+                    >
+                        <IconDeviceFloppy style={{ color: "green" }} /> Save
+                    </button>
+                    <button style={{ borderRadius: "1rem", padding: "8px 16px", color: adminPhoto === "" ? "grey" : "red",
+                        border: adminPhoto === "" ? "2px solid grey" : "2px solid red",
+                        display: showAdminPhotoSave ? "none" : "flex", justifyContent: "space-between", alignItems: "center",
+                        gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", cursor: adminPhoto === "" ? "auto" : "pointer"
+                    }}
+                        disabled={adminPhoto === ""}
+                        onClick={() => {
+                            setAdminPhoto("");
+                            onSave("");
+                            removeAdminPhoto();
+                        }}
+                    >
+                        <IconTrash style={{ color: adminPhoto === "" ? "grey" : "red" }} /> Delete
+                    </button>
+                    <button style={{ borderRadius: "1rem", padding: "8px 16px",
                         display: "flex", justifyContent: "space-between", alignItems: "center",
                         gap: "1.5rem", fontSize: "1.6rem", fontWeight: "600", cursor: "pointer"
                     }}
-                        onClick={() => {}}
+                        onClick={() => {
+                            previewAdminPhoto();
+                            removePreviewAdminPhoto();
+                        }}
                     >
                         <IconUpload /> Upload
                     </button>
