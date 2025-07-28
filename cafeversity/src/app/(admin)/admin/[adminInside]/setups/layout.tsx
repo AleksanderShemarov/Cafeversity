@@ -6,9 +6,12 @@ export type AdminPersonTypes = {
     ID: number,
     Name: string,
     Surname: string,
+    Email: string,
+    EmailConfirmed: boolean,
     Telephone: string|null,
     Photo: string,
-    Language: string
+    Language: string,
+    SecretWord: string
 }
 
 

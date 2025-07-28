@@ -18,8 +18,8 @@ const PersonalDataRows = (
 
     const [buttonClicked, setButtonClicked] = useState<number|null>(null);
     const [editedValues, setEditedValues] = useState<Record<number, string>>({});
-    const changeDialogRef = useRef<HTMLDialogElement>(null);
     
+    const changeDialogRef = useRef<HTMLDialogElement>(null);
     const showChangeDialog = () => changeDialogRef.current?.showModal();
     const accessAnswer = () => {
         if (buttonClicked !== null) {
@@ -64,7 +64,6 @@ const PersonalDataRows = (
                                         (prev) => ({ ...prev, [arrayItem.personalDataID]: e.target.value })
                                     )}
                                 />
-                                
                             }
                         </div>
 

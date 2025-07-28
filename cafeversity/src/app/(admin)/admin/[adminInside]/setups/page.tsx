@@ -69,6 +69,12 @@ const AdminSetUps = (data: AdminPersonTypes) => {
         { personalDataID: 4, personalDataName: "Languages", personalData: "English, Belarusian, Czech" },
     ]);
 
+    const [rowsOfSecurities, setRowsOfSecurities] = useState([
+        { securityID: 1, securityName: "Email", securityData: data.Email, securityType: "email", securityConfirmed: data.EmailConfirmed },
+        { securityID: 2, securityName: "Password", securityData: "To change your password, get access and input the new one twice.", securityType: "password", securityPass1: "", securityPass2: "" },
+        { securityID: 3, securityName: "Secret Word", securityData: data.SecretWord, securityType: "text" },
+    ]);
+
     const handleSavePhotoLanguage = async (newValue: string) => {
         if (newValue.length === 2) {
             startTransition(async () => {
@@ -136,11 +142,40 @@ const AdminSetUps = (data: AdminPersonTypes) => {
         return await adminUpdate(newAdminData, data.ID);
     }
 
-    const rowsOfSecurities = [
-        { securityID: 1, securityName: "Email", securityData: "email@example.com" },
-        { securityID: 2, securityName: "Password", securityData: "passwordExample" },
-        { securityID: 3, securityName: "Secret Word", securityData: "*******" },
-    ];
+    const handleSaveRowsOfSecurities = async (id: number, newValue: string) => {
+        if (id === 1) {
+            startTransition(async () => {
+                const result = await saveAdminDataUpdated({ Email: newValue, EmailConfirmed: false });
+                if (result.success) {
+                    toast.success("The new email address is saved.", { style: { fontSize: "1.5rem" } });
+                } else {
+                    toast.error("It is impossible to save the new email address.", { style: { fontSize: "1.5rem" } });
+                }
+            });
+        } else if (id === 2) {
+            startTransition(async () => {
+                const result = await saveAdminDataUpdated({ Password: newValue });
+                if (result.success) {
+                    toast.success("The new password is set.", { style: { fontSize: "1.5rem" } });
+                } else {
+                    toast.error("It is impossible to save the new password.", { style: { fontSize: "1.5rem" } });
+                }
+            });
+        } else if (id === 3) {
+            startTransition(async () => {
+                const result = await saveAdminDataUpdated({ SecretWord: newValue });
+                if (result.success) {
+                    toast.success("The new secret word is saved.", { style: { fontSize: "1.5rem" } });
+                } else {
+                    toast.error("It is impossible to save the new secret word.", { style: { fontSize: "1.5rem" } });
+                }
+            });
+        }
+        
+        setRowsOfSecurities((prev) => prev.map(
+            item => item.securityID === id ? { ...item, securityData: newValue } : item
+        ));
+    }
 
     return (
         <div style={{
@@ -180,7 +215,7 @@ const AdminSetUps = (data: AdminPersonTypes) => {
 
                 {setupsLineClicked === 2 &&
                     <AdminSecurityComponent>
-                        <SecurityRows securityArray={rowsOfSecurities} />
+                        <SecurityRows securityArray={rowsOfSecurities} onSave={handleSaveRowsOfSecurities} />
                     </AdminSecurityComponent>
                 }
                 

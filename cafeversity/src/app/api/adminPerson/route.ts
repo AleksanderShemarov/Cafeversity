@@ -20,9 +20,12 @@ const GET = async (request: NextRequest) => {
                 ID: true,
                 Name: true,
                 Surname: true,
+                Email: true,
+                EmailConfirmed: true,
                 Telephone: true,
                 Photo: true,
                 Language: true,
+                SecretWord: true
             }
         });
 

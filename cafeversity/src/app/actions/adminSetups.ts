@@ -5,6 +5,7 @@ import { revalidateTag } from "next/cache";
 import { Prisma } from "@prisma/client";
 import fs, { writeFile, unlink } from "node:fs/promises";
 import path from "node:path";
+import { hashPassword } from "../../../lib/utils/passwordUtils";
 
 
 const MAX_FILE_SIZE = 10 * 1024 * 1024;
@@ -17,6 +18,12 @@ export type UpdateAdminData = {
 
 export async function adminUpdate(updateAdminData: UpdateAdminData, adminID: number) {
     try {
+        if (updateAdminData.Password) {
+            const password: string = updateAdminData.Password as string;
+            const hashedPassword = await hashPassword(password);
+            updateAdminData.Password = hashedPassword;
+        }
+
         await prisma.adminUsers.update({
             where: {
                 ID: adminID
