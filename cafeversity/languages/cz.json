@@ -274,6 +274,137 @@
             },
             "settings": "Nastavení",
             "exit": "Výstup"
+        },
+        "AdminHeaderOptions": {
+            "dashboard": "Administrativní Panel",
+            "usersPanel": "Panel Uživatelů"
+        }
+    },
+    "AdminPageSetUps": {
+        "3_blocks": {
+            "personData": {
+                "name": "Osobní Údaje",
+                "fullname": "Jmeno",
+                "telephone": "Telefon",
+                "languagesList": "Jazyky",
+                "pageLanguage": "Jazyk Stránek",
+                "messages": {
+                    "language": {
+                        "positive": "Jazyk je aktualizován.",
+                        "negative": "Aktualizace jazyka selhala!"
+                    },
+                    "photo": {
+                        "positive": "Foto je aktualizováno.",
+                        "neutral": "Šablona fotky pro admina je nastavena.",
+                        "negative": "Aktualizace fotky se nezdařila!"
+                    },
+                    "photoFile": {
+                        "uploading": {
+                            "positive": "Nová fotka je nahrána.",
+                            "negative": "Nepodařilo se nahrát novou fotku:"
+                        },
+                        "removing": {
+                            "positive": "Fotka je odstraněna.",
+                            "negative": "Odstranění fotky se nezdařilo:"
+                        }
+                    },
+                    "fullname": {
+                        "positive": "Celé jméno je aktualizováno.",
+                        "negative": "Aktualizace celého jména selhala!"
+                    },
+                    "telephone": {
+                        "positive": "Telefonní číslo je aktualizováno.",
+                        "negative": "Aktualizace telefonního čísla selhala!"
+                    }
+                },
+                "buttons": {
+                    "save": "Uložit",
+                    "delete": "Odstranit",
+                    "upload": "Nahrát",
+                    "edit": "Upravit"
+                },
+                "saveChangesDialog": {
+                    "title": "Ukládání Nových Dat",
+                    "text": "Souhlasili jste s uložením aktualizovaného data?",
+                    "buttons": {
+                        "yes": "Ano",
+                        "no": "Ne"
+                    }
+                }
+            },
+            "security": {
+                "name": "Přihlášení & Bezpečnost",
+                "email": "E-pošta",
+                "password": "Heslo",
+                "passwordTip": "Chcete-li změnit heslo, získejte přístup a dvakrát zadejte nové heslo.",
+                "secretWord": "Tajné Slovo",
+                "tokenPlaceholder": "Vložte Token...",
+                "passwordPlaceholder": "Vložte své nové heslo",
+                "repeatPasswordPlaceholder": "Zopakujte nové heslo",
+                "messages": {
+                    "email": {
+                        "positive": "Nová e-mailová adresa je uložena.",
+                        "negative": "Novou e-mailovou adresu nelze uložit."
+                    },
+                    "emailStatus": {
+                        "confirmed": "Potvrzeno",
+                        "unconfirmed": "Nepotvrzeno"
+                    },
+                    "password": {
+                        "positive": "Nové heslo je nastaveno.",
+                        "negative": "Nové heslo není možné uložit.",
+                        "mistakes": {
+                            "different": "Hesla se neshodují!",
+                            "short": "Heslo musí mít alespoň 8 znaků!"
+                        }
+                    },
+                    "secretWord": {
+                        "positive": "Nové tajné slovo je uloženo.",
+                        "negative": "Nové tajné slovo je nemožné uložit."
+                    },
+                    "access": {
+                        "confirmed": "Přístup je potvrzen!",
+                        "denied": "Přístup je zamítnut!",
+                        "get": "Získat Přístup",
+                        "granted": "Přístup Udělen"
+                    },
+                    "confirmLetter": {
+                        "sent": "Potvrzovací dopis byl odeslán na váš e-mail:",
+                        "problem": "Něco se pokazilo... Zkontrolujte prosím funkci 'letterForEmailConfirmation'."
+                    },
+                    "isEmailConfirmed": {
+                        "yes": "Váš e-mail je potvrzen!",
+                        "no": "Špatný token! Prosím, zkuste to znovu."
+                    }
+                },
+                "buttons": {
+                    "confirm": "Potvrdit",
+                    "save": "Uložit",
+                    "change": "Změnit"
+                },
+                "dialogs": {
+                    "saveChangesDialog": {
+                        "title": "Ukládání Nových Dat",
+                        "text": "Souhlasili jste s uložením aktualizovaného data?",
+                        "buttons": {
+                            "yes": "Ano",
+                            "no": "Ne"
+                        }
+                    },
+                    "getAccessDialog": {
+                        "title": "Přístup pro Změny",
+                        "text": "Než budete pokračovat, zadejte prosím své heslo:",
+                        "inputLabel": "Heslo",
+                        "buttons": {
+                            "confirm": "Potvrdit",
+                            "close": "Zavřít"
+                        }
+                    }
+                }
+            },
+            "roles": {
+                "name": "Role Adminů (Tabulka)"
+            }
         }
     }
 }

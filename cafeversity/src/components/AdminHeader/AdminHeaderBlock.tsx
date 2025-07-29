@@ -146,7 +146,7 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                                 padding: "8px 16px", cursor: "pointer",
                             }}
                         >
-                            <IconDoorExit style={{ color: "red" }} /> Exit
+                            <IconDoorExit style={{ color: "red" }} /> {adminHeader("AdminHeaderBlock.exit")}
                         </button>
                     :
                         <div onMouseEnter={showMenu} onMouseLeave={hideMenu}

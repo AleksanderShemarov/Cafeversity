@@ -5,6 +5,7 @@ import ImageContainer from "../ImageEditor/ImageContainer";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 interface AdminHeaderOptionsProps {
@@ -14,14 +15,16 @@ interface AdminHeaderOptionsProps {
 
 const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
     function AdminHeaderOptions({ isOptionsOpen, setIsOptionsOpen }, ref) {
+
+        const adminHeaderOptions = useTranslations("AdminDashboard");
         
         const page = usePathname();
 
         const [isHoveredItem, setIsHoveredItem] = useState<number|null>(null);
 
         const pageNames: { id: number, text: string, icon: string, url: string }[] = [
-            { id: 1, text: "Admin Dashboard", icon: "/dashboard_icon.jpg", url: `${page.slice(0, page.lastIndexOf("/"))}/dashboard` },
-            { id: 2, text: "Users Panel", icon: "/users_icon.png", url: `${page.slice(0, page.lastIndexOf("/"))}/panel` },
+            { id: 1, text: adminHeaderOptions("AdminHeaderOptions.dashboard"), icon: "/dashboard_icon.jpg", url: `${page.slice(0, page.lastIndexOf("/"))}/dashboard` },
+            { id: 2, text: adminHeaderOptions("AdminHeaderOptions.usersPanel"), icon: "/users_icon.png", url: `${page.slice(0, page.lastIndexOf("/"))}/panel` },
             { id: 3, text: "Another Panel #2", icon: "/menu_list_icon.webp", url: "#" },
             { id: 4, text: "Another Panel #3", icon: "/menu_list_icon.webp", url: "#" },
             { id: 5, text: "Another Panel #4", icon: "/menu_list_icon.webp", url: "#" },
@@ -56,8 +59,9 @@ const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
                                         // border: "2px solid",
                                         display: "flex", flexDirection: "column", alignItems: "center",
                                         padding: "1.5rem 5rem", position: "relative",
-                                        height: "5rem", marginLeft: "1rem", marginRight: "1rem",
-                                        cursor: pageName.url === page ? "default" : "pointer",
+                                        // height: "5rem",
+                                        height: "6.4rem", marginLeft: "1rem", marginRight: "1rem",
+                                        cursor: pageName.url === page ? "default" : "pointer"
                                     }}
                                 >
                                     <motion.div
@@ -93,8 +97,9 @@ const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
                                             fontSize: "2rem",
                                             fontWeight: "400",
                                             position: "absolute",
-                                            textWrap: "nowrap",
+                                            textWrap: "wrap",
                                             color: "black",
+                                            width: "180%"
                                         }}
                                     >
                                         {pageName.text}

@@ -65,11 +65,8 @@ export default function AdminPanel() {
     // ];
 
     return (
-        <>
-            <p style={{ fontSize: "2rem" }}>Admin&#39;s Panel Page</p>
-            <div style={{ width: "95%", margin: "2rem auto", padding: "0.5rem", border: "2px solid", borderRadius: "1rem" }}>
-                <UsersAdminTable data={data} />
-            </div>
-        </>
+        <div style={{ width: "95%", margin: "2rem auto", padding: "0.5rem", border: "2px solid", borderRadius: "1rem" }}>
+            <UsersAdminTable data={data} />
+        </div>
     );
 }

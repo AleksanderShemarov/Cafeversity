@@ -1,4 +1,4 @@
-const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789" as const;
+const characters = "ABCDEFGHJKLMNPQRSTUVWXYZ0123456789" as const;
 const usedCodes = new Set<string>();
 
 export default function uniqueGeneratedCode(): string {

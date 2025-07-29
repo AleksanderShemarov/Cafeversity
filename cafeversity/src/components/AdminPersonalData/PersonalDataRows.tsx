@@ -2,6 +2,7 @@
 
 import { IconCancel, IconCheck, IconDeviceFloppy, IconPencil, IconX } from "@tabler/icons-react";
 import { useRef, useState } from "react";
+import { useTranslations } from "next-intl";
 
 
 type AdminPersonalDataProps = {
@@ -15,6 +16,7 @@ const PersonalDataRows = (
     { personalDataArray, onSave }:
     { personalDataArray: AdminPersonalDataProps[], onSave: (id: number, newValue: string) => void }
 ) => {
+    const personalRows = useTranslations("AdminPageSetUps");
 
     const [buttonClicked, setButtonClicked] = useState<number|null>(null);
     const [editedValues, setEditedValues] = useState<Record<number, string>>({});
@@ -104,11 +106,11 @@ const PersonalDataRows = (
                             >
                                 {buttonClicked === arrayItem.personalDataID ? (
                                     <>
-                                        <IconDeviceFloppy style={{ color: "green" }} /> Save
+                                        <IconDeviceFloppy style={{ color: "green" }} /> {personalRows("3_blocks.personData.buttons.save")}
                                     </>
                                 ) : (
                                     <>
-                                        <IconPencil /> Edit
+                                        <IconPencil /> {personalRows("3_blocks.personData.buttons.edit")}
                                     </>
                                 )}
                             </button>
@@ -121,10 +123,10 @@ const PersonalDataRows = (
 
             <dialog ref={changeDialogRef} style={{ border: "none", borderRadius: "1.2rem" }}>
                 <p style={{ fontSize: "2.2rem", fontWeight: "700", textAlign: "center", marginTop: "1rem" }}>
-                    Saving New Data
+                    {personalRows("3_blocks.personData.saveChangesDialog.title")}
                 </p>
                 <p style={{ margin: "1.5rem 0.5rem", fontSize: "1.8rem", textAlign: "justify", textIndent: "2px" }}>
-                    Are you agreed to save an updated datum?
+                    {personalRows("3_blocks.personData.saveChangesDialog.text")}
                 </p>
                 <div style={{ width: "90%", display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 auto" }}>
                     <button type="button"
@@ -143,7 +145,7 @@ const PersonalDataRows = (
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconCheck />
-                            <span style={{ textIndent: "5px" }}>Yes</span>
+                            <span style={{ textIndent: "5px" }}>{personalRows("3_blocks.personData.saveChangesDialog.buttons.yes")}</span>
                         </div>
                     </button>
                     <button type="button"
@@ -162,7 +164,7 @@ const PersonalDataRows = (
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconX />
-                            <span style={{ textIndent: "5px" }}>No</span>
+                            <span style={{ textIndent: "5px" }}>{personalRows("3_blocks.personData.saveChangesDialog.buttons.no")}</span>
                         </div>
                     </button>
                 </div>

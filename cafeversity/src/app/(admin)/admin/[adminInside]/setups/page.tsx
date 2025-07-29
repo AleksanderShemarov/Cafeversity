@@ -12,6 +12,7 @@ import { adminUpdate, UpdateAdminData } from "@/app/actions/adminSetups";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 export type AdminUsersTableTypes = {
@@ -55,24 +56,26 @@ const AdminSetUps = (data: AdminPersonTypes) => {
     const [setupsLineHovered, setSetupsLineHovered] = useState<number|null>(null);
     const [setupsLineClicked, setSetupsLineClicked] = useState<number>(1);
 
+    const adminSetUps = useTranslations("AdminPageSetUps");
+
     const setupsLines: { id: number, name: string }[] = [
-        { id: 1, name: "Personal Data" },
-        { id: 2, name: "Login & Security" },
-        { id: 3, name: "Admins' Roles (Table)" },
+        { id: 1, name: adminSetUps("3_blocks.personData.name") },
+        { id: 2, name: adminSetUps("3_blocks.security.name") },
+        { id: 3, name: adminSetUps("3_blocks.roles.name") },
     ] as const;
 
     const [personalDataRows, setPersonalDataRows] = useState([
         // { personalDataID: 2, personalDataName: "Name", personlData: "Gordon Harris" },
         // { personalDataID: 3, personalDataName: "Telephone", personlData: "+375 (29) ***-**-**" },
-        { personalDataID: 2, personalDataName: "Name", personalData: `${data.Name} ${data.Surname}` },
-        { personalDataID: 3, personalDataName: "Telephone", personalData: `${data.Telephone === "" ? "+*** (**) ***-**-**" : data.Telephone}` },
-        { personalDataID: 4, personalDataName: "Languages", personalData: "English, Belarusian, Czech" },
+        { personalDataID: 2, personalDataName: adminSetUps("3_blocks.personData.fullname"), personalData: `${data.Name} ${data.Surname}` },
+        { personalDataID: 3, personalDataName: adminSetUps("3_blocks.personData.telephone"), personalData: `${data.Telephone === "" ? "+*** (**) ***-**-**" : data.Telephone}` },
+        { personalDataID: 4, personalDataName: adminSetUps("3_blocks.personData.languagesList"), personalData: "English, Belarusian, Czech" },
     ]);
 
     const [rowsOfSecurities, setRowsOfSecurities] = useState([
-        { securityID: 1, securityName: "Email", securityData: data.Email, securityType: "email", securityConfirmed: data.EmailConfirmed },
-        { securityID: 2, securityName: "Password", securityData: "To change your password, get access and input the new one twice.", securityType: "password", securityPass1: "", securityPass2: "" },
-        { securityID: 3, securityName: "Secret Word", securityData: data.SecretWord, securityType: "text" },
+        { securityID: 1, securityName: adminSetUps("3_blocks.security.email"), securityData: data.Email, securityType: "email", securityConfirmed: data.EmailConfirmed },
+        { securityID: 2, securityName: adminSetUps("3_blocks.security.password"), securityData: adminSetUps("3_blocks.security.passwordTip"), securityType: "password", securityPass1: "", securityPass2: "" },
+        { securityID: 3, securityName: adminSetUps("3_blocks.security.secretWord"), securityData: data.SecretWord, securityType: "text" },
     ]);
 
     const handleSavePhotoLanguage = async (newValue: string) => {
@@ -80,30 +83,30 @@ const AdminSetUps = (data: AdminPersonTypes) => {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ Language: newValue });
                 if (result.success) {
-                    toast.success("Language is updated.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.personData.messages.language.positive"), { style: { fontSize: "1.5rem" } });
                     router.refresh(); 
                 } else {
-                    toast.error("Language update failed!", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.personData.messages.language.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         } else if (newValue.includes("/")) {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ Photo: newValue });
                 if (result.success) {
-                    toast.success("Photo is updated.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.personData.messages.photo.positive"), { style: { fontSize: "1.5rem" } });
                     router.refresh();
                 } else {
-                    toast.error("Photo update failed!", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.personData.messages.photo.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         } else if (newValue === "") {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ Photo: newValue });
                 if (result.success) {
-                    toast.success("Admin's Template Photo is set.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.personData.messages.photo.neutral"), { style: { fontSize: "1.5rem" } });
                     router.refresh();
                 } else {
-                    toast.error("Photo update failed!", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.personData.messages.photo.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         }
@@ -116,19 +119,19 @@ const AdminSetUps = (data: AdminPersonTypes) => {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ Name: adminName, Surname: adminSurname });
                 if (result.success && result?.redirect) {
-                    toast.success("Fullname is updated.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.personData.messages.fullname.positive"), { style: { fontSize: "1.5rem" } });
                     router.push(result.redirect); 
                 } else {
-                    toast.error("Fullname update failed!", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.personData.messages.fullname.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         } else if (id === 3) {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ Telephone: newValue });
                 if (result.success) {
-                    toast.success("Telephone number is updated.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.personData.messages.telephone.positive"), { style: { fontSize: "1.5rem" } });
                 } else {
-                    toast.error("Telephone number update failed!", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.personData.messages.telephone.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         }
@@ -147,27 +150,27 @@ const AdminSetUps = (data: AdminPersonTypes) => {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ Email: newValue, EmailConfirmed: false });
                 if (result.success) {
-                    toast.success("The new email address is saved.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.security.messages.email.positive"), { style: { fontSize: "1.5rem" } });
                 } else {
-                    toast.error("It is impossible to save the new email address.", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.security.messages.email.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         } else if (id === 2) {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ Password: newValue });
                 if (result.success) {
-                    toast.success("The new password is set.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.security.messages.password.positive"), { style: { fontSize: "1.5rem" } });
                 } else {
-                    toast.error("It is impossible to save the new password.", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.security.messages.password.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         } else if (id === 3) {
             startTransition(async () => {
                 const result = await saveAdminDataUpdated({ SecretWord: newValue });
                 if (result.success) {
-                    toast.success("The new secret word is saved.", { style: { fontSize: "1.5rem" } });
+                    toast.success(adminSetUps("3_blocks.security.messages.secretWord.positive"), { style: { fontSize: "1.5rem" } });
                 } else {
-                    toast.error("It is impossible to save the new secret word.", { style: { fontSize: "1.5rem" } });
+                    toast.error(adminSetUps("3_blocks.security.messages.secretWord.negative"), { style: { fontSize: "1.5rem" } });
                 }
             });
         }

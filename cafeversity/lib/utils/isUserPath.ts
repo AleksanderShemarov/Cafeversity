@@ -15,7 +15,6 @@ async function isUserByRequestCookieAndUserPath (cookieValue: string, userPath: 
 
     if (isUser) {
         userPath = userPath.split("/")[2];
-        //userPath = userPath.slice(1, userPath.split("/").length - 1 > 1 ? userPath.lastIndexOf("/") : userPath.length);
         const [userName, userSurname] = userPath.split("_");
 
         if (userName === isUser.firstName && userSurname === isUser.lastName) {

@@ -23,7 +23,7 @@ export default function EmailCodeConfirmation() {
     const [enableReg, setEnableReg] = useState<boolean>(false);
     
     const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
-        reactHook(event.target.value);
+        reactHook(event.target.value.toUpperCase());
     }
 
     useEffect(() => {
@@ -32,6 +32,8 @@ export default function EmailCodeConfirmation() {
         } else {
             setEnableReg(true);
         }
+        if (code.length === 4 || code.length === 10)
+            setCode(`${code}-`);
     }, [code]);
 
     const CodeSentOnServer = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -74,7 +76,7 @@ export default function EmailCodeConfirmation() {
             </p>
             <TextFormField
                 label={codeConfirm("fields.emailCodeConfirmField.name")}
-                inputType="password"
+                inputType="text"
                 inputName="passwordAgain"
                 styleId={styles.password}
                 placeholder={codeConfirm("fields.emailCodeConfirmField.placeholder")}

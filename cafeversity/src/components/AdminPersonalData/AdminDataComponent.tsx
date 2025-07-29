@@ -5,6 +5,7 @@ import ImageContainer from "../ImageEditor/ImageContainer";
 import { startTransition, useRef, useState } from "react";
 import { deleteAdminPhotoDbServer, newAdminPhotoDbServer } from "@/app/actions/adminSetups";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 
 
 const langs: [string, string][] = [
@@ -23,6 +24,8 @@ const langs: [string, string][] = [
 
 
 const AdminDataComponent = ({ photo, language, onSave, children }: { photo: string, language: string, onSave: (newValue: string) => void, children: React.ReactNode }) => {
+
+    const adminDataComp = useTranslations("AdminPageSetUps");
 
     const [adminPhoto, setAdminPhoto] = useState<string>(photo);
     const [adminPhotoFile, setAdminPhotoFile] = useState<File|"">("");
@@ -60,9 +63,9 @@ const AdminDataComponent = ({ photo, language, onSave, children }: { photo: stri
             const avatarFormData = new FormData();
             avatarFormData.append("adminAvatar", adminPhotoFile);
             const result = await newAdminPhotoDbServer(avatarFormData, adminPhotoFileName);
-            if (result.success) toast.success("The new photo is uploaded", { style: { fontSize: "1.5rem" } });
+            if (result.success) toast.success(adminDataComp("3_blocks.personData.messages.photoFile.uploading.positive"), { style: { fontSize: "1.5rem" } });
             else {
-                toast.error(`The new photo upload failed: ${result?.error}`, { style: { fontSize: "1.5rem" } });
+                toast.error(`${adminDataComp("3_blocks.personData.messages.photoFile.uploading.negative")} ${result?.error}`, { style: { fontSize: "1.5rem" } });
                 setShowAdminPhotoSave((prev) => !prev);
             }
         });
@@ -71,9 +74,9 @@ const AdminDataComponent = ({ photo, language, onSave, children }: { photo: stri
     const removeAdminPhoto = () => {
         startTransition(async () => {
             const result = await deleteAdminPhotoDbServer(adminPhoto);
-            if (result.success) toast.success("The photo is removed", { style: { fontSize: "1.5rem" } });
+            if (result.success) toast.success(adminDataComp("3_blocks.personData.messages.photoFile.removing.positive"), { style: { fontSize: "1.5rem" } });
             else {
-                toast.error(`The photo removing failed: ${result?.error}`, { style: { fontSize: "1.5rem" } });
+                toast.error(`${adminDataComp("3_blocks.personData.messages.photoFile.removing.negative")} ${result?.error}`, { style: { fontSize: "1.5rem" } });
                 setShowAdminPhotoSave((prev) => !prev);
             }
         });
@@ -120,7 +123,7 @@ const AdminDataComponent = ({ photo, language, onSave, children }: { photo: stri
                             setShowAdminPhotoSave((prev) => !prev);
                         }}
                     >
-                        <IconDeviceFloppy style={{ color: "green" }} /> Save
+                        <IconDeviceFloppy style={{ color: "green" }} /> {adminDataComp("3_blocks.personData.buttons.save")}
                     </button>
                     <button style={{ borderRadius: "1rem", padding: "8px 16px", color: adminPhoto === "" ? "grey" : "red",
                         border: adminPhoto === "" ? "2px solid grey" : "2px solid red",
@@ -134,7 +137,7 @@ const AdminDataComponent = ({ photo, language, onSave, children }: { photo: stri
                             removeAdminPhoto();
                         }}
                     >
-                        <IconTrash style={{ color: adminPhoto === "" ? "grey" : "red" }} /> Delete
+                        <IconTrash style={{ color: adminPhoto === "" ? "grey" : "red" }} /> {adminDataComp("3_blocks.personData.buttons.delete")}
                     </button>
                     <button style={{ borderRadius: "1rem", padding: "8px 16px",
                         display: "flex", justifyContent: "space-between", alignItems: "center",
@@ -145,7 +148,7 @@ const AdminDataComponent = ({ photo, language, onSave, children }: { photo: stri
                             removePreviewAdminPhoto();
                         }}
                     >
-                        <IconUpload /> Upload
+                        <IconUpload /> {adminDataComp("3_blocks.personData.buttons.upload")}
                     </button>
                 </div>
             </div>
@@ -156,7 +159,7 @@ const AdminDataComponent = ({ photo, language, onSave, children }: { photo: stri
 
             <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center" }}>
                 <p style={{ fontSize: "1.5rem", fontWeight: "bolder" }}>
-                    Page&apos;s Language
+                    {adminDataComp("3_blocks.personData.pageLanguage")}
                 </p>
                 <select name="langs"
                     style={{

@@ -9,6 +9,7 @@ import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import passwordStyle from "@/app/(auth)/[locale]/LoginPage.module.css";
 import { emailTokenConfirm, letterForEmailConfirmation } from "@/app/actions/emailConfirmation";
+import { useTranslations } from "next-intl";
 
 
 type AdminSecurityProps = {
@@ -26,6 +27,8 @@ const SecurityRows = ({
 }: {
     securityArray: AdminSecurityProps[], onSave: (id: number, newValue: string) => void
 }) => {
+    const securityRowsComps = useTranslations("AdminPageSetUps");
+
     const [buttonClicked, setButtonClicked] = useState<number|null>(null);
     const [editedValues, setEditedValues] = useState<Record<number, string>>({});
     const [passwordValues, setPasswordValues] = useState<{pass1: string, pass2: string}>({pass1: '', pass2: ''});
@@ -36,11 +39,11 @@ const SecurityRows = ({
     const showChangeDialog = () => {
         if (buttonClicked === 2) {
             if (passwordValues.pass1 !== passwordValues.pass2) {
-                setPasswordError("Passwords don't match!");
+                setPasswordError(securityRowsComps("3_blocks.security.messages.password.mistakes.different"));
                 return;
             }
             if (passwordValues.pass1.length < 8) {
-                setPasswordError("Password must be at least 8 characters!");
+                setPasswordError(securityRowsComps("3_blocks.security.messages.password.mistakes.short"));
                 return;
             }
             setPasswordError('');
@@ -76,15 +79,13 @@ const SecurityRows = ({
     const confirmAccess = () => {
         startTransition(async () => {
             setIsVerifying(true);
-            console.log("email -->", securityArray[0].securityData);
-            console.log("input password -->", password);
             const result = await adminPasswordConfirm(securityArray[0].securityData, password);
             if (result.success) {
                 setHasAccess(true);
-                toast.success("Access is confirmed!", { style: { fontSize: "1.5rem" } });
+                toast.success(securityRowsComps("3_blocks.security.messages.access.confirmed"), { style: { fontSize: "1.5rem" } });
             } else {
                 setHasAccess(false);
-                toast.error("Access is denied!", { style: { fontSize: "1.5rem" } });
+                toast.error(securityRowsComps("3_blocks.security.messages.access.denied"), { style: { fontSize: "1.5rem" } });
             }
             setIsVerifying(false);
             accessDialogRef.current?.close();
@@ -132,7 +133,7 @@ const SecurityRows = ({
                     disabled={hasAccess}
                     onClick={showAccessDialog}
                 >
-                    {hasAccess ? "Access Granted" : "Get Access"}
+                    {hasAccess ? securityRowsComps("3_blocks.security.messages.access.granted") : securityRowsComps("3_blocks.security.messages.access.get")}
                 </button>
             </div>
 
@@ -159,7 +160,7 @@ const SecurityRows = ({
                                             {arrayItem?.securityConfirmed
                                             ? 
                                             <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "5px" }}>
-                                                <IconCheck style={{ color: "whitesmoke" }} /> Confirmed
+                                                <IconCheck style={{ color: "whitesmoke" }} /> {securityRowsComps("3_blocks.security.messages.emailStatus.confirmed")}
                                             </div>
                                             :
                                             <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "center", gap: "5px" }}
@@ -167,15 +168,15 @@ const SecurityRows = ({
                                                     startTransition(async () => {
                                                         const result = await letterForEmailConfirmation(securityArray[0].securityData);
                                                         if (result.success) {
-                                                            toast.success(`The confirmation letter has been sent on your email: ${securityArray[0].securityData}`, { style: { fontSize: "1.5rem" } });
+                                                            toast.success(`${securityRowsComps("3_blocks.security.messages.confirmLetter.sent")} ${securityArray[0].securityData}`, { style: { fontSize: "1.5rem" } });
                                                             setLetterSent(true);
                                                         } else {
-                                                            toast.error("Something went wrong... Please, check the 'letterForEmailConfirmation' function.");
+                                                            toast.error(securityRowsComps("3_blocks.security.messages.confirmLetter.problem"));
                                                         }
                                                     });
                                                 }}
                                             >
-                                                <IconExclamationMark style={{ color: "black" }} /> Not Confirmed
+                                                <IconExclamationMark style={{ color: "black" }} /> {securityRowsComps("3_blocks.security.messages.emailStatus.unconfirmed")}
                                             </div>}
                                         </div>
                                     }
@@ -183,7 +184,7 @@ const SecurityRows = ({
                                         <div style={{ display: "inline-flex", alignItems: "center", gap: "10px" }}>
                                             <input id={passwordStyle.password}
                                                 style={{ marginTop: 0, marginBottom: 0 }}
-                                                placeholder="Input the Token..."
+                                                placeholder={securityRowsComps("3_blocks.security.tokenPlaceholder")}
                                                 onChange={(e) => setToken(e.target.value)}
                                             />
                                             <button style={{ borderRadius: "1rem", width: "auto", padding: "8px 16px",
@@ -197,14 +198,14 @@ const SecurityRows = ({
                                                         const result = await emailTokenConfirm(token);
                                                         if (result.success) {
                                                             securityArray[0].securityConfirmed = true;//! Check this moment later
-                                                            toast.success("Your email is confirmed!", { style: { fontSize: "1.5rem" } });
+                                                            toast.success(securityRowsComps("3_blocks.security.messages.isEmailConfirmed.yes"), { style: { fontSize: "1.5rem" } });
                                                         } else {
-                                                            toast.error("Wrong token! Please, try again.", { style: { fontSize: "1.5rem" } });
+                                                            toast.error(securityRowsComps("3_blocks.security.messages.isEmailConfirmed.no"), { style: { fontSize: "1.5rem" } });
                                                         }
                                                     });
                                                 }}
                                             >
-                                                Confirm
+                                                {securityRowsComps("3_blocks.security.buttons.confirm")}
                                             </button>
                                         </div>
                                     }
@@ -226,14 +227,14 @@ const SecurityRows = ({
                                             name={`input-${arrayItem.securityID}1`}
                                             type={arrayItem.securityType ?? "text"}
                                             value={passwordValues.pass1}
-                                            placeholder="Input your new password"
+                                            placeholder={securityRowsComps("3_blocks.security.passwordPlaceholder")}
                                             onChange={(e) => handlePasswordChange(e, "pass1")}
                                         />
                                         <input style={{ fontSize: "1.8rem", flex: 1, padding: "4px 8px", borderRadius: "1.5rem" }}
                                             name={`input-${arrayItem.securityID}2`}
                                             type={arrayItem.securityType ?? "text"}
                                             value={passwordValues.pass2}
-                                            placeholder="Repeat your new password"
+                                            placeholder={securityRowsComps("3_blocks.security.repeatPasswordPlaceholder")}
                                             onChange={(e) => handlePasswordChange(e, "pass2")}
                                         />
                                     </div>
@@ -285,11 +286,11 @@ const SecurityRows = ({
                             >
                                 {buttonClicked === arrayItem.securityID ? (
                                     <>
-                                        <IconDeviceFloppy style={{ color: "green" }} /> Save
+                                        <IconDeviceFloppy style={{ color: "green" }} /> {securityRowsComps("3_blocks.security.buttons.save")}
                                     </>
                                 ) : (
                                     <>
-                                        <IconPencil /> Change
+                                        <IconPencil /> {securityRowsComps("3_blocks.security.buttons.change")}
                                     </>
                                 )}
                             </button>
@@ -302,10 +303,10 @@ const SecurityRows = ({
 
             <dialog ref={changeDialogRef} style={{ border: "none", borderRadius: "1.2rem" }}>
                 <p style={{ fontSize: "2.2rem", fontWeight: "700", textAlign: "center", marginTop: "1rem" }}>
-                    Saving New Data
+                    {securityRowsComps("3_blocks.security.dialogs.saveChangesDialog.title")}
                 </p>
                 <p style={{ margin: "1.5rem 0.5rem", fontSize: "1.8rem", textAlign: "justify", textIndent: "2px" }}>
-                    Are you agreed to save an updated datum?
+                    {securityRowsComps("3_blocks.security.dialogs.saveChangesDialog.text")}
                 </p>
                 <div style={{ width: "90%", display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 auto" }}>
                     <button type="button"
@@ -324,7 +325,7 @@ const SecurityRows = ({
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconCheck />
-                            <span style={{ textIndent: "5px" }}>Yes</span>
+                            <span style={{ textIndent: "5px" }}>{securityRowsComps("3_blocks.security.dialogs.saveChangesDialog.buttons.yes")}</span>
                         </div>
                     </button>
                     <button type="button"
@@ -343,7 +344,7 @@ const SecurityRows = ({
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconX />
-                            <span style={{ textIndent: "5px" }}>No</span>
+                            <span style={{ textIndent: "5px" }}>{securityRowsComps("3_blocks.security.dialogs.saveChangesDialog.buttons.no")}</span>
                         </div>
                     </button>
                 </div>
@@ -351,14 +352,14 @@ const SecurityRows = ({
 
             <dialog ref={accessDialogRef} style={{ border: "none", borderRadius: "1.2rem" }}>
                 <p style={{ fontSize: "2.2rem", fontWeight: "700", textAlign: "center", marginTop: "1rem" }}>
-                    Access for Changes
+                    {securityRowsComps("3_blocks.security.dialogs.getAccessDialog.title")}
                 </p>
                 <p style={{ margin: "1.5rem 0.5rem", fontSize: "1.8rem", textAlign: "justify", textIndent: "2px" }}>
-                    Before you will continue, please, input your password:
+                    {securityRowsComps("3_blocks.security.dialogs.getAccessDialog.text")}
                 </p>
                 <div style={{ marginLeft: "8px", marginRight: "8px" }}>
                     <TextFormField
-                        label="Password"
+                        label={securityRowsComps("3_blocks.security.dialogs.getAccessDialog.inputLabel")}
                         inputType="password"
                         inputName="password"
                         styleId={passwordStyle.password}
@@ -385,7 +386,7 @@ const SecurityRows = ({
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconCheck />
-                            <span style={{ textIndent: "5px" }}>Confirm</span>
+                            <span style={{ textIndent: "5px" }}>{securityRowsComps("3_blocks.security.dialogs.getAccessDialog.buttons.confirm")}</span>
                         </div>
                     </button>
                     <button type="button"
@@ -404,7 +405,7 @@ const SecurityRows = ({
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconX />
-                            <span style={{ textIndent: "5px" }}>Close</span>
+                            <span style={{ textIndent: "5px" }}>{securityRowsComps("3_blocks.security.dialogs.getAccessDialog.buttons.close")}</span>
                         </div>
                     </button>
                 </div>
