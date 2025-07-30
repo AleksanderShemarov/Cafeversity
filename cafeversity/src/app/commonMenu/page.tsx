@@ -1,7 +1,6 @@
 "use client";
 
 import styles from "./commonMenu.module.css";
-// import CommonLayout from "@/components/CommonLayout";
 import FoodList from "@/components/FoodList";
 import React, { useState } from "react";
 import Calculator from "@/components/Calculator";
@@ -37,7 +36,6 @@ export default function CommonMenuPage() {
 
     return (
         <>
-        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <div id={styles.main_part}>
                 <h1>Просты спіс ежы на сённяшні дзень.</h1>
                 <div id={styles.calculator_div} style={{
@@ -60,7 +58,6 @@ export default function CommonMenuPage() {
                 <FoodList onClick={foodIncluding} />
             </div>
             <TwoMainBottomButtons data={buttonsData} />
-        {/* </CommonLayout> */}
         </>
     )
 }

@@ -39,10 +39,10 @@ export default function Layout ({ children }: Readonly<{children: React.ReactNod
 
     return (
         <>
-        <BottomButtonsContext.Provider value={BottomBtns}>
-            {children}
-            <BottomMenu />
-        </BottomButtonsContext.Provider>
+            <BottomButtonsContext.Provider value={BottomBtns}>
+                {children}
+                <BottomMenu />
+            </BottomButtonsContext.Provider>
         </>
     )
 }

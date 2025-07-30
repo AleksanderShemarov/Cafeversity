@@ -1,5 +1,4 @@
 import React from "react";
-// import CommonLayout from "@/components/CommonLayout";
 import ThreeSubLinks from "@/components/ThreeSubLinks";
 import styles from "@/app/page.module.css";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
@@ -20,12 +19,10 @@ export default function Layout ({ children }: Readonly<{children: React.ReactNod
 
     return (
         <>
-        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <ThreeSubLinks>
                 {children}
             </ThreeSubLinks>
             <TwoMainBottomButtons data={buttonsData} />
-        {/* </CommonLayout> */}
         </>
     )
 }

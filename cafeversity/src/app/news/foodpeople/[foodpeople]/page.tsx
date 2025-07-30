@@ -1,10 +1,5 @@
 import styles from "@/app/news/foodpeople/[foodpeople]/article.module.css";
 import Image from "next/image";
-// import Chef from "@/../../public/Chef_Gordon_Ramsay.jpg";
-// import Gordon from "@/../../public/Gordon_Ramsay.jpg";
-// import GordonRamsay_Photo from "@/../../public/GordonRamsay_Photo.jpg";
-// import Ramsay_Mina from "@/../../public/GordonRamsay_MichaelMina_Masterchef.jpg";
-// import Ramsay_Rush from "@/../../public/GordonRamsay_AndreRush.jpg";
 
 
 type ArticlesData = {
@@ -45,8 +40,7 @@ export default async function ArticlePage({ params }: { params: {foodpeople: num
     const { foodpeople } = params;
     console.log(foodpeople);// 2
     const choisenArticle: ArticlesData = await fetch(`http://localhost:3000/api/articles_route?id=${foodpeople}`)
-    .then(res => res.json());
-    // console.log(shoisenArticle);// The single Object with data
+        .then(res => res.json());
 
     const images: string[] = choisenArticle.imagePaths.split(";");
     const texts: string[] = choisenArticle.mainText.split("\\\\&;");
@@ -58,7 +52,6 @@ export default async function ArticlePage({ params }: { params: {foodpeople: num
         part.push(texts[i]);
         imagesTexts.push(part);
     }
-    // console.log(imagesTexts);
 
     /* 
     text sources:

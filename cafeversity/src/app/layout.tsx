@@ -24,7 +24,6 @@ export default async function RootLayout({
   const messages = await getMessages();
 
   return (
-    // <html lang="en">
     <html lang={locale}>
       <body className={inter.className}>
         <NextIntlClientProvider messages={messages} locale={locale} now={new Date()}>

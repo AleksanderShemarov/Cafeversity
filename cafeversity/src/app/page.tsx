@@ -1,5 +1,4 @@
 import styles from "./page.module.css";
-// import CommonLayout from "@/components/CommonLayout";
 import Greeting from "@/components/Greeting";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
 
@@ -19,13 +18,11 @@ export default function Home() {
 
     return (
         <>
-        {/* <CommonLayout> */}{/* I removed it into layout.tsx; RootLayout Component */}
             <div id={styles.main_part}>
                 <h1>Галоўная старонка, дзе карыстальнік будзе вітацца.</h1>
                 <Greeting />
             </div>
             <TwoMainBottomButtons data={buttonsData}/>
-        {/* </CommonLayout> */}
         </>
     );
 }
