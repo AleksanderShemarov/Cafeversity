@@ -2,28 +2,52 @@ import { getRequestConfig } from "next-intl/server";
 import { cookies } from "next/headers";
 
 
-export default getRequestConfig(async () => {
+export default getRequestConfig(async ({ requestLocale: routeLocale }) => {
     
+    const foundLocale = await routeLocale;
+    console.log("getRequestConfig", foundLocale);
+
     const session = cookies().get("sessionId");
-    
-    let userLanguage;
-    if (session) {
-        userLanguage = await fetch("http://localhost:3000/api/lookingForLanguage", {
+    // console.log("Available locale files:", await fs.readdir(path.join(process.cwd(), 'languages')));
+    const adminSession = cookies().get("adminSessionId");
+
+    if (session || adminSession) {
+        // console.log("session -->", session);
+        // console.log("adminSession -->", adminSession);
+        
+        const userLanguage = await fetch("http://localhost:3000/api/lookingForLanguage", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(session)
+            body: JSON.stringify(session ?? adminSession)
         })
         .then(res => res.json());
-    }
-    const locale = userLanguage ? userLanguage.language : 'en';
-    // console.log("Found User Locale ->", locale);
+        // const locale = session ? (userLanguage?.language || 'en') : routeLocale;
+        const locale = userLanguage ? userLanguage.language : 'by';
+        // console.log("Found User Locale ->", locale);
 
-    // const locale = 'by';
-    // const locale = 'cz';
-    // const locale = 'en';
+        // const locale = 'by';
+        // const locale = 'cz';
+        // const locale = 'en';
+
+        console.log("const locale =", locale);
+
+        return {
+            locale,
+            messages: (await import(`../languages/${locale}.json`)).default
+        };
+    }
+
+    // Temporary locale's stub for (name) route groups without [locale]
+    if (foundLocale === undefined) {
+        return {
+            locale: "by",
+            messages: (await import(`../languages/by.json`)).default
+        };
+    }
+    //
 
     return {
-        locale,
-        messages: (await import(`../languages/${locale}.json`)).default
+        locale: foundLocale,
+        messages: (await import(`../languages/${foundLocale}.json`)).default
     };
 });

@@ -1,16 +1,19 @@
 "use client"
 
-import styles from '@/app/page.module.css';
+import styles from '@/app/(commonSite)/[locale]/page.module.css';
 import { useState, useEffect } from 'react';
+import { useTranslations } from 'next-intl';
 
 
 export default function Dating () {
 
+    const dating = useTranslations("HeaderComponents");
+
     const [date, setDate] = useState(new Date());
     const months : string[] = [
-        "Студзень", "Люты", "Сакавік", "Красавік",
-        "Травень", "Чэрвень", "Ліпень", "Жнівень",
-        "Верасень", "Кастрычнік", "Лістапад", "Снежань",
+        dating("Dating.months.jan"), dating("Dating.months.feb"), dating("Dating.months.mar"), dating("Dating.months.apr"),
+        dating("Dating.months.may"), dating("Dating.months.jun"), dating("Dating.months.jul"), dating("Dating.months.aug"),
+        dating("Dating.months.sep"), dating("Dating.months.oct"), dating("Dating.months.nov"), dating("Dating.months.dec"),
     ];
 
     useEffect(() => {
@@ -32,9 +35,17 @@ export default function Dating () {
 
 export function WeatherWeekday() {
 
+    const weatherWeekday = useTranslations("HeaderComponents");
+
     const [date, setDate] = useState(new Date());
     const weekdays : string[] = [
-        "Нд", "Пн", "Аў", "Ср", "Чц", "Пт", "Сб",
+        weatherWeekday("WeatherWeekday.weekdays.sun"),
+        weatherWeekday("WeatherWeekday.weekdays.mon"),
+        weatherWeekday("WeatherWeekday.weekdays.tue"),
+        weatherWeekday("WeatherWeekday.weekdays.wed"),
+        weatherWeekday("WeatherWeekday.weekdays.thu"),
+        weatherWeekday("WeatherWeekday.weekdays.fri"),
+        weatherWeekday("WeatherWeekday.weekdays.sat"),
     ];
 
     useEffect(() => {

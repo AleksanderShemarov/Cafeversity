@@ -1,6 +1,6 @@
 "use client"
 
-import styles from "@/app/commonMenu/commonMenu.module.css";
+import styles from "@/app/(commonSite)/[locale]/commonMenu/commonMenu.module.css";
 import Image from "next/image";
 import ImageText from "./ImageText";
 import React, { useEffect, useState } from "react";
@@ -58,7 +58,7 @@ export default function FoodList({ onClick }: onClickEvent) {
     If you see these data all time, data fetching is failed.*/
 
     useEffect(() => {
-        fetch("http://localhost:3000/api/route_prisma", {
+        fetch("http://localhost:3000/api/foodlist", {
           method: "GET",
           headers: {
             "Content-Type": "application/json",

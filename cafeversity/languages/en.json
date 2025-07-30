@@ -1,4 +1,202 @@
 {
+    "HeaderComponents": {
+        "WeatherWeekday": {
+            "weekdays": {
+                "sun": "Su",
+                "mon": "Mo",
+                "tue": "Tu",
+                "wed": "We",
+                "thu": "Th",
+                "fri": "Fr",
+                "sat": "Sa"
+            }
+        },
+        "Dating": {
+            "months": {
+                "jan": "January",
+                "feb": "February",
+                "mar": "March",
+                "apr": "April",
+                "may": "May",
+                "jun": "June",
+                "jul": "July",
+                "aug": "August",
+                "sep": "September",
+                "oct": "October",
+                "nov": "November",
+                "dec": "December"
+            }
+        },
+        "Entrance": "Sign In"
+    },
+    "GreetingPage": {
+        "slidesText": {
+            "slide1": {
+                "line1": "The first line: Lorem, ipsum dolor.",
+                "line2": "The second line: Lorem ipsum dolor sit amet.",
+                "line3": "The third line: Lorem ipsum dolor sit."
+            },
+            "slide2": {
+                "line4": "The fourth line: Lorem, ipsum dolor.",
+                "line5": "The fifth line: Lorem ipsum dolor sit amet.",
+                "line6": "The sixth line: Lorem ipsum dolor sit."
+            },
+            "slide3": {
+                "line7": "The seventh line: Lorem, ipsum dolor.",
+                "line8": "The eighth line: Lorem ipsum dolor sit amet.",
+                "line9": "The nineth line: Lorem ipsum dolor sit."
+            }
+        },
+        "bottomButtons": {
+            "left": "Today's Meals",
+            "right": "World of Food"
+        }
+    },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Close Calculator",
+            "open": "Open Calculator",
+            "calcName": "Meals Calculator",
+            "foodName": "Food Name",
+            "portion": "Portions Amount",
+            "cost": "Cost",
+            "cancel": "Cancel",
+            "tipForUse": "Add a meal into the calculator by clicking on its cost.",
+            "notification": "Notification",
+            "costSum": "Common cost"
+        },
+        "bottomButtons": {
+            "left": "Main Page",
+            "right": "World of Food"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Search...",
+            "searchLineTip": "Type your query here!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Best Recipe",
+            "food&peopleSubLink": "Food & People",
+            "foodEventsSublink": "Food Events"
+        },
+        "bottomButtons": {
+            "left": "Today's Meals",
+            "right": "Main Page"
+        }
+    },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Password Recovery",
+            "accessUpdate": "Access Restoring",
+            "registration": "Registartion Form",
+            "enterGate": "Entrance Gate",
+            "adminGate": "Admin Gate",
+            "adminReg": "Admin Registartion",
+            "codeConfirmation": "Entrance Confirmation"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "Check your email address '",
+                "part2": "'. The special code has been sent for admin's confirmation."
+            }
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Password",
+                "nameNew": "New Password",
+                "repeatName": "Repeat Password",
+                "placeholder": "Code Word"
+            },
+            "emailField": {
+                "name": "E-mail",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Churchill@gmail.com"
+            },
+            "nameField": {
+                "name": "Name",
+                "placeholder": "Winston"
+            },
+            "surnameField": {
+                "name": "Surname",
+                "placeholder": "Churchill"
+            },
+            "nicknameField": {
+                "name": "Nickname",
+                "placeholder": "Colonel Warden"
+            },
+            "unknownwordField": {
+                "name": "Secret Word",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Mobile Phone Number",
+                "placeholder": "+44(**)***-**-**"
+            },
+            "emailCodeConfirmField": {
+                "name": "Confirmation Code (****-*****-****)",
+                "placeholder": "****-***-****"
+            },
+            "otherNames": {
+                "adminRole": "Admin's Role",
+                "language": "Language"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Change Password",
+            "enterGate": "To the Entrance",
+            "send": "Send",
+            "mainPage": "To Main Page",
+            "signUp": "Signing Up",
+            "exit": "Exit",
+            "logIn": "Logging In",
+            "back": "Back",
+            "confirm": "Confirm",
+            "adminEntrance": "To the Admin Gate"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "We're sorry, but the link has already expired. To request a new one, click ",
+                "part2": "here"
+            },
+            "toSignUp": {
+                "part1": "Not registered yet? Please click ",
+                "part2": "here"
+            },
+            "rememberedPassword": {
+                "part1": "Have you remembered your password yet?",
+                "part2": "Jump here"
+            },
+            "alreadySinedUp": {
+                "part1": "Already registered – please, ",
+                "part2": "here"
+            },
+            "forgottenPassword": {
+                "part1": "If you forgot your password, go to ",
+                "part2": "here"
+            }
+        },
+        "others": {
+            "loading": "Loading...",
+            "networks": "Login using networks"
+        }
+    },
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Menu",
+            "main": "General",
+            "news": "News",
+            "settings": "Account Settings"
+        },
+        "exitButton": {
+            "name": "Exit",
+            "question": "Do you really want to exit?",
+            "access": "Yes",
+            "deny": "No"
+        }
+    },
     "SettingsPage": {
         "stickyNavbar": {
             "name": "Account Settings",
@@ -61,6 +259,151 @@
                 "fontQuestion1": "Choose a Font Family",
                 "fontQuestion2": "Choose a Font Size",
                 "fontQuestion3": "Choose a Font Weight"
+            }
+        }
+    },
+    "ExitPage": {
+        "name": "Exit in progress. Await, please..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Admin's Menu",
+            "themes": {
+                "light": "Light",
+                "dark": "Dark"
+            },
+            "settings": "Settings",
+            "exit": "Sign Out"
+        },
+        "AdminHeaderOptions": {
+            "dashboard": "Admin Dashboard",
+            "usersPanel": "Users Panel"
+        }
+    },
+    "AdminPageSetUps": {
+        "3_blocks": {
+            "personData": {
+                "name": "Personal Data",
+                "fullname": "Name",
+                "telephone": "Telephone",
+                "languagesList": "Languages",
+                "pageLanguage": "Pages' Language",
+                "messages": {
+                    "language": {
+                        "positive": "Language is updated.",
+                        "negative": "Language update failed!"
+                    },
+                    "photo": {
+                        "positive": "Photo is updated.",
+                        "neutral": "Admin's Template Photo is set.",
+                        "negative": "Photo update failed!"
+                    },
+                    "photoFile": {
+                        "uploading": {
+                            "positive": "The new photo is uploaded.",
+                            "negative": "The new photo upload failed:"
+                        },
+                        "removing": {
+                            "positive": "The photo is removed.",
+                            "negative": "The photo removing failed:"
+                        }
+                    },
+                    "fullname": {
+                        "positive": "Fullname is updated.",
+                        "negative": "Fullname update failed!"
+                    },
+                    "telephone": {
+                        "positive": "Telephone number is updated.",
+                        "negative": "Telephone number update failed!"
+                    }
+                },
+                "buttons": {
+                    "save": "Save",
+                    "delete": "Delete",
+                    "upload": "Upload",
+                    "edit": "Edit"
+                },
+                "saveChangesDialog": {
+                    "title": "Saving New Data",
+                    "text": "Are you agreed to save an updated datum?",
+                    "buttons": {
+                        "yes": "Yes",
+                        "no": "No"
+                    }
+                }
+            },
+            "security": {
+                "name": "Login & Security",
+                "email": "Email",
+                "password": "Password",
+                "passwordTip": "To change your password, get access and input the new one twice.",
+                "secretWord": "Secret Word",
+                "tokenPlaceholder": "Input the Token...",
+                "passwordPlaceholder": "Input your new password",
+                "repeatPasswordPlaceholder": "Repeat your new password",
+                "messages": {
+                    "email": {
+                        "positive": "The new email address is saved.",
+                        "negative": "It is impossible to save the new email address."
+                    },
+                    "emailStatus": {
+                        "confirmed": "Confirmed",
+                        "unconfirmed": "Not Confirmed"
+                    },
+                    "password": {
+                        "positive": "The new password is set.",
+                        "negative": "It is impossible to save the new password.",
+                        "mistakes": {
+                            "different": "Passwords don't match!",
+                            "short": "Password must be at least 8 characters!"
+                        }
+                    },
+                    "secretWord": {
+                        "positive": "The new secret word is saved.",
+                        "negative": "It is impossible to save the new secret word."
+                    },
+                    "access": {
+                        "confirmed": "Access is confirmed!",
+                        "denied": "Access is denied!",
+                        "get": "Get Access",
+                        "granted": "Access Granted"
+                    },
+                    "confirmLetter": {
+                        "sent": "The confirmation letter has been sent on your email:",
+                        "problem": "Something went wrong... Please, check the 'letterForEmailConfirmation' function."
+                    },
+                    "isEmailConfirmed": {
+                        "yes": "Your email is confirmed!",
+                        "no": "Wrong token! Please, try again."
+                    }
+                },
+                "buttons": {
+                    "confirm": "Confirm",
+                    "save": "Save",
+                    "change": "Change"
+                },
+                "dialogs": {
+                    "saveChangesDialog": {
+                        "title": "Saving New Data",
+                        "text": "Are you agreed to save an updated datum?",
+                        "buttons": {
+                            "yes": "Yes",
+                            "no": "No"
+                        }
+                    },
+                    "getAccessDialog": {
+                        "title": "Access for Changes",
+                        "text": "Before you will continue, please, input your password:",
+                        "inputLabel": "Password",
+                        "buttons": {
+                            "confirm": "Confirm",
+                            "close": "Close"
+                        }
+                    }
+                }
+            },
+            "roles": {
+                "name": "Admins' Roles (Table)"
             }
         }
     }

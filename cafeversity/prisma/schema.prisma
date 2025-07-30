@@ -51,7 +51,7 @@ model Users {
   id                  Int       @id @default(autoincrement())
   firstName           String
   lastName            String
-  nickName            String?   @unique
+  nickName            String?
   userPhoto           String?
   email               String    @unique
   password            String
@@ -76,4 +76,24 @@ model CustomSets {
   fontVolume          String    @default("fontWeight: normal, fontStyle: italic")
   userId              Int       @unique
   user                Users     @relation(fields: [userId], references: [id])
+}
+
+model AdminUsers {
+  ID                  Int       @id @default(autoincrement())
+  Name                String
+  Surname             String
+  Email               String    @unique
+  EmailConfirmed      Boolean   @default(false)
+  Telephone           String?
+  Role                String
+  SentCode            String?
+  Photo               String    @default("")
+  Language            String
+  Theme               String    @default("light")
+  SessionId           String?   @unique
+  Password            String
+  SecretWord          String    @unique
+  SecretWordUsed      Boolean   @default(false)
+  ResetToken          String?   @unique
+  ResetTokenExpiry    DateTime?
 }

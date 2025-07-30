@@ -1,4 +1,202 @@
 {
+    "HeaderComponents": {
+        "WeatherWeekday": {
+            "weekdays": {
+                "sun": "Ne",
+                "mon": "Po",
+                "tue": "Út",
+                "wed": "St",
+                "thu": "Čt",
+                "fri": "Pá",
+                "sat": "So"
+            }
+        },
+        "Dating": {
+            "months": {
+                "jan": "Leden",
+                "feb": "Únor",
+                "mar": "Březen",
+                "apr": "Duben",
+                "may": "Květen",
+                "jun": "Červen",
+                "jul": "Červenec",
+                "aug": "Srpen",
+                "sep": "Září",
+                "oct": "Říjen",
+                "nov": "Listopad",
+                "dec": "Prosinec"
+            }
+        },
+        "Entrance": "Vstup"
+    },
+    "GreetingPage": {
+        "slidesText": {
+            "slide1": {
+                "line1": "The first line: Lorem, ipsum dolor.",
+                "line2": "The second line: Lorem ipsum dolor sit amet.",
+                "line3": "The third line: Lorem ipsum dolor sit."
+            },
+            "slide2": {
+                "line4": "The fourth line: Lorem, ipsum dolor.",
+                "line5": "The fifth line: Lorem ipsum dolor sit amet.",
+                "line6": "The sixth line: Lorem ipsum dolor sit."
+            },
+            "slide3": {
+                "line7": "The seventh line: Lorem, ipsum dolor.",
+                "line8": "The eighth line: Lorem ipsum dolor sit amet.",
+                "line9": "The nineth line: Lorem ipsum dolor sit."
+            }
+        },
+        "bottomButtons": {
+            "left": "Dnešní Jídla",
+            "right": "Jídlo Světu"
+        }
+    },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Zavřít Kalkulačku",
+            "open": "Otevřít Kalkulačku",
+            "calcName": "Jídelní Pult",
+            "foodName": "Název Jídla",
+            "portion": "Počet Porcí",
+            "cost": "Cena",
+            "cancel": "Zrušit",
+            "tipForUse": "Chceš-li přidat jídlo do kalkulačky, klikní na jeho cenu.",
+            "notification": "Zpráva",
+            "costSum": "Součet cen"
+        },
+        "bottomButtons": {
+            "left": "Hlavní Stránka",
+            "right": "Jídlo Světu"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Hledání...",
+            "searchLineTip": "Zadej svůj požadavek!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Recept Dne",
+            "food&peopleSubLink": "Lidé a Jídlo",
+            "foodEventsSublink": "Svět Jídla"
+        },
+        "bottomButtons": {
+            "left": "Dnešní Jídla",
+            "right": "Hlavní stránka"
+        }
+    },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Obnovení Hesla",
+            "accessUpdate": "Obnovení Přístupu",
+            "registration": "Registrační Formulář",
+            "enterGate": "Vstupní Brána",
+            "adminGate": "Adminová Brána",
+            "adminReg": "Registrace Adminů",
+            "codeConfirmation": "Potvrzení Vstupu"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "Na Vaši adresu elaktronové pošty '",
+                "part2": "' byl odeslán speciální kod, aby se přihlásily jako admin."
+            }
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Heslo",
+                "nameNew": "Nové Heslo",
+                "repeatName": "Zopakujte Heslo",
+                "placeholder": "Kódové Slovo"
+            },
+            "emailField": {
+                "name": "E-pošta",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Havel@gmail.com"
+            },
+            "nameField": {
+                "name": "Jmeno",
+                "placeholder": "Václav"
+            },
+            "surnameField": {
+                "name": "Příjmení",
+                "placeholder": "Havel"
+            },
+            "nicknameField": {
+                "name": "Přezdívka (Nickname)",
+                "placeholder": "Ota Vávra"
+            },
+            "unknownwordField": {
+                "name": "Tajné Slovo",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Číslo Mobilního Telefonu",
+                "placeholder": "+420(*)***-***-***"
+            },
+            "emailCodeConfirmField": {
+                "name": "Kod Potvrzení (****-*****-****)",
+                "placeholder": "****-***-****"
+            },
+            "otherNames": {
+                "adminRole": "Role Adminu",
+                "language": "Jazyk"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Změnit Heslo",
+            "enterGate": "Do Vstupní Brány",
+            "send": "Odeslat",
+            "mainPage": "Na Hlavní",
+            "signUp": "Registrace",
+            "exit": "Výstup",
+            "logIn": "Přihlášení",
+            "back": "Zpět",
+            "confirm": "Potvrzení",
+            "adminEntrance": "Do Adminové Brány"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "Je nám líto, ale platnost odkazu vypršela. Chcete-li požádat o nový, stiskněte ",
+                "part2": "zde"
+            },
+            "toSignUp": {
+                "part1": "Ještě jste se nezaregistrovali? Klikněte, prosím, ",
+                "part2": "zde"
+            },
+            "rememberedPassword": {
+                "part1": "Už si pamatuješ heslo?",
+                "part2": "Jdi sem"
+            },
+            "alreadySinedUp": {
+                "part1": "Již zaregistrovaný – prosím ",
+                "part2": "tady"
+            },
+            "forgottenPassword": {
+                "part1": "Pokud jste zapomněli heslo, přejděte ",
+                "part2": "sem"
+            }
+        },
+        "others": {
+            "loading": "Načítání...",
+            "networks": "Přihlášení pomocí sítí"
+        }
+    },
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Menu",
+            "main": "Obecná",
+            "news": "Noviny",
+            "settings": "Nastavení účtu"
+        },
+        "exitButton": {
+            "name": "Výstup",
+            "question": "Opravdu chcete odejít?",
+            "access": "Ano",
+            "deny": "Ne"
+        }
+    },
     "SettingsPage": {
         "stickyNavbar": {
             "name": "Nastavení Účtu",
@@ -61,6 +259,151 @@
                 "fontQuestion1": "Vyber rodinu písem",
                 "fontQuestion2": "Vyber velikost písma",
                 "fontQuestion3": "Vzber hmotnost písma"
+            }
+        }
+    },
+    "ExitPage": {
+        "name": "Probíhá výstup. Čekejte, prosím..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Menu Admina",
+            "themes": {
+                "light": "Světlá",
+                "dark": "Temná"
+            },
+            "settings": "Nastavení",
+            "exit": "Výstup"
+        },
+        "AdminHeaderOptions": {
+            "dashboard": "Administrativní Panel",
+            "usersPanel": "Panel Uživatelů"
+        }
+    },
+    "AdminPageSetUps": {
+        "3_blocks": {
+            "personData": {
+                "name": "Osobní Údaje",
+                "fullname": "Jmeno",
+                "telephone": "Telefon",
+                "languagesList": "Jazyky",
+                "pageLanguage": "Jazyk Stránek",
+                "messages": {
+                    "language": {
+                        "positive": "Jazyk je aktualizován.",
+                        "negative": "Aktualizace jazyka selhala!"
+                    },
+                    "photo": {
+                        "positive": "Foto je aktualizováno.",
+                        "neutral": "Šablona fotky pro admina je nastavena.",
+                        "negative": "Aktualizace fotky se nezdařila!"
+                    },
+                    "photoFile": {
+                        "uploading": {
+                            "positive": "Nová fotka je nahrána.",
+                            "negative": "Nepodařilo se nahrát novou fotku:"
+                        },
+                        "removing": {
+                            "positive": "Fotka je odstraněna.",
+                            "negative": "Odstranění fotky se nezdařilo:"
+                        }
+                    },
+                    "fullname": {
+                        "positive": "Celé jméno je aktualizováno.",
+                        "negative": "Aktualizace celého jména selhala!"
+                    },
+                    "telephone": {
+                        "positive": "Telefonní číslo je aktualizováno.",
+                        "negative": "Aktualizace telefonního čísla selhala!"
+                    }
+                },
+                "buttons": {
+                    "save": "Uložit",
+                    "delete": "Odstranit",
+                    "upload": "Nahrát",
+                    "edit": "Upravit"
+                },
+                "saveChangesDialog": {
+                    "title": "Ukládání Nových Dat",
+                    "text": "Souhlasili jste s uložením aktualizovaného data?",
+                    "buttons": {
+                        "yes": "Ano",
+                        "no": "Ne"
+                    }
+                }
+            },
+            "security": {
+                "name": "Přihlášení & Bezpečnost",
+                "email": "E-pošta",
+                "password": "Heslo",
+                "passwordTip": "Chcete-li změnit heslo, získejte přístup a dvakrát zadejte nové heslo.",
+                "secretWord": "Tajné Slovo",
+                "tokenPlaceholder": "Vložte Token...",
+                "passwordPlaceholder": "Vložte své nové heslo",
+                "repeatPasswordPlaceholder": "Zopakujte nové heslo",
+                "messages": {
+                    "email": {
+                        "positive": "Nová e-mailová adresa je uložena.",
+                        "negative": "Novou e-mailovou adresu nelze uložit."
+                    },
+                    "emailStatus": {
+                        "confirmed": "Potvrzeno",
+                        "unconfirmed": "Nepotvrzeno"
+                    },
+                    "password": {
+                        "positive": "Nové heslo je nastaveno.",
+                        "negative": "Nové heslo není možné uložit.",
+                        "mistakes": {
+                            "different": "Hesla se neshodují!",
+                            "short": "Heslo musí mít alespoň 8 znaků!"
+                        }
+                    },
+                    "secretWord": {
+                        "positive": "Nové tajné slovo je uloženo.",
+                        "negative": "Nové tajné slovo je nemožné uložit."
+                    },
+                    "access": {
+                        "confirmed": "Přístup je potvrzen!",
+                        "denied": "Přístup je zamítnut!",
+                        "get": "Získat Přístup",
+                        "granted": "Přístup Udělen"
+                    },
+                    "confirmLetter": {
+                        "sent": "Potvrzovací dopis byl odeslán na váš e-mail:",
+                        "problem": "Něco se pokazilo... Zkontrolujte prosím funkci 'letterForEmailConfirmation'."
+                    },
+                    "isEmailConfirmed": {
+                        "yes": "Váš e-mail je potvrzen!",
+                        "no": "Špatný token! Prosím, zkuste to znovu."
+                    }
+                },
+                "buttons": {
+                    "confirm": "Potvrdit",
+                    "save": "Uložit",
+                    "change": "Změnit"
+                },
+                "dialogs": {
+                    "saveChangesDialog": {
+                        "title": "Ukládání Nových Dat",
+                        "text": "Souhlasili jste s uložením aktualizovaného data?",
+                        "buttons": {
+                            "yes": "Ano",
+                            "no": "Ne"
+                        }
+                    },
+                    "getAccessDialog": {
+                        "title": "Přístup pro Změny",
+                        "text": "Než budete pokračovat, zadejte prosím své heslo:",
+                        "inputLabel": "Heslo",
+                        "buttons": {
+                            "confirm": "Potvrdit",
+                            "close": "Zavřít"
+                        }
+                    }
+                }
+            },
+            "roles": {
+                "name": "Role Adminů (Tabulka)"
             }
         }
     }

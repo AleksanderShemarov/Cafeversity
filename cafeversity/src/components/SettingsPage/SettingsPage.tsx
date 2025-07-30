@@ -21,7 +21,7 @@ import useFontSizeSet from "@/hooks/fontSizeSet";
 import useFontVolumeSet from "@/hooks/fontVolume";
 
 import { useTranslations } from "next-intl";
-import { UserDataTypes } from "@/app/[authorizedUser]/settingsPage/page";
+import { UserDataTypes } from "@/app/(userPage)/authorized/[authorizedUser]/settingsPage/page";
 import PageBlockName from "@/components/PageBlocks/PageBlockName";
 import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 import SaveDenyPanel from "../SaveDenyPanel/SaveDenyPanel";
@@ -287,13 +287,16 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     }
     function denyUpdatedSetsUserData() {
         setsDispatch({ type: "SET_REAL_USER_SETS", payload: newSets });
+        setTheme(newSets.pageTheme);
+        toast.info("All changes have been discarded.", { position: "top-right" });
     }
     
     
-    console.log(setState);
+    // console.log("setState ->", setState);
 
 
     const imageEditorRef = useRef<{ photoServerSave: () => Promise<{ status: string, path: string|null }> }>(null);
+
     async function saveNewCommonUserData() {
         const imagePathArray = imagePath.split("");
         const deletedNotAccessSymbols = imageFileId.replace(/[^a-zA-Z0-9_]/g, '');
@@ -310,6 +313,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
             ? await imageEditorRef.current.photoServerSave()
             : { status: "Success", path: userData.userPhoto };
         
+        console.log("before fetch for saving new data at Settings Page.");
         
         await fetch("/api/userData?page=settings", {
             method: "POST",
@@ -340,6 +344,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                     setsDispatch({ type: "SET_REAL_USER_SETS", payload: setState });
                     setNewSets(setState);
                     console.log("Settings are updated.", result.success);
+                    toast.success("Settings are updated.", { position: "top-right" });
                 }
             });
         });
@@ -353,7 +358,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                 method: "POST",
                 headers:{ 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    userName: authorizedUser,
+                    userName: `${state.firstName}_${state.lastName}`,// userName: authorizedUser,
                     newLang: newLanguage,
                 }),
             });

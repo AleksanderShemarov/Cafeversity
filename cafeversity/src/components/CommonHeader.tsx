@@ -1,6 +1,6 @@
 "use client";
 
-import styles from "@/app/page.module.css";
+import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import Image from "next/image";
 import sunny from "../../public/sunny.png";
 import Dating, { WeatherWeekday } from "@/components/Dating";
@@ -9,9 +9,22 @@ import { Clock2, Clock3 } from "@/components/Clock";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import DialogView from "./Dialog/DialogView";
+import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
+import LangSwitcher from "./PublicLangSwitcher/LangSwitcher";
 
 
 export default function CommonHeader () {
+
+    const pathname = usePathname();
+
+    // const Clock = dynamic(
+    //     () => import('@/components/Clock'), {
+    //         ssr: false,            
+    //     }
+    // )
+    // /* Server and Client have different clock time (the first has the previous time; the second – the next time).
+    // From this moment we call Clock component as a dynamic component*/
 
     const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
     const [exitView, isExitView] = useState<boolean>(false);
@@ -36,6 +49,9 @@ export default function CommonHeader () {
         CookieFinding();
     }, []);
 
+    const t = useTranslations("MainUserPage");
+    const entrance = useTranslations("HeaderComponents");
+
     return (
         <>
             <div id={styles.header}>
@@ -52,6 +68,11 @@ export default function CommonHeader () {
                 Thanks for Joeward Peralta (https://github.com/joewardperalta/digital-clock) */}
                 
                 <Dating />
+
+                {!isAuthorized &&
+                    <LangSwitcher />
+                }
+
                 <div
                     style={{ margin: "auto 0" }} 
                     onClick={() => {
@@ -59,14 +80,16 @@ export default function CommonHeader () {
                         document.body.style.overflow = "hidden";
                     }}
                 >
+
                     <Entrance
-                        path={isAuthorized ? '' : '/login/signin'}
-                        sign={isAuthorized ? 'Выхад' : 'Ўваход'}
+                        path={isAuthorized ? '' : `${pathname.slice(0, 3)}/login/signin`}
+                        sign={isAuthorized ? t("exitButton.name") : entrance("Entrance")}
                     />
                 </div>
+
                 {(isAuthorized && exitView) && (
                     <DialogView
-                        question="Вы на сам рэч хаціце выйсці?"
+                        question={t("exitButton.question")}
                         dialog_cover={{ backgroundColor: "rgba(222, 184, 135, 0.8)" }}
                         dialog_container={{ border: "5px solid orange" }}
                         dialog_question={{
@@ -74,10 +97,10 @@ export default function CommonHeader () {
                             fontWeight: "var(--font-volume-weight)", fontStyle: "var(--font-volume-style)",
                         }}
                     >
-                        <Link href="/ExitProcess" style={{ width: "25%" }}>
-                            <input type="button" value="Так" id={styles.accessButton} />
+                        <Link href={`${pathname.slice(0, 3)}/logout`} style={{ width: "25%" }}>
+                            <input type="button" value={t("exitButton.access")} id={styles.accessButton} />
                         </Link>
-                        <input type="button" value="Не" id={styles.denyButton} onClick={() => {
+                        <input type="button" value={t("exitButton.deny")} id={styles.denyButton} onClick={() => {
                             isExitView(!exitView);
                             document.body.style.overflow = "auto";
                         }} />

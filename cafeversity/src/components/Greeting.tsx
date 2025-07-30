@@ -1,15 +1,61 @@
 "use client"
 
-import styles from "@/app/page.module.css";
+import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import Image, { StaticImageData } from "next/image";
 import quality from "../../public/якасць.jpeg";
 import city_map from "../../public/гарадзкая_мапа.jpeg";
 import fresh_food from "../../public/карысная_ежа.jpeg";
 import { useState } from "react";
 import { clsx } from "clsx";
+import { useTranslations } from "next-intl";
 
 
 export default function Greeting() {
+
+    // const allData : [StaticImageData, string[], boolean][] = [
+    //     [
+    //         emptyImg,
+    //         [
+    //             "The first line: Lorem, ipsum dolor.",
+    //             "The second line: Lorem ipsum dolor sit amet.",
+    //             "The third line: Lorem ipsum dolor sit.",
+    //         ],
+    //         false,
+    //     ],
+    //     [
+    //         emptyImg,
+    //         [
+    //             "The fourth line: Lorem, ipsum dolor.",
+    //             "The fifth line: Lorem ipsum dolor sit amet.",
+    //             "The sixth line: Lorem ipsum dolor sit.",
+    //         ],
+    //         true,
+    //     ],
+    //     [
+    //         emptyImg,
+    //         [
+    //             "The seventh line: Lorem, ipsum dolor.",
+    //             "The eighth line: Lorem ipsum dolor sit amet.",
+    //             "The nineth line: Lorem ipsum dolor sit.",
+    //         ],
+    //         true,
+    //     ],
+    // ];
+
+    // const booleans : boolean[] = allData.map((datum : [StaticImageData, string[], boolean]) => datum[2]);
+
+    // const [divsVisibility, setDivsVisibility] = useState(booleans);
+
+    // const toggleDivsVisibility = (index : number) => {
+    //     const newPoints = Array(divsVisibility.length).fill(true);
+    //     let chosenPoint = !(divsVisibility[index]);
+    //     newPoints[index] = chosenPoint;
+    //     // console.log(divsVisibility, newPoints);
+    //     setDivsVisibility(newPoints);
+    // };
+
+
+    const slidesText = useTranslations("GreetingPage");
 
     const staticImages : StaticImageData[] = [
         fresh_food,
@@ -18,19 +64,19 @@ export default function Greeting() {
     ];
     const strings : string[][] = [
         [
-            "The first line: Lorem, ipsum dolor.",
-            "The second line: Lorem ipsum dolor sit amet.",
-            "The third line: Lorem ipsum dolor sit.",
+            slidesText("slidesText.slide1.line1"),
+            slidesText("slidesText.slide1.line2"),
+            slidesText("slidesText.slide1.line3"),
         ],
         [
-            "The fourth line: Lorem, ipsum dolor.",
-            "The fifth line: Lorem ipsum dolor sit amet.",
-            "The sixth line: Lorem ipsum dolor sit.",
+            slidesText("slidesText.slide2.line4"),
+            slidesText("slidesText.slide2.line5"),
+            slidesText("slidesText.slide2.line6"),
         ],
         [
-            "The seventh line: Lorem, ipsum dolor.",
-            "The eighth line: Lorem ipsum dolor sit amet.",
-            "The nineth line: Lorem ipsum dolor sit.",
+            slidesText("slidesText.slide3.line7"),
+            slidesText("slidesText.slide3.line8"),
+            slidesText("slidesText.slide3.line9"),
         ],
     ]
     const booleans : boolean[] = [
