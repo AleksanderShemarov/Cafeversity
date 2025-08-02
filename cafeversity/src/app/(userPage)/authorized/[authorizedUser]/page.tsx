@@ -2,12 +2,15 @@ import Image from "next/image";
 import styles from "@/app/(userPage)/authorized/[authorizedUser]/authorized.module.css";
 import { use } from "react";
 import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
+import SortableAreaComponent from "@/components/DropArea/SortableAreaComponent";
 
 
 type UserDataTypes = {
     firstName: string,
     lastName: string,
+    nickName: string,
     userPhoto: string,
+    email: string,
     customSets: {
         spicy: boolean,
         vegetarian: boolean,
@@ -55,9 +58,46 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
                         layout="fill"
                     ></Image>
                 </div>
-                <p className={styles.userName}>{data.firstName}<br />{data.lastName}</p>
+                <div style={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "baseline",
+                    paddingLeft: "25px", 
+                    gap: "2.5rem",
+                    // outline: "1px solid black"
+                }}>
+                    <p
+                        // className={styles.userName}
+                        style={{
+                            margin: 0,
+                            fontSize: "3.5rem",
+                            // outline: "1px solid black",
+                            fontFamily: "var(--font-family)",
+                            fontWeight: "var(--font-volume-weight)",
+                            fontStyle: "var(--font-volume-style)"
+                        }}
+                    >
+                        {data.firstName} {data.lastName}
+                        {data.nickName !== null &&
+                            <><br />&quot;{data.nickName}&quot;</>
+                        }
+                    </p>
+                    <p style={{
+                        margin: 0,
+                        fontSize: "3rem",
+                        // outline: "1px solid black",
+                        fontFamily: "var(--font-family)",
+                        fontWeight: "var(--font-volume-weight)",
+                        fontStyle: "var(--font-volume-style)"
+                    }}>
+                        {data.email}
+                    </p>
+                </div>
             </div>
             
+            {/* Drag-&-Drop Component */}
+            <SortableAreaComponent />           
+
             <LocalStorageStyles {...data.customSets} />
         </>
     )

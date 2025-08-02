@@ -20,7 +20,9 @@ const GET = async (request: NextRequest) => {
                 select: {
                     firstName: true,
                     lastName: true,
+                    nickName: true,
                     userPhoto: true,
+                    email: true,
                     customSets: {
                         select: {
                             spicy: true,
