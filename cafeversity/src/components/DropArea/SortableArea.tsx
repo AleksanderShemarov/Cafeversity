@@ -11,6 +11,7 @@ import {
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableItem } from "./SortableItem";
 import { useState } from "react";
+import BlockSelect from "../BlockSelection/BlockSelect";
 
 
 const SortableArea = () => {
@@ -41,6 +42,34 @@ const SortableArea = () => {
         }
     }
 
+    const blockSelectIds = ["blockSelect-1", "blockSelect-2", "blockSelect-3"] as const;
+
+    const [selctedBlock, setSelectedBlock] = useState<(string|number)[]>([]);
+    const handleBlockSelects = (id: string | number) => {
+        setSelectedBlock(prev => 
+            prev.includes(id) ? prev.filter(item => item !== id)
+            : [...prev, id]
+        );
+    }
+    
+    const dishesBlockSelects = (
+        <div style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
+            {blockSelectIds.map((id, index) =>
+                <BlockSelect key={index}
+                    idName={id}
+                    isOutline={selctedBlock.includes(id)}
+                    switcher={handleBlockSelects}
+                    style={{ borderRadius: "1.5rem" }}
+                >
+                    <div style={{
+                        height: "10vh", width: "10vw", borderRadius: "1.5rem",
+                        backgroundColor: "lightgray"
+                    }}></div>
+                </BlockSelect>
+            )}
+        </div>
+    );
+
     return (
         <div style={{
             width: "auto",
@@ -61,9 +90,16 @@ const SortableArea = () => {
                     items={items}
                     strategy={verticalListSortingStrategy}
                 >
-                    {items.map((id) =>
+                    {items.map(id =>
                         <SortableItem key={id} idName={id} itemName={`Sortable Component – ${id}`}>
-                            <div>Dish Cards will be here at flex container</div>
+                        {id === 1
+                            ? (
+                                dishesBlockSelects
+                            )
+                            : (
+                                <div>Dish Cards will be here at flex container</div>
+                            )
+                        }    
                         </SortableItem>
                     )}
                 </SortableContext>

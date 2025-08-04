@@ -8,19 +8,20 @@ datasource db {
 }
 
 model dishes_BY {
-  id            Int      @id @default(autoincrement())
-  food_name     String
-  includes      String
-  spicy         Boolean
-  vegetarian    Boolean
-  vegan         Boolean
-  protein       Decimal? @default(0.00)
-  fats          Decimal? @default(0.00)
-  carbohydrates Decimal? @default(0.00)
-  amino_acids   String?  @default("Гістыдын, Ізалейцын, Лейцын")
-  food_portion  Decimal? @default(0.00)
-  cost          Decimal? @default(0.00)
-  imagePath     String
+  id              Int       @id @default(autoincrement())
+  food_name       String
+  includes        String
+  spicy           Boolean
+  vegetarian      Boolean
+  vegan           Boolean
+  protein         Decimal?  @default(0.00)
+  fats            Decimal?  @default(0.00)
+  carbohydrates   Decimal?  @default(0.00)
+  amino_acids     String?   @default("Гістыдын, Ізалейцын, Лейцын")
+  food_portion    Decimal?  @default(0.00)
+  cost            Decimal?  @default(0.00)
+  imagePath       String
+  favouredByUser  UsersDishes[] @relation("UserFavouteDish")
 }
 
 model people_and_food {
@@ -59,6 +60,7 @@ model Users {
   resetToken          String?   @unique
   resetTokenExpiry    DateTime?
   customSets          CustomSets?
+  favouriteDish       UsersDishes[] @relation("UserFavouteDish")
 }
 
 model CustomSets {
@@ -96,4 +98,14 @@ model AdminUsers {
   SecretWordUsed      Boolean   @default(false)
   ResetToken          String?   @unique
   ResetTokenExpiry    DateTime?
+}
+
+model UsersDishes {
+  userID              Int
+  dishID              Int
+  users               Users @relation("UserFavouteDish", fields: [userID], references: [id])
+  dishes              dishes_BY @relation("UserFavouteDish", fields: [dishID], references: [id])
+
+  @@id([userID, dishID])
+  @@map("users_dishes")
 }
