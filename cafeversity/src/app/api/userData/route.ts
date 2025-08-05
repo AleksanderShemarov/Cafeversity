@@ -36,6 +36,17 @@ const GET = async (request: NextRequest) => {
                             fontSize: true,
                             fontVolume: true,
                         }
+                    },
+                    favouriteDish: {
+                        select: {
+                            dishID: true,
+                            dishes: {
+                                select: {
+                                    food_name: true,
+                                    imagePath: true
+                                }
+                            }
+                        }
                     }
                 }
             });

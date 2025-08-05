@@ -12,9 +12,16 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableItem } from "./SortableItem";
 import { useState } from "react";
 import BlockSelect from "../BlockSelection/BlockSelect";
+import { UserFavouriteDishes } from "./SortableAreaComponent";
+import CardBlock from "../CardParts/CardBlock";
+import CardImage from "../CardParts/CardImage";
+import CardTitle from "../CardParts/CardTitle";
+import CardButton from "../CardParts/CardButton";
+import CardButtonsZone from "../CardParts/CardButtonsZone";
+import { IconInfoSquareRounded, IconTrash } from "@tabler/icons-react";
 
 
-const SortableArea = () => {
+const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishes[] }) => {
 
     const [items, setItems] = useState<UniqueIdentifier[]>([1, 2, 3]);
 
@@ -42,6 +49,14 @@ const SortableArea = () => {
         }
     }
 
+    const [isHover, setIsHover] = useState<string|number|null>(null);
+    const handleDishInfo = (id: string|number) => {
+        alert(`There will be a small modal view (intercepting route) about a dish with ID: "${id}"`);
+    }
+    const handleDishOnRemove = (id: string|number) => {
+        alert(`Clicking on this trash icon with ID "${id}" will call ability\nfor removing one or more dishes from "Favourite Dishes" block`)
+    }
+
     const blockSelectIds = ["blockSelect-1", "blockSelect-2", "blockSelect-3"] as const;
 
     const [selctedBlock, setSelectedBlock] = useState<(string|number)[]>([]);
@@ -61,10 +76,53 @@ const SortableArea = () => {
                     switcher={handleBlockSelects}
                     style={{ borderRadius: "1.5rem" }}
                 >
-                    <div style={{
-                        height: "10vh", width: "10vw", borderRadius: "1.5rem",
-                        backgroundColor: "lightgray"
-                    }}></div>
+                    <CardBlock height="18vh" width="21vw" style={{ outline: selctedBlock.includes(id) ? "none" : "2px solid lightgrey" }}>
+                        <CardImage imagePath={favouriteDishes[index].dishes.imagePath.slice(8)}
+                            style={{ borderRadius: "1.5rem" }}
+                            fill
+                        />
+                        <CardTitle title={favouriteDishes[index].dishes.food_name}
+                            style={{
+                                color: "black",
+                                position: "absolute",
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                zIndex: 10,
+                                backgroundColor: "rgba(255,255,255,0.8)",
+                                padding: "0.5rem",
+                                textAlign: "center",
+                                textWrap: "pretty"
+                            }}
+                        />
+                        <CardButtonsZone style={{
+                            display: "inline-flex", alignItems: "center", gap: "0.75rem",
+                            position: "absolute", top: 3, right: 3
+                        }}>
+                            <CardButton btnName={
+                                <IconInfoSquareRounded style={{
+                                    width: "3rem", height: "3rem", color: isHover === `info-${favouriteDishes[index].dishID}` ? "#2563EB" : "black",
+                                }} />
+                            }
+                                btnId={`info-${favouriteDishes[index].dishID}`}
+                                clicker={handleDishInfo}
+                                hovering={() => setIsHover(`info-${favouriteDishes[index].dishID}`)}
+                                leaving={() => setIsHover(null)}
+                                style={{ boxShadow: isHover === `info-${favouriteDishes[index].dishID}` ? "0px 0px 7px 4px #2563EB" : "none" }}
+                            />
+                            <CardButton btnName={
+                                <IconTrash style={{
+                                    width: "3rem", height: "3rem", color: isHover === `delete-${favouriteDishes[index].dishID}` ? "red" : "black"
+                                }} />
+                            }
+                                btnId={`delete-${favouriteDishes[index].dishID}`}
+                                clicker={handleDishOnRemove}
+                                hovering={() => setIsHover(`delete-${favouriteDishes[index].dishID}`)}
+                                leaving={() => setIsHover(null)}
+                                style={{ boxShadow: isHover === `delete-${favouriteDishes[index].dishID}` ? "0px 0px 7px 4px orangered" : "none" }}
+                            />
+                        </CardButtonsZone>
+                    </CardBlock>
                 </BlockSelect>
             )}
         </div>
@@ -91,7 +149,7 @@ const SortableArea = () => {
                     strategy={verticalListSortingStrategy}
                 >
                     {items.map(id =>
-                        <SortableItem key={id} idName={id} itemName={`Sortable Component – ${id}`}>
+                        <SortableItem key={id} idName={id} itemName={id === 1 ? "Ўпадабаныя Стравы" : `Sortable Component – ${id}`}>
                         {id === 1
                             ? (
                                 dishesBlockSelects

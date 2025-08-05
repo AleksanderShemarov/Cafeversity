@@ -16,7 +16,9 @@ export default function BlockSelect({ idName, isOutline, switcher, style, childr
                 switcher(idName)
             }}
         >
-            <div style={{ display: isOutline ? "block" : "none", position: "absolute", top: -10, right: -10 }}>
+            <div style={{ display: isOutline ? "block" : "none", position: "absolute", top: -10, right: -10,
+                zIndex: 1000
+            }}>
                 <IconRosetteDiscountCheck style={{ backgroundColor: "var(--accent-color)", borderRadius: "50%" }} />
             </div>
             {children}

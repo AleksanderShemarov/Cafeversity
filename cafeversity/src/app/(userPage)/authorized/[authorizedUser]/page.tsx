@@ -22,7 +22,14 @@ type UserDataTypes = {
         fontFamily: string,
         fontSize: string,
         fontVolume: string,
-    }
+    },
+    favouriteDish:
+    {
+        dishID: number, dishes: {
+            food_name: string,
+            imagePath: string
+        }
+    }[]
 }
 
 
@@ -40,6 +47,9 @@ async function fetchData(params: { authorizedUser: string; }) {
 export default function AuthorizedUser({ params }: { params: { authorizedUser: string } }) {
     
     const data: UserDataTypes = use(fetchData(params));
+
+    // console.log("data -->", data);
+    // console.log("data.favouriteDish -->", data.favouriteDish);
 
     return (
         <>          
@@ -96,7 +106,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             </div>
             
             {/* Drag-&-Drop Component */}
-            <SortableAreaComponent />           
+            <SortableAreaComponent favouriteDishes={data.favouriteDish} />           
 
             <LocalStorageStyles {...data.customSets} />
         </>
