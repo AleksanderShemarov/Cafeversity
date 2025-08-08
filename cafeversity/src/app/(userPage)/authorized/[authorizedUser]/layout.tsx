@@ -16,7 +16,7 @@ type bottomBtns = {
 }
 
 
-export default function Layout ({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function Layout ({ children, modal }: Readonly<{ children: React.ReactNode, modal: React.ReactNode }>) {
 
     const pathname = usePathname();
     console.log("pathname from (userPage) layout.tsx -->", pathname);
@@ -34,11 +34,15 @@ export default function Layout ({ children }: Readonly<{ children: React.ReactNo
         ];
     } else {
         BottomBtns = [
-            { name: t("vanishingNavbar.settings"), icon: "/settings-gear.png", icon_alt: "Settings_Icon",
-            topMargin: 50, path: `${pathname}/settingsPage` },
-            { name: t("vanishingNavbar.menu"), icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", },
-            { name: t("vanishingNavbar.news"), icon: "/earth_planet.webp", icon_alt: "Earth_Icon",
-            topMargin: 50, },
+            {
+                name: t("vanishingNavbar.settings"), icon: "/settings-gear.png", icon_alt: "Settings_Icon",
+                topMargin: 50, path: `${pathname}/settingsPage`
+            },
+            { name: t("vanishingNavbar.menu"), icon: "/menu_list_icon.webp", icon_alt: "Menu_List_Icon", path: `${pathname}/menu` },
+            {
+                name: t("vanishingNavbar.news"), icon: "/earth_planet.webp", icon_alt: "Earth_Icon",
+                topMargin: 50,
+            },
         ];  
     }
 
@@ -46,6 +50,7 @@ export default function Layout ({ children }: Readonly<{ children: React.ReactNo
         <>
             <BottomButtonsContext.Provider value={BottomBtns}>
                 {children}
+                {modal}
                 <BottomMenu />
             </BottomButtonsContext.Provider>
         </>

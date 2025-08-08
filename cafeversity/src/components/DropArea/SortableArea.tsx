@@ -19,6 +19,7 @@ import CardTitle from "../CardParts/CardTitle";
 import CardButton from "../CardParts/CardButton";
 import CardButtonsZone from "../CardParts/CardButtonsZone";
 import { IconInfoSquareRounded, IconTrash } from "@tabler/icons-react";
+import { usePathname, useRouter } from "next/navigation";
 
 
 const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishes[] }) => {
@@ -50,8 +51,11 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
     }
 
     const [isHover, setIsHover] = useState<string|number|null>(null);
+
+    const router = useRouter();
+    const pathname = usePathname();
     const handleDishInfo = (id: string|number) => {
-        alert(`There will be a small modal view (intercepting route) about a dish with ID: "${id}"`);
+        router.push(`${pathname}/menu/${id}`, { scroll: false });
     }
     const handleDishOnRemove = (id: string|number) => {
         alert(`Clicking on this trash icon with ID "${id}" will call ability\nfor removing one or more dishes from "Favourite Dishes" block`)
@@ -104,7 +108,7 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
                                     width: "3rem", height: "3rem", color: isHover === `info-${favouriteDishes[index].dishID}` ? "#2563EB" : "black",
                                 }} />
                             }
-                                btnId={`info-${favouriteDishes[index].dishID}`}
+                                btnId={favouriteDishes[index].dishID}
                                 clicker={handleDishInfo}
                                 hovering={() => setIsHover(`info-${favouriteDishes[index].dishID}`)}
                                 leaving={() => setIsHover(null)}
@@ -115,7 +119,7 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
                                     width: "3rem", height: "3rem", color: isHover === `delete-${favouriteDishes[index].dishID}` ? "red" : "black"
                                 }} />
                             }
-                                btnId={`delete-${favouriteDishes[index].dishID}`}
+                                btnId={favouriteDishes[index].dishID}
                                 clicker={handleDishOnRemove}
                                 hovering={() => setIsHover(`delete-${favouriteDishes[index].dishID}`)}
                                 leaving={() => setIsHover(null)}

@@ -1,5 +1,6 @@
 import styles from "@/app/(commonSite)/[locale]/news/foodpeople/[foodpeople]/article.module.css";
 import Image from "next/image";
+import prisma from "../../../../../../../lib/utils/prismaClient";
 // import Chef from "@/../../public/Chef_Gordon_Ramsay.jpg";
 // import Gordon from "@/../../public/Gordon_Ramsay.jpg";
 // import GordonRamsay_Photo from "@/../../public/GordonRamsay_Photo.jpg";
@@ -32,12 +33,17 @@ type ArticlesData = {
 }
 
 export async function generateStaticParams() {
-    let articles = await fetch("http://localhost:3000/api/articles").then((response) => response.json());
+    // let articles = await fetch("http://localhost:3000/api/articles").then((response) => response.json());
+    //
+    // articles = articles.filter((article: ArticlesData) => article.articleList_seeing);
+    // return articles.map((article: ArticlesData) => ({
+    //     id: article,
+    // }));
 
-    articles = articles.filter((article: ArticlesData) => article.articleList_seeing);
-    return articles.map((article: ArticlesData) => ({
-        id: article,
-    }));
+    const articles = await prisma.people_and_food.findMany({
+        where: { articleList_seeing: true },
+    });
+    return articles.map((article) => ({ foodpeople: article.id.toString() }));
 }
 
 export default async function ArticlePage({ params }: { params: {foodpeople: number} }) {
