@@ -1,6 +1,8 @@
 import { use } from "react";
 import CardTitle from "@/components/CardParts/CardTitle";
 import CardImage from "@/components/CardParts/CardImage";
+import { IconBasketDollar, IconBowlChopsticks, IconFeatherFilled, IconListDetails, IconMeat, IconMilk, IconToolsKitchen2 } from "@tabler/icons-react";
+import HorizontalLine from "@/components/OtherParts/HorizontalLine";
 
 
 type DishShortInfo = {
@@ -30,48 +32,79 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
 
     return (
         <>
-            <CardTitle title={dishShort.food_name} style={{
-                fontSize: "3.5rem", fontWeight: 700,
-                color: "white",
-                padding: "0.5rem",
-                textAlign: "center",
-            }} />
-            <CardImage imagePath={dishShort.imagePath.slice(8)} imageAlt={`${dishShort.imagePath.slice(8)}`}
-                width={500} height={275}
-                style={{
-                    borderRadius: "1rem",
-                    margin: "0 auto",
-                    marginTop: "1rem", marginBottom: "2rem"
-                }}
-            />
-            <CardTitle title="Склад" style={{
-                fontSize: "2.1rem", fontWeight: 400,
-                color: "white",
-                textAlign: "center",
-            }} />
-            <p style={{
-                fontSize: "1.8rem", color: "white", textIndent: "2rem"
+            <div style={{
+                display: "flex", alignItems: "center", justifyContent: "space-around",
+                marginTop: "2rem", marginBottom: "2rem"
             }}>
-                {dishShort.includes}.
-            </p>
-            <table style={{ fontSize: "1.8rem" }}>
-                <tbody>
-                    <tr>
-                        <td>Бялкі</td>
-                        <td>{dishShort.protein} г.</td>
-                    </tr>
-                    <tr>
-                        <td>Тлушчы</td>
-                        <td>{dishShort.fats} г.</td>
-                    </tr>
-                    <tr>
-                        <td>Вугляводы</td>
-                        <td>{dishShort.carbohydrates} г.</td>
-                    </tr>
-                </tbody>
-            </table>
-            
-            <p style={{ fontSize: "1.8rem" }}>Кошт: {dishShort.cost} ({dishShort.food_portion} г.)</p>
+                <div style={{ height: "30vh", width: "34vw" }}>
+                    <CardImage imagePath={dishShort.imagePath.slice(8)} imageAlt={`${dishShort.imagePath.slice(8)}`}
+                        fill style={{ borderRadius: "1rem" }}
+                    />
+                </div>
+                <div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "2rem", marginTop: "1rem", marginBottom: "1rem" }}>
+                        <IconMeat style={{ height: "2.5rem", width: "2.5rem", color: "skyblue" }} />
+                        <div>
+                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.protein}g (г.)</p>
+                            <p style={{ fontSize: "1.5rem", margin: 0 }}>Protein (Бялкі)</p>
+                        </div>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "2rem", marginTop: "1rem", marginBottom: "1rem" }}>
+                        <IconMilk style={{ height: "2.5rem", width: "2.5rem", color: "gold" }} />
+                        <div>
+                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.fats}g (г.)</p>
+                            <p style={{ fontSize: "1.5rem", margin: 0 }}>Fats (Тлушчы)</p>
+                        </div>
+                    </div>
+                    <div style={{ display: "flex", alignItems: "center", gap: "2rem", marginTop: "1rem", marginBottom: "1rem" }}>
+                        <IconFeatherFilled style={{ height: "2.5rem", width: "2.5rem", color: "green" }} />
+                        <div>
+                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.carbohydrates}g (г.)</p>
+                            <p style={{ fontSize: "1.5rem", margin: 0 }}>Carbohydrates (Вугляводы)</p>
+                        </div>
+                    </div>
+                    <HorizontalLine cssProps={{ border: "1px solid black", marginTop: "0.5rem", marginBottom: "0.5rem" }} />
+                    <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
+                        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1rem", marginBottom: "1rem" }}>
+                            <IconToolsKitchen2 style={{ height: "2rem", width: "2rem", color: "black" }} />
+                            <div>
+                                <p style={{ fontSize: "2rem", margin: 0 }}>{dishShort.food_portion}g (г.)</p>
+                                <p style={{ fontSize: "1.2rem", margin: 0 }}>Portion (Порцыя)</p>
+                            </div>
+                        </div>
+                        <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1rem", marginBottom: "1rem" }}>
+                            <IconBasketDollar style={{ height: "2rem", width: "2rem", color: "black" }} />
+                            <div>
+                                <p style={{ fontSize: "2rem", margin: 0 }}>{dishShort.cost} BYN</p>
+                                <p style={{ fontSize: "1.2rem", margin: 0 }}>Cost (Кошт)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "2rem", marginLeft: "4rem", marginBottom: "1rem" }}>
+                <IconBowlChopsticks style={{ height: "3.5rem", width: "3.5rem", color: "black" }} />
+                <CardTitle title={dishShort.food_name} style={{
+                    fontSize: "3.5rem", fontWeight: 600,
+                    color: "black", padding: "0.5rem",
+                    textAlign: "left"
+                }} />
+            </div>
+            <div style={{ marginLeft: "4rem", marginRight: "4rem" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "3rem" }}>
+                    <IconListDetails style={{ height: "4rem", width: "4rem", color: "black" }} />
+                    <div>
+                        <CardTitle title="Склад" style={{
+                            fontSize: "2.5rem", fontWeight: 400,
+                            color: "black", textAlign: "left"
+                        }} />
+                        <p style={{ marginTop: "1rem", fontSize: "1.8rem", color: "black" }}>
+                            {dishShort.includes}.
+                        </p>
+                    </div>
+                </div>
+                
+            </div>
         </>
     );
 }
