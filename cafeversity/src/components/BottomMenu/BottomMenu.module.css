@@ -11,12 +11,13 @@
 
 .menuContainer {
     position: fixed;
+    z-index: 50;
     left: 0;
     right: 0;
     margin-left: auto;
     margin-right: auto;
 
-    bottom: -10vh;
+    bottom: -8vh;
     transition: bottom 0.9s ease-out;
     -webkit-transition: bottom 0.9s ease-out;
     -moz-transition: bottom 0.9s ease-out;
@@ -26,7 +27,7 @@
     border: 3px double black;
     background-color: burlywood;
     width: 20%;
-    height: 12vh;
+    height: 10vh;
     display: flex;
     justify-content: center;
     align-items: center;
