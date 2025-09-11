@@ -242,7 +242,7 @@
             "name": "Page Appearance",
             "subtitle1": {
                 "name": "Language",
-                "mainQuestion": "Choose your native language: "
+                "mainQuestion": "Choose your language: "
             },
             "subtitle2": {
                 "name": "Interface Themes",

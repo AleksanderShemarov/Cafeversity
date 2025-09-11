@@ -3,10 +3,9 @@
 import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import Image from "next/image";
 import sunny from "../../public/sunny.png";
-// import dynamic from "next/dynamic";
 import Dating, { WeatherWeekday } from "@/components/Dating";
 import Entrance from "./Entrance";
-import { Clock2, Clock3 } from "@/components/Clock";
+import { Clock3 } from "@/components/Clock";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import DialogView from "./Dialog/DialogView";
@@ -65,7 +64,7 @@ export default function CommonHeader () {
                     <WeatherWeekday />
                 </div>
 
-                <Clock2 />{/* Clock2 rewritings are stood in useEffect hook and don't need to be as a dynamic component  */}
+                {/* <Clock2 />Clock2 rewritings are stood in useEffect hook and don't need to be as a dynamic component  */}
                 <Clock3 />{/* Clock3 Component doesn't convert a Date object into hours, minutes and seconds in useEffect hook.
                 Therefore it shows time more exactly than Clock2 and doesn't call an error of dynamic process as Clock1.
                 Thanks for Joeward Peralta (https://github.com/joewardperalta/digital-clock) */}

@@ -13,9 +13,13 @@ export default function Entrance({ path, sign }: { path: string, sign: string })
                 <div style={{
                     height: "50px",
                     width: "100px",
-                    border: "2px dashed orange",
+                    backdropFilter: "blur(5px)",
+                    backgroundColor: "#ffffff2b",
                     borderRadius: "15px",
                     cursor: "pointer",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center"
                 }}>
                     <p style={{
                         color: "antiquewhite",
@@ -23,9 +27,7 @@ export default function Entrance({ path, sign }: { path: string, sign: string })
                         fontStyle: "italic",
                         fontWeight: "bold",
                         textAlign: "center",
-                        textDecoration: "underline",
-                        margin: "0",
-                        marginTop: "12px",
+                        textDecoration: "underline"
                     }}>{sign}</p>
                 </div>
             </Link>

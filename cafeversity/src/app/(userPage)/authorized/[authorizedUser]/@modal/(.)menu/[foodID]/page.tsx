@@ -1,11 +1,20 @@
 import { use } from "react";
 import CardTitle from "@/components/CardParts/CardTitle";
 import CardImage from "@/components/CardParts/CardImage";
-import { IconBasketDollar, IconBowlChopsticks, IconFeatherFilled, IconListDetails, IconMeat, IconMilk, IconToolsKitchen2 } from "@tabler/icons-react";
+import {
+    IconBasketDollar,
+    IconBowlChopsticks,
+    IconMug,
+    IconFeatherFilled,
+    IconListDetails,
+    IconMeat,
+    IconMilk,
+    IconToolsKitchen2
+} from "@tabler/icons-react";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine";
 
 
-type DishShortInfo = {
+export type DishShortInfo = {
     food_name: string,
     includes: string,
     imagePath: string,
@@ -14,6 +23,7 @@ type DishShortInfo = {
     carbohydrates: string,
     food_portion: string,
     cost: string,
+    dishTypeId: number
 }
 
 
@@ -83,7 +93,9 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
                 </div>
             </div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "2rem", marginLeft: "4rem", marginBottom: "1rem" }}>
-                <IconBowlChopsticks style={{ height: "3.5rem", width: "3.5rem", color: "black" }} />
+                {dishShort.dishTypeId === 6
+                ? <IconMug style={{ height: "3.5rem", width: "3.5rem", color: "black" }} />
+                : <IconBowlChopsticks style={{ height: "3.5rem", width: "3.5rem", color: "black" }} />}
                 <CardTitle title={dishShort.food_name} style={{
                     fontSize: "3.5rem", fontWeight: 600,
                     color: "black", padding: "0.5rem",

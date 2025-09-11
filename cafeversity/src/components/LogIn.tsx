@@ -54,10 +54,10 @@ export default function LogIn() {
         })
         .then((data) => {
             if (data.redirect) {
-                toast.success(data.message, { position: "top-center" });
+                toast.success(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
                 window.location.href = data.redirect;
             }
-            else toast.error(data.message, { position: "top-center" });
+            else toast.error(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
         })
         .catch((error) => console.error(error));
     }

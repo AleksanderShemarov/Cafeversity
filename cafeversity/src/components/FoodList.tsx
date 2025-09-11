@@ -83,7 +83,7 @@ export default function FoodList({ onClick }: onClickEvent) {
                             width={318}
                             height={216}
                             style={{
-                                border: "7px solid gold",
+                                outline: "3px solid gold",
                                 borderRadius: "30px",
                                 margin: "auto",
                                 marginTop: "10px",

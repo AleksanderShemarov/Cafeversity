@@ -10,7 +10,7 @@ import {
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableItem } from "./SortableItem";
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import BlockSelect from "../BlockSelection/BlockSelect";
 import { UserFavouriteDishes } from "./SortableAreaComponent";
 import CardBlock from "../CardParts/CardBlock";
@@ -20,10 +20,11 @@ import CardButton from "../CardParts/CardButton";
 import CardButtonsZone from "../CardParts/CardButtonsZone";
 import { IconInfoSquareRounded, IconTrash } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
+// import generateMessage from "../../../lib/utils/geminiAnswer";
 
 
 const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishes[] }) => {
-
+    
     const [items, setItems] = useState<UniqueIdentifier[]>([1, 2, 3]);
 
     const sensors = useSensors(
@@ -61,8 +62,6 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
         alert(`Clicking on this trash icon with ID "${id}" will call ability\nfor removing one or more dishes from "Favourite Dishes" block`)
     }
 
-    const blockSelectIds = ["blockSelect-1", "blockSelect-2", "blockSelect-3"] as const;
-
     const [selctedBlock, setSelectedBlock] = useState<(string|number)[]>([]);
     const handleBlockSelects = (id: string | number) => {
         setSelectedBlock(prev => 
@@ -73,19 +72,19 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
     
     const dishesBlockSelects = (
         <div style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
-            {blockSelectIds.map((id, index) =>
-                <BlockSelect key={index}
-                    idName={id}
-                    isOutline={selctedBlock.includes(id)}
+            {favouriteDishes.map(favouriteDish =>
+                <BlockSelect key={`blockSelect-${favouriteDish.dishID}`}
+                    idName={`blockSelect-${favouriteDish.dishID}`}
+                    isOutline={selctedBlock.includes(`blockSelect-${favouriteDish.dishID}`)}
                     switcher={handleBlockSelects}
                     style={{ borderRadius: "1.5rem" }}
                 >
-                    <CardBlock height="18vh" width="21vw" style={{ outline: selctedBlock.includes(id) ? "none" : "2px solid lightgrey" }}>
-                        <CardImage imagePath={favouriteDishes[index].dishes.imagePath.slice(8)}
+                    <CardBlock height="18vh" width="21vw" style={{ outline: selctedBlock.includes(`blockSelect-${favouriteDish.dishID}`) ? "none" : "2px solid lightgrey" }}>
+                        <CardImage imagePath={favouriteDish.dishes.imagePath.slice(8)}
                             style={{ borderRadius: "1.5rem" }}
                             fill
                         />
-                        <CardTitle title={favouriteDishes[index].dishes.food_name}
+                        <CardTitle title={favouriteDish.dishes.food_name}
                             style={{
                                 color: "black",
                                 position: "absolute",
@@ -105,25 +104,25 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
                         }}>
                             <CardButton btnName={
                                 <IconInfoSquareRounded style={{
-                                    width: "3rem", height: "3rem", color: isHover === `info-${favouriteDishes[index].dishID}` ? "#2563EB" : "black",
+                                    width: "3rem", height: "3rem", color: isHover === `info-${favouriteDish.dishID}` ? "#2563EB" : "black",
                                 }} />
                             }
-                                btnId={favouriteDishes[index].dishID}
+                                btnId={favouriteDish.dishID}
                                 clicker={handleDishInfo}
-                                hovering={() => setIsHover(`info-${favouriteDishes[index].dishID}`)}
+                                hovering={() => setIsHover(`info-${favouriteDish.dishID}`)}
                                 leaving={() => setIsHover(null)}
-                                style={{ boxShadow: isHover === `info-${favouriteDishes[index].dishID}` ? "0px 0px 7px 4px #2563EB" : "none" }}
+                                style={{ boxShadow: isHover === `info-${favouriteDish.dishID}` ? "0px 0px 7px 4px #2563EB" : "none" }}
                             />
                             <CardButton btnName={
                                 <IconTrash style={{
-                                    width: "3rem", height: "3rem", color: isHover === `delete-${favouriteDishes[index].dishID}` ? "red" : "black"
+                                    width: "3rem", height: "3rem", color: isHover === `delete-${favouriteDish.dishID}` ? "red" : "black"
                                 }} />
                             }
-                                btnId={favouriteDishes[index].dishID}
+                                btnId={favouriteDish.dishID}
                                 clicker={handleDishOnRemove}
-                                hovering={() => setIsHover(`delete-${favouriteDishes[index].dishID}`)}
+                                hovering={() => setIsHover(`delete-${favouriteDish.dishID}`)}
                                 leaving={() => setIsHover(null)}
-                                style={{ boxShadow: isHover === `delete-${favouriteDishes[index].dishID}` ? "0px 0px 7px 4px orangered" : "none" }}
+                                style={{ boxShadow: isHover === `delete-${favouriteDish.dishID}` ? "0px 0px 7px 4px orangered" : "none" }}
                             />
                         </CardButtonsZone>
                     </CardBlock>
@@ -131,6 +130,31 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
             )}
         </div>
     );
+
+    const [geminiMessage, setGeminiMessage] = useState<string>("");
+    const effectRan = useRef(false);
+    useEffect(() => {
+        if(effectRan.current === true) return;
+
+        const fetchData = async () => {
+            console.log("Going into useEffect");
+            try {
+                // const answer = await generateMessage("Explain me, please, what lacto-ovo vegetarianism is.");
+                setGeminiMessage("Don't forget to connect AI again when You will be prepared!");
+            }
+            catch (error) {
+                console.error("Failed to fetch message from Gemini:", error);
+                setGeminiMessage("Could not load explanation.");
+            }
+        }
+
+        fetchData();
+
+        return () => {
+            effectRan.current = true;
+        }
+    }, []);
+    console.log("gemini's message ->", geminiMessage);
 
     return (
         <div style={{

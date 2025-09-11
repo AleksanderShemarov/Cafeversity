@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import ThreeSubLinks from "@/components/ThreeSubLinks";
+// import ThreeSubLinks from "@/components/ThreeSubLinks";
 import styles from "@/app/(commonSite)/[locale]/page.module.css";
 import TwoMainBottomButtons from "@/components/MainBottomButtons";
 import { usePathname } from "next/navigation";
@@ -28,9 +28,9 @@ export default function Layout ({ children }: Readonly<{children: React.ReactNod
 
     return (
         <>
-            <ThreeSubLinks>
+            {/* <ThreeSubLinks> */}
                 {children}
-            </ThreeSubLinks>
+            {/* </ThreeSubLinks> */}
             <TwoMainBottomButtons data={buttonsData} />
         </>
     )

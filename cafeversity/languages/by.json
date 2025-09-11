@@ -242,7 +242,7 @@
             "name": "Выгляд Старонкі",
             "subtitle1": {
                 "name": "Мова",
-                "mainQuestion": "Абяры сваю родную мову: "
+                "mainQuestion": "Абяры сваю мову: "
             },
             "subtitle2": {
                 "name": "Рэжым Старонцы",
@@ -287,7 +287,7 @@
                 "fullname": "Імя",
                 "telephone": "Тэлефон",
                 "languagesList": "Мовы",
-                "pageLanguage": "Мова Старонкак",
+                "pageLanguage": "Мова Старонак",
                 "messages": {
                     "language": {
                         "positive": "Мова абноўлена.",

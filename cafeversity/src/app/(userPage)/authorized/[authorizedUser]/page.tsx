@@ -49,13 +49,13 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
     const data: UserDataTypes = use(fetchData(params));
 
     // console.log("data -->", data);
-    // console.log("data.favouriteDish -->", data.favouriteDish);
+    // console.log("data.favouriteDish AuthorizedUser -->", data.favouriteDish);
 
     return (
         <>          
             <div style={{
                 display: "flex",
-                border: "3px dashed orange",
+                // border: "3px dashed orange",
                 alignItems: "center",
                 justifyContent: "center",
                 paddingTop: "30px",
@@ -106,7 +106,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             </div>
             
             {/* Drag-&-Drop Component */}
-            <SortableAreaComponent favouriteDishes={data.favouriteDish} />           
+            <SortableAreaComponent favouriteDishes={data.favouriteDish} />
 
             <LocalStorageStyles {...data.customSets} />
         </>

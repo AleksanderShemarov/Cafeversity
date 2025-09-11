@@ -15,8 +15,10 @@ interface ImageData {
 export default function ImageText({ title, ingredients, portion, cost, onClick } : ImageData) {
     return (
         <div className={styles.text_lines}>
-            <p id={styles.food_title}>{title}</p>
-            <p id={styles.food_ing}>Склад: {ingredients}</p>
+            <div>
+                <p id={styles.food_title}>{title}</p>
+                <p id={styles.food_ing}>Склад: {ingredients.toLowerCase()}</p>
+            </div>
             <div className={styles.portia_price}>
                 <p id={styles.portia}>Вага порцыі: {portion} г.</p>
                 <p id={styles.price} onClick={onClick}>Кошт: {cost} BYN</p>
