@@ -1,5 +1,6 @@
 "use client";
 
+import { SelectedDish } from "@/app/components/AuthorizedUserClient";
 import dynamic from "next/dynamic";
 const SortableArea = dynamic(() => import("./SortableArea"), { ssr: false });
 
@@ -7,12 +8,19 @@ const SortableArea = dynamic(() => import("./SortableArea"), { ssr: false });
 export type UserFavouriteDishes = {
     dishID: number, dishes: {
         food_name: string,
-        imagePath: string
+        imagePath: string,
+        food_portion: number,
+        cost: number
     }
 }
 
+export interface SortableAreaComponentProps {
+    favouriteDishes: UserFavouriteDishes[],
+    selectedDishIds: number[],
+    onDishSelection: (dishId: number, dishData: Omit<SelectedDish, 'dishID'>) => void
+}
 
-export default function SortableAreaComponent({ favouriteDishes }: { favouriteDishes: UserFavouriteDishes[] }) {
+export default function SortableAreaComponent({ favouriteDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) {
     return (
         <>
             {/* {favouriteDishes.map((favouriteDish, index) =>
@@ -22,7 +30,10 @@ export default function SortableAreaComponent({ favouriteDishes }: { favouriteDi
                     <p>Dish Imagepath: {favouriteDish.dishes.imagePath}</p>
                 </div>
             )} */}
-            <SortableArea favouriteDishes={favouriteDishes} />
+            <SortableArea favouriteDishes={favouriteDishes}
+                selectedDishIds={selectedDishIds}
+                onDishSelection={onDishSelection}
+            />
         </>
     );
 }

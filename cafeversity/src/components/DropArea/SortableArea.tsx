@@ -12,7 +12,7 @@ import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableItem } from "./SortableItem";
 import { useState, useEffect, useRef } from "react";
 import BlockSelect from "../BlockSelection/BlockSelect";
-import { UserFavouriteDishes } from "./SortableAreaComponent";
+import { SortableAreaComponentProps, UserFavouriteDishes } from "./SortableAreaComponent";
 import CardBlock from "../CardParts/CardBlock";
 import CardImage from "../CardParts/CardImage";
 import CardTitle from "../CardParts/CardTitle";
@@ -23,7 +23,7 @@ import { usePathname, useRouter } from "next/navigation";
 // import generateMessage from "../../../lib/utils/geminiAnswer";
 
 
-const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishes[] }) => {
+const SortableArea = ({ favouriteDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) => {
     
     const [items, setItems] = useState<UniqueIdentifier[]>([1, 2, 3]);
 
@@ -62,24 +62,32 @@ const SortableArea = ({ favouriteDishes }: { favouriteDishes: UserFavouriteDishe
         alert(`Clicking on this trash icon with ID "${id}" will call ability\nfor removing one or more dishes from "Favourite Dishes" block`)
     }
 
-    const [selctedBlock, setSelectedBlock] = useState<(string|number)[]>([]);
-    const handleBlockSelects = (id: string | number) => {
-        setSelectedBlock(prev => 
-            prev.includes(id) ? prev.filter(item => item !== id)
-            : [...prev, id]
-        );
+
+    const handleBlockSelects = (id: string, favouriteDish: UserFavouriteDishes) => {
+        const identity = id.split("-")[1];
+        onDishSelection(Number(identity), {
+            food_name: favouriteDish.dishes.food_name,
+            imagePath: favouriteDish.dishes.imagePath,
+            food_portion: favouriteDish.dishes.food_portion,
+            cost: favouriteDish.dishes.cost
+        });
     }
+
+    const isDishSelected = (dishId: number) => {
+        return selectedDishIds.includes(dishId);
+    };
     
     const dishesBlockSelects = (
         <div style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
             {favouriteDishes.map(favouriteDish =>
                 <BlockSelect key={`blockSelect-${favouriteDish.dishID}`}
                     idName={`blockSelect-${favouriteDish.dishID}`}
-                    isOutline={selctedBlock.includes(`blockSelect-${favouriteDish.dishID}`)}
+                    isOutline={isDishSelected(favouriteDish.dishID)}
                     switcher={handleBlockSelects}
                     style={{ borderRadius: "1.5rem" }}
+                    dishData={favouriteDish}
                 >
-                    <CardBlock height="18vh" width="21vw" style={{ outline: selctedBlock.includes(`blockSelect-${favouriteDish.dishID}`) ? "none" : "2px solid lightgrey" }}>
+                    <CardBlock height="18vh" width="21vw" style={{ outline: isDishSelected(favouriteDish.dishID) ? "none" : "2px solid lightgrey" }}>
                         <CardImage imagePath={favouriteDish.dishes.imagePath.slice(8)}
                             style={{ borderRadius: "1.5rem" }}
                             fill

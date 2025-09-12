@@ -1,6 +1,7 @@
 import Image from "next/image";
 import styles from "@/app/(userPage)/authorized/[authorizedUser]/authorized.module.css";
 import Order from "./OrderComponent/Order";
+import { SelectedDish } from "./AuthorizedUserClient";
 
 
 interface UserAndOrder {
@@ -8,10 +9,12 @@ interface UserAndOrder {
     name: string,
     surname: string,
     nickname: string|null,
-    email: string
+    email: string,
+    selectedDishes: SelectedDish[],
+    onRemoveDish: (dishId: number) => void,
 }
 
-export default function UserAndOrder({ imagePath, name, surname, nickname, email }: UserAndOrder) {
+export default function UserAndOrder({ imagePath, name, surname, nickname, email, selectedDishes, onRemoveDish }: UserAndOrder) {
     return (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div style={{
@@ -67,7 +70,7 @@ export default function UserAndOrder({ imagePath, name, surname, nickname, email
                     </p>
                 </div>
             </div>
-            <Order />
+            <Order selectedDishes={selectedDishes} onRemoveDish={onRemoveDish} />
         </div>
     );
 }

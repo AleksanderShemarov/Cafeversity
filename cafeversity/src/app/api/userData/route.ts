@@ -43,7 +43,9 @@ const GET = async (request: NextRequest) => {
                             dishes: {
                                 select: {
                                     food_name: true,
-                                    imagePath: true
+                                    imagePath: true,
+                                    food_portion: true,
+                                    cost: true
                                 }
                             }
                         }

@@ -5,6 +5,7 @@ import { IconCircleCheck, IconExclamationCircle, IconSquareX, IconXboxX } from "
 import AccessBtn from "@/components/Buttons/DifferentButtons";
 import Select, { CSSObjectWithLabel } from "react-select";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine";
+import { SelectedDish } from "../AuthorizedUserClient";
 
 
 const Cafes: {label: string, value: string}[] = [
@@ -26,11 +27,16 @@ const Times: {label: string, value: string}[] = [
 ];
 
 
-export default function Order() {
+interface OrderProps {
+    selectedDishes: SelectedDish[],
+    onRemoveDish: (dishId: number) => void,
+}
+
+export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
 
     const available: boolean|null = null;
 
-    const parts = [1, 2, 3, 4, 5];
+    // const parts = [1, 2, 3, 4, 5];
 
     const cafeSelectOptionWidth = {
         menu: (base: CSSObjectWithLabel) => ({
@@ -121,7 +127,7 @@ export default function Order() {
                 <p style={{
                     textAlign: "center", fontSize: "1.5rem", fontWeight: "400",
                     width: "fit-content", margin: "0.5rem auto",
-                }}>Current Order</p>
+                }}>Current Order ({selectedDishes.length} items)</p>
             </div>
             <div style={{
                 borderRadius: "1rem",
@@ -131,16 +137,17 @@ export default function Order() {
                 height: "10vh", overflowY: "auto",
                 marginBottom: "0.5rem"
             }}>
-                {parts.map(part =>
-                    <div key={part} style={{
+                {selectedDishes.length > 0
+                ? selectedDishes.map((selectedDish, index) =>
+                    <div key={index} style={{
                         display: "flex", alignItems: "center", justifyContent: "space-between",
                         marginTop: "0.5rem", marginBottom: "0.5rem"
                     }}>
                         <div style={{ fontSize: "1.25rem", width: "1.5rem", textAlign: "right" }}>
-                            {part}.
+                            {index + 1}.
                         </div>
                         <div style={{ height: "3rem", width: "5rem" }}>
-                            <CardImage imagePath={"/no_image1.jpg"}
+                            <CardImage imagePath={selectedDish.imagePath.slice(8)}
                                 style={{ borderRadius: "0.5rem" }}
                                 fill
                             />
@@ -150,13 +157,16 @@ export default function Order() {
                             width: "25rem", padding: "0 0.5rem",
                             height: "2.75rem"
                         }}>
-                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>Dish with Different Sauces</p>
+                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>
+                                {/* Dish with Different Sauces */}
+                                {selectedDish.food_name}
+                            </p>
                         </div>
                         <div style={{
                             // outline: "1px solid",
                             width: "3rem", padding: "0 0.5rem", textAlign: "center"
                         }}>
-                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>300g</p>
+                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>{selectedDish.food_portion}g</p>
                         </div>
                         <div style={{ height: "3rem", width: "3rem", borderRadius: "50%" }}>
                             {available === null
@@ -169,7 +179,7 @@ export default function Order() {
                             // outline: "1px solid",
                             width: "5rem", padding: "0 0.5rem", textAlign: "center"
                         }}>
-                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>0.00BYN</p>
+                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>{selectedDish.cost}BYN</p>
                         </div>
                         <div
                             style={{
@@ -182,14 +192,21 @@ export default function Order() {
                                 justifyContent: "center",
                                 // outline: "1px solid"
                             }}
-                            // onClick={() => {
-                            //     // deletion(datum.id)
-                            // }}
+                            onClick={() => {onRemoveDish(selectedDish.dishID)}}
                         >
                             <IconSquareX style={{ height: "3rem", width: "3rem", color: "red", backgroundColor: "white" }} />
                         </div>
                     </div>
-                )}
+                )
+                : <div style={{
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        marginTop: "0.5rem", marginBottom: "0.5rem"
+                    }}>
+                        <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>
+                            Не адабрана ніводнай стравы
+                        </p>
+                    </div>
+                }
             </div>
             <HorizontalLine cssProps={{ marginLeft: "0.75rem", marginRight: "0.75rem" }} />
             <div style={{

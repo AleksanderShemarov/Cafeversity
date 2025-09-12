@@ -1,10 +1,9 @@
 import { use } from "react";
 import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
-import SortableAreaComponent from "@/components/DropArea/SortableAreaComponent";
-import UserAndOrder from "@/app/components/UserAndOrder";
+import AuthorizedUserClient from "@/app/components/AuthorizedUserClient";
 
 
-type UserDataTypes = {
+export type UserDataTypes = {
     firstName: string,
     lastName: string,
     nickName: string,
@@ -26,7 +25,9 @@ type UserDataTypes = {
     {
         dishID: number, dishes: {
             food_name: string,
-            imagePath: string
+            imagePath: string,
+            food_portion: number,
+            cost: number,
         }
     }[]
 }
@@ -52,16 +53,8 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
 
     return (
         <>
-            <UserAndOrder imagePath={data.userPhoto}
-                name={data.firstName}
-                surname={data.lastName}
-                nickname={data.nickName}
-                email={data.email}
-            />
+            <AuthorizedUserClient userData={data} />
             
-            {/* Drag-&-Drop Component */}
-            <SortableAreaComponent favouriteDishes={data.favouriteDish} />
-
             <LocalStorageStyles {...data.customSets} />
         </>
     )
