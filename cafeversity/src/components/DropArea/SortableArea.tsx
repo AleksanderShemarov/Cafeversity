@@ -69,7 +69,8 @@ const SortableArea = ({ favouriteDishes, selectedDishIds, onDishSelection }: Sor
             food_name: favouriteDish.dishes.food_name,
             imagePath: favouriteDish.dishes.imagePath,
             food_portion: favouriteDish.dishes.food_portion,
-            cost: favouriteDish.dishes.cost
+            cost: favouriteDish.dishes.cost,
+            checkedDish: favouriteDish.dishes.checkedDish,
         });
     }
 

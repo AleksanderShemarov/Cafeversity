@@ -15,7 +15,8 @@ export type SelectedDish = {
     food_name: string,
     imagePath: string,
     food_portion: number,
-    cost: number
+    cost: number,
+    checkedDish: boolean|null,
 }
 
 export default function AuthorizedUserClient({ userData }: AuthorizedUserClient) {
@@ -31,9 +32,6 @@ export default function AuthorizedUserClient({ userData }: AuthorizedUserClient)
                 } else {
                     return [...prev, { dishID: dishId, ...dishData }];
                 }
-                // prev.includes(dishId)
-                // ? prev.filter(id => id !== dishId)
-                // : [...prev, dishId]
             }
         );
     }
@@ -52,6 +50,7 @@ export default function AuthorizedUserClient({ userData }: AuthorizedUserClient)
             nickname={userData.nickName}
             email={userData.email}
             selectedDishes={selectedDishes}
+            setDishSelection={setSelectedDishes}
             onRemoveDish={removeDish}
         />
 

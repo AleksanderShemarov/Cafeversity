@@ -6,37 +6,52 @@ import AccessBtn from "@/components/Buttons/DifferentButtons";
 import Select, { CSSObjectWithLabel } from "react-select";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine";
 import { SelectedDish } from "../AuthorizedUserClient";
-
-
-const Cafes: {label: string, value: string}[] = [
-    { label: "Кафэ Франціска Скарыны", value: "1" },
-    { label: "Кафэ Аляксандра Кашкі", value: "2" },
-    { label: "Кафэ Эдгару Кодду", value: "3" }
-];
-
-const Times: {label: string, value: string}[] = [
-    { label: "10:00 – 11:00", value: "10:00 – 11:00" },
-    { label: "10:30 – 11:30", value: "10:30 – 11:30" },
-    { label: "11:00 – 12:00", value: "11:00 – 12:00" },
-    { label: "11:30 – 12:30", value: "11:30 – 12:30" },
-    { label: "12:00 – 13:00", value: "12:00 – 13:00" },
-    { label: "12:30 – 13:30", value: "12:30 – 13:30" },
-    { label: "13:00 – 14:00", value: "13:00 – 14:00" },
-    { label: "13:30 – 14:30", value: "13:30 – 14:30" },
-    { label: "14:00 – 15:00", value: "14:00 – 15:00" },
-];
+import { useState, useEffect, useTransition, Dispatch, SetStateAction, useRef } from "react";
+import getCafes, { dishesCheckingByCafe } from "@/app/actions/cafeServerActions";
+import { toast } from "react-toastify";
+import orderSaving from "@/app/actions/orderSaving";
 
 
 interface OrderProps {
     selectedDishes: SelectedDish[],
+    setDishSelection: Dispatch<SetStateAction<SelectedDish[]>>,
     onRemoveDish: (dishId: number) => void,
 }
 
-export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
+export default function Order({ selectedDishes, setDishSelection, onRemoveDish }: OrderProps) {
+    const [cafeLabels, setCafeLabels] = useState<{label: string, value: number}[]>([]);
+    const [isPending, startTransition] = useTransition();
 
-    const available: boolean|null = null;
+    useEffect(() => {
+        startTransition(async () => {
+            const cafes = await getCafes();
+            setCafeLabels(cafes);
+        });
+    }, []);
 
-    // const parts = [1, 2, 3, 4, 5];
+    const [availHours, setAvailHours] = useState<{label: string, value: string}[]>([]);
+
+    const checkingChoisenDishes = (idCafe: number) => {
+        startTransition(async () => {
+            setAvailHours([]);
+
+            const choisenDishes = selectedDishes.map(dish => { return { id: dish.dishID } });
+            const answers = await dishesCheckingByCafe(idCafe, choisenDishes);
+            
+            setDishSelection(prev => prev.map(dish => {
+                const matchingDish = answers.dishes!.hasDish.find(
+                    availableDish => availableDish.dishID === dish.dishID
+                );
+
+                return {
+                    ...dish,
+                    checkedDish: matchingDish ? matchingDish.dishAvailable : dish.checkedDish
+                };
+            }));
+            
+            setAvailHours(answers.hours);
+        });
+    }
 
     const cafeSelectOptionWidth = {
         menu: (base: CSSObjectWithLabel) => ({
@@ -46,6 +61,7 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
             fontSize: "1.4rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
+            zIndex: 12,
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -54,10 +70,13 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
             fontSize: "1.2rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
+            whiteSpace: "pre-wrap"
         }),
         singleValue: (base: CSSObjectWithLabel) => ({
             ...base,
             color: "var(--text-color)",
+            whiteSpace: "pre-wrap",
+            maxWidth: "18rem",
         }),
         dropdownIndicator: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -70,6 +89,8 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
             ...base,
             backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "var(--background-color)",
             color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
+            whiteSpace: "pre-wrap",
+            maxWidth: "21rem",
         }),
         input: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -98,6 +119,7 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
         singleValue: (base: CSSObjectWithLabel) => ({
             ...base,
             color: "var(--text-color)",
+            maxWidth: "12rem",
         }),
         dropdownIndicator: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -110,11 +132,76 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
             ...base,
             backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "var(--background-color)",
             color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
+            maxWidth: "12rem",
         }),
         input: (base: CSSObjectWithLabel) => ({
             ...base,
             color: "var(--text-color)",
         }),
+    }
+
+
+    const telephoneInputRef = useRef<HTMLInputElement>(null);
+    // const telephoneHandler = () => {
+    //     const telephone = telephoneInputRef.current?.value;
+    //     if (telephone === "") toast.error("Input your telephone number!", { position: "top-right", style: { fontSize: "1.5rem" } });
+        
+    //     const pattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
+    //     if (!pattern.test(telephone!)) toast.error("Please, your phone number! It must be started with '+' and country code.", { position: "top-right", style: { fontSize: "1.5rem" } });
+    //     else console.log("Telephone number -->", telephone);
+    // }
+
+    const commentRef = useRef<HTMLInputElement>(null);
+    // const commentHandler = () => {
+    //     const text = commentRef.current?.value;
+    //     console.log("Telephone number -->", text);
+    // }
+
+
+    const [choisenCafe, setChoisenCafe] = useState<number>(0);
+    const [availableTime, setAvailableTime] = useState<string>("");
+
+    const orderSavingHandler = () => {
+        if (choisenCafe === 0) {
+            toast.error("Choose a cafe for your order!", { position: "top-right", style: { fontSize: "1.5rem" } });
+            return;
+        }
+
+        if (availableTime === "") {
+            toast.error("Choose a time for your order!", { position: "top-right", style: { fontSize: "1.5rem" } });
+            return;
+        }
+
+        const telephone = telephoneInputRef.current?.value;
+        if (telephone === "") {
+            toast.error("Input your telephone number!", { position: "top-right", style: { fontSize: "1.5rem" } });
+            return;
+        }
+        const pattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
+        if (!pattern.test(telephone!)) {
+            toast.error("Please, your phone number! It must be started with '+' and country code.", { position: "top-right", style: { fontSize: "1.5rem" } });
+            return;
+        }
+
+        const text = commentRef.current?.value;
+
+        const orderComment = `Час замовы:\n${availableTime}\n\nКаментар:\n${text !== "" ? text : "–"}`;
+        const orderDishes = selectedDishes.filter(dish => dish.checkedDish !== null).map(dish => { return { id: dish.dishID, checkedDish: dish.checkedDish } });
+
+        startTransition(async () => {
+            const status = await orderSaving(orderDishes, choisenCafe, telephone!, orderComment);
+            // console.log("orderSavingHandler status -->", status);
+            if (status.code) {
+                toast.success(status.message, { position: "top-right", style: { fontSize: "1.5rem" } });
+                setDishSelection([]);
+                setChoisenCafe(0);
+                setAvailableTime("");
+                if (telephoneInputRef.current) telephoneInputRef.current.value = "";
+                if (commentRef.current) commentRef.current.value = "";
+            } else {
+                toast.error(status.message, { position: "top-right", style: { fontSize: "1.5rem" } });
+            }
+        });
     }
 
     return (
@@ -169,9 +256,10 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
                             <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>{selectedDish.food_portion}g</p>
                         </div>
                         <div style={{ height: "3rem", width: "3rem", borderRadius: "50%" }}>
-                            {available === null
+                            {selectedDish.checkedDish === null
                             ? <IconExclamationCircle style={{ width: "3rem", height: "3rem", color: "orangered" }} />
-                            : available ? <IconCircleCheck style={{ width: "3rem", height: "3rem", color: "green" }} />
+                            : selectedDish.checkedDish
+                            ? <IconCircleCheck style={{ width: "3rem", height: "3rem", color: "green" }} />
                             : <IconXboxX style={{ width: "3rem", height: "3rem", color: "red" }} />
                             }
                         </div>
@@ -215,30 +303,40 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
             }}>
                 <div>
                     <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Choose Cafe</p>
-                    <Select options={Cafes}
+                    <Select options={cafeLabels}
                         instanceId="custom-select"
                         menuPlacement="auto"
+                        isLoading={isPending}
                         styles={cafeSelectOptionWidth}
-                        onChange={() => {}
-                            // selectedOption => {
-                            //     familyChange(selectedOption?.value as string);
-                            // }
-                        }
+                        isDisabled={selectedDishes.length === 0}
+                        onChange={selectedOption => {
+                            setChoisenCafe(selectedOption?.value as number);
+                            checkingChoisenDishes(selectedOption?.value as number);
+                        }}
                         isSearchable={false}
+                        placeholder={
+                            selectedDishes.length === 0
+                            ? "Спачатку дадайце стравы"
+                            : "Адабярыце кафэ"
+                        }
                     />
                 </div>
                 <div>
                     <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Choose Time</p>
-                    <Select options={Times}
+                    <Select options={availHours}
                         instanceId="custom-select"
                         menuPlacement="auto"
                         styles={timeSelectOptionWidth}
-                        onChange={() => {}
-                            // selectedOption => {
-                            //     familyChange(selectedOption?.value as string);
-                            // }
-                        }
+                        isDisabled={selectedDishes.length === 0}
+                        onChange={selectedOption => {
+                            setAvailableTime(selectedOption?.value as string);
+                        }}
                         isSearchable={false}
+                        placeholder={
+                            availHours.length === 0
+                            ? "Спачатку адабярыце кафэ"
+                            : "Адабярыце час"
+                        }
                     />
                 </div>
             </div>
@@ -251,8 +349,7 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
                     borderRadius: "1rem", backgroundColor: "rgb(252, 242, 223)",
                 }}>
                     <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem" }}>Tel:</p>
-                    <input type="text" placeholder="Telephone"
-                    // value=""
+                    <input type="text" placeholder="Telephone" ref={telephoneInputRef}
                     style={{
                         border: "none", borderBottom: "2.5px solid orange", backgroundColor: "inherit",
                         paddingLeft: "0.75rem", paddingRight: "0.75rem", outline: "none", margin: "0.5rem 0.75rem"
@@ -260,8 +357,7 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
                 </div>
                 <div style={{ borderRadius: "1rem", backgroundColor: "rgb(252, 242, 223)" }}>
                     <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Optional Comment</p>
-                    <input type="textarea"
-                    // value="n"
+                    <input type="text" ref={commentRef} placeholder="Comment..."
                     style={{
                         border: "none", backgroundColor: "inherit",
                         paddingLeft: "0.75rem", paddingRight: "0.75rem",
@@ -269,7 +365,8 @@ export default function Order({ selectedDishes, onRemoveDish }: OrderProps) {
                         borderRadius: "0.5rem"
                     }} />
                 </div>
-                <AccessBtn buttonName="Submit" onClick={() => {}} additionalStyle={{
+                <AccessBtn buttonName="Submit" onClick={orderSavingHandler}
+                additionalStyle={{
                     fontSize: "1.25rem", paddingLeft: "5rem", paddingRight: "5rem",
                     height: "3rem"
                 }} />

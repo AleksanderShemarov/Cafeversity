@@ -52,7 +52,22 @@ const GET = async (request: NextRequest) => {
                     }
                 }
             });
-            return NextResponse.json(user, { status: 200 });
+
+            const favouriteDish = user?.favouriteDish.map(dish => {
+                return {
+                    dishID: dish.dishID,
+                    dishes: {
+                        ...dish.dishes,
+                        checkedDish: null
+                    }
+                }
+            });
+
+            return NextResponse.json({
+                ...user,
+                favouriteDish
+            },
+            { status: 200 });
         } else if (page === "settings") {
             const user = await prisma.users.findFirst({
                 where: {

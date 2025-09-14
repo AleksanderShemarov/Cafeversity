@@ -10,7 +10,8 @@ export type UserFavouriteDishes = {
         food_name: string,
         imagePath: string,
         food_portion: number,
-        cost: number
+        cost: number,
+        checkedDish: null,
     }
 }
 

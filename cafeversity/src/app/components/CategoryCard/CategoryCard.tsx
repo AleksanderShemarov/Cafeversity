@@ -3,16 +3,18 @@ import { ForwardRefExoticComponent, RefAttributes } from "react";
 
 
 interface CategoryCardInterface {
-  name: string;
-  icon: ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>;
-  children?: React.ReactNode
+    name: string,
+    icon: ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>,
+    isVisible?: boolean,
+    children?: React.ReactNode
 }
 
-export default function CategoryCard({ name, icon: Icon, children }: CategoryCardInterface) {
+export default function CategoryCard({ name, icon: Icon, isVisible = true, children }: CategoryCardInterface) {
     return (
         <div style={{
             marginTop: "3.5rem", marginBottom: "3.5rem", borderRadius: "3rem",
-            padding: "1.2rem 1.5rem", boxShadow: "inset 0px 0px 10px -2px rgba(66, 68, 90, 1)"
+            padding: "1.2rem 1.5rem", boxShadow: "inset 0px 0px 10px -2px rgba(66, 68, 90, 1)",
+            display: isVisible ? "block" : "none"
         }}>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start", gap: "1rem", marginBottom: "2rem" }}>
                 <Icon style={{ height: "5rem", width: "5rem" }} />

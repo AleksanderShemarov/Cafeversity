@@ -2,6 +2,7 @@ import Image from "next/image";
 import styles from "@/app/(userPage)/authorized/[authorizedUser]/authorized.module.css";
 import Order from "./OrderComponent/Order";
 import { SelectedDish } from "./AuthorizedUserClient";
+import { Dispatch, SetStateAction } from "react";
 
 
 interface UserAndOrder {
@@ -11,10 +12,11 @@ interface UserAndOrder {
     nickname: string|null,
     email: string,
     selectedDishes: SelectedDish[],
+    setDishSelection: Dispatch<SetStateAction<SelectedDish[]>>,
     onRemoveDish: (dishId: number) => void,
 }
 
-export default function UserAndOrder({ imagePath, name, surname, nickname, email, selectedDishes, onRemoveDish }: UserAndOrder) {
+export default function UserAndOrder({ imagePath, name, surname, nickname, email, selectedDishes, setDishSelection, onRemoveDish }: UserAndOrder) {
     return (
         <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
             <div style={{
@@ -70,7 +72,7 @@ export default function UserAndOrder({ imagePath, name, surname, nickname, email
                     </p>
                 </div>
             </div>
-            <Order selectedDishes={selectedDishes} onRemoveDish={onRemoveDish} />
+            <Order selectedDishes={selectedDishes} setDishSelection={setDishSelection} onRemoveDish={onRemoveDish} />
         </div>
     );
 }

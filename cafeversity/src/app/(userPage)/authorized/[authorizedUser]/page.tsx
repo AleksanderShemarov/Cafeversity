@@ -1,6 +1,8 @@
 import { use } from "react";
 import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
 import AuthorizedUserClient from "@/app/components/AuthorizedUserClient";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css";
 
 
 export type UserDataTypes = {
@@ -28,6 +30,7 @@ export type UserDataTypes = {
             imagePath: string,
             food_portion: number,
             cost: number,
+            checkedDish: null
         }
     }[]
 }
@@ -56,6 +59,7 @@ export default function AuthorizedUser({ params }: { params: { authorizedUser: s
             <AuthorizedUserClient userData={data} />
             
             <LocalStorageStyles {...data.customSets} />
+            <ToastContainer />
         </>
     )
 }
