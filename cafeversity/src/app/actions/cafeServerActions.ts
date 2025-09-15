@@ -81,7 +81,7 @@ async function getAvailableTimeslots(idCafe: number) {
     let startHours = Number(start.split(":")[0]);
     let endHours = Number(end.split(":")[0]);
 
-    if ((weekday >= 1 && weekday <= 5) && endHours - today.getHours() < 1) {
+    if (weekday === 5 && endHours - today.getHours() < 1) {
         hoursTemp = cafeHoursArray[1];
         weekday = 6;
         [start, end] = hoursTemp.split(" ").filter(part => part.includes(":") && part.indexOf(":") !== part.length - 1);
@@ -93,7 +93,8 @@ async function getAvailableTimeslots(idCafe: number) {
         [start, end] = hoursTemp.split(" ").filter(part => part.includes(":") && part.indexOf(":") !== part.length - 1);
         startHours = Number(start.split(":")[0]);
         endHours = Number(end.split(":")[0]);
-    } else if (weekday === 0) weekday = 1;
+    } else if ((weekday >= 1 && weekday <= 4) && endHours - today.getHours() < 1) weekday++;
+    else weekday = 1;
 
     const startMinutes = Number(start.split(":")[1]);
     const endMinutes = Number(end.split(":")[1]);
@@ -101,7 +102,8 @@ async function getAvailableTimeslots(idCafe: number) {
     let halfFormat;
 
     if (startMinutes === 30 && endMinutes === 30) {
-        halfFormat = fullFormat + 1;
+        halfFormat = fullFormat;
+        fullFormat -= 1;
     } else if (startMinutes === 30 || endMinutes === 30) {
         halfFormat = fullFormat
     } else {
