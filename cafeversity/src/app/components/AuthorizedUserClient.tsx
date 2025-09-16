@@ -1,13 +1,14 @@
 "use client";
 
-import { UserDataTypes } from "../(userPage)/authorized/[authorizedUser]/page";
+import { DishProps, UserDataTypes } from "../(userPage)/authorized/[authorizedUser]/page";
 import UserAndOrder from "./UserAndOrder";
 import SortableAreaComponent from "@/components/DropArea/SortableAreaComponent";
 import { useState } from "react";
 
 
 interface AuthorizedUserClient {
-    userData: UserDataTypes
+    userData: UserDataTypes,
+    dataOfDishes: DishProps[]
 }
 
 export type SelectedDish = {
@@ -19,7 +20,7 @@ export type SelectedDish = {
     checkedDish: boolean|null,
 }
 
-export default function AuthorizedUserClient({ userData }: AuthorizedUserClient) {
+export default function AuthorizedUserClient({ userData, dataOfDishes }: AuthorizedUserClient) {
     
     const [selectedDishes, setSelectedDishes] = useState<SelectedDish[]>([]);
 
@@ -56,6 +57,7 @@ export default function AuthorizedUserClient({ userData }: AuthorizedUserClient)
 
         <SortableAreaComponent
             favouriteDishes={userData.favouriteDish}
+            otherDishes={dataOfDishes}
             selectedDishIds={selectedDishIds}
             onDishSelection={toggleDishSelection}
         />

@@ -17,11 +17,12 @@ export type UserFavouriteDishes = {
 
 export interface SortableAreaComponentProps {
     favouriteDishes: UserFavouriteDishes[],
+    otherDishes: UserFavouriteDishes[],
     selectedDishIds: number[],
     onDishSelection: (dishId: number, dishData: Omit<SelectedDish, 'dishID'>) => void
 }
 
-export default function SortableAreaComponent({ favouriteDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) {
+export default function SortableAreaComponent({ favouriteDishes, otherDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) {
     return (
         <>
             {/* {favouriteDishes.map((favouriteDish, index) =>
@@ -32,6 +33,7 @@ export default function SortableAreaComponent({ favouriteDishes, selectedDishIds
                 </div>
             )} */}
             <SortableArea favouriteDishes={favouriteDishes}
+                otherDishes={otherDishes}
                 selectedDishIds={selectedDishIds}
                 onDishSelection={onDishSelection}
             />

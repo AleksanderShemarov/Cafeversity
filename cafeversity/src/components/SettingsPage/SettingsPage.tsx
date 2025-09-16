@@ -332,7 +332,6 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
         router.refresh();
     }
 
-
     async function saveUpdatedSetsUserData() {
         startTransition(() => {
         allSetsUpdate(userData.id, setState)
@@ -344,7 +343,8 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                     setsDispatch({ type: "SET_REAL_USER_SETS", payload: setState });
                     setNewSets(setState);
                     console.log("Settings are updated.", result.success);
-                    toast.success("Settings are updated.", { position: "top-right" });
+                    toast.success("Settings are updated.", { position: "top-right", style: { fontSize: "1.8rem" } });
+                    router.refresh();// For showing dishes according to user's tastes preferences
                 }
             });
         });

@@ -23,7 +23,7 @@ import { usePathname, useRouter } from "next/navigation";
 // import generateMessage from "../../../lib/utils/geminiAnswer";
 
 
-const SortableArea = ({ favouriteDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) => {
+const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) => {
     
     const [items, setItems] = useState<UniqueIdentifier[]>([1, 2, 3]);
 
@@ -78,7 +78,7 @@ const SortableArea = ({ favouriteDishes, selectedDishIds, onDishSelection }: Sor
         return selectedDishIds.includes(dishId);
     };
     
-    const dishesBlockSelects = (
+    const dishesBlockSelects1 = (
         <div style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
             {favouriteDishes.map(favouriteDish =>
                 <BlockSelect key={`blockSelect-${favouriteDish.dishID}`}
@@ -140,6 +140,57 @@ const SortableArea = ({ favouriteDishes, selectedDishIds, onDishSelection }: Sor
         </div>
     );
 
+    const dishesBlockSelects2 = (
+        <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", justifyContent: "space-around", rowGap: "3rem" }}>
+            {otherDishes.map(dish =>
+                <BlockSelect key={`othersBlockSelect-${dish.dishID}`}
+                    idName={`othersBlockSelect-${dish.dishID}`}
+                    isOutline={isDishSelected(dish.dishID)}
+                    switcher={handleBlockSelects}
+                    style={{ borderRadius: "1.5rem" }}
+                    dishData={dish}
+                >
+                    <CardBlock height="18vh" width="21vw" style={{ outline: isDishSelected(dish.dishID) ? "none" : "2px solid lightgrey" }}>
+                        <CardImage imagePath={dish.dishes.imagePath === "" ? "/no_image1.jpg" : dish.dishes.imagePath.slice(8)}
+                            style={{ borderRadius: "1.5rem" }}
+                            fill
+                        />
+                        <CardTitle title={dish.dishes.food_name}
+                            style={{
+                                color: "black",
+                                position: "absolute",
+                                bottom: 0,
+                                left: 0,
+                                right: 0,
+                                zIndex: 10,
+                                backgroundColor: "rgba(255,255,255,0.8)",
+                                padding: "0.5rem",
+                                textAlign: "center",
+                                textWrap: "pretty"
+                            }}
+                        />
+                        <CardButtonsZone style={{
+                            display: "inline-flex", alignItems: "center", gap: "0.75rem",
+                            position: "absolute", top: 3, right: 3
+                        }}>
+                            <CardButton btnName={
+                                <IconInfoSquareRounded style={{
+                                    width: "3rem", height: "3rem", color: isHover === `info-${dish.dishID}` ? "#2563EB" : "black",
+                                }} />
+                            }
+                                btnId={dish.dishID}
+                                clicker={handleDishInfo}
+                                hovering={() => setIsHover(`info-${dish.dishID}`)}
+                                leaving={() => setIsHover(null)}
+                                style={{ boxShadow: isHover === `info-${dish.dishID}` ? "0px 0px 7px 4px #2563EB" : "none" }}
+                            />
+                        </CardButtonsZone>
+                    </CardBlock>
+                </BlockSelect>
+            )}
+        </div>
+    );
+
     const [geminiMessage, setGeminiMessage] = useState<string>("");
     const effectRan = useRef(false);
     useEffect(() => {
@@ -165,6 +216,10 @@ const SortableArea = ({ favouriteDishes, selectedDishIds, onDishSelection }: Sor
     }, []);
     console.log("gemini's message ->", geminiMessage);
 
+    const dishesBlockSelects3 = (<div>Dish Cards will be here at flex container</div>);
+
+    // const threeParts = [dishesBlockSelects1, dishesBlockSelects2, dishesBlockSelects3];
+
     return (
         <div style={{
             width: "auto",
@@ -186,14 +241,12 @@ const SortableArea = ({ favouriteDishes, selectedDishIds, onDishSelection }: Sor
                     strategy={verticalListSortingStrategy}
                 >
                     {items.map(id =>
-                        <SortableItem key={id} idName={id} itemName={id === 1 ? "Ўпадабаныя Стравы" : `Sortable Component – ${id}`}>
+                        <SortableItem key={id} idName={id} itemName={id === 1 ? "Ўпадабаныя Стравы" : id === 2 ? "Сённяшнія Стравы" : `Sortable Component – ${id}`}>
                         {id === 1
-                            ? (
-                                dishesBlockSelects
-                            )
-                            : (
-                                <div>Dish Cards will be here at flex container</div>
-                            )
+                        ? (dishesBlockSelects1)
+                        : id === 2
+                        ? (dishesBlockSelects2)
+                        : (dishesBlockSelects3)
                         }    
                         </SortableItem>
                     )}
