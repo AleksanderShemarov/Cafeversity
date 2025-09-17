@@ -1,0 +1,208 @@
+.orderContainer {
+    width: 100%;
+    max-width: 80rem;
+    /* min-height: 400px; */
+    margin: 20px auto;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+    border: 2px solid #dee2e6;
+    border-radius: 15px;
+    padding: 20px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.orderHeader {
+    text-align: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #495057;
+    border-bottom: 2px solid #6c757d;
+    padding-bottom: 10px;
+}
+
+.dishesList {
+    max-height: 15rem;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #ced4da;
+}
+
+.dishItem {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #e9ecef;
+}
+
+.dishItem:last-child {
+    border-bottom: none;
+}
+
+.dishImage {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-right: 15px;
+}
+
+.dishInfo {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.dishName {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #495057;
+    margin: 0;
+}
+
+.dishDetails {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.availability {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.9rem;
+}
+
+.available {
+    color: #28a745;
+}
+
+.unavailable {
+    color: #dc3545;
+}
+
+.unknown {
+    color: #ffc107;
+}
+
+.removeButton {
+    background: none;
+    border: none;
+    color: #dc3545;
+    cursor: pointer;
+    padding: 5px;
+    border-radius: 4px;
+    transition: background-color 0.2s;
+}
+
+.removeButton:hover {
+    background-color: #f8d7da;
+}
+
+.controlsSection {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+    margin-bottom: 2rem;
+    margin-top: -2rem;
+}
+
+.controlGroup {
+    display: flex;
+    flex-direction: column;
+}
+
+.controlLabel {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #495057;
+    text-align: center;
+}
+
+.inputGroup {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 1.5rem;
+}
+
+.telephoneInput {
+    padding: 10px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    transition: border-color 0.2s;
+}
+
+.telephoneInput:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.commentInput {
+    padding: 10px;
+    border: 2px solid #ced4da;
+    border-radius: 8px;
+    font-size: 1.5rem;
+    resize: vertical;
+    min-height: 1.65rem;
+    max-height: 1.65rem;
+    width: 50rem;
+    transition: border-color 0.2s;
+}
+
+.commentInput:focus {
+    outline: none;
+    border-color: #007bff;
+}
+
+.submitButton {
+    background: linear-gradient(135deg, #007bff 0%, #0056b3 100%);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 25px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+    margin-top: 20px;
+}
+
+.submitButton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 123, 255, 0.3);
+}
+
+.submitButton:disabled {
+    background: #6c757d;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+.emptyMessage {
+    text-align: center;
+    color: #6c757d;
+    font-style: italic;
+    padding: 20px;
+    font-size: "1.5rem";
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .controlsSection {
+        grid-template-columns: 1fr;
+    }
+    
+    .orderContainer {
+        margin: 10px;
+        padding: 15px;
+    }
+}

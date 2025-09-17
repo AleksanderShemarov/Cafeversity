@@ -10,7 +10,7 @@ import {
 } from "@dnd-kit/sortable";
 import { restrictToVerticalAxis } from "@dnd-kit/modifiers";
 import { SortableItem } from "./SortableItem";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect, useRef, startTransition } from "react";
 import BlockSelect from "../BlockSelection/BlockSelect";
 import { SortableAreaComponentProps, UserFavouriteDishes } from "./SortableAreaComponent";
 import CardBlock from "../CardParts/CardBlock";
@@ -18,14 +18,17 @@ import CardImage from "../CardParts/CardImage";
 import CardTitle from "../CardParts/CardTitle";
 import CardButton from "../CardParts/CardButton";
 import CardButtonsZone from "../CardParts/CardButtonsZone";
-import { IconInfoSquareRounded, IconTrash } from "@tabler/icons-react";
+import { IconCheck, IconInfoSquareRounded, IconTrash, IconX } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
+import toggleFavourite from "@/app/actions/toggleFavourite";
+import { toast } from "react-toastify";
 // import generateMessage from "../../../lib/utils/geminiAnswer";
 
 
 const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) => {
     
     const [items, setItems] = useState<UniqueIdentifier[]>([1, 2, 3]);
+    const [favourDishes, setFavourDishes] = useState(favouriteDishes);
 
     const sensors = useSensors(
         useSensor(PointerSensor, {
@@ -58,8 +61,30 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
     const handleDishInfo = (id: string|number) => {
         router.push(`${pathname}/menu/${id}`, { scroll: false });
     }
-    const handleDishOnRemove = (id: string|number) => {
-        alert(`Clicking on this trash icon with ID "${id}" will call ability\nfor removing one or more dishes from "Favourite Dishes" block`)
+
+    const deleteFavouDishRef = useRef<HTMLDialogElement>(null);
+    const [dishIDRemove, setDishIDRemove] = useState<number>(0);
+    const deleteFavouDishDialog = () => {
+        deleteFavouDishRef.current?.showModal();
+    }
+    const handleDishOnRemove = (id: number) => {
+        // alert(`Clicking on this trash icon with ID "${id}" will call ability\nfor removing one or more dishes from "Favourite Dishes" block`)
+        startTransition(async () => {
+            const answer = await toggleFavourite(pathname.split("/")[2], id);
+            if (answer.success) {
+                setDishIDRemove(0);
+                closeDelete();
+                setFavourDishes(prev => prev.filter(dish => dish.dishID !== id));
+                toast.success(answer.message, { position: "top-right", style: { fontSize: "1.5rem" } });
+            } else {
+                setDishIDRemove(0);
+                closeDelete();
+                toast.error(answer.message, { position: "top-right", style: { fontSize: "1.5rem" } });
+            }
+        })
+    }
+    const closeDelete = () => {
+        deleteFavouDishRef.current?.close();
     }
 
 
@@ -79,65 +104,119 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
     };
     
     const dishesBlockSelects1 = (
-        <div style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
-            {favouriteDishes.map(favouriteDish =>
-                <BlockSelect key={`blockSelect-${favouriteDish.dishID}`}
-                    idName={`blockSelect-${favouriteDish.dishID}`}
-                    isOutline={isDishSelected(favouriteDish.dishID)}
-                    switcher={handleBlockSelects}
-                    style={{ borderRadius: "1.5rem" }}
-                    dishData={favouriteDish}
-                >
-                    <CardBlock height="18vh" width="21vw" style={{ outline: isDishSelected(favouriteDish.dishID) ? "none" : "2px solid lightgrey" }}>
-                        <CardImage imagePath={favouriteDish.dishes.imagePath.slice(8)}
-                            style={{ borderRadius: "1.5rem" }}
-                            fill
-                        />
-                        <CardTitle title={favouriteDish.dishes.food_name}
-                            style={{
-                                color: "black",
-                                position: "absolute",
-                                bottom: 0,
-                                left: 0,
-                                right: 0,
-                                zIndex: 10,
-                                backgroundColor: "rgba(255,255,255,0.8)",
-                                padding: "0.5rem",
-                                textAlign: "center",
-                                textWrap: "pretty"
-                            }}
-                        />
-                        <CardButtonsZone style={{
-                            display: "inline-flex", alignItems: "center", gap: "0.75rem",
-                            position: "absolute", top: 3, right: 3
-                        }}>
-                            <CardButton btnName={
-                                <IconInfoSquareRounded style={{
-                                    width: "3rem", height: "3rem", color: isHover === `info-${favouriteDish.dishID}` ? "#2563EB" : "black",
-                                }} />
-                            }
-                                btnId={favouriteDish.dishID}
-                                clicker={handleDishInfo}
-                                hovering={() => setIsHover(`info-${favouriteDish.dishID}`)}
-                                leaving={() => setIsHover(null)}
-                                style={{ boxShadow: isHover === `info-${favouriteDish.dishID}` ? "0px 0px 7px 4px #2563EB" : "none" }}
+        <>
+            <div style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
+                {favourDishes.map(favouriteDish =>
+                    <BlockSelect key={`blockSelect-${favouriteDish.dishID}`}
+                        idName={`blockSelect-${favouriteDish.dishID}`}
+                        isOutline={isDishSelected(favouriteDish.dishID)}
+                        switcher={handleBlockSelects}
+                        style={{ borderRadius: "1.5rem" }}
+                        dishData={favouriteDish}
+                    >
+                        <CardBlock height="18vh" width="21vw" style={{ outline: isDishSelected(favouriteDish.dishID) ? "none" : "2px solid lightgrey" }}>
+                            <CardImage imagePath={favouriteDish.dishes.imagePath.slice(8)}
+                                style={{ borderRadius: "1.5rem" }}
+                                fill
                             />
-                            <CardButton btnName={
-                                <IconTrash style={{
-                                    width: "3rem", height: "3rem", color: isHover === `delete-${favouriteDish.dishID}` ? "red" : "black"
-                                }} />
-                            }
-                                btnId={favouriteDish.dishID}
-                                clicker={handleDishOnRemove}
-                                hovering={() => setIsHover(`delete-${favouriteDish.dishID}`)}
-                                leaving={() => setIsHover(null)}
-                                style={{ boxShadow: isHover === `delete-${favouriteDish.dishID}` ? "0px 0px 7px 4px orangered" : "none" }}
+                            <CardTitle title={favouriteDish.dishes.food_name}
+                                style={{
+                                    color: "black",
+                                    position: "absolute",
+                                    bottom: 0,
+                                    left: 0,
+                                    right: 0,
+                                    zIndex: 10,
+                                    backgroundColor: "rgba(255,255,255,0.8)",
+                                    padding: "0.5rem",
+                                    textAlign: "center",
+                                    textWrap: "pretty"
+                                }}
                             />
-                        </CardButtonsZone>
-                    </CardBlock>
-                </BlockSelect>
-            )}
-        </div>
+                            <CardButtonsZone style={{
+                                display: "inline-flex", alignItems: "center", gap: "0.75rem",
+                                position: "absolute", top: 3, right: 3
+                            }}>
+                                <CardButton btnName={
+                                    <IconInfoSquareRounded style={{
+                                        width: "3rem", height: "3rem", color: isHover === `info-${favouriteDish.dishID}` ? "#2563EB" : "black",
+                                    }} />
+                                }
+                                    btnId={favouriteDish.dishID}
+                                    clicker={handleDishInfo}
+                                    hovering={() => setIsHover(`info-${favouriteDish.dishID}`)}
+                                    leaving={() => setIsHover(null)}
+                                    style={{ boxShadow: isHover === `info-${favouriteDish.dishID}` ? "0px 0px 7px 4px #2563EB" : "none" }}
+                                />
+                                <CardButton btnName={
+                                    <IconTrash style={{
+                                        width: "3rem", height: "3rem", color: isHover === `delete-${favouriteDish.dishID}` ? "red" : "black"
+                                    }} />
+                                }
+                                    btnId={favouriteDish.dishID}
+                                    clicker={() => {
+                                        setDishIDRemove(favouriteDish.dishID);
+                                        deleteFavouDishDialog();
+                                    }}
+                                    hovering={() => setIsHover(`delete-${favouriteDish.dishID}`)}
+                                    leaving={() => setIsHover(null)}
+                                    style={{ boxShadow: isHover === `delete-${favouriteDish.dishID}` ? "0px 0px 7px 4px orangered" : "none" }}
+                                />
+                            </CardButtonsZone>
+                        </CardBlock>
+                    </BlockSelect>
+                )}
+            </div>
+            
+            <dialog ref={deleteFavouDishRef} style={{ borderRadius: "1.25rem", backgroundColor: "rgb(252, 242, 223)", border: "none" }}>
+                <p style={{
+                    textAlign: "center", fontSize: "1.8rem", fontWeight: 600, marginBottom: "1rem"
+                }}>Favourite Dish Removing</p>
+                <p style={{
+                    textAlign: "justify", fontSize: "1.5rem", fontWeight: 400, textIndent: "1.25rem"
+                }}>{`Do you really want to remove this dish from Your Favourite Dishes List?`}</p>
+                <div style={{ width: "90%", display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 auto" }}>
+                    <button type="button"
+                        style={{
+                            border: "none",
+                            borderRadius: "0.75rem",
+                            height: "30px",
+                            padding: "2px 5px",
+                            color: "whitesmoke",
+                            fontWeight: "600",
+                            fontSize: "1.5rem",
+                            backgroundColor: "green",
+                            cursor: "pointer",
+                        }}
+                        onClick={() => handleDishOnRemove(dishIDRemove)}
+                    >
+                        <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+                            <IconCheck style={{ height: "2rem", width: "2rem" }} />
+                            <span style={{ textIndent: "5px" }}>Yes</span>
+                        </div>
+                    </button>
+                    <button type="button"
+                        style={{
+                            border: "none",
+                            borderRadius: "0.75rem",
+                            height: "30px",
+                            padding: "2px 5px",
+                            color: "whitesmoke",
+                            fontWeight: "600",
+                            fontSize: "1.5rem",
+                            backgroundColor: "red",
+                            cursor: "pointer",
+                        }}
+                        onClick={closeDelete}
+                    >
+                        <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
+                            <IconX style={{ height: "2rem", width: "2rem" }} />
+                            <span style={{ textIndent: "5px" }}>No</span>
+                        </div>
+                    </button>
+                </div>
+            </dialog>
+        </>
     );
 
     const dishesBlockSelects2 = (

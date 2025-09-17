@@ -14,7 +14,7 @@ export default async function getCafes() {
 
     const cafeLabels = [];
     for(const dbCafe of dbCafes) {
-        cafeLabels.push({ label: `${dbCafe.cafeName}\n(${dbCafe.openHours.replace("\\n", "\n")})`, value: dbCafe.ID });
+        cafeLabels.push({ label: `${dbCafe.cafeName}\n(${dbCafe.openHours.replace("\\n", " | ")})`, value: dbCafe.ID });
     }
 
     return cafeLabels;

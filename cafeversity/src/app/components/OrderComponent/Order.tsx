@@ -1,24 +1,26 @@
 "use client";
 
 import CardImage from "@/components/CardParts/CardImage";
-import { IconCircleCheck, IconExclamationCircle, IconSquareX, IconXboxX } from "@tabler/icons-react";
+import { IconCircleCheck, IconExclamationCircle, IconTrash, IconXboxX } from "@tabler/icons-react";
 import AccessBtn from "@/components/Buttons/DifferentButtons";
 import Select, { CSSObjectWithLabel } from "react-select";
-import HorizontalLine from "@/components/OtherParts/HorizontalLine";
 import { SelectedDish } from "../AuthorizedUserClient";
 import { useState, useEffect, useTransition, Dispatch, SetStateAction, useRef } from "react";
 import getCafes, { dishesCheckingByCafe } from "@/app/actions/cafeServerActions";
 import { toast } from "react-toastify";
 import orderSaving from "@/app/actions/orderSaving";
+import styles from "@/app/components/OrderComponent/Order.module.css";
+import { motion, AnimatePresence } from "framer-motion";
 
 
 interface OrderProps {
     selectedDishes: SelectedDish[],
     setDishSelection: Dispatch<SetStateAction<SelectedDish[]>>,
     onRemoveDish: (dishId: number) => void,
+    isOpen: boolean
 }
 
-export default function Order({ selectedDishes, setDishSelection, onRemoveDish }: OrderProps) {
+export default function Order({ selectedDishes, setDishSelection, onRemoveDish, isOpen }: OrderProps) {
     const [cafeLabels, setCafeLabels] = useState<{label: string, value: number}[]>([]);
     const [isPending, startTransition] = useTransition();
 
@@ -57,26 +59,28 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish }
         menu: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "max-content",
-            minWidth: "21rem",
-            fontSize: "1.4rem",
-            backgroundColor: "var(--background-color)",
+            minWidth: "32rem",
+            fontSize: "1.5rem",
+            backgroundColor: "white",
             color: "var(--text-color)",
             zIndex: 12,
+            marginLeft: "1rem"
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "max-content",
-            minWidth: "21rem",
-            fontSize: "1.2rem",
-            backgroundColor: "var(--background-color)",
+            minWidth: "35rem",
+            fontSize: "1.5rem",
+            backgroundColor: "white",
             color: "var(--text-color)",
-            whiteSpace: "pre-wrap"
+            whiteSpace: "pre-wrap",
+            margin: "0 auto"
         }),
         singleValue: (base: CSSObjectWithLabel) => ({
             ...base,
             color: "var(--text-color)",
             whiteSpace: "pre-wrap",
-            maxWidth: "18rem",
+            maxWidth: "35rem"
         }),
         dropdownIndicator: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -87,10 +91,10 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish }
         }),
         option: (base: CSSObjectWithLabel, state: { isFocused: boolean, isSelected: boolean }) => ({
             ...base,
-            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "var(--background-color)",
+            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "white",
             color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
             whiteSpace: "pre-wrap",
-            maxWidth: "21rem",
+            maxWidth: "35rem"
         }),
         input: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -103,23 +107,26 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish }
             ...base,
             width: "max-content",
             minWidth: "10rem",
-            fontSize: "1.4rem",
-            backgroundColor: "var(--background-color)",
+            fontSize: "1.5rem",
+            backgroundColor: "white",
             color: "var(--text-color)",
             zIndex: 12,
+            marginLeft: "9.5rem",
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "auto",
             minWidth: "10rem",
-            fontSize: "1.2rem",
-            backgroundColor: "var(--background-color)",
+            maxWidth: "20rem",
+            fontSize: "1.5rem",
+            backgroundColor: "white",
             color: "var(--text-color)",
+            margin: "0 auto"
         }),
         singleValue: (base: CSSObjectWithLabel) => ({
             ...base,
             color: "var(--text-color)",
-            maxWidth: "12rem",
+            maxWidth: "15rem",
         }),
         dropdownIndicator: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -130,9 +137,10 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish }
         }),
         option: (base: CSSObjectWithLabel, state: { isFocused: boolean, isSelected: boolean }) => ({
             ...base,
-            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "var(--background-color)",
+            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "white",
             color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
-            maxWidth: "12rem",
+            maxWidth: "15rem",
+            margin: "0 auto",
         }),
         input: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -142,20 +150,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish }
 
 
     const telephoneInputRef = useRef<HTMLInputElement>(null);
-    // const telephoneHandler = () => {
-    //     const telephone = telephoneInputRef.current?.value;
-    //     if (telephone === "") toast.error("Input your telephone number!", { position: "top-right", style: { fontSize: "1.5rem" } });
-        
-    //     const pattern = /^[+]{1}(?:[0-9\-\\(\\)\\/.]\s?){6,15}[0-9]{1}$/;
-    //     if (!pattern.test(telephone!)) toast.error("Please, your phone number! It must be started with '+' and country code.", { position: "top-right", style: { fontSize: "1.5rem" } });
-    //     else console.log("Telephone number -->", telephone);
-    // }
-
-    const commentRef = useRef<HTMLInputElement>(null);
-    // const commentHandler = () => {
-    //     const text = commentRef.current?.value;
-    //     console.log("Telephone number -->", text);
-    // }
+    const commentRef = useRef<HTMLTextAreaElement>(null);
 
 
     const [choisenCafe, setChoisenCafe] = useState<number>(0);
@@ -205,172 +200,141 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish }
     }
 
     return (
-        <div style={{
-            width: "50%", height: "30vh",
-            backgroundColor: "#f2dabfff",
-            borderRadius: "1rem",
-        }}>
-            <div style={{}}>
-                <p style={{
-                    textAlign: "center", fontSize: "1.5rem", fontWeight: "400",
-                    width: "fit-content", margin: "0.5rem auto",
-                }}>Current Order ({selectedDishes.length} items)</p>
-            </div>
-            <div style={{
-                borderRadius: "1rem",
-                padding: "0.5rem 1.5rem",
-                backgroundColor: "rgb(252, 242, 223)",
-                marginLeft: "0.75rem", marginRight: "0.75rem",
-                height: "10vh", overflowY: "auto",
-                marginBottom: "0.5rem"
-            }}>
-                {selectedDishes.length > 0
-                ? selectedDishes.map((selectedDish, index) =>
-                    <div key={index} style={{
-                        display: "flex", alignItems: "center", justifyContent: "space-between",
-                        marginTop: "0.5rem", marginBottom: "0.5rem"
-                    }}>
-                        <div style={{ fontSize: "1.25rem", width: "1.5rem", textAlign: "right" }}>
-                            {index + 1}.
-                        </div>
-                        <div style={{ height: "3rem", width: "5rem" }}>
-                            <CardImage imagePath={selectedDish.imagePath.slice(8)}
-                                style={{ borderRadius: "0.5rem" }}
-                                fill
+        <AnimatePresence>
+            {isOpen && (
+                <motion.div className={styles.orderContainer}
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: 100 }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                    style={{
+                        position: 'sticky',
+                        top: '20px',
+                        zIndex: 1000,
+                        marginTop: '20px',
+                        marginBottom: '20px'
+                    }}
+                >
+                    <div className={styles.orderHeader}>
+                        Тякучая замова ({selectedDishes.length} {selectedDishes.length === 1 ? "пазыцыя" : "пазыцыяў"})
+                    </div>
+                    <div className={styles.dishesList}>
+                        {selectedDishes.length > 0
+                        ? selectedDishes.map((selectedDish, index) =>
+                            <div key={index} className={styles.dishItem}>
+                                <div style={{ width: "3rem", textAlign: "center", fontSize: "1.5rem" }}>
+                                    {index + 1}.
+                                </div>
+                                <div style={{ height: "4rem", width: "6rem" }}>
+                                    <CardImage imagePath={selectedDish.imagePath.slice(8)}
+                                        style={{ borderRadius: "0.5rem" }}
+                                        fill
+                                    />
+                                </div>
+                                <div style={{ width: "25rem" }}>
+                                    <p className={styles.dishName}>
+                                        {/* Dish with Different Sauces */}
+                                        {selectedDish.food_name}
+                                    </p>
+                                </div>
+                                <div style={{ width: "3rem", padding: "0 0.5rem", textAlign: "center" }}>
+                                    <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>{selectedDish.food_portion}g</p>
+                                </div>
+                                <div style={{ height: "3rem", width: "3rem", borderRadius: "50%" }}>
+                                    {selectedDish.checkedDish === null
+                                    ? <IconExclamationCircle style={{ width: "3rem", height: "3rem", color: "orangered" }} />
+                                    : selectedDish.checkedDish
+                                    ? <IconCircleCheck style={{ width: "3rem", height: "3rem", color: "green" }} />
+                                    : <IconXboxX style={{ width: "3rem", height: "3rem", color: "red" }} />
+                                    }
+                                </div>
+                                <div style={{ width: "5rem", padding: "0 0.5rem", textAlign: "center" }}>
+                                    <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>{selectedDish.cost}BYN</p>
+                                </div>
+                                <div
+                                    style={{
+                                        borderRadius: "10%",
+                                        // backgroundColor: "red",
+                                        height: "3rem",
+                                        width: "3rem",
+                                        display: "flex",
+                                        alignItems: "center",
+                                        justifyContent: "center",
+                                        // outline: "1px solid"
+                                    }}
+                                    onClick={() => {onRemoveDish(selectedDish.dishID)}}
+                                >
+                                    <IconTrash style={{ height: "3rem", width: "3rem" }} />
+                                </div>
+                            </div>
+                        )
+                        : <div className={styles.emptyMessage}>
+                                Не адабрана ніводнай стравы
+                            </div>
+                        }
+                    </div>
+
+                    <div className={styles.controlsSection}>
+                        <div className={styles.controlGroup}>
+                            <p className={styles.controlLabel}>Choose Cafe</p>
+                            <Select options={cafeLabels}
+                                instanceId="custom-select"
+                                menuPlacement="auto"
+                                isLoading={isPending}
+                                styles={cafeSelectOptionWidth}
+                                isDisabled={selectedDishes.length === 0}
+                                onChange={selectedOption => {
+                                    setChoisenCafe(selectedOption?.value as number);
+                                    checkingChoisenDishes(selectedOption?.value as number);
+                                }}
+                                isSearchable={false}
+                                placeholder={
+                                    selectedDishes.length === 0
+                                    ? "Спачатку дадайце стравы"
+                                    : "Адабярыце кафэ"
+                                }
                             />
                         </div>
-                        <div style={{
-                            // outline: "1px solid",
-                            width: "25rem", padding: "0 0.5rem",
-                            height: "2.75rem"
-                        }}>
-                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>
-                                {/* Dish with Different Sauces */}
-                                {selectedDish.food_name}
-                            </p>
-                        </div>
-                        <div style={{
-                            // outline: "1px solid",
-                            width: "3rem", padding: "0 0.5rem", textAlign: "center"
-                        }}>
-                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>{selectedDish.food_portion}g</p>
-                        </div>
-                        <div style={{ height: "3rem", width: "3rem", borderRadius: "50%" }}>
-                            {selectedDish.checkedDish === null
-                            ? <IconExclamationCircle style={{ width: "3rem", height: "3rem", color: "orangered" }} />
-                            : selectedDish.checkedDish
-                            ? <IconCircleCheck style={{ width: "3rem", height: "3rem", color: "green" }} />
-                            : <IconXboxX style={{ width: "3rem", height: "3rem", color: "red" }} />
-                            }
-                        </div>
-                        <div style={{
-                            // outline: "1px solid",
-                            width: "5rem", padding: "0 0.5rem", textAlign: "center"
-                        }}>
-                            <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>{selectedDish.cost}BYN</p>
-                        </div>
-                        <div
-                            style={{
-                                borderRadius: "10%",
-                                // backgroundColor: "red",
-                                height: "3rem",
-                                width: "3rem",
-                                display: "flex",
-                                alignItems: "center",
-                                justifyContent: "center",
-                                // outline: "1px solid"
-                            }}
-                            onClick={() => {onRemoveDish(selectedDish.dishID)}}
-                        >
-                            <IconSquareX style={{ height: "3rem", width: "3rem", color: "red", backgroundColor: "white" }} />
+                        <div>
+                            <p className={styles.controlLabel}>Choose Time</p>
+                            <Select options={availHours}
+                                instanceId="custom-select"
+                                menuPlacement="auto"
+                                styles={timeSelectOptionWidth}
+                                isDisabled={selectedDishes.length === 0}
+                                onChange={selectedOption => {
+                                    setAvailableTime(selectedOption?.value as string);
+                                }}
+                                isSearchable={false}
+                                placeholder={
+                                    availHours.length === 0
+                                    ? "Спачатку адабярыце кафэ"
+                                    : "Адабярыце час"
+                                }
+                            />
                         </div>
                     </div>
-                )
-                : <div style={{
-                        display: "flex", alignItems: "center", justifyContent: "center",
-                        marginTop: "0.5rem", marginBottom: "0.5rem"
-                    }}>
-                        <p style={{ margin: 0, fontSize: "1.25rem", fontWeight: 300 }}>
-                            Не адабрана ніводнай стравы
-                        </p>
+
+                    <div className={styles.inputGroup}>
+                        <div style={{
+                            display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
+                            borderRadius: "1rem", flexGrow: 1
+                        }}>
+                            <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem" }}>Tel:</p>
+                            <input type="text" placeholder="Telephone" ref={telephoneInputRef} className={styles.telephoneInput} />
+                        </div>
+                        <div style={{ borderRadius: "1rem" }}>
+                            {/* <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Optional Comment</p> */}
+                            <textarea ref={commentRef} placeholder="Comment..." className={styles.commentInput} />
+                        </div>
                     </div>
-                }
-            </div>
-            <HorizontalLine cssProps={{ marginLeft: "0.75rem", marginRight: "0.75rem" }} />
-            <div style={{
-                display: "flex", alignItems: "center", gap: "3.5rem", justifyContent: "center",
-                marginTop: "0.5rem", marginBottom: "0.5rem"
-            }}>
-                <div>
-                    <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Choose Cafe</p>
-                    <Select options={cafeLabels}
-                        instanceId="custom-select"
-                        menuPlacement="auto"
-                        isLoading={isPending}
-                        styles={cafeSelectOptionWidth}
-                        isDisabled={selectedDishes.length === 0}
-                        onChange={selectedOption => {
-                            setChoisenCafe(selectedOption?.value as number);
-                            checkingChoisenDishes(selectedOption?.value as number);
-                        }}
-                        isSearchable={false}
-                        placeholder={
-                            selectedDishes.length === 0
-                            ? "Спачатку дадайце стравы"
-                            : "Адабярыце кафэ"
-                        }
-                    />
-                </div>
-                <div>
-                    <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Choose Time</p>
-                    <Select options={availHours}
-                        instanceId="custom-select"
-                        menuPlacement="auto"
-                        styles={timeSelectOptionWidth}
-                        isDisabled={selectedDishes.length === 0}
-                        onChange={selectedOption => {
-                            setAvailableTime(selectedOption?.value as string);
-                        }}
-                        isSearchable={false}
-                        placeholder={
-                            availHours.length === 0
-                            ? "Спачатку адабярыце кафэ"
-                            : "Адабярыце час"
-                        }
-                    />
-                </div>
-            </div>
-            <HorizontalLine cssProps={{ marginLeft: "0.75rem", marginRight: "0.75rem" }} />
-            <div style={{
-                display: "flex", alignItems: "center", justifyContent: "space-around", marginTop: "0.5rem"
-            }}>
-                <div style={{
-                    display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
-                    borderRadius: "1rem", backgroundColor: "rgb(252, 242, 223)",
-                }}>
-                    <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem" }}>Tel:</p>
-                    <input type="text" placeholder="Telephone" ref={telephoneInputRef}
-                    style={{
-                        border: "none", borderBottom: "2.5px solid orange", backgroundColor: "inherit",
-                        paddingLeft: "0.75rem", paddingRight: "0.75rem", outline: "none", margin: "0.5rem 0.75rem"
+                    <AccessBtn buttonName="Submit" onClick={orderSavingHandler}
+                    additionalStyle={{
+                        fontSize: "1.5rem", paddingLeft: "5rem", paddingRight: "5rem",
+                        height: "3rem", margin: "0 auto"
                     }} />
-                </div>
-                <div style={{ borderRadius: "1rem", backgroundColor: "rgb(252, 242, 223)" }}>
-                    <p style={{ fontSize: "1.25rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Optional Comment</p>
-                    <input type="text" ref={commentRef} placeholder="Comment..."
-                    style={{
-                        border: "none", backgroundColor: "inherit",
-                        paddingLeft: "0.75rem", paddingRight: "0.75rem",
-                        outline: "1px solid black", margin: "0.5rem 0.75rem",
-                        borderRadius: "0.5rem"
-                    }} />
-                </div>
-                <AccessBtn buttonName="Submit" onClick={orderSavingHandler}
-                additionalStyle={{
-                    fontSize: "1.25rem", paddingLeft: "5rem", paddingRight: "5rem",
-                    height: "3rem"
-                }} />
-            </div>
-        </div>
+                </motion.div>
+            )}
+        </AnimatePresence>
     );
 }

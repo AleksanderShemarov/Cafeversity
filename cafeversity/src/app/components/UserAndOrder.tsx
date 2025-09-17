@@ -14,11 +14,20 @@ interface UserAndOrder {
     selectedDishes: SelectedDish[],
     setDishSelection: Dispatch<SetStateAction<SelectedDish[]>>,
     onRemoveDish: (dishId: number) => void,
+    isOrderOpen: boolean,
 }
 
-export default function UserAndOrder({ imagePath, name, surname, nickname, email, selectedDishes, setDishSelection, onRemoveDish }: UserAndOrder) {
+export default function UserAndOrder({ imagePath, name, surname, nickname, email, selectedDishes, setDishSelection, onRemoveDish, isOrderOpen }: UserAndOrder) {    
     return (
-        <div style={{ display: "flex", alignItems: "center", justifyContent: "center" }}>
+        <div style={{
+            display: "flex",
+            // flexDirection: "column",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto",
+            // gap: "2rem",
+            position: "relative"
+        }}>
             <div style={{
                 display: "flex",
                 // border: "3px dashed orange",
@@ -26,8 +35,7 @@ export default function UserAndOrder({ imagePath, name, surname, nickname, email
                 justifyContent: "center",
                 paddingTop: "30px",
                 paddingBottom: "30px",
-                width: "50%",
-                // outline: "2px solid purple"
+                width: "100%",//
             }}>
                 <div className={styles.userImage}>
                     <Image
@@ -72,7 +80,7 @@ export default function UserAndOrder({ imagePath, name, surname, nickname, email
                     </p>
                 </div>
             </div>
-            <Order selectedDishes={selectedDishes} setDishSelection={setDishSelection} onRemoveDish={onRemoveDish} />
+            <Order selectedDishes={selectedDishes} setDishSelection={setDishSelection} onRemoveDish={onRemoveDish} isOpen={isOrderOpen} />
         </div>
     );
 }
