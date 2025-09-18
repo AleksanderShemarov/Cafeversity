@@ -7,7 +7,7 @@ const GET = async (request: NextRequest) => {
         const searchParams = new URL(request.url).searchParams;
         const page = searchParams.get("page");
 
-        if (page === "dashboard/panel") {
+        if (page === "usersPanel") {
             const users = await prisma.users.findMany({
                 include: {
                     customSets: { select: { id: true } }

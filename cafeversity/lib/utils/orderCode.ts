@@ -1,6 +1,6 @@
 const numbers = "0123456789" as const;
 const usedOrdersCodes = new Set<string>([
-    "98765", "67831", "29706", "231478", "6789", "1052", "866"
+    "98765", "67831", "29706", "231478", "6789", "530", "171", "434"
 ]);
 
 
@@ -10,7 +10,11 @@ export default function orderCode() {
 
     do {
         for(let i = 1; i <= randomDigits; i++) {
-            resultCode += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            if (resultCode.length === 0) {
+                resultCode += numbers.substring(1).charAt(Math.floor(Math.random() * numbers.length));
+            } else {
+                resultCode += numbers.charAt(Math.floor(Math.random() * numbers.length));
+            }
         }
     }
     while (usedOrdersCodes.has(resultCode));

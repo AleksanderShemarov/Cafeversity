@@ -125,6 +125,8 @@ const SubHeaderComponent = <T extends { id: number }>({
         onConfirm(newData as Partial<T>);
     }
 
+    // console.log("initialColumns -->", initialColumns);
+
     return (
         <div style={{
             width: "100%", display: "flex",

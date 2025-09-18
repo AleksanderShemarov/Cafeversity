@@ -77,6 +77,8 @@ const TableRowExpander = <T extends { id: number }>({
 
         onSave(data.id, updatedData as Partial<T>);
     }
+
+    console.log("Expander data -->", data);
     
     return (
         <div style={{ border: "2px solid orange", borderRadius: "1.5rem", padding: "0.5rem 1rem", maxHeight: "50rem", overflowY: "auto" }}>
@@ -89,7 +91,7 @@ const TableRowExpander = <T extends { id: number }>({
             >
                 {initialColumns.map(column => column.name.startsWith("_") ? { ...column, name: column.name.slice(1) } : column)
                 .map((column, index) => {
-                    if (column.name && column.name !== ""
+                    if (column.name && column.name !== "" && column.type !== "bool"
                         && column.name !== "ID" && !column.name.endsWith("Id") || column.name.startsWith("Session")) {
                         const value = data[column.name.charAt(0).toLowerCase() + column.name.slice(1) as keyof T];
                         return (
@@ -111,7 +113,7 @@ const TableRowExpander = <T extends { id: number }>({
                                 />
                             </div>
                         )
-                    } else if (column.name && column.name.endsWith("Id")) {
+                    } else if (column.name && column.name.endsWith("Id") && column.type !== "bool") {
                         const value = data[column.name.charAt(0).toLowerCase() + column.name.slice(1, -2) as keyof T];
                         return (
                             <div key={index} style={{
@@ -132,6 +134,24 @@ const TableRowExpander = <T extends { id: number }>({
                                     name={column.name.charAt(0).toLowerCase() + column.name.slice(1)}
                                     type={column.type || "text"}
                                     defaultValue={String(value)}
+                                />
+                            </div>
+                        )
+                    } else if (column.name && column.type === "bool") {
+                        const value = data[column.name.charAt(0).toLowerCase() + column.name.slice(1) as keyof T];
+                        return (
+                            <div key={index} style={{
+                                display: "inline-flex", flexDirection: "row", flexWrap: "wrap",
+                                alignItems: "center", justifyContent: "center", gap: "1.5rem",
+                                padding: "0.5rem 1rem", width: "48%",
+                            }}>
+                                <label htmlFor={column.name.toLowerCase()} style={{ fontSize: "1.5rem" }}>
+                                    {column.name}:
+                                </label>
+                                <input id={column.name.toLowerCase()}
+                                    type="checkbox"
+                                    name={column.name.charAt(0).toLowerCase() + column.name.slice(1)}
+                                    defaultChecked={Boolean(value)}
                                 />
                             </div>
                         )
