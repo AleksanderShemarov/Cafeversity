@@ -1,8 +1,8 @@
-"use client";
-
 import dynamic from "next/dynamic";
 import LoadingPopularDishes from "./loading";
 import { ApexOptions } from "apexcharts";
+import { getDishesPopularity } from "@/app/actions/getDishesData";
+import { use } from "react";
 const ApexBars = dynamic(
     () => import("@/components/Charts/ApexChart").then(mod => mod.default),
     {
@@ -12,19 +12,28 @@ const ApexBars = dynamic(
 );
 
 
-export default function PopularDishes() {
+async function getDishesByTheirPopularity() {
+    const data = await getDishesPopularity();
+    return data;
+}
 
-    const popularity: { dishes: string[], percents: number[] } = {
-        dishes: [
-            "Мачанка з блінцамі",
-            "Наліснікі з суніцамі і дурніцамі",
-            "Імбірна-цытрусавая гарбата",
-            "Крупнік",
-            "Косаўская салата",
-            "Калдуны",
-        ],
-        percents: [ 18, 4, 31, 22, 13, 9 ]
-    }
+
+export default function PopularDishes() {
+    const data = use(getDishesByTheirPopularity());
+    const dishes = data.map(datum => datum.name);
+    const percents = data.map(datum => datum.percentage);
+
+    // const popularity: { dishes: string[], percents: number[] } = {
+    //     dishes: [
+    //         "Мачанка з блінцамі",
+    //         "Наліснікі з суніцамі і дурніцамі",
+    //         "Імбірна-цытрусавая гарбата",
+    //         "Крупнік",
+    //         "Косаўская салата",
+    //         "Калдуны",
+    //     ],
+    //     percents: [ 18, 4, 31, 22, 13, 9 ]
+    // }
 
     const apexChartOptions: ApexOptions = {
         chart: {
@@ -45,7 +54,7 @@ export default function PopularDishes() {
             enabled: false
         },
         xaxis: {
-            categories: popularity.dishes,
+            categories: dishes,
             labels: {
                 rotate: -10,
                 offsetY: 5,
@@ -53,7 +62,7 @@ export default function PopularDishes() {
                     fontSize: '1.2rem',
                     fontFamily: 'Consolas, monospace',
                 },
-                formatter: (value: string) => value.length > 15 ? value.split(" ") : value
+                // formatter: (value: string) => value.length > 15 ? value.split(" ") : value
             }
         },
         yaxis: {
@@ -64,7 +73,7 @@ export default function PopularDishes() {
                     fontWeight: 'bold',
                 }
             },
-            max: Math.ceil(Math.max(...popularity.percents) / 10) * 10
+            max: Math.ceil(Math.max(...percents) / 10) * 10
         },
         colors: ['#8884d8'], // Цвет столбцов
         title: {
@@ -76,9 +85,9 @@ export default function PopularDishes() {
             }
         },
         tooltip: {
-            y: {
-                formatter: (val: number) => val + "%"
-            },
+            // y: {
+            //     formatter: (val: number) => val + "%"
+            // },
             theme: "light",
             // custom: ({ series, seriesIndex, dataPointIndex, w }) => {
             //     return `
@@ -96,8 +105,8 @@ export default function PopularDishes() {
 
     const apexChartSeries: ApexAxisChartSeries = [
         {
-            name: 'Папулярнасць ў замовах',
-            data: popularity.percents
+            name: 'Папулярнасць ў замовах (%)',
+            data: percents
         }
     ];
 

@@ -159,13 +159,6 @@ const TableBody = <T extends { id: number }>({
         }
     };
 
-
-    // Filtering of visible and non-visible columns
-    // const visibleColumns = useMemo(
-    //     () => columns.filter(col => !col.omit),
-    //     [columns]
-    // );
-
     
     // Searching value in table's data rows by column's name
     const searchedData = useMemo(() => {

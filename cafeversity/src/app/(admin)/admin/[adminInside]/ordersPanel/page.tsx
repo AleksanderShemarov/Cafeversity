@@ -7,11 +7,25 @@ export type DishesTableTypes = {
     order: number,
     user: string,
     cafe: string,
-    dish: string,
+    cafeID: number,
+    dishes: string,
+    dishesIds: number[],
     sentTime: string,
     ready: boolean,
     phone: string,
     comment: string,
+}
+
+
+export type CafesType = {
+    ID: number;
+    cafeName: string;
+}
+
+export type DishesType = {
+    id: number;
+    food_name: string;
+    cost: number;
 }
 
 
@@ -28,7 +42,7 @@ async function fetchData() {
 
 export default function AdminPanel() {
 
-    const data: DishesTableTypes[] = use(fetchData());
+    const data = use(fetchData());
     // console.log("orders' data -->", data);
 
     return (

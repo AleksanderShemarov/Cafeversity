@@ -1,8 +1,8 @@
-"use client";
-
 import dynamic from 'next/dynamic';
 import LoadingMealsTypes from './loading';
 import { ApexOptions } from 'apexcharts';
+import { use } from 'react';
+import { getDishMeals } from '@/app/actions/getDishesData';
 const ApexPieChart = dynamic(
     () => import("@/components/Charts/ApexChart").then(mod => mod.ApexPieChart),
     {
@@ -12,14 +12,24 @@ const ApexPieChart = dynamic(
 );
 
 
+async function getDishesByMeals() {
+    const data = await getDishMeals();
+    return data;
+}
+
+
 export default function MealsTypes() {
+
+    const data = use(getDishesByMeals());
+    const labels = data.map(datum => datum.Name);
+    const series = data.map(datum => datum._count.Dish);
 
     const pieOptions: ApexOptions = {
         chart: {
             type: 'pie',
             toolbar: { show: false },
         },
-        labels: [ "Dish1", "Dish2", "Dish3", "Dish4", "Dish5" ],
+        labels: labels,// [ "Dish1", "Dish2", "Dish3", "Dish4", "Dish5" ],
         responsive: [{
             breakpoint: 250,
             options: {
@@ -28,7 +38,7 @@ export default function MealsTypes() {
             }
         }]
     };
-    const pieSeries: ApexNonAxisChartSeries = [ 44, 55, 12, 47, 20 ];
+    const pieSeries: ApexNonAxisChartSeries = series; //[ 44, 55, 12, 47, 20 ];
 
     return (            
         <ApexPieChart options={pieOptions} series={pieSeries} style={{

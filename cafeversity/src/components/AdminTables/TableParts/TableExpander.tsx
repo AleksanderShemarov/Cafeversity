@@ -24,46 +24,6 @@ const TableRowExpander = <T extends { id: number }>({
         const formData = new FormData(formRef.current);
         const updatedData: Record<string, unknown> = {};
 
-        /* const name = formData.get("name") as string;
-        if (name === "") {
-            toast.error("User's name is empty!",
-                { position: "top-right", style: { fontSize: "1.5rem" } }
-            );
-            return;
-        }
-        const age = parseInt(formData.get("age") as string);
-        if (isNaN(age)) {
-            toast.error("Please, input a correct age (the only numbers are available)!",
-                { position: "top-right", style: { fontSize: "1.5rem" } }
-            );
-            return;
-        }
-        if (age < 0) {
-            toast.error("Please, input a correct age (starting with 0)!",
-                { position: "top-right", style: { fontSize: "1.5rem" } }
-            );
-            return;
-        }
-        const email = formData.get("email") as string;
-        if (email === "") {
-            toast.error("User's email is empty!",
-                { position: "top-right", style: { fontSize: "1.5rem" } }
-            );
-            return;
-        }
-        const city = formData.get("city") as string;
-        const country = formData.get("country") as string;
-        const phone = formData.get("phone") as string;
-        
-        const updatedData = {
-            name: name,
-            age: age,
-            email: email,
-            city: city,
-            country: country,
-            phone: phone
-        } */
-
         initialColumns.map(column => column.name.startsWith("_") ? { ...column, name: column.name.slice(1) } : column)
         .forEach(column => {
             if (column.name && column.name !== "" && column.name.toLowerCase() !== "id") {
@@ -78,7 +38,8 @@ const TableRowExpander = <T extends { id: number }>({
         onSave(data.id, updatedData as Partial<T>);
     }
 
-    console.log("Expander data -->", data);
+    // console.log("Expander initial columns -->", initialColumns);
+    // console.log("Expander row data -->", data);
     
     return (
         <div style={{ border: "2px solid orange", borderRadius: "1.5rem", padding: "0.5rem 1rem", maxHeight: "50rem", overflowY: "auto" }}>
