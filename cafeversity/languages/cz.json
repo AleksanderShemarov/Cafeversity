@@ -32,19 +32,19 @@
     "GreetingPage": {
         "slidesText": {
             "slide1": {
-                "line1": "The first line: Lorem, ipsum dolor.",
-                "line2": "The second line: Lorem ipsum dolor sit amet.",
-                "line3": "The third line: Lorem ipsum dolor sit."
+                "line1": "Různá jídla běloruské kuchyně.",
+                "line2": "Možnost přizpůsobit jídla dietám.",
+                "line3": "Aktuální jídla v detailu."
             },
             "slide2": {
-                "line4": "The fourth line: Lorem, ipsum dolor.",
-                "line5": "The fifth line: Lorem ipsum dolor sit amet.",
-                "line6": "The sixth line: Lorem ipsum dolor sit."
+                "line4": "Všechna jídla ze všech prodejen potravin máte jako na dlani.",
+                "line5": "Proveďte objednávky a vyberte si pro vás nejlepší čas příjezdu.",
+                "line6": "Podívejte se na menu a najděte si, co vám chutná."
             },
             "slide3": {
-                "line7": "The seventh line: Lorem, ipsum dolor.",
-                "line8": "The eighth line: Lorem ipsum dolor sit amet.",
-                "line9": "The nineth line: Lorem ipsum dolor sit."
+                "line7": "Vaření splňuje nejvyšší hygienické standardy.",
+                "line8": "Shoda očekávání a reality pro všechny 100 procent.",
+                "line9": "Kvalitní potravinářské produkty a lahodné příchutě."
             }
         },
         "bottomButtons": {

@@ -1,6 +1,7 @@
 import styles from "@/app/(commonSite)/[locale]/news/foodpeople/[foodpeople]/article.module.css";
 import Image from "next/image";
-import prisma from "../../../../../../../lib/utils/prismaClient";
+import Link from "next/link";
+// import prisma from "../../../../../../../lib/utils/prismaClient";
 // import Chef from "@/../../public/Chef_Gordon_Ramsay.jpg";
 // import Gordon from "@/../../public/Gordon_Ramsay.jpg";
 // import GordonRamsay_Photo from "@/../../public/GordonRamsay_Photo.jpg";
@@ -8,7 +9,14 @@ import prisma from "../../../../../../../lib/utils/prismaClient";
 // import Ramsay_Rush from "@/../../public/GordonRamsay_AndreRush.jpg";
 
 
-type ArticlesData = {
+interface PersonInfo {
+    name: string,
+    image: string,
+    description: string,
+}
+
+
+interface ArticlesData {
     id: number,
     article_title: string,
     article_text: string,
@@ -32,21 +40,22 @@ type ArticlesData = {
     published: boolean,
 }
 
-export async function generateStaticParams() {
-    // let articles = await fetch("http://localhost:3000/api/articles").then((response) => response.json());
-    //
-    // articles = articles.filter((article: ArticlesData) => article.articleList_seeing);
-    // return articles.map((article: ArticlesData) => ({
-    //     id: article,
-    // }));
 
-    const articles = await prisma.people_and_food.findMany({
-        where: { articleList_seeing: true },
-    });
-    return articles.map((article) => ({ foodpeople: article.id.toString() }));
-}
+// export async function generateStaticParams() {
+//     // let articles = await fetch("http://localhost:3000/api/articles").then((response) => response.json());
+//     //
+//     // articles = articles.filter((article: ArticlesData) => article.articleList_seeing);
+//     // return articles.map((article: ArticlesData) => ({
+//     //     id: article,
+//     // }));
 
-export default async function ArticlePage({ params }: { params: {foodpeople: number} }) {
+//     const articles = await prisma.people_and_food.findMany({
+//         where: { articleList_seeing: true },
+//     });
+//     return articles.map((article) => ({ foodpeople: article.id.toString() }));
+// }
+
+export default async function ArticlePage({ params }: { params: { locale: string, foodpeople: number } }) {
 
     const { foodpeople } = params;
     // console.log(foodpeople);// 2
@@ -56,13 +65,13 @@ export default async function ArticlePage({ params }: { params: {foodpeople: num
     const images: string[] = choisenArticle.imagePaths.split(";");
     const texts: string[] = choisenArticle.mainText.split("\\\\&;");
 
-    const imagesTexts: string[][] = [];
-    for (let i = 0; i < images.length; i++) {
-        const part = [];
-        part.push(images[i]);
-        part.push(texts[i]);
-        imagesTexts.push(part);
-    }
+    // const imagesTexts: string[][] = [];
+    // for (let i = 0; i < images.length; i++) {
+    //     const part = [];
+    //     part.push(images[i]);
+    //     part.push(texts[i]);
+    //     imagesTexts.push(part);
+    // }
 
     /* 
     text sources:
@@ -79,116 +88,141 @@ export default async function ArticlePage({ params }: { params: {foodpeople: num
         new Date().getTime() - new Date(choisenArticle.birthdayDate).getTime()
     ) / (1000 * 60 * 60 * 24 * 365.25));
 
+    const relatedPersons: PersonInfo[] = [
+        {
+            name: "Андрэ Чэф Раш",
+            image: "/Chef_Andre_Rush.jpeg",
+            description: "Былы шэф-кухар Белага дому ЗША"
+        },
+        {
+            name: "Хіраакі Накабаяшы",
+            image: "/Cook_Bayashi.png", 
+            description: "Японскі шэф-кухар, вядомы як Bayashi"
+        },
+        {
+            name: "Альбэрт Няжвінскі",
+            image: "/Albert_Can_Cook.jpg",
+            description: "Папулярны кулінарны блогер з мянушкай Albert Can Cook"
+        }
+    ];
+
     return (
         <div id={styles.main_part}>
-            {/* <h1>Тут будзе адабраны для прагляду артыкул.</h1> */}
             <div id={styles.article_body}>
-                <div id={styles.article_enter_image}>
+
+                <section className={styles.heroSection}>
                     <Image
                         src={choisenArticle.mainImagePath}
-                        alt={`${choisenArticle.mainImagePath.slice(1)}`}
-                        height={500}
-                        width={925}
-                        style={{
-                            borderTopLeftRadius: "27px",
-                            borderTopRightRadius: "27px",
-                            boxShadow: "0 7px 4px yellow",
-                        }}
-                    ></Image>
-                    <div id={styles.article_enter_name}>
-                        <h1 id={styles.article_enter_head}>{choisenArticle.mainTitle}</h1>
-                        <p id={styles.article_enter_shorty}>{choisenArticle.shortTitle}</p>
+                        alt={choisenArticle.mainTitle}
+                        fill
+                        className={styles.heroImage}
+                        priority
+                    />
+                    <div className={styles.heroOverlay} />
+                    <div className={styles.heroContent}>
+                        <h1 className={styles.heroTitle}>{choisenArticle.mainTitle}</h1>
+                        <p className={styles.heroSubtitle}>{choisenArticle.shortTitle}</p>
                     </div>
-                </div>
-                <div id={styles.first_text}>
-                    {choisenArticle.firstText.split("\\\\;").map((first_text_part, index) => 
-                        <div key={index} style={{
-                            textIndent: "1.5em",
-                            fontSize: "28px",
-                            color: "antiquewhite",
-                            lineHeight: "1.35em",
-                        }}>{first_text_part}</div>
-                    )}
-                </div>
-                <div id={styles.personal_data_block}>
-                    <p>Галоўныя дадзеныя</p>
-                    <div className={styles.personal_data}>
-                        {/* <Image
-                            src={Gordon_frontview}
-                            alt={`${Gordon_frontview}`}
-                            height={600}
-                            className={styles.photo_data}
-                        ></Image> */}
-                        <Image
-                            src={choisenArticle.personalImagePath}
-                            alt={`${choisenArticle.personalImagePath.slice(1)}`}
-                            height={600}
-                            width={450}
-                            className={styles.photo_data}
-                        ></Image>
-                        <ul className={styles.table_data}>
-                            <li>
-                                <span style={{
-                                    fontStyle: "italic",
-                                    fontWeight: "bolder",
-                                }}>Імя:</span>&emsp;{choisenArticle.personalName}
-                            </li>
-                            <li>
-                                <span style={{ 
-                                    fontStyle: "italic",
-                                    fontWeight: "bolder",
-                                }}>Прозвішча:</span>&emsp;{choisenArticle.personalSurname}
-                            </li>
-                            <li>
-                                <span style={{ 
-                                    fontStyle: "italic",
-                                    fontWeight: "bolder",
-                                }}>Нарадзіўся:</span>&emsp;{choisenArticle.birthDay};<br />
-                            {choisenArticle.birthTown}, {choisenArticle.birthCountry}</li>
-                            <li>
-                                <span style={{ 
-                                    fontStyle: "italic",
-                                    fontWeight: "bolder",
-                                }}>Узрост:</span>&emsp;{years} год
-                            </li>
-                            <li>
-                                <span style={{ 
-                                    fontStyle: "italic",
-                                    fontWeight: "bolder",
-                                }}>Статус:</span>&emsp;{choisenArticle.personalStatus}
-                            </li>
-                        </ul>
+                </section>
+
+                <section className={styles.returnButton}>
+                    <Link href={`/${params.locale}/news/foodpeople`} className={styles.returnLink}>
+                        <span className={styles.arrowIcon}>←</span>
+                        Да Пошуку Артыкулаў
+                    </Link>
+                </section>
+
+                <section className={styles.contentSection}>
+                    <div className={styles.introText}>
+                    {choisenArticle.firstText.split("\\\\;").map((text, index) => (
+                        <p key={index}>{text}</p>
+                    ))}
                     </div>
-                </div>
-                {/* Дадзеныя з Базы Дадзен праз articles API</p> */}
-                {imagesTexts.map((imageText, index) =>
-                    <div key={index} className={styles.article_part}>
-                        <div className={styles.article_image}>
-                            <div className={styles.image_container}>
+
+                    <div className={styles.personalCard}>
+                        <div className={styles.personalImage}>
+                            <Image
+                                src={choisenArticle.personalImagePath}
+                                alt={`${choisenArticle.personalName} ${choisenArticle.personalSurname}`}
+                                width={400}
+                                height={500}
+                                style={{ objectFit: 'cover', width: '100%', height: '100%' }}
+                            />
+                        </div>
+                        <div className={styles.personalInfo}>
+                            <h2>Галоўная Інфармацыя</h2>
+                            <div className={styles.infoGrid}>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Поўнае Імя:</span>
+                                    <span className={styles.infoValue}>
+                                        {choisenArticle.personalName} {choisenArticle.personalSurname}
+                                    </span>
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Дата Нараджэння:</span>
+                                    <span className={styles.infoValue}>
+                                        {choisenArticle.birthDay}
+                                    </span>
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Месца Нараджэння:</span>
+                                    <span className={styles.infoValue}>
+                                        {choisenArticle.birthTown}, {choisenArticle.birthCountry}
+                                    </span>
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Узрост:</span>
+                                    <span className={styles.infoValue}>
+                                        {years} год
+                                    </span>
+                                </div>
+                                <div className={styles.infoItem}>
+                                    <span className={styles.infoLabel}>Статус:</span>
+                                    <span className={styles.infoValue}>
+                                        {choisenArticle.personalStatus}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    {texts.map((text, index) => (
+                        <div key={index} className={styles.contentBlock}>
+                            <div className={styles.contentImage}>
                                 <Image
-                                    src={imageText[0]}
-                                    alt={`${imageText[0].slice(1)}`}
-                                    height={300}
-                                    width={550}
-                                    style={{
-                                        borderRadius: "30px",
-                                    }}
-                                ></Image>
+                                    src={images[index] || "/default-image.jpg"}
+                                    alt={`Малюнак ${index + 1}`}
+                                    fill
+                                    style={{ objectFit: 'cover' }}
+                                />
+                            </div>
+                            <div className={styles.contentText}>
+                                {text.split("\\\\;").map((paragraph, pIndex) => (
+                                    <p key={pIndex}>{paragraph}</p>
+                                ))}
                             </div>
                         </div>
-                        <div className={styles.article_text}>
-                            <div>
-                                {imageText[1].split("\\\\;").map((text, index) => 
-                                    <div key={index} style={{
-                                        textIndent: "1.5em",
-                                        lineHeight: "1.35em",
-                                        color: "white",
-                                    }}>{text}</div>
-                                )}
-                            </div>
+                    ))}
+
+                    <div className={styles.relatedPersons}>
+                        <h2 className={styles.sectionTitle}>Звязаныя Асобы</h2>
+                        <div className={styles.personsSlider}>
+                            {relatedPersons.map((person, index) => (
+                                <div key={index} className={styles.personCard}>
+                                    <Image
+                                        src={person.image}
+                                        alt={person.name}
+                                        width={120}
+                                        height={120}
+                                        className={styles.personImage}
+                                    />
+                                    <h3 className={styles.personName}>{person.name}</h3>
+                                    <p className={styles.personDescription}>{person.description}</p>
+                                </div>
+                            ))}
                         </div>
                     </div>
-                )}
+                </section>
             </div>
         </div>
     )

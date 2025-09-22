@@ -32,19 +32,19 @@
     "GreetingPage": {
         "slidesText": {
             "slide1": {
-                "line1": "The first line: Lorem, ipsum dolor.",
-                "line2": "The second line: Lorem ipsum dolor sit amet.",
-                "line3": "The third line: Lorem ipsum dolor sit."
+                "line1": "Разнастайныя стравы беларускай кухні.",
+                "line2": "Магчымасць наладзіць стравы па дыетах.",
+                "line3": "Актуальныя стравы ў падрабязнасцях."
             },
             "slide2": {
-                "line4": "The fourth line: Lorem, ipsum dolor.",
-                "line5": "The fifth line: Lorem ipsum dolor sit amet.",
-                "line6": "The sixth line: Lorem ipsum dolor sit."
+                "line4": "Усе стравы з ўсіх кропак харчавання як на далоні.",
+                "line5": "Рабіце замовы і абярайце лепшы для Вас час прыходу.",
+                "line6": "Назірніце ў каталог страў, каб знайсці падабанні."
             },
             "slide3": {
-                "line7": "The seventh line: Lorem, ipsum dolor.",
-                "line8": "The eighth line: Lorem ipsum dolor sit amet.",
-                "line9": "The nineth line: Lorem ipsum dolor sit."
+                "line7": "Варка страў адпавядае вышэйшым гігіенічным стандартам.",
+                "line8": "Адпаведнасць чаканняў і рэальнасці на ўсе 100 адсоткаў.",
+                "line9": "Якасныя прадукты выраблення страў і цудоўныя смакі."
             }
         },
         "bottomButtons": {
