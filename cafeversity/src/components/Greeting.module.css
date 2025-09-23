@@ -64,7 +64,7 @@
     right: 3%;
     transform: translateY(-50%);
     z-index: 10;
-    max-width: 50rem;
+    max-width: 35rem;
 }
 
 .textContent {
@@ -80,11 +80,11 @@
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     backdrop-filter: blur(5px);
     /* outline: 2px solid orange; */
-    height: 45rem;
+    height: 35rem;
 }
 
 .textLine {
-    font-size: 1.6rem;
+    font-size: 2rem;
     font-weight: 500;
     color: white;
     line-height: 1.6;

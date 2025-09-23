@@ -1,12 +1,7 @@
 import styles from "@/app/(commonSite)/[locale]/news/foodpeople/[foodpeople]/article.module.css";
 import Image from "next/image";
 import Link from "next/link";
-// import prisma from "../../../../../../../lib/utils/prismaClient";
-// import Chef from "@/../../public/Chef_Gordon_Ramsay.jpg";
-// import Gordon from "@/../../public/Gordon_Ramsay.jpg";
-// import GordonRamsay_Photo from "@/../../public/GordonRamsay_Photo.jpg";
-// import Ramsay_Mina from "@/../../public/GordonRamsay_MichaelMina_Masterchef.jpg";
-// import Ramsay_Rush from "@/../../public/GordonRamsay_AndreRush.jpg";
+import ToTopButton from "@/app/components/ReturnToTop/ToTopButton";
 
 
 interface PersonInfo {
@@ -41,40 +36,20 @@ interface ArticlesData {
 }
 
 
-// export async function generateStaticParams() {
-//     // let articles = await fetch("http://localhost:3000/api/articles").then((response) => response.json());
-//     //
-//     // articles = articles.filter((article: ArticlesData) => article.articleList_seeing);
-//     // return articles.map((article: ArticlesData) => ({
-//     //     id: article,
-//     // }));
-
-//     const articles = await prisma.people_and_food.findMany({
-//         where: { articleList_seeing: true },
-//     });
-//     return articles.map((article) => ({ foodpeople: article.id.toString() }));
-// }
-
 export default async function ArticlePage({ params }: { params: { locale: string, foodpeople: number } }) {
 
     const { foodpeople } = params;
     // console.log(foodpeople);// 2
-    const choisenArticle: ArticlesData = await fetch(`http://localhost:3000/api/articles?id=${foodpeople}`)
+    const choisenArticle: ArticlesData = await fetch(`http://localhost:3000/api/articles?id=${foodpeople}`, { cache: "no-store" })
         .then(res => res.json());
 
     const images: string[] = choisenArticle.imagePaths.split(";");
-    const texts: string[] = choisenArticle.mainText.split("\\\\&;");
-
-    // const imagesTexts: string[][] = [];
-    // for (let i = 0; i < images.length; i++) {
-    //     const part = [];
-    //     part.push(images[i]);
-    //     part.push(texts[i]);
-    //     imagesTexts.push(part);
-    // }
+    
+    const [texts_string, slider] = choisenArticle.mainText.split("\\\\#slider:");
+    const texts: string[] = texts_string.split("\\\\&;");
 
     /* 
-    text sources:
+    text sources (about Gordon Ramsay and other cookers):
     - https://familytron.com/gordon-ramsay/;
     - https://en.wikipedia.org/wiki/Gordon_Ramsay;
     - https://www.ranker.com/list/best-gordon-ramsay-shows/ranker-tv;
@@ -88,23 +63,18 @@ export default async function ArticlePage({ params }: { params: { locale: string
         new Date().getTime() - new Date(choisenArticle.birthdayDate).getTime()
     ) / (1000 * 60 * 60 * 24 * 365.25));
 
-    const relatedPersons: PersonInfo[] = [
-        {
-            name: "Андрэ Чэф Раш",
-            image: "/Chef_Andre_Rush.jpeg",
-            description: "Былы шэф-кухар Белага дому ЗША"
-        },
-        {
-            name: "Хіраакі Накабаяшы",
-            image: "/Cook_Bayashi.png", 
-            description: "Японскі шэф-кухар, вядомы як Bayashi"
-        },
-        {
-            name: "Альбэрт Няжвінскі",
-            image: "/Albert_Can_Cook.jpg",
-            description: "Папулярны кулінарны блогер з мянушкай Albert Can Cook"
-        }
-    ];
+    const relatedPersons: PersonInfo[] = [];
+
+    const sliderNameAndParts = slider.split("\\\\#person:");
+
+    for (let i = 1; i < sliderNameAndParts.length; i++) {
+        const sliderPart = sliderNameAndParts[i].split(";");
+        relatedPersons.push({
+            name: sliderPart[0],
+            image: sliderPart[1],
+            description: sliderPart[2],
+        });
+    }
 
     return (
         <div id={styles.main_part}>
@@ -205,7 +175,7 @@ export default async function ArticlePage({ params }: { params: { locale: string
                     ))}
 
                     <div className={styles.relatedPersons}>
-                        <h2 className={styles.sectionTitle}>Звязаныя Асобы</h2>
+                        <h2 className={styles.sectionTitle}>{sliderNameAndParts[0]}</h2>
                         <div className={styles.personsSlider}>
                             {relatedPersons.map((person, index) => (
                                 <div key={index} className={styles.personCard}>
@@ -224,6 +194,7 @@ export default async function ArticlePage({ params }: { params: { locale: string
                     </div>
                 </section>
             </div>
+            <ToTopButton name="Вяртанне да пачатку" />
         </div>
     )
 }
