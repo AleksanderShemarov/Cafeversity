@@ -16,10 +16,18 @@ export default function SignUp() {
 
     const signingUp = useTranslations("AuthPages");
 
+    const languages = [
+        { lang: "by", name: "Беларуская" },
+        { lang: "cz", name: "Čeština" },
+        { lang: "en", name: "English" },
+        // { lang: "ru", name: "Русский" },
+    ] as const;
+
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
     const [nickname, setNickname] = useState<string>("");
     const [email, setEmail] = useState<string>("");
+    const [lang, setLang] = useState<string>("by");
     const [password1, setPassword1] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
 
@@ -27,7 +35,10 @@ export default function SignUp() {
 
     const [enableReg, setEnableReg] = useState<boolean>(false);
 
-    const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
+    const valueChange = (
+        event: React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLSelectElement>,
+        reactHook: (value: string) => void
+    ) => {
         reactHook(event.target.value);
     }
 
@@ -39,6 +50,7 @@ export default function SignUp() {
             lastName: surname,
             nickName: nickname,
             email: email,
+            lang: lang,
             password: password2,
         }
 
@@ -73,10 +85,9 @@ export default function SignUp() {
     }, [password1, password2, name, surname, email]);
 
     return (
-        <>
-            <form action="" method="post" id={styles.loginForm} onSubmit={UserRegistration}>
-                <p id={styles.formTitle}>{signingUp("titles.registration")}</p>
-                
+        <form action="" method="post" id={styles.loginForm} onSubmit={UserRegistration}>
+            <p id={styles.formTitle}>{signingUp("titles.registration")}</p>
+            <div style={{ overflowY: "auto", flexGrow: 1, paddingRight: "10px", marginRight: "-10px", paddingLeft: "10px" }}>
                 <TextFormField
                     label={signingUp("fields.nameField.name")}
                     inputName="firstName"
@@ -113,6 +124,27 @@ export default function SignUp() {
                     value={email}
                     onChange={(e) => valueChange(e, setEmail)}
                 />
+
+                <div style={{
+                    display: "flex", alignItems: "center", alignContent: "center", justifyContent: "space-between",
+                    paddingLeft: "0.5rem", marginBottom: "3rem", marginTop: "1rem"
+                    }}>
+                    <p style={{ margin: 0, fontSize: "2.2rem", fontStyle: "italic" }}>
+                        {signingUp("fields.otherNames.language")}
+                    </p>
+                    <select onChange={(e) => valueChange(e, setLang)}
+                        style={{
+                            fontSize: "2.0rem", border: "2px solid",
+                            padding: "0.5rem", borderRadius: "1rem"
+                        }}
+                    >
+                    {languages.map((language) =>
+                        <option key={`language-${language.name}`} value={language.lang}>
+                            {language.name}
+                        </option>
+                    )}
+                    </select>
+                </div>
 
                 <TextFormField
                     label={signingUp("fields.passwordField.name")}
@@ -152,17 +184,17 @@ export default function SignUp() {
                     >{signingUp("buttons.signUp")}</button>
                     <Link href={pathname.slice(0, 3)}><input type="button" value={signingUp("buttons.exit")} id={styles.closeButton} /></Link>
                 </div>
+            </div>
 
-                <div className={styles.help_block}>
-                    <p>
-                        {signingUp("links.alreadySinedUp.part1")}
-                        <Link href={`${pathname.slice(0, 3)}/login/signin`}>
-                            {signingUp("links.alreadySinedUp.part2")}
-                        </Link>
-                        !
-                    </p>
-                </div>
-            </form>
-        </>
+            <div className={styles.help_block}>
+                <p>
+                    {signingUp("links.alreadySinedUp.part1")}
+                    <Link href={`${pathname.slice(0, 3)}/login/signin`}>
+                        {signingUp("links.alreadySinedUp.part2")}
+                    </Link>
+                    !
+                </p>
+            </div>
+        </form>
     )
 }
