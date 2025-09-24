@@ -28,7 +28,10 @@ const GET = async (request: Request) => {
         }
         else {
             const people_food_articles = await prisma.people_and_food.findMany();
-            return NextResponse.json(people_food_articles);
+            const third = people_food_articles.filter(article => article.id === 3);
+            const fourth = people_food_articles.filter(article => article.id === 4);
+            const filtered_articles = people_food_articles.filter(article => article.id !== 3 && article.id !== 4);
+            return NextResponse.json([ ...filtered_articles, ...third, ...fourth ]);
         }
     } catch (error) {
         return NextResponse.json(
