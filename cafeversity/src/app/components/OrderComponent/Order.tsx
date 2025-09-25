@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 import orderSaving from "@/app/actions/orderSaving";
 import styles from "@/app/components/OrderComponent/Order.module.css";
 import { motion, AnimatePresence } from "framer-motion";
+import { useTranslations } from "next-intl";
 
 
 interface OrderProps {
@@ -21,6 +22,8 @@ interface OrderProps {
 }
 
 export default function Order({ selectedDishes, setDishSelection, onRemoveDish, isOpen }: OrderProps) {
+    const orderView = useTranslations("MainUserPage.orderView");
+
     const [cafeLabels, setCafeLabels] = useState<{label: string, value: number}[]>([]);
     const [isPending, startTransition] = useTransition();
 
@@ -216,7 +219,11 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                     }}
                 >
                     <div className={styles.orderHeader}>
-                        Тякучая замова ({selectedDishes.length} {selectedDishes.length === 1 ? "пазыцыя" : "пазыцыяў"})
+                        {orderView("name")} ({selectedDishes.length} {selectedDishes.length === 1
+                        ? orderView("positions.one")
+                        : selectedDishes.length === 0 || selectedDishes.length >= 5
+                        ? orderView("positions.more")
+                        : orderView("positions.afew")})
                     </div>
                     <div className={styles.dishesList}>
                         {selectedDishes.length > 0
@@ -269,14 +276,14 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                             </div>
                         )
                         : <div className={styles.emptyMessage}>
-                                Не адабрана ніводнай стравы
+                                <span style={{ fontSize: "1.5rem" }}>{orderView("noDishes")}</span>
                             </div>
                         }
                     </div>
 
                     <div className={styles.controlsSection}>
                         <div className={styles.controlGroup}>
-                            <p className={styles.controlLabel}>Choose Cafe</p>
+                            <p className={styles.controlLabel}>{orderView("cafeChoice.name")}</p>
                             <Select options={cafeLabels}
                                 instanceId="custom-select"
                                 menuPlacement="auto"
@@ -290,13 +297,13 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                                 isSearchable={false}
                                 placeholder={
                                     selectedDishes.length === 0
-                                    ? "Спачатку дадайце стравы"
-                                    : "Адабярыце кафэ"
+                                    ? orderView("cafeChoice.placeholder.noDish")
+                                    : orderView("cafeChoice.placeholder.anyDish")
                                 }
                             />
                         </div>
                         <div>
-                            <p className={styles.controlLabel}>Choose Time</p>
+                            <p className={styles.controlLabel}>{orderView("timeChoice.name")}</p>
                             <Select options={availHours}
                                 instanceId="custom-select"
                                 menuPlacement="auto"
@@ -308,8 +315,8 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                                 isSearchable={false}
                                 placeholder={
                                     availHours.length === 0
-                                    ? "Спачатку адабярыце кафэ"
-                                    : "Адабярыце час"
+                                    ? orderView("timeChoice.placeholder.noTimes")
+                                    : orderView("timeChoice.placeholder.anyTimes")
                                 }
                             />
                         </div>
@@ -320,15 +327,15 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                             display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
                             borderRadius: "1rem", flexGrow: 1
                         }}>
-                            <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem" }}>Tel:</p>
-                            <input type="text" placeholder="Telephone" ref={telephoneInputRef} className={styles.telephoneInput} />
+                            <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem" }}>{orderView("telephone.name")}</p>
+                            <input type="text" placeholder={orderView("telephone.placeholder")} ref={telephoneInputRef} className={styles.telephoneInput} />
                         </div>
                         <div style={{ borderRadius: "1rem" }}>
                             {/* <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Optional Comment</p> */}
-                            <textarea ref={commentRef} placeholder="Comment..." className={styles.commentInput} />
+                            <textarea ref={commentRef} placeholder={orderView("comment")} className={styles.commentInput} />
                         </div>
                     </div>
-                    <AccessBtn buttonName="Submit" onClick={orderSavingHandler}
+                    <AccessBtn buttonName={orderView("submit")} onClick={orderSavingHandler}
                     additionalStyle={{
                         fontSize: "1.5rem", paddingLeft: "5rem", paddingRight: "5rem",
                         height: "3rem", margin: "0 auto"

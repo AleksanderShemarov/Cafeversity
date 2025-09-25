@@ -22,12 +22,15 @@ import { IconCheck, IconInfoSquareRounded, IconTrash, IconX } from "@tabler/icon
 import { usePathname, useRouter } from "next/navigation";
 import toggleFavourite from "@/app/actions/toggleFavourite";
 import { toast } from "react-toastify";
+import { useTranslations } from "next-intl";
 // import generateMessage from "../../../lib/utils/geminiAnswer";
 
 
 const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) => {
     
-    const [items, setItems] = useState<UniqueIdentifier[]>([1, 2, 3]);
+    const dishesBlocks = useTranslations("MainUserPage");
+    
+    const [items, setItems] = useState<UniqueIdentifier[]>([1, 2]);
     const [favourDishes, setFavourDishes] = useState(favouriteDishes);
 
     const sensors = useSensors(
@@ -105,7 +108,10 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
     
     const dishesBlockSelects1 = (
         <>
-            <div style={{ display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "2rem" }}>
+            <div style={{
+                display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "5rem",
+                padding: "0.5rem 2rem", overflowX: "auto"
+            }}>
                 {favourDishes.map(favouriteDish =>
                     <BlockSelect key={`blockSelect-${favouriteDish.dishID}`}
                         idName={`blockSelect-${favouriteDish.dishID}`}
@@ -171,10 +177,14 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
             <dialog ref={deleteFavouDishRef} style={{ borderRadius: "1.25rem", backgroundColor: "rgb(252, 242, 223)", border: "none" }}>
                 <p style={{
                     textAlign: "center", fontSize: "1.8rem", fontWeight: 600, marginBottom: "1rem"
-                }}>Favourite Dish Removing</p>
+                }}>
+                    {dishesBlocks("deleteFavouriteDialog.name")}
+                </p>
                 <p style={{
                     textAlign: "justify", fontSize: "1.5rem", fontWeight: 400, textIndent: "1.25rem"
-                }}>{`Do you really want to remove this dish from Your Favourite Dishes List?`}</p>
+                }}>
+                    {dishesBlocks("deleteFavouriteDialog.question")}
+                </p>
                 <div style={{ width: "90%", display: "flex", justifyContent: "space-between", alignItems: "center", margin: "0 auto" }}>
                     <button type="button"
                         style={{
@@ -192,7 +202,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconCheck style={{ height: "2rem", width: "2rem" }} />
-                            <span style={{ textIndent: "5px" }}>Yes</span>
+                            <span style={{ textIndent: "5px" }}>{dishesBlocks("deleteFavouriteDialog.yes")}</span>
                         </div>
                     </button>
                     <button type="button"
@@ -211,7 +221,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
                     >
                         <div style={{ display: "inline-flex", justifyContent: "center", alignItems: "center" }}>
                             <IconX style={{ height: "2rem", width: "2rem" }} />
-                            <span style={{ textIndent: "5px" }}>No</span>
+                            <span style={{ textIndent: "5px" }}>{dishesBlocks("deleteFavouriteDialog.no")}</span>
                         </div>
                     </button>
                 </div>
@@ -320,7 +330,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
                     strategy={verticalListSortingStrategy}
                 >
                     {items.map(id =>
-                        <SortableItem key={id} idName={id} itemName={id === 1 ? "Ўпадабаныя Стравы" : id === 2 ? "Сённяшнія Стравы" : `Sortable Component – ${id}`}>
+                        <SortableItem key={id} idName={id} itemName={id === 1 ? dishesBlocks("dishesBlocks.favourite") : id === 2 ? dishesBlocks("dishesBlocks.todays") : `Sortable Component – ${id}`}>
                         {id === 1
                         ? (dishesBlockSelects1)
                         : id === 2

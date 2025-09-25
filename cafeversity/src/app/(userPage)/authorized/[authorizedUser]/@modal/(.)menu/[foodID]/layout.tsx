@@ -4,9 +4,12 @@ import CardButton from "@/components/CardParts/CardButton";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine";
 import { IconChevronLeft, IconFileDescription } from "@tabler/icons-react";
 import { usePathname, useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 export default function ShortMainDishInfoLayout({ children }: { children: React.ReactNode }) {
+
+    const dishShortInfoButtons = useTranslations("UserChoisenDishShortInfo.buttons");
 
     const router = useRouter();
     const pathname = usePathname();
@@ -40,7 +43,7 @@ export default function ShortMainDishInfoLayout({ children }: { children: React.
                     <CardButton btnId={"backBtn"}
                         btnName={
                             <div style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", color: "#f2f2f2ff", fontWeight: 600 }}>
-                                <IconChevronLeft style={{ width: "3rem", height: "3rem", color: "#f2f2f2ff" }} /> Back
+                                <IconChevronLeft style={{ width: "3rem", height: "3rem", color: "#f2f2f2ff" }} /> {dishShortInfoButtons("back")}
                             </div>
                         }
                         clicker={buttonsHandler}
@@ -51,7 +54,7 @@ export default function ShortMainDishInfoLayout({ children }: { children: React.
                     <CardButton btnId={"detailsBtn"}
                         btnName={
                             <div style={{ display: "inline-flex", alignItems: "center", gap: "1.5rem", color: "#f2f2f2ff", fontWeight: 600 }}>
-                                More... <IconFileDescription style={{ width: "3rem", height: "3rem", color: "#f2f2f2ff" }} />
+                                {dishShortInfoButtons("more")} <IconFileDescription style={{ width: "3rem", height: "3rem", color: "#f2f2f2ff" }} />
                             </div>
                         }
                         clicker={buttonsHandler}

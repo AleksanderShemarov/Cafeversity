@@ -24,6 +24,7 @@ interface CategoriesControlProps {
     readonly categories: readonly {
         readonly id: number,
         readonly name: string,
+        readonly categoryName: string,
         readonly icon: string,
     }[]
 }
@@ -105,7 +106,7 @@ export default function CategoriesControl({ categories }: CategoriesControlProps
                                 icon={IconComponent!}
                                 isVisible={categoryVisibility.includes(category.id)}
                             >
-                                <DishesGrid categotyName={category.name} />
+                                <DishesGrid categotyName={category.categoryName} />
                             </CategoryCard>
                         );
                     }

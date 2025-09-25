@@ -6,6 +6,7 @@ import IngredientsChart from "@/app/components/IngredientsChart/IngredientsChart
 import AroundImage from "@/app/components/AroundImage/AroundImage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import { useTranslations } from "next-intl";
 
 
 type DishFullInfo = DishShortInfo & {
@@ -31,6 +32,8 @@ async function fetchData(params: { authorizedUser: string, foodID: string }) {
 export default function DishFullDetails({ params }: { params: { authorizedUser: string, foodID: string } }) {
 
     const dishFull: DishFullInfo = use(fetchData(params));
+
+    const choisenDish = useTranslations("UserChoisenDishPage");
     
     const protein = <IconMeat
         style={{
@@ -51,9 +54,9 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
         }}
     />
     const nutritions = [
-        { type: protein, name: "Protein (Бялкі)", value: dishFull.protein },
-        { type: fat, name: "Fats (Тлушчы)", value: dishFull.fats },
-        { type: carb, name: "Carbohydrates (Вугляводы)", value: dishFull.carbohydrates }
+        { type: protein, name: choisenDish("nutritions.protein"), value: dishFull.protein },
+        { type: fat, name: choisenDish("nutritions.fats"), value: dishFull.fats },
+        { type: carb, name: choisenDish("nutritions.carbo"), value: dishFull.carbohydrates }
     ];
 
     const formattedIncludes = [];
@@ -67,9 +70,9 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
     }
 
     const tasties = [
-        { idKey: "spicyTaste", icon: '🌶️', text: "(Вострае?)", value: dishFull.spicy },
-        { idKey: "vegetTaste", icon: '🌿', text: "(Вегетарыянскае?)", value: dishFull.vegetarian },
-        { idKey: "veganTaste", icon: '🌱', text: "(Веганскае?)", value: dishFull.vegan }
+        { idKey: "spicyTaste", icon: '🌶️', text: `(${choisenDish("diets.spicy")}?)`, value: dishFull.spicy },
+        { idKey: "vegetTaste", icon: '🌿', text: `(${choisenDish("diets.veget")}?)`, value: dishFull.vegetarian },
+        { idKey: "veganTaste", icon: '🌱', text: `(${choisenDish("diets.vegan")}?)`, value: dishFull.vegan }
     ];
 
     return (
@@ -104,7 +107,7 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                                     </div>
                                 </div>
                                 <p style={{ fontSize: "2rem", margin: 0, textAlign: "center" }}>{nutrit.name}</p>
-                                <p style={{ fontSize: "2.5rem", margin: 0, textAlign: "center" }}>{nutrit.value}g (г.)</p>
+                                <p style={{ fontSize: "2.5rem", margin: 0, textAlign: "center" }}>{nutrit.value} {choisenDish("nutritions.weightName")}</p>
                             </div>
                         )}
                     </div>

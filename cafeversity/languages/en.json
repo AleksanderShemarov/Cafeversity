@@ -190,6 +190,49 @@
             "news": "News",
             "settings": "Account Settings"
         },
+        "dishesBlocks": {
+            "favourite": "Favorite Dishes",
+            "todays": "Today's Dishes"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Favourite Dish Removing",
+            "question": "Do you really want to remove this dish from Your Favourite Dishes List?",
+            "yes": "Yes",
+            "no": "No"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Make an Order",
+                "opened": "Close the Order View"
+            },
+            "name": "Current Order",
+            "positions": {
+                "one": "position",
+                "afew": "positions",
+                "more": "positions"
+            },
+            "noDishes": "No dishes selected",
+            "cafeChoice": {
+                "name": "Canteen Selection",
+                "placeholder": {
+                    "noDish": "First, select the dishes",
+                    "anyDish": "Select a сanteen"
+                }
+            },
+            "timeChoice": {
+                "name": "Time Selection",
+                "placeholder": {
+                    "noTimes": "First, select a canteen",
+                    "anyTimes": "Select Time"
+                }
+            },
+            "telephone": {
+                "name": "Tel.:",
+                "placeholder": "+375 (**) ***-**-**"
+            },
+            "comment": "Comment...",
+            "submit": "Submit"
+        },
         "exitButton": {
             "name": "Exit",
             "question": "Do you really want to exit?",
@@ -260,6 +303,43 @@
                 "fontQuestion2": "Choose a Font Size",
                 "fontQuestion3": "Choose a Font Weight"
             }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Salads",
+            "soup": "Soups",
+            "main": "Hot Dishes",
+            "dessert": "Dessert",
+            "drink": "Drinks"
+        }
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Protein",
+            "fats": "Fats",
+            "carbo": "Carbohydrates",
+            "weightName": "g."
+        },
+        "portion": "Portion",
+        "cost": "Cost",
+        "composition": "Composition",
+        "buttons": {
+            "back": "Back",
+            "more": "More..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Protein",
+            "fats": "Fats",
+            "carbo": "Carbohydrates",
+            "weightName": "g."
+        },
+        "diets": {
+            "spicy": "Spicy",
+            "veget": "Vegetarian",
+            "vegan": "Vegan"
         }
     },
     "ExitPage": {

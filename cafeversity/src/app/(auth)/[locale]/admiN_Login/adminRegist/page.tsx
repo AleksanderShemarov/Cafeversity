@@ -14,8 +14,12 @@ const adminRoles: string[] = [
     "Founder Admin", "General Admin", "Registration Admin", "Routes Admin", "Communication Admin"
 ] as const;
 
-const langs: string[] = [ "by", "cz", "en" ] as const;
-const langNames: string[] = [ "Беларуская", "Čeština", "English" ] as const;
+const langs: string[] = [
+    "by", "cz", "en",
+] as const;
+const langNames: string[] = [
+    "Беларуская", "Čeština", "English",
+] as const;
 
 export default function AdminRegist() {
     const pathname = usePathname();

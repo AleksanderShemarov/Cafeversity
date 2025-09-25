@@ -12,6 +12,7 @@ import {
     IconToolsKitchen2
 } from "@tabler/icons-react";
 import HorizontalLine from "@/components/OtherParts/HorizontalLine";
+import { useTranslations } from "next-intl";
 
 
 export type DishShortInfo = {
@@ -37,8 +38,10 @@ async function fetchData(foodID: string) {
 
 export default function ShortMainDishInfo({ params }: { params: { authorizedUser: string, foodID: string } }) {
     
+    const dishShortInfoView = useTranslations("UserChoisenDishShortInfo");
+    
     const dishShort: DishShortInfo = use(fetchData(params.foodID));
-    console.log("dishShort -->", dishShort);
+    // console.log("dishShort -->", dishShort);
 
     return (
         <>
@@ -55,22 +58,22 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
                     <div style={{ display: "flex", alignItems: "center", gap: "2rem", marginTop: "1rem", marginBottom: "1rem" }}>
                         <IconMeat style={{ height: "2.5rem", width: "2.5rem", color: "skyblue" }} />
                         <div>
-                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.protein}g (г.)</p>
-                            <p style={{ fontSize: "1.5rem", margin: 0 }}>Protein (Бялкі)</p>
+                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.protein} {dishShortInfoView("nutritions.weightName")}</p>
+                            <p style={{ fontSize: "1.5rem", margin: 0 }}>{dishShortInfoView("nutritions.protein")}</p>
                         </div>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "2rem", marginTop: "1rem", marginBottom: "1rem" }}>
                         <IconMilk style={{ height: "2.5rem", width: "2.5rem", color: "gold" }} />
                         <div>
-                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.fats}g (г.)</p>
-                            <p style={{ fontSize: "1.5rem", margin: 0 }}>Fats (Тлушчы)</p>
+                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.fats} {dishShortInfoView("nutritions.weightName")}</p>
+                            <p style={{ fontSize: "1.5rem", margin: 0 }}>{dishShortInfoView("nutritions.fats")}</p>
                         </div>
                     </div>
                     <div style={{ display: "flex", alignItems: "center", gap: "2rem", marginTop: "1rem", marginBottom: "1rem" }}>
                         <IconFeatherFilled style={{ height: "2.5rem", width: "2.5rem", color: "green" }} />
                         <div>
-                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.carbohydrates}g (г.)</p>
-                            <p style={{ fontSize: "1.5rem", margin: 0 }}>Carbohydrates (Вугляводы)</p>
+                            <p style={{ fontSize: "2.5rem", margin: 0 }}>{dishShort.carbohydrates} {dishShortInfoView("nutritions.weightName")}</p>
+                            <p style={{ fontSize: "1.5rem", margin: 0 }}>{dishShortInfoView("nutritions.carbo")}</p>
                         </div>
                     </div>
                     <HorizontalLine cssProps={{ border: "1px solid black", marginTop: "0.5rem", marginBottom: "0.5rem" }} />
@@ -78,15 +81,15 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
                         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1rem", marginBottom: "1rem" }}>
                             <IconToolsKitchen2 style={{ height: "2rem", width: "2rem", color: "black" }} />
                             <div>
-                                <p style={{ fontSize: "2rem", margin: 0 }}>{dishShort.food_portion}g (г.)</p>
-                                <p style={{ fontSize: "1.2rem", margin: 0 }}>Portion (Порцыя)</p>
+                                <p style={{ fontSize: "2rem", margin: 0 }}>{dishShort.food_portion} {dishShortInfoView("nutritions.weightName")}</p>
+                                <p style={{ fontSize: "1.2rem", margin: 0 }}>{dishShortInfoView("portion")}</p>
                             </div>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1rem", marginBottom: "1rem" }}>
                             <IconBasketDollar style={{ height: "2rem", width: "2rem", color: "black" }} />
                             <div>
                                 <p style={{ fontSize: "2rem", margin: 0 }}>{dishShort.cost} BYN</p>
-                                <p style={{ fontSize: "1.2rem", margin: 0 }}>Cost (Кошт)</p>
+                                <p style={{ fontSize: "1.2rem", margin: 0 }}>{dishShortInfoView("cost")}</p>
                             </div>
                         </div>
                     </div>
@@ -106,7 +109,7 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "3rem" }}>
                     <IconListDetails style={{ height: "4rem", width: "4rem", color: "black" }} />
                     <div>
-                        <CardTitle title="Склад" style={{
+                        <CardTitle title={dishShortInfoView("composition")} style={{
                             fontSize: "2.5rem", fontWeight: 400,
                             color: "black", textAlign: "left"
                         }} />

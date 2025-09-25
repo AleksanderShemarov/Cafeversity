@@ -190,6 +190,49 @@
             "news": "Навіны",
             "settings": "Налады акаўнту"
         },
+        "dishesBlocks": {
+            "favourite": "Ўпадабаныя Стравы",
+            "todays": "Сённяшнія Стравы"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Выдаленне Ўпадабанай Стравы",
+            "question": "Хочаш на сам рэч выдаліць страву са спісу ўпадабаных?",
+            "yes": "Так",
+            "no": "Не"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Аформіць Замову",
+                "opened": "Зачыніць Акенца Замовы"
+            },
+            "name": "Тякучая Замова",
+            "positions": {
+                "one": "пазіцыя",
+                "afew": "пазіцыі",
+                "more": "пазіцыяў"
+            },
+            "noDishes": "Не адабрана ніводнай стравы",
+            "cafeChoice": {
+                "name": "Выбар Кафэ",
+                "placeholder": {
+                    "noDish": "Спачатку выбяры стравы",
+                    "anyDish": "Выбяры Кафэ"
+                }
+            },
+            "timeChoice": {
+                "name": "Выбар Часу",
+                "placeholder": {
+                    "noTimes": "Спачатку выбяры кафэ",
+                    "anyTimes": "Выбяры Час"
+                }
+            },
+            "telephone": {
+                "name": "Тэл.:",
+                "placeholder": "+375 (**) ***-**-**"
+            },
+            "comment": "Каментар...",
+            "submit": "Пацвердзіць"
+        },
         "exitButton": {
             "name": "Выхад",
             "question": "Вы на сам рэч хаціце выйсці?",
@@ -260,6 +303,43 @@
                 "fontQuestion2": "Абяры Памер Шрыфту",
                 "fontQuestion3": "Абяры Таўшчыню Шрыфту"
             }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Салаты",
+            "soup": "Супы",
+            "main": "Гарачыя Стравы",
+            "dessert": "Дэсерты",
+            "drink": "Напоі"
+        }
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Бялкі",
+            "fats": "Тлушчы",
+            "carbo": "Вугляводы",
+            "weightName": "г."
+        },
+        "portion": "Порцыя",
+        "cost": "Кошт",
+        "composition": "Склад",
+        "buttons": {
+            "back": "Ўзад",
+            "more": "Больш..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Бялкі",
+            "fats": "Тлушчы",
+            "carbo": "Вугляводы",
+            "weightName": "г."
+        },
+        "diets": {
+            "spicy": "Вострае",
+            "veget": "Вегетарыянскае",
+            "vegan": "Веганскае"
         }
     },
     "ExitPage": {

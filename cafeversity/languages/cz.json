@@ -190,6 +190,49 @@
             "news": "Noviny",
             "settings": "Nastavení účtu"
         },
+        "dishesBlocks": {
+            "favourite": "Oblíbená Jídla",
+            "todays": "Dnešní Jídla"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Odstranění Oblíbeného Jídla",
+            "question": "Chcete trvale odstranit jídlo ze seznamu oblíbených?",
+            "yes": "Ano",
+            "no": "Ne"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Odeslat Objednávku",
+                "opened": "Zavřít Okno Objednávky"
+            },
+            "name": "Aktuální Objednávka",
+            "positions": {
+                "one": "pozice",
+                "afew": "pozice",
+                "more": "pozic"
+            },
+            "noDishes": "Nebyla vybrána žádná jídla",
+            "cafeChoice": {
+                "name": "Výběr Jídelny",
+                "placeholder": {
+                    "noDish": "Nejdříve si vyber jídla",
+                    "anyDish": "Vyber si Jídelnu"
+                }
+            },
+            "timeChoice": {
+                "name": "Výběr Času",
+                "placeholder": {
+                    "noTimes": "Nejdříve si vyber jídelnu",
+                    "anyTimes": "Vyber si Čas"
+                }
+            },
+            "telephone": {
+                "name": "Tel.:",
+                "placeholder": "+375 (**) ***-**-**"
+            },
+            "comment": "Komentář...",
+            "submit": "Potvrdit"
+        },
         "exitButton": {
             "name": "Výstup",
             "question": "Opravdu chcete odejít?",
@@ -260,6 +303,43 @@
                 "fontQuestion2": "Vyber velikost písma",
                 "fontQuestion3": "Vzber hmotnost písma"
             }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Saláty",
+            "soup": "Polévky",
+            "main": "Teplá Jídla",
+            "dessert": "Dezerty",
+            "drink": "Nápoje"
+        }
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Bílkoviny",
+            "fats": "Tuky",
+            "carbo": "Uhlohydráty",
+            "weightName": "g."
+        },
+        "portion": "Porce",
+        "cost": "Cena",
+        "composition": "Složení",
+        "buttons": {
+            "back": "Zpět",
+            "more": "Více..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Bílkoviny",
+            "fats": "Tuky",
+            "carbo": "Uhlohydráty",
+            "weightName": "g."
+        },
+        "diets": {
+            "spicy": "Pikantní",
+            "veget": "Vegetariánské",
+            "vegan": "Veganské"
         }
     },
     "ExitPage": {

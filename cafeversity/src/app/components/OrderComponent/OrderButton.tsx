@@ -1,6 +1,7 @@
 "use client";
 
 import { IconArrowUp, IconArrowDown } from "@tabler/icons-react";
+import { useTranslations } from "next-intl";
 
 
 interface OrderButtonProps {
@@ -10,6 +11,9 @@ interface OrderButtonProps {
 
 
 export default function OrderButton({ isOrderOpen, onClick }: OrderButtonProps) {
+
+    const orderViewButton = useTranslations("MainUserPage.orderView.makeOrderButton");
+
     return (
         <button onClick={onClick}
             style={{
@@ -41,12 +45,12 @@ export default function OrderButton({ isOrderOpen, onClick }: OrderButtonProps) 
         {!isOrderOpen ? (
             <>
                 <IconArrowUp style={{ height: "3rem", width: "3rem" }} />
-                <span style={{ fontSize: "1.5rem" }}>Аформіць Замову</span>
+                <span style={{ fontSize: "1.5rem" }}>{orderViewButton("closed")}</span>
             </>
         ) : (
             <>
                 <IconArrowDown style={{ height: "3rem", width: "3rem" }} />
-                <span style={{ fontSize: "1.5rem", textWrap: "pretty" }}>Зачыніць Акенца Замовы</span>
+                <span style={{ fontSize: "1.5rem", textWrap: "pretty" }}>{orderViewButton("opened")}</span>
             </>
         )}
         </button>
