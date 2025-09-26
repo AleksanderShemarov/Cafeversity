@@ -2,9 +2,9 @@
 
 import styles from "@/app/(auth)/[locale]/LoginPage.module.css";
 import Link from "next/link";
-import Image from "next/image";
-import Google from "@/../../public/google_icon.webp";
-import GitHub from "@/../../public/github_icon.webp";
+// import Image from "next/image";
+// import Google from "@/../../public/google_icon.webp";
+// import GitHub from "@/../../public/github_icon.webp";
 import React, { useEffect, useState } from "react";
 import TextFormField from "./TextFormField";
 import { usePathname } from "next/navigation";
@@ -23,7 +23,7 @@ export default function LogIn() {
     const [password, setPassword] = useState<string>("");
     const [enableSignIn, setEnableSignIn] = useState<boolean>(false);
 
-    const [isClosed, setIsClosed] = useState<boolean>(true);
+    // const [isClosed, setIsClosed] = useState<boolean>(true);
 
     const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
         reactHook(event.target.value);
@@ -120,9 +120,8 @@ export default function LogIn() {
                     <Link href={pathname.slice(0, 3)}><input type="button" value={loggingIn("buttons.back")} id={styles.closeButton} /></Link>
                 </div>
 
-                <div>
-                    <p 
-                        id={styles.optional_ways_bar}
+                {/* <div>
+                    <p id={styles.optional_ways_bar}
                         onClick={() => {setIsClosed(!isClosed)}}
                         style={{
                             borderBottomLeftRadius: isClosed ? "30%" : "0",
@@ -133,7 +132,10 @@ export default function LogIn() {
                             border-bottom-right-radius 0.5s ease-in-out,
                             border-top-left-radius 0.5s ease-in-out,
                             border-top-right-radius 0.5s ease-in-out`,
-                        }}>{loggingIn("others.networks")}</p>
+                        }}
+                    >
+                        {loggingIn("others.networks")}
+                    </p>
                     <div
                         id={styles.social_buttons}
                         style={{ 
@@ -159,7 +161,7 @@ export default function LogIn() {
                                 style={{ margin: "auto", }}></Image>
                         </div>
                     </div>
-                </div>
+                </div> */}
                 <div className={styles.help_block}>
                     <p>
                         {loggingIn("links.forgottenPassword.part1")}

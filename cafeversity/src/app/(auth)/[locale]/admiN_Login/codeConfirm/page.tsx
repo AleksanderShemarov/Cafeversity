@@ -23,17 +23,30 @@ export default function EmailCodeConfirmation() {
     const [enableReg, setEnableReg] = useState<boolean>(false);
     
     const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
-        reactHook(event.target.value.toUpperCase());
+        let newValue = event.target.value.toUpperCase();
+
+        newValue = newValue.replace(/-/g, "");
+
+        if (newValue.length > 4) {
+            newValue = newValue.slice(0, 4) + "-" + newValue.slice(4);
+        }
+        if (newValue.length > 10) {
+            newValue = newValue.slice(0, 10) + "-" + newValue.slice(10);
+        }
+
+        newValue = newValue.slice(0, 15);
+        
+        reactHook(newValue);
     }
 
     useEffect(() => {
-        if (code === "" || code.length > 15 || code.length < 15) {
+        if (code === "" || code.length !== 15) {
             setEnableReg(false);
         } else {
             setEnableReg(true);
         }
-        if (code.length === 4 || code.length === 10)
-            setCode(`${code}-`);
+        // if (code.length === 4 || code.length === 10)
+        //     setCode(`${code}-`);
     }, [code]);
 
     const CodeSentOnServer = async (event: React.FormEvent<HTMLFormElement>) => {

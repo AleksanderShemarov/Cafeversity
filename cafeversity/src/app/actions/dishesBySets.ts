@@ -21,70 +21,16 @@ export default async function dishesBySets(userName: string) {
                     vegetarian: true,
                     vegan: true,
                 }
+            },
+            favouriteDish: {
+                select: {
+                    dishID: true,
+                }
             }
         }
     });
 
     if (!user?.customSets) return [];
-
-    // const dishes = await prisma.dishes_BY.findMany({
-    //     where: {
-    //         OR: [
-    //             { spicy: user.customSets.spicy },
-    //             { vegetarian: user.customSets.vegetarian },
-    //             { vegan: user.customSets.vegan }
-    //         ]
-    //     },
-    //     select: {
-    //         id: true,
-    //         food_name: true,
-    //         imagePath: true,
-    //         food_portion: true,
-    //         cost: true
-    //     }
-    // });
-
-
-    // // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    // const whereConditions: any = {};
-
-    // // Если пользователь НЕ веган и НЕ вегетарианец
-    // if (!user.customSets.vegetarian && !user.customSets.vegan) {
-    //     if (!user.customSets.spicy) {
-    //         // Показывать все НЕ острые блюда
-    //         whereConditions.spicy = false;
-    //     }
-    //     // Если spicy = true - показываем все блюда (без фильтра по spicy)
-    // }
-
-    // // Если пользователь вегетарианец
-    // if (user.customSets.vegetarian && !user.customSets.vegan) {
-    //     whereConditions.vegetarian = true;
-    //     if (!user.customSets.spicy) {
-    //         // Если не хочет острое - исключаем острые
-    //         whereConditions.spicy = false;
-    //     }
-    // }
-
-    // // Если пользователь веган
-    // if (user.customSets.vegan) {
-    //     whereConditions.vegan = true;
-    //     if (!user.customSets.spicy) {
-    //         // Если не хочет острое - исключаем острые
-    //         whereConditions.spicy = false;
-    //     }
-    // }
-
-    // const dishes = await prisma.dishes_BY.findMany({
-    //     where: whereConditions,
-    //     select: {
-    //         id: true,
-    //         food_name: true,
-    //         imagePath: true,
-    //         food_portion: true,
-    //         cost: true
-    //     }
-    // });
 
     const conditions = [];
 
@@ -100,9 +46,20 @@ export default async function dishesBySets(userName: string) {
         }
     }
 
+    const favouriteDishIds = user.favouriteDish.map(fav => fav.dishID);
+
     const dishes = await prisma.dishes_BY.findMany({
         where: {
-            AND: conditions.length > 0 ? conditions : undefined
+            AND: [
+                ...conditions,
+                {
+                    NOT: {
+                        id: {
+                            in: favouriteDishIds.length > 0 ? favouriteDishIds : [-1]
+                        }
+                    }
+                }
+            ].filter(condition => condition !== undefined)
         },
         select: {
             id: true,

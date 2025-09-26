@@ -64,7 +64,7 @@ export default function AdminLogin() {
             setPasswordStyle({});
             setEnableReg(false);
         } else {
-            setPasswordStyle({ outline: "2px solid green" });
+            // setPasswordStyle({ outline: "2px solid green" });
             setEnableReg(true);
         }
     }, [password, name, surname, email]);
