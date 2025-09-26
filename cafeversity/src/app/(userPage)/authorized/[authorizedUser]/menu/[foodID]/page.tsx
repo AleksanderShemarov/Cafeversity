@@ -59,14 +59,20 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
         { type: carb, name: choisenDish("nutritions.carbo"), value: dishFull.carbohydrates }
     ];
 
+    const includesOnParts = dishFull.includes.split(";");
     const formattedIncludes = [];
-    let repeats = 0;
-    for(const textPart of dishFull.includes.split(", ")) {
-        const leftBracket = textPart.indexOf("(");
-        formattedIncludes.push(
-            repeats === 0 ? textPart.substring(0, leftBracket - 1) : textPart.substring(0, leftBracket - 1).toLowerCase()
-        );
-        repeats++;
+
+    for (let i = 0; i < includesOnParts.length; i++) {
+        let repeats = 0;
+        const array = [];
+        for (const textPart of includesOnParts[i].split(", ")) {
+            const leftBracket = textPart.indexOf("(");
+            array.push(
+                repeats === 0 ? textPart.substring(0, leftBracket - 1) : textPart.substring(0, leftBracket - 1).toLowerCase()
+            );
+            repeats++;
+        }
+        formattedIncludes.push(array);
     }
 
     const tasties = [
@@ -94,13 +100,26 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                 }}>
                     {dishFull.food_name}
                 </p>
-                <p style={{ fontSize: "2.5rem", fontWeight: "500", textAlign: "justify", textIndent: "5rem" }}>
-                    {formattedIncludes.join(", ")}
-                </p>
+                {formattedIncludes.map((formattedInclude, index) =>
+                    <p key={`formattedInclude-${index + 1}`} style={{ fontSize: "2.5rem", fontWeight: "500", textAlign: "justify", textIndent: "5rem" }}>
+                        {formattedInclude.join(", ")}
+                    </p>
+                )}
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
-                    <div style={{ display: "flex", alignItems: "center", gap: "5rem" }}>
+                    <div style={{ display: "flex", alignItems: "center", gap: "5rem", position: "relative" }}>
                         {nutritions.map((nutrit, index) =>
-                            <div key={index}>
+                            <div key={index} style={{ position: "relative", padding: "0 2.5rem" }}>
+                                {index < nutritions.length - 1 && (
+                                    <div style={{
+                                        position: "absolute",
+                                        right: "-2.5rem",
+                                        top: "50%",
+                                        transform: "translateY(-50%)",
+                                        width: "2px",
+                                        height: "75%",
+                                        backgroundColor: "#ccc"
+                                    }} />
+                                )}
                                 <div>
                                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", marginBottom: "1rem" }}>
                                         {nutrit.type}
@@ -111,9 +130,14 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                             </div>
                         )}
                     </div>
-                    <div style={{ height: "30rem", width: "50rem" }}>
+                    {includesOnParts.map((includesPart, index) =>
+                        <div key={`ingredients-chart-${index + 1}`} style={{ height: "30rem", width: "50rem" }}>
+                            <IngredientsChart ingredients={includesPart} />
+                        </div>
+                    )}
+                    {/* <div style={{ height: "30rem", width: "50rem" }}>
                         <IngredientsChart ingredients={dishFull.includes} />
-                    </div>
+                    </div> */}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", marginTop: "1rem" }}>
                 {tasties.map(taste =>

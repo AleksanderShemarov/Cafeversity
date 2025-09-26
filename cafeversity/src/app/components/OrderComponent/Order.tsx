@@ -36,9 +36,13 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
 
     const [availHours, setAvailHours] = useState<{label: string, value: string}[]>([]);
 
+    const [selectedCafeOption, setSelectedCafeOption] = useState<{label: string, value: number} | null>(null);
+    const [selectedTimeOption, setSelectedTimeOption] = useState<{label: string, value: string} | null>(null);
+
     const checkingChoisenDishes = (idCafe: number) => {
         startTransition(async () => {
             setAvailHours([]);
+            setSelectedTimeOption(null);
 
             const choisenDishes = selectedDishes.map(dish => { return { id: dish.dishID } });
             const answers = await dishesCheckingByCafe(idCafe, choisenDishes);
@@ -57,6 +61,14 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             setAvailHours(answers.hours);
         });
     }
+
+    useEffect(() => {
+        if (selectedDishes.length === 0) {
+            setSelectedCafeOption(null);
+            setSelectedTimeOption(null);
+            setAvailHours([]);
+        }
+    }, [selectedDishes.length]);
 
     const cafeSelectOptionWidth = {
         menu: (base: CSSObjectWithLabel) => ({
@@ -156,16 +168,13 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
     const commentRef = useRef<HTMLTextAreaElement>(null);
 
 
-    const [choisenCafe, setChoisenCafe] = useState<number>(0);
-    const [availableTime, setAvailableTime] = useState<string>("");
-
     const orderSavingHandler = () => {
-        if (choisenCafe === 0) {
+        if (!selectedCafeOption) {
             toast.error("Choose a cafe for your order!", { position: "top-right", style: { fontSize: "1.5rem" } });
             return;
         }
 
-        if (availableTime === "") {
+        if (!selectedTimeOption) {
             toast.error("Choose a time for your order!", { position: "top-right", style: { fontSize: "1.5rem" } });
             return;
         }
@@ -183,17 +192,20 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
 
         const text = commentRef.current?.value;
 
-        const orderComment = `Час замовы:\n${availableTime}\n\nКаментар:\n${text !== "" ? text : "–"}`;
+        const orderComment = `Час замовы:\n${selectedTimeOption.value}\n\nКаментар:\n${text !== "" ? text : "–"}`;
         const orderDishes = selectedDishes.filter(dish => dish.checkedDish !== null).map(dish => { return { id: dish.dishID, checkedDish: dish.checkedDish } });
 
         startTransition(async () => {
-            const status = await orderSaving(orderDishes, choisenCafe, telephone!, orderComment);
+            const status = await orderSaving(orderDishes, selectedCafeOption.value, telephone!, orderComment);
             // console.log("orderSavingHandler status -->", status);
             if (status.code) {
                 toast.success(status.message, { position: "top-right", style: { fontSize: "1.5rem" } });
+
                 setDishSelection([]);
-                setChoisenCafe(0);
-                setAvailableTime("");
+                setSelectedCafeOption(null);
+                setSelectedTimeOption(null);
+                setAvailHours([]);
+
                 if (telephoneInputRef.current) telephoneInputRef.current.value = "";
                 if (commentRef.current) commentRef.current.value = "";
             } else {
@@ -285,13 +297,14 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                         <div className={styles.controlGroup}>
                             <p className={styles.controlLabel}>{orderView("cafeChoice.name")}</p>
                             <Select options={cafeLabels}
+                                value={selectedCafeOption}
                                 instanceId="custom-select"
                                 menuPlacement="auto"
                                 isLoading={isPending}
                                 styles={cafeSelectOptionWidth}
                                 isDisabled={selectedDishes.length === 0}
                                 onChange={selectedOption => {
-                                    setChoisenCafe(selectedOption?.value as number);
+                                    setSelectedCafeOption(selectedOption);
                                     checkingChoisenDishes(selectedOption?.value as number);
                                 }}
                                 isSearchable={false}
@@ -305,12 +318,13 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                         <div>
                             <p className={styles.controlLabel}>{orderView("timeChoice.name")}</p>
                             <Select options={availHours}
+                                value={selectedTimeOption}
                                 instanceId="custom-select"
                                 menuPlacement="auto"
                                 styles={timeSelectOptionWidth}
-                                isDisabled={selectedDishes.length === 0}
+                                isDisabled={selectedDishes.length === 0 || availHours.length === 0}
                                 onChange={selectedOption => {
-                                    setAvailableTime(selectedOption?.value as string);
+                                    setSelectedTimeOption(selectedOption);
                                 }}
                                 isSearchable={false}
                                 placeholder={

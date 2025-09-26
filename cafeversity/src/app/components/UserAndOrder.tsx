@@ -26,7 +26,8 @@ export default function UserAndOrder({ imagePath, name, surname, nickname, email
             justifyContent: "center",
             margin: "0 auto",
             // gap: "2rem",
-            position: "relative"
+            position: "relative",
+            zIndex: 1
         }}>
             <div style={{
                 display: "flex",
