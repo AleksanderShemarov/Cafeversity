@@ -110,7 +110,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
         <>
             <div style={{
                 display: "inline-flex", flexDirection: "row", alignItems: "center", gap: "5rem",
-                padding: "0.5rem 2rem", overflowX: "auto"
+                padding: "1rem 2rem", overflowX: "auto"
             }}>
                 {favourDishes.map(favouriteDish =>
                     <BlockSelect key={`blockSelect-${favouriteDish.dishID}`}
@@ -230,7 +230,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
     );
 
     const dishesBlockSelects2 = (
-        <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", justifyContent: "space-around", rowGap: "3rem" }}>
+        <div style={{ display: "flex", alignItems: "center", flexWrap: "wrap", justifyContent: "space-around", rowGap: "3rem", paddingBottom: "1.5rem" }}>
             {otherDishes.map(dish =>
                 <BlockSelect key={`othersBlockSelect-${dish.dishID}`}
                     idName={`othersBlockSelect-${dish.dishID}`}

@@ -1,5 +1,6 @@
 import dynamic from "next/dynamic";
 import { ApexOptions } from 'apexcharts';
+import { CSSProperties } from "react";
 
 
 const ApexPieChart = dynamic(
@@ -11,7 +12,7 @@ const ApexPieChart = dynamic(
 );
 
 
-export default function IngredientsChart({ ingredients }: { ingredients: string }) {
+export default function IngredientsChart({ ingredients, style }: { ingredients: string, style?: CSSProperties }) {
 
     const dividedIngreds = ingredients.split(", ");
     const names = [];
@@ -41,6 +42,6 @@ export default function IngredientsChart({ ingredients }: { ingredients: string 
     };
 
     return (
-        <ApexPieChart options={donutOptions} series={percents} style={{}} />
+        <ApexPieChart options={donutOptions} series={percents} style={style} />
     );
 }

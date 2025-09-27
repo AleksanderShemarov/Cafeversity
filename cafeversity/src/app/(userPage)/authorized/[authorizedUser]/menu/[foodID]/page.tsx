@@ -131,13 +131,16 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                         )}
                     </div>
                     {includesOnParts.map((includesPart, index) =>
-                        <div key={`ingredients-chart-${index + 1}`} style={{ height: "30rem", width: "50rem" }}>
-                            <IngredientsChart ingredients={includesPart} />
+                        <div key={`ingredients-chart-${index + 1}`} style={{ height: "31rem", width: "50rem", position: "relative" }}>
+                            {includesPart.includes(":")
+                            ? (
+                            <>
+                                <p style={{ fontSize: "1.5rem", fontWeight: 400, margin: 0, textDecoration: "underline" }}>{includesPart.split(":")[0]}</p>
+                                <IngredientsChart ingredients={includesPart.split(":")[1]} style={{ position: "absolute", height: "90%", width: "90%" }} />
+                            </>)
+                            : <IngredientsChart ingredients={includesPart} style={{ position: "absolute", height: "90%", width: "90%" }} />}
                         </div>
                     )}
-                    {/* <div style={{ height: "30rem", width: "50rem" }}>
-                        <IngredientsChart ingredients={dishFull.includes} />
-                    </div> */}
                 </div>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around", marginTop: "1rem" }}>
                 {tasties.map(taste =>
