@@ -12,7 +12,7 @@ export default function CommonIncomeLayout({ children }: { children: React.React
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    CommonIncome Component
+                    Прыбытак усіх кафэ з агульным прыбыткам
                 </p>
             </div>
 

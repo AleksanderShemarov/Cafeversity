@@ -10,6 +10,8 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
 
+
+/* New Order View */
 .orderHeader {
     text-align: center;
     font-size: 1.5rem;
@@ -61,6 +63,7 @@
     font-weight: 500;
     color: #495057;
     margin: 0;
+    /* outline: 1px solid; */
 }
 
 .dishDetails {
@@ -193,6 +196,156 @@
     font-style: italic;
     padding: 20px;
 }
+
+
+/* Order History View */
+.orderTabs {
+    display: flex;
+    border-bottom: 2px solid #e0e0e0;
+    margin-bottom: 1rem;
+}
+
+.tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    font-size: 1.4rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.tab:hover {
+    background-color: #f5f5f5;
+}
+
+.activeTab {
+    border-bottom-color: #e67e22;
+    color: #e67e22;
+    font-weight: bold;
+}
+
+/* Стили для истории заказов */
+.orderHistory {
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.historyHeader {
+    font-size: 1.8rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.ordersList {
+    height: 29rem;
+    overflow-y: auto;
+}
+
+.orderItem {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.orderSummary {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+    background-color: #f9f9f9;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.orderSummary:hover {
+    background-color: #f0f0f0;
+}
+
+.orderInfo {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.orderNumber {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #333;
+    width: 9%;
+    text-align: right;
+}
+
+.orderCafe {
+    font-size: 1.3rem;
+    color: #666;
+    width: 18%;
+}
+
+.orderDateTime {
+    font-size: 1.2rem;
+    color: #888;
+    width: 18%;
+    text-align: center;
+}
+
+.orderStatus {
+    font-size: 1.2rem;
+    font-weight: bold;
+    width: 9%;
+    text-align: center;
+}
+
+.orderTotal {
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-align: center;
+    width: 15%;
+    color: #e67e22;
+}
+
+.orderExpand {
+    font-size: 1.2rem;
+    color: #666;
+}
+
+.orderDetails {
+    background-color: white;
+    border-top: 1px solid #e0e0e0;
+}
+
+.orderDishes {
+    padding: 1rem;
+}
+
+.historyDishItem {
+    width: 95%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.5rem 1rem;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.historyDishItem:last-child {
+    border-bottom: none;
+}
+
+.emptyHistory {
+    text-align: center;
+    padding: 2rem;
+    color: #666;
+}
+
 
 /* Адаптивность */
 @media (max-width: 768px) {

@@ -353,8 +353,8 @@ const TableBody = <T extends { id: number }>({
             {columnsMenu && (
                 <div style={{
                     position: 'absolute',
-                    right: '20.5%',
-                    top: '21.5%',
+                    left: '7%',
+                    top: '22.5%',
                     backgroundColor: 'white',
                     boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
                     zIndex: 100,

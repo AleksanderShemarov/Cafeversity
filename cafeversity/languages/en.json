@@ -211,6 +211,7 @@
                 "afew": "positions",
                 "more": "positions"
             },
+            "available": "Available",
             "noDishes": "No dishes selected",
             "cafeChoice": {
                 "name": "Canteen Selection",
@@ -231,7 +232,12 @@
                 "placeholder": "+375 (**) ***-**-**"
             },
             "comment": "Comment...",
-            "submit": "Submit"
+            "submit": "Submit",
+            "tabs": {
+                "newOrder": "New Order",
+                "orderHistory": "Orders History"
+            },
+            "historyTitle": "Previous Orders"
         },
         "exitButton": {
             "name": "Exit",
@@ -357,7 +363,10 @@
         },
         "AdminHeaderOptions": {
             "dashboard": "Admin Dashboard",
-            "usersPanel": "Users Panel"
+            "usersPanel": "Users Panel",
+            "cafesPanel": "Cafes Panel",
+            "dishesPanel": "Dishes Panel",
+            "ordersPanel": "Orders Panel"
         }
     },
     "AdminPageSetUps": {

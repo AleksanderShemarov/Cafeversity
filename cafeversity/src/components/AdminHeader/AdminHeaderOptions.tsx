@@ -26,9 +26,9 @@ const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
         const pageNames: { id: number, text: string, icon: string|ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>, url: string }[] = [
             { id: 1, text: adminHeaderOptions("AdminHeaderOptions.dashboard"), icon: "/dashboard_icon.jpg", url: `${page.slice(0, page.lastIndexOf("/"))}/dashboard` },
             { id: 2, text: adminHeaderOptions("AdminHeaderOptions.usersPanel"), icon: "/users_icon.png", url: `${page.slice(0, page.lastIndexOf("/"))}/usersPanel` },
-            { id: 3, text: "Панель Кафэ", icon: IconCoffee, url: `${page.slice(0, page.lastIndexOf("/"))}/cafesPanel` },
-            { id: 4, text: "Панель Страў", icon: IconDumpling, url: `${page.slice(0, page.lastIndexOf("/"))}/dishesPanel` },
-            { id: 5, text: "Панель Замоў", icon: IconClipboardText, url: `${page.slice(0, page.lastIndexOf("/"))}/ordersPanel` },
+            { id: 3, text: adminHeaderOptions("AdminHeaderOptions.cafesPanel"), icon: IconCoffee, url: `${page.slice(0, page.lastIndexOf("/"))}/cafesPanel` },
+            { id: 4, text: adminHeaderOptions("AdminHeaderOptions.dishesPanel"), icon: IconDumpling, url: `${page.slice(0, page.lastIndexOf("/"))}/dishesPanel` },
+            { id: 5, text: adminHeaderOptions("AdminHeaderOptions.ordersPanel"), icon: IconClipboardText, url: `${page.slice(0, page.lastIndexOf("/"))}/ordersPanel` },
         ];
 
         return (

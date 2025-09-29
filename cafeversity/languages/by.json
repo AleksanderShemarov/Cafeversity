@@ -211,6 +211,7 @@
                 "afew": "пазіцыі",
                 "more": "пазіцыяў"
             },
+            "available": "Даступна",
             "noDishes": "Не адабрана ніводнай стравы",
             "cafeChoice": {
                 "name": "Выбар Кафэ",
@@ -231,7 +232,12 @@
                 "placeholder": "+375 (**) ***-**-**"
             },
             "comment": "Каментар...",
-            "submit": "Пацвердзіць"
+            "submit": "Пацвердзіць",
+            "tabs": {
+                "newOrder": "Новая Замова",
+                "orderHistory": "Гісторыя Замоў"
+            },
+            "historyTitle": "Папярэднія Замовы"
         },
         "exitButton": {
             "name": "Выхад",
@@ -357,7 +363,10 @@
         },
         "AdminHeaderOptions": {
             "dashboard": "Панэль Кіравання Адміна",
-            "usersPanel": "Панэль Карыстальнікаў"
+            "usersPanel": "Панэль Карыстальнікаў",
+            "cafesPanel": "Панель Кафэ",
+            "dishesPanel": "Панель Страў",
+            "ordersPanel": "Панель Замоў"
         }
     },
     "AdminPageSetUps": {

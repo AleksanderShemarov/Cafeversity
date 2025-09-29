@@ -211,6 +211,7 @@
                 "afew": "pozice",
                 "more": "pozic"
             },
+            "available": "K dispozici",
             "noDishes": "Nebyla vybrána žádná jídla",
             "cafeChoice": {
                 "name": "Výběr Jídelny",
@@ -231,7 +232,12 @@
                 "placeholder": "+375 (**) ***-**-**"
             },
             "comment": "Komentář...",
-            "submit": "Potvrdit"
+            "submit": "Potvrdit",
+            "tabs": {
+                "newOrder": "Nová Objednávka",
+                "orderHistory": "Historie Objednávek"
+            },
+            "historyTitle": "Předchozí Objednávky"
         },
         "exitButton": {
             "name": "Výstup",
@@ -357,7 +363,10 @@
         },
         "AdminHeaderOptions": {
             "dashboard": "Administrativní Panel",
-            "usersPanel": "Panel Uživatelů"
+            "usersPanel": "Panel Uživatelů",
+            "cafesPanel": "Panel Jídelny",
+            "dishesPanel": "Panel Jídel",
+            "ordersPanel": "Panel Objednávek"
         }
     },
     "AdminPageSetUps": {

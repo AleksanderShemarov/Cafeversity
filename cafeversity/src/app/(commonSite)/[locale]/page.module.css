@@ -271,6 +271,7 @@ body {
 /* Weather Block */
 #weather {
   display: flex;
+  align-items: center;
   justify-content: center;
 }
 

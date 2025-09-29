@@ -1,8 +1,8 @@
 "use client";
 
 import styles from "@/app/(commonSite)/[locale]/page.module.css";
-import Image from "next/image";
-import sunny from "../../public/sunny.png";
+// import Image from "next/image";
+// import sunny from "../../public/sunny.png";
 import Dating, { WeatherWeekday } from "@/components/Dating";
 import Entrance from "./Entrance";
 import { Clock3 } from "@/components/Clock";
@@ -57,12 +57,13 @@ export default function CommonHeader () {
     return (
         <>
             <div id={styles.header}>
-                <div id={styles.weather}>
+                {/* <div id={styles.weather}>
                     <div id={styles.weather_icon}>
                         <Image src={sunny} alt="sunny_day" width={46} height={46}></Image>
                     </div>
                     <WeatherWeekday />
-                </div>
+                </div> */}
+                <WeatherWeekday />
 
                 {/* <Clock2 />Clock2 rewritings are stood in useEffect hook and don't need to be as a dynamic component  */}
                 <Clock3 />{/* Clock3 Component doesn't convert a Date object into hours, minutes and seconds in useEffect hook.

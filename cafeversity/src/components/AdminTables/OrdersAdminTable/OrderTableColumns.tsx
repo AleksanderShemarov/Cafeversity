@@ -14,6 +14,8 @@ const TableOnParts = dynamic(
 );
 import { OrdersExpander } from "./OrdersExpander";
 import { TableRowExpanderProps } from "../TableParts/TableExpander";
+import { SubHeaderComponentProps } from "./OrdersSubHeader";
+import OrdersSubHeader from "./OrdersSubHeader";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 
@@ -56,6 +58,9 @@ export function OrdersAdminTable({ data }: OrdersAdminTableProps) {
                 cafes={cafes}
                 allDishes={allDishes}
             />
+        ),
+        SubHeader: (props: SubHeaderComponentProps<any>) => (
+            <OrdersSubHeader {...props} />
         )
     };
 

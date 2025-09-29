@@ -12,7 +12,7 @@ export default function DishesTypesLayout({ children }: { children: React.ReactN
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    DishesTypes Component
+                    Колькасць страў па катыгорыях
                 </p>
             </div>
 

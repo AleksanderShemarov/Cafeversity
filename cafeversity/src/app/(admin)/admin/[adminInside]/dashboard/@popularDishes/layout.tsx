@@ -12,7 +12,7 @@ export default function PopularDishesLayout({ children }: { children: React.Reac
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    PopularDishes Component
+                    Папулярнасць страў адносна іх колькасці ў замовах
                 </p>
             </div>
             

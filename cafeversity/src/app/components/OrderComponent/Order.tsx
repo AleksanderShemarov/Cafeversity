@@ -1,7 +1,7 @@
 "use client";
 
 import CardImage from "@/components/CardParts/CardImage";
-import { IconCircleCheck, IconExclamationCircle, IconTrash, IconXboxX } from "@tabler/icons-react";
+import { IconCircleCheck, IconExclamationCircle, IconHistory, IconShoppingCart, IconTrash, IconXboxX } from "@tabler/icons-react";
 import AccessBtn from "@/components/Buttons/DifferentButtons";
 import Select, { CSSObjectWithLabel } from "react-select";
 import { SelectedDish } from "../AuthorizedUserClient";
@@ -12,6 +12,7 @@ import orderSaving from "@/app/actions/orderSaving";
 import styles from "@/app/components/OrderComponent/Order.module.css";
 import { motion, AnimatePresence } from "framer-motion";
 import { useTranslations } from "next-intl";
+import getPreviousOrders from "@/app/actions/getPreviousOrders";
 
 
 interface OrderProps {
@@ -21,8 +22,36 @@ interface OrderProps {
     isOpen: boolean
 }
 
+interface PreviousOrder {
+    id: number,
+    orderNumber: number,
+    cafeName: string,
+    date: string,
+    time: string,
+    readyStatus: boolean,
+    total: number,
+    dishes: {
+        id: number,
+        food_name: string,
+        imagePath: string,
+        food_portion: number,
+        cost: number
+    }[],
+}
+
 export default function Order({ selectedDishes, setDishSelection, onRemoveDish, isOpen }: OrderProps) {
     const orderView = useTranslations("MainUserPage.orderView");
+
+    const [activeTab, setActiveTab] = useState<"new_order"|"order_history">("new_order");
+    const [expandedOrderId, setExpandedOrderId] = useState<number|null>(null);
+    const [previousOrders, setPreviousOrders] = useState<PreviousOrder[]>([]);
+
+    const calculateTotalSum = (dishes: SelectedDish[]): number => {
+        return dishes.filter(dish => dish.checkedDish === true).reduce((total, dish) => total + Number(dish.cost), 0);
+    };
+    const [commonSum, setCommonSum] = useState<number>(0);
+    const [availableDishesCount, setAvailableDishesCount] = useState<number>(0);
+
 
     const [cafeLabels, setCafeLabels] = useState<{label: string, value: number}[]>([]);
     const [isPending, startTransition] = useTransition();
@@ -31,13 +60,24 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
         startTransition(async () => {
             const cafes = await getCafes();
             setCafeLabels(cafes);
+            
+            const prevOrders = await getPreviousOrders();
+            console.log(prevOrders);
+            setPreviousOrders(prevOrders);
         });
     }, []);
+
 
     const [availHours, setAvailHours] = useState<{label: string, value: string}[]>([]);
 
     const [selectedCafeOption, setSelectedCafeOption] = useState<{label: string, value: number} | null>(null);
     const [selectedTimeOption, setSelectedTimeOption] = useState<{label: string, value: string} | null>(null);
+
+    useEffect(() => {
+        const availableDishes = selectedDishes.filter(dish => dish.checkedDish === true);
+        setAvailableDishesCount(availableDishes.length);
+        setCommonSum(calculateTotalSum(selectedDishes));
+    }, [selectedDishes]);
 
     const checkingChoisenDishes = (idCafe: number) => {
         startTransition(async () => {
@@ -67,8 +107,11 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             setSelectedCafeOption(null);
             setSelectedTimeOption(null);
             setAvailHours([]);
+            setCommonSum(0);
+            setAvailableDishesCount(0);
         }
     }, [selectedDishes.length]);
+
 
     const cafeSelectOptionWidth = {
         menu: (base: CSSObjectWithLabel) => ({
@@ -164,6 +207,25 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
     }
 
 
+    const toggleOrderExpansion = (orderId: number) => {
+        setExpandedOrderId(expandedOrderId === orderId ? null : orderId);
+    };
+
+    const getStatusColor = (status: boolean) => {
+        switch (status) {
+            case false: return '#ffa500';
+            case true: return '#008000';
+        }
+    };
+
+    const getStatusText = (status: boolean) => {
+        switch (status) {
+            case false: return "Cooking...";
+            case true: return "Ready";// orderView("status.preparing");
+        }
+    };
+
+
     const telephoneInputRef = useRef<HTMLInputElement>(null);
     const commentRef = useRef<HTMLTextAreaElement>(null);
 
@@ -176,6 +238,12 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
 
         if (!selectedTimeOption) {
             toast.error("Choose a time for your order!", { position: "top-right", style: { fontSize: "1.5rem" } });
+            return;
+        }
+
+        const availableDishes = selectedDishes.filter(dish => dish.checkedDish === true);
+        if (availableDishes.length === 0) {
+            toast.error("No available dishes for ordering!", { position: "top-right", style: { fontSize: "1.5rem" } });
             return;
         }
 
@@ -205,6 +273,8 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                 setSelectedCafeOption(null);
                 setSelectedTimeOption(null);
                 setAvailHours([]);
+                setCommonSum(0);
+                setAvailableDishesCount(0);
 
                 if (telephoneInputRef.current) telephoneInputRef.current.value = "";
                 if (commentRef.current) commentRef.current.value = "";
@@ -230,130 +300,243 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                         marginBottom: '20px'
                     }}
                 >
-                    <div className={styles.orderHeader}>
-                        {orderView("name")} ({selectedDishes.length} {selectedDishes.length === 1
-                        ? orderView("positions.one")
-                        : selectedDishes.length === 0 || selectedDishes.length >= 5
-                        ? orderView("positions.more")
-                        : orderView("positions.afew")})
+                    <div className={styles.orderTabs}>
+                        <button 
+                            className={`${styles.tab} ${activeTab === 'new_order' ? styles.activeTab : ''}`}
+                            onClick={() => setActiveTab('new_order')}
+                        >
+                            <IconShoppingCart size={20} />
+                            {orderView("tabs.newOrder")}
+                        </button>
+                        <button 
+                            className={`${styles.tab} ${activeTab === 'order_history' ? styles.activeTab : ''}`}
+                            onClick={() => setActiveTab('order_history')}
+                        >
+                            <IconHistory size={20} />
+                            {orderView("tabs.orderHistory")} ({previousOrders.length})
+                        </button>
                     </div>
-                    <div className={styles.dishesList}>
-                        {selectedDishes.length > 0
-                        ? selectedDishes.map((selectedDish, index) =>
-                            <div key={index} className={styles.dishItem}>
-                                <div style={{ width: "3rem", textAlign: "center", fontSize: "1.5rem" }}>
-                                    {index + 1}.
+
+                    {activeTab === "new_order" && (
+                    <>
+                        <div className={styles.orderHeader}>
+                            {orderView("name")} ({selectedDishes.length} {selectedDishes.length === 1
+                            ? orderView("positions.one")
+                            : selectedDishes.length === 0 || selectedDishes.length >= 5
+                            ? orderView("positions.more")
+                            : orderView("positions.afew")} – {commonSum} BYN; {orderView("available")}: {availableDishesCount})
+                        </div>
+                        <div className={styles.dishesList}>
+                            {selectedDishes.length > 0
+                            ? selectedDishes.map((selectedDish, index) =>
+                                <div key={index} className={styles.dishItem}>
+                                    <div style={{ width: "3rem", textAlign: "center", fontSize: "1.5rem" }}>
+                                        {index + 1}.
+                                    </div>
+                                    <div style={{ height: "4rem", width: "6rem" }}>
+                                        <CardImage imagePath={selectedDish.imagePath.slice(8)}
+                                            style={{ borderRadius: "0.5rem" }}
+                                            fill
+                                        />
+                                    </div>
+                                    <div style={{ width: "25rem" }}>
+                                        <p className={styles.dishName}>
+                                            {/* Dish with Different Sauces */}
+                                            {selectedDish.food_name}
+                                        </p>
+                                    </div>
+                                    <div style={{ width: "3rem", padding: "0 0.5rem", textAlign: "center" }}>
+                                        <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>{selectedDish.food_portion}g</p>
+                                    </div>
+                                    <div style={{ height: "3rem", width: "3rem", borderRadius: "50%" }}>
+                                        {selectedDish.checkedDish === null
+                                        ? <IconExclamationCircle style={{ width: "3rem", height: "3rem", color: "orangered" }} />
+                                        : selectedDish.checkedDish
+                                        ? <IconCircleCheck style={{ width: "3rem", height: "3rem", color: "green" }} />
+                                        : <IconXboxX style={{ width: "3rem", height: "3rem", color: "red" }} />
+                                        }
+                                    </div>
+                                    <div style={{ width: "5rem", padding: "0 0.5rem", textAlign: "center" }}>
+                                        <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>{selectedDish.cost}BYN</p>
+                                    </div>
+                                    <div
+                                        style={{
+                                            borderRadius: "10%",
+                                            // backgroundColor: "red",
+                                            height: "3rem",
+                                            width: "3rem",
+                                            display: "flex",
+                                            alignItems: "center",
+                                            justifyContent: "center",
+                                            // outline: "1px solid"
+                                        }}
+                                        onClick={() => {onRemoveDish(selectedDish.dishID)}}
+                                    >
+                                        <IconTrash style={{ height: "3rem", width: "3rem" }} />
+                                    </div>
                                 </div>
-                                <div style={{ height: "4rem", width: "6rem" }}>
-                                    <CardImage imagePath={selectedDish.imagePath.slice(8)}
-                                        style={{ borderRadius: "0.5rem" }}
-                                        fill
-                                    />
+                            )
+                            : <div className={styles.emptyMessage}>
+                                    <span style={{ fontSize: "1.5rem" }}>{orderView("noDishes")}</span>
                                 </div>
-                                <div style={{ width: "25rem" }}>
-                                    <p className={styles.dishName}>
-                                        {/* Dish with Different Sauces */}
-                                        {selectedDish.food_name}
-                                    </p>
-                                </div>
-                                <div style={{ width: "3rem", padding: "0 0.5rem", textAlign: "center" }}>
-                                    <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>{selectedDish.food_portion}g</p>
-                                </div>
-                                <div style={{ height: "3rem", width: "3rem", borderRadius: "50%" }}>
-                                    {selectedDish.checkedDish === null
-                                    ? <IconExclamationCircle style={{ width: "3rem", height: "3rem", color: "orangered" }} />
-                                    : selectedDish.checkedDish
-                                    ? <IconCircleCheck style={{ width: "3rem", height: "3rem", color: "green" }} />
-                                    : <IconXboxX style={{ width: "3rem", height: "3rem", color: "red" }} />
-                                    }
-                                </div>
-                                <div style={{ width: "5rem", padding: "0 0.5rem", textAlign: "center" }}>
-                                    <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>{selectedDish.cost}BYN</p>
-                                </div>
-                                <div
-                                    style={{
-                                        borderRadius: "10%",
-                                        // backgroundColor: "red",
-                                        height: "3rem",
-                                        width: "3rem",
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "center",
-                                        // outline: "1px solid"
+                            }
+                        </div>
+
+                        <div className={styles.controlsSection}>
+                            <div className={styles.controlGroup}>
+                                <p className={styles.controlLabel}>{orderView("cafeChoice.name")}</p>
+                                <Select options={cafeLabels}
+                                    value={selectedCafeOption}
+                                    instanceId="custom-select"
+                                    menuPlacement="auto"
+                                    isLoading={isPending}
+                                    styles={cafeSelectOptionWidth}
+                                    isDisabled={selectedDishes.length === 0}
+                                    onChange={selectedOption => {
+                                        setSelectedCafeOption(selectedOption);
+                                        checkingChoisenDishes(selectedOption?.value as number);
                                     }}
-                                    onClick={() => {onRemoveDish(selectedDish.dishID)}}
-                                >
-                                    <IconTrash style={{ height: "3rem", width: "3rem" }} />
+                                    isSearchable={false}
+                                    placeholder={
+                                        selectedDishes.length === 0
+                                        ? orderView("cafeChoice.placeholder.noDish")
+                                        : orderView("cafeChoice.placeholder.anyDish")
+                                    }
+                                />
+                            </div>
+                            <div>
+                                <p className={styles.controlLabel}>{orderView("timeChoice.name")}</p>
+                                <Select options={availHours}
+                                    value={selectedTimeOption}
+                                    instanceId="custom-select"
+                                    menuPlacement="auto"
+                                    styles={timeSelectOptionWidth}
+                                    isDisabled={selectedDishes.length === 0 || availHours.length === 0}
+                                    onChange={selectedOption => {
+                                        setSelectedTimeOption(selectedOption);
+                                    }}
+                                    isSearchable={false}
+                                    placeholder={
+                                        availHours.length === 0
+                                        ? orderView("timeChoice.placeholder.noTimes")
+                                        : orderView("timeChoice.placeholder.anyTimes")
+                                    }
+                                />
+                            </div>
+                        </div>
+
+                        <div className={styles.inputGroup}>
+                            <div style={{
+                                display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
+                                borderRadius: "1rem", flexGrow: 1
+                            }}>
+                                <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem" }}>{orderView("telephone.name")}</p>
+                                <input type="text" placeholder={orderView("telephone.placeholder")} ref={telephoneInputRef} className={styles.telephoneInput} />
+                            </div>
+                            <div style={{ borderRadius: "1rem" }}>
+                                {/* <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Optional Comment</p> */}
+                                <textarea ref={commentRef} placeholder={orderView("comment")} className={styles.commentInput} />
+                            </div>
+                        </div>
+                        <AccessBtn buttonName={orderView("submit")} onClick={orderSavingHandler}
+                        additionalStyle={{
+                            fontSize: "1.5rem", paddingLeft: "5rem", paddingRight: "5rem",
+                            height: "3rem", margin: "0 auto"
+                        }} />
+                    </>
+                    )}
+
+                    {activeTab === 'order_history' && (
+                        <div className={styles.orderHistory}>
+                            <div className={styles.historyHeader}>
+                                {orderView("historyTitle")}
+                            </div>
+                            
+                            {previousOrders.length > 0 ? (
+                                <div className={styles.ordersList}>
+                                    {previousOrders.map((order) => (
+                                        <div key={order.id} className={styles.orderItem}>
+                                            <div 
+                                                className={styles.orderSummary}
+                                                onClick={() => toggleOrderExpansion(order.id)}
+                                            >
+                                                <div className={styles.orderInfo}>
+                                                    <div className={styles.orderNumber}>
+                                                        #{order.orderNumber}
+                                                    </div>
+                                                    <div className={styles.orderCafe}>
+                                                        {order.cafeName}
+                                                    </div>
+                                                    <div className={styles.orderDateTime}>
+                                                        {order.date} • {order.time}
+                                                    </div>
+                                                    <div 
+                                                        className={styles.orderStatus}
+                                                        style={{ color: getStatusColor(order.readyStatus) }}
+                                                    >
+                                                        {getStatusText(order.readyStatus)}
+                                                    </div>
+                                                    <div className={styles.orderTotal}>
+                                                        {order.dishes.reduce((sum, dish) => sum + dish.cost, 0)} BYN ({order.total})
+                                                    </div>
+                                                </div>
+                                                <div className={styles.orderExpand}>
+                                                    {expandedOrderId === order.id ? '▼' : '►'}
+                                                </div>
+                                            </div>
+
+                                            <AnimatePresence>
+                                                {expandedOrderId === order.id && (
+                                                    <motion.div 
+                                                        className={styles.orderDetails}
+                                                        initial={{ opacity: 0, height: 0 }}
+                                                        animate={{ opacity: 1, height: 'auto' }}
+                                                        exit={{ opacity: 0, height: 0 }}
+                                                        transition={{ duration: 0.3 }}
+                                                    >
+                                                        <div className={styles.orderDishes}>
+                                                            {order.dishes.map(dish => (
+                                                                <div key={`previousOrderDish-${dish.id}`} className={styles.historyDishItem}>
+                                                                    <div style={{ height: "4rem", width: "6rem" }}>
+                                                                        <CardImage 
+                                                                            imagePath={dish.imagePath}
+                                                                            style={{ borderRadius: "0.5rem" }}
+                                                                            fill
+                                                                        />
+                                                                    </div>
+                                                                    <div style={{ width: "22rem" }}>
+                                                                        <p className={styles.dishName}>
+                                                                            {dish.food_name}
+                                                                        </p>
+                                                                    </div>
+                                                                    <div style={{ width: "5rem", padding: "0 0.5rem", textAlign: "center" }}>
+                                                                        <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>
+                                                                            {dish.food_portion} g
+                                                                        </p>
+                                                                    </div>
+                                                                    <div style={{ width: "10rem", padding: "0 0.5rem", textAlign: "right" }}>
+                                                                        <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>
+                                                                            {dish.cost} BYN
+                                                                        </p>
+                                                                    </div>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </motion.div>
+                                                )}
+                                            </AnimatePresence>
+                                        </div>
+                                    ))}
                                 </div>
-                            </div>
-                        )
-                        : <div className={styles.emptyMessage}>
-                                <span style={{ fontSize: "1.5rem" }}>{orderView("noDishes")}</span>
-                            </div>
-                        }
-                    </div>
-
-                    <div className={styles.controlsSection}>
-                        <div className={styles.controlGroup}>
-                            <p className={styles.controlLabel}>{orderView("cafeChoice.name")}</p>
-                            <Select options={cafeLabels}
-                                value={selectedCafeOption}
-                                instanceId="custom-select"
-                                menuPlacement="auto"
-                                isLoading={isPending}
-                                styles={cafeSelectOptionWidth}
-                                isDisabled={selectedDishes.length === 0}
-                                onChange={selectedOption => {
-                                    setSelectedCafeOption(selectedOption);
-                                    checkingChoisenDishes(selectedOption?.value as number);
-                                }}
-                                isSearchable={false}
-                                placeholder={
-                                    selectedDishes.length === 0
-                                    ? orderView("cafeChoice.placeholder.noDish")
-                                    : orderView("cafeChoice.placeholder.anyDish")
-                                }
-                            />
+                            ) : (
+                                <div className={styles.emptyHistory}>
+                                    <span style={{ fontSize: "1.5rem" }}>
+                                        {orderView("history.noOrders")}
+                                    </span>
+                                </div>
+                            )}
                         </div>
-                        <div>
-                            <p className={styles.controlLabel}>{orderView("timeChoice.name")}</p>
-                            <Select options={availHours}
-                                value={selectedTimeOption}
-                                instanceId="custom-select"
-                                menuPlacement="auto"
-                                styles={timeSelectOptionWidth}
-                                isDisabled={selectedDishes.length === 0 || availHours.length === 0}
-                                onChange={selectedOption => {
-                                    setSelectedTimeOption(selectedOption);
-                                }}
-                                isSearchable={false}
-                                placeholder={
-                                    availHours.length === 0
-                                    ? orderView("timeChoice.placeholder.noTimes")
-                                    : orderView("timeChoice.placeholder.anyTimes")
-                                }
-                            />
-                        </div>
-                    </div>
-
-                    <div className={styles.inputGroup}>
-                        <div style={{
-                            display: "flex", alignItems: "center", justifyContent: "center", gap: "0.5rem",
-                            borderRadius: "1rem", flexGrow: 1
-                        }}>
-                            <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem" }}>{orderView("telephone.name")}</p>
-                            <input type="text" placeholder={orderView("telephone.placeholder")} ref={telephoneInputRef} className={styles.telephoneInput} />
-                        </div>
-                        <div style={{ borderRadius: "1rem" }}>
-                            {/* <p style={{ fontSize: "1.5rem", margin: "0.5rem 0.75rem", textAlign: "center" }}>Optional Comment</p> */}
-                            <textarea ref={commentRef} placeholder={orderView("comment")} className={styles.commentInput} />
-                        </div>
-                    </div>
-                    <AccessBtn buttonName={orderView("submit")} onClick={orderSavingHandler}
-                    additionalStyle={{
-                        fontSize: "1.5rem", paddingLeft: "5rem", paddingRight: "5rem",
-                        height: "3rem", margin: "0 auto"
-                    }} />
+                    )}
                 </motion.div>
             )}
         </AnimatePresence>

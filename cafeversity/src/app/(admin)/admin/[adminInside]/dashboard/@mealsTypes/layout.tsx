@@ -12,7 +12,7 @@ export default function MealsTypesLayout({ children }: { children: React.ReactNo
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    MealsTypes Component
+                    Колькасць страў па тыпах рацыёну
                 </p>
             </div>
 
