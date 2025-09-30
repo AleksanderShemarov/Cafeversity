@@ -10,7 +10,7 @@ export default function NivoBar({ cafesIncomes }: { cafesIncomes: { [key: string
         ...cafesIncomes
     }];
 
-    console.log("data in Nivo chart -->", data);
+    // console.log("data in Nivo chart -->", data);
 
     return (
         <div style={{ height: "65%", maxWidth: "75%", margin: "0 auto" }}>

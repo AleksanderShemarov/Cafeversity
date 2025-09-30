@@ -1,8 +1,12 @@
 import React, { Suspense } from "react";
 import LoadingPopularDishes from "./loading";
+import { useTranslations } from "next-intl";
 
 
 export default function PopularDishesLayout({ children }: { children: React.ReactNode }) {
+    
+    const chartName = useTranslations("AdminDashboard.ChartsNames");
+    
     return (
         <>
             <div>
@@ -12,7 +16,7 @@ export default function PopularDishesLayout({ children }: { children: React.Reac
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    Папулярнасць страў адносна іх колькасці ў замовах
+                    {chartName("chart1")}
                 </p>
             </div>
             

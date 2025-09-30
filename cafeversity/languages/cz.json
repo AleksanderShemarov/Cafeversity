@@ -367,6 +367,12 @@
             "cafesPanel": "Panel Jídelny",
             "dishesPanel": "Panel Jídel",
             "ordersPanel": "Panel Objednávek"
+        },
+        "ChartsNames": {
+            "chart1": "Oblíbenost jídel vzhledem k jejich výskytu v objednávkách",
+            "chart2": "Počet jídel podle typu diety",
+            "chart3": "Počet jídel podle kategorie",
+            "chart4": "Výdělek všech jídelen"
         }
     },
     "AdminPageSetUps": {

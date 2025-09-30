@@ -367,6 +367,12 @@
             "cafesPanel": "Cafes Panel",
             "dishesPanel": "Dishes Panel",
             "ordersPanel": "Orders Panel"
+        },
+        "ChartsNames": {
+            "chart1": "Popularity of dishes relative to their occurrence in orders",
+            "chart2": "Number of meals by diet type",
+            "chart3": "Number of dishes by categories",
+            "chart4": "Profit of all cafes"
         }
     },
     "AdminPageSetUps": {
