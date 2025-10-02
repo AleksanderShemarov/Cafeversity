@@ -6,7 +6,7 @@ import CardImage from "@/components/CardParts/CardImage";
 import CardTitle from "@/components/CardParts/CardTitle";
 import { IconInfoSquareRoundedFilled } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
-// import { startTransition } from "react";
+import { useTranslations } from "next-intl";
 
 
 type Dish = {
@@ -17,8 +17,7 @@ type Dish = {
 
 export default function DishesGrid({ categotyName }: { categotyName: string }) {
     
-    // startTransition(async () => {   
-    // });
+    const dishesLoading = useTranslations("UserMenuPage");
 
     const pathname = usePathname();
     // const router = useRouter();
@@ -52,13 +51,13 @@ export default function DishesGrid({ categotyName }: { categotyName: string }) {
     }, [categotyName]);
 
     if (loading) {
-        return <div style={{ padding: '2rem', textAlign: 'center', fontSize: "1.8rem" }}>Загрузка страў...</div>
+        return <div style={{ padding: '2rem', textAlign: 'center', fontSize: "1.8rem" }}>{dishesLoading("loading")}</div>
     }
 
     if (dishes.length === 0) {
         return (
             <div style={{ padding: '2rem', textAlign: 'center', fontSize: "1.8rem" }}>
-                Ніводнай стравы ў гэтай катыгорыі
+                {dishesLoading("noDishes")}
             </div>
         );
     }

@@ -23,7 +23,7 @@ import { usePathname, useRouter } from "next/navigation";
 import toggleFavourite from "@/app/actions/toggleFavourite";
 import { toast } from "react-toastify";
 import { useTranslations } from "next-intl";
-// import generateMessage from "../../../lib/utils/geminiAnswer";
+// import generateMessage from "../../../lib/utils/groqAnswer";
 
 
 const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSelection }: SortableAreaComponentProps) => {
@@ -317,7 +317,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
             padding: "0.5rem 0.5rem",
             position: "relative",
             overflow: "hidden",
-            backgroundColor: "#f2dabfff"
+            backgroundColor: "var(--background-color-sortable-area)",
         }}>
             <DndContext
                 sensors={sensors}

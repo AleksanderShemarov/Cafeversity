@@ -55,7 +55,7 @@ export function WeatherWeekday() {
     async function fetchWeather() {
         setLoading(true);
 
-        const response = await fetch("http://localhost:3000/api/weatherForecast");
+        const response = await fetch("http://localhost:3000/api/weatherForecast", { cache: "no-store" });
         const result = await response.json();
         setWeatherForecast(result.data);
 

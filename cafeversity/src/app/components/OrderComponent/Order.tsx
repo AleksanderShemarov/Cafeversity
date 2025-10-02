@@ -1,7 +1,7 @@
 "use client";
 
 import CardImage from "@/components/CardParts/CardImage";
-import { IconCircleCheck, IconExclamationCircle, IconHistory, IconShoppingCart, IconTrash, IconXboxX } from "@tabler/icons-react";
+import { IconCircleCheck, IconExclamationCircle, IconHistory, IconClipboardList, IconTrash, IconXboxX } from "@tabler/icons-react";
 import AccessBtn from "@/components/Buttons/DifferentButtons";
 import Select, { CSSObjectWithLabel } from "react-select";
 import { SelectedDish } from "../AuthorizedUserClient";
@@ -62,7 +62,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             setCafeLabels(cafes);
             
             const prevOrders = await getPreviousOrders();
-            console.log(prevOrders);
+            // console.log(prevOrders);
             setPreviousOrders(prevOrders);
         });
     }, []);
@@ -97,7 +97,6 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                     checkedDish: matchingDish ? matchingDish.dishAvailable : dish.checkedDish
                 };
             }));
-            
             setAvailHours(answers.hours);
         });
     }
@@ -119,7 +118,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             width: "max-content",
             minWidth: "32rem",
             fontSize: "1.5rem",
-            backgroundColor: "white",
+            backgroundColor: "var(--order-selectmenu-background)",
             color: "var(--text-color)",
             zIndex: 12,
             marginLeft: "1rem"
@@ -129,7 +128,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             width: "max-content",
             minWidth: "35rem",
             fontSize: "1.5rem",
-            backgroundColor: "white",
+            backgroundColor: "var(--order-selectmenu-background)",
             color: "var(--text-color)",
             whiteSpace: "pre-wrap",
             margin: "0 auto"
@@ -149,7 +148,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
         }),
         option: (base: CSSObjectWithLabel, state: { isFocused: boolean, isSelected: boolean }) => ({
             ...base,
-            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "white",
+            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "var(--order-selectmenu-background-focused)" : "var(--order-selectmenu-background)",
             color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
             whiteSpace: "pre-wrap",
             maxWidth: "35rem"
@@ -166,7 +165,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             width: "max-content",
             minWidth: "10rem",
             fontSize: "1.5rem",
-            backgroundColor: "white",
+            backgroundColor: "var(--order-selectmenu-background)",
             color: "var(--text-color)",
             zIndex: 12,
             marginLeft: "9.5rem",
@@ -177,7 +176,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             minWidth: "10rem",
             maxWidth: "20rem",
             fontSize: "1.5rem",
-            backgroundColor: "white",
+            backgroundColor: "var(--order-selectmenu-background)",
             color: "var(--text-color)",
             margin: "0 auto"
         }),
@@ -195,7 +194,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
         }),
         option: (base: CSSObjectWithLabel, state: { isFocused: boolean, isSelected: boolean }) => ({
             ...base,
-            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "darkgrey" : "white",
+            backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "var(--order-selectmenu-background-focused)" : "var(--order-selectmenu-background)",
             color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
             maxWidth: "15rem",
             margin: "0 auto",
@@ -214,7 +213,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
     const getStatusColor = (status: boolean) => {
         switch (status) {
             case false: return '#ffa500';
-            case true: return '#008000';
+            case true: return '#00a000';
         }
     };
 
@@ -278,6 +277,9 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
 
                 if (telephoneInputRef.current) telephoneInputRef.current.value = "";
                 if (commentRef.current) commentRef.current.value = "";
+
+                const prevOrders = await getPreviousOrders();
+                setPreviousOrders(prevOrders);
             } else {
                 toast.error(status.message, { position: "top-right", style: { fontSize: "1.5rem" } });
             }
@@ -305,7 +307,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                             className={`${styles.tab} ${activeTab === 'new_order' ? styles.activeTab : ''}`}
                             onClick={() => setActiveTab('new_order')}
                         >
-                            <IconShoppingCart size={20} />
+                            <IconClipboardList size={20} />
                             {orderView("tabs.newOrder")}
                         </button>
                         <button 
@@ -324,7 +326,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                             ? orderView("positions.one")
                             : selectedDishes.length === 0 || selectedDishes.length >= 5
                             ? orderView("positions.more")
-                            : orderView("positions.afew")} – {commonSum} BYN; {orderView("available")}: {availableDishesCount})
+                            : orderView("positions.afew")} – {commonSum.toFixed(2)} BYN; {orderView("available")}: {availableDishesCount})
                         </div>
                         <div className={styles.dishesList}>
                             {selectedDishes.length > 0
@@ -377,7 +379,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                                 </div>
                             )
                             : <div className={styles.emptyMessage}>
-                                    <span style={{ fontSize: "1.5rem" }}>{orderView("noDishes")}</span>
+                                    <span style={{ fontSize: "1.5rem", color: "var(--text-color)" }}>{orderView("noDishes")}</span>
                                 </div>
                             }
                         </div>
@@ -516,7 +518,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                                                                     </div>
                                                                     <div style={{ width: "10rem", padding: "0 0.5rem", textAlign: "right" }}>
                                                                         <p style={{ margin: 0, fontSize: "1.5rem", fontWeight: 300 }}>
-                                                                            {dish.cost} BYN
+                                                                            {Number(dish.cost).toFixed(2)} BYN
                                                                         </p>
                                                                     </div>
                                                                 </div>

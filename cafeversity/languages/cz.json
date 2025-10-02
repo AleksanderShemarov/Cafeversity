@@ -318,7 +318,9 @@
             "main": "Teplá Jídla",
             "dessert": "Dezerty",
             "drink": "Nápoje"
-        }
+        },
+        "loading": "Načítání jídel...",
+        "noDishes": "V této kategorii nejsou žádná jídla"
     },
     "UserChoisenDishShortInfo": {
         "nutritions": {
@@ -498,7 +500,7 @@
                 }
             },
             "roles": {
-                "name": "Role Adminů (Tabulka)"
+                "name": "Role Adminů"
             }
         }
     }

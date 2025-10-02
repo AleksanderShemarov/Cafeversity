@@ -3,8 +3,8 @@
     max-width: 80rem;
     /* min-height: 400px; */
     margin: 20px auto;
-    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
-    border: 2px solid #dee2e6;
+    background: var(--background-order);
+    border: 2px solid var(--order-border-color);
     border-radius: 15px;
     padding: 20px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -17,8 +17,8 @@
     font-size: 1.5rem;
     font-weight: bold;
     margin-bottom: 20px;
-    color: #495057;
-    border-bottom: 2px solid #6c757d;
+    color: var(--order-header-color);
+    border-bottom: 2px solid var(--order-header-bottom-border);
     padding-bottom: 10px;
 }
 
@@ -27,9 +27,9 @@
     overflow-y: auto;
     margin-bottom: 20px;
     padding: 10px;
-    background: white;
+    background: var(--order-list-background);
     border-radius: 10px;
-    border: 1px solid #ced4da;
+    border: 1px solid var(--order-list-border-color);
 }
 
 .dishItem {
@@ -37,7 +37,7 @@
     align-items: center;
     justify-content: space-between;
     padding: 8px 0;
-    border-bottom: 1px solid #e9ecef;
+    border-bottom: 1px solid var(--order-listitem-border-color);
 }
 
 .dishItem:last-child {
@@ -61,7 +61,7 @@
 .dishName {
     font-size: 1.5rem;
     font-weight: 500;
-    color: #495057;
+    color: var(--order-listitem-text-color);
     margin: 0;
     /* outline: 1px solid; */
 }
@@ -123,7 +123,7 @@
 .controlLabel {
     font-size: 1.5rem;
     font-weight: 500;
-    color: #495057;
+    color: var(--order-selectmenu-text-color);
     text-align: center;
 }
 
@@ -137,10 +137,12 @@
 
 .telephoneInput {
     padding: 10px;
-    border: 2px solid #ced4da;
+    border: 1px solid #ced4da;
     border-radius: 8px;
     font-size: 1.5rem;
     transition: border-color 0.2s;
+    background-color: var(--order-input-background);
+    color: var(--text-color);
 }
 
 .telephoneInput:focus {
@@ -150,7 +152,7 @@
 
 .commentInput {
     padding: 10px;
-    border: 2px solid #ced4da;
+    border: 1px solid #ced4da;
     border-radius: 8px;
     font-size: 1.5rem;
     resize: vertical;
@@ -158,6 +160,8 @@
     max-height: 1.65rem;
     width: 50rem;
     transition: border-color 0.2s;
+    background-color: var(--order-input-background);
+    color: var(--text-color);
 }
 
 .commentInput:focus {
@@ -192,7 +196,6 @@
 
 .emptyMessage {
     text-align: center;
-    color: #6c757d;
     font-style: italic;
     padding: 20px;
 }
@@ -201,8 +204,10 @@
 /* Order History View */
 .orderTabs {
     display: flex;
-    border-bottom: 2px solid #e0e0e0;
+    padding-bottom: 5px;
     margin-bottom: 1rem;
+    align-items: center;
+    justify-content: space-around;
 }
 
 .tab {
@@ -216,19 +221,30 @@
     cursor: pointer;
     border-bottom: 3px solid transparent;
     transition: all 0.3s ease;
+    color: var(--order-tab-color);
+    justify-content: center;
+    width: 27%;
 }
 
 .tab:hover {
-    background-color: #f5f5f5;
+    background-color: var(--order-tab-hovered);
 }
 
 .activeTab {
-    border-bottom-color: #e67e22;
-    color: #e67e22;
+    border-bottom-color: var(--order-active-tab-color);
+    color: var(--order-active-tab-color);
     font-weight: bold;
+    cursor: auto;
+    justify-content: center;
+    width: 27%;
 }
 
-/* Стили для истории заказов */
+.activeTab:hover {
+    background-color: inherit;
+}
+
+
+/* Prevoius Orders View */
 .orderHistory {
     max-height: 60vh;
     overflow-y: auto;
@@ -258,13 +274,13 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    background-color: #f9f9f9;
+    background-color: var(--order-selectmenu-background);
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
 
 .orderSummary:hover {
-    background-color: #f0f0f0;
+    background-color: var(--order-previous-list-row);
 }
 
 .orderInfo {
@@ -279,20 +295,20 @@
 .orderNumber {
     font-weight: bold;
     font-size: 1.4rem;
-    color: #333;
+    color: var(--text-color);
     width: 9%;
     text-align: right;
 }
 
 .orderCafe {
     font-size: 1.3rem;
-    color: #666;
+    color: var(--text-color);
     width: 18%;
 }
 
 .orderDateTime {
     font-size: 1.2rem;
-    color: #888;
+    color: var(--text-color);
     width: 18%;
     text-align: center;
 }
@@ -314,11 +330,11 @@
 
 .orderExpand {
     font-size: 1.2rem;
-    color: #666;
+    color: var(--text-color);
 }
 
 .orderDetails {
-    background-color: white;
+    background-color: var(--order-previous-list-row-items);
     border-top: 1px solid #e0e0e0;
 }
 

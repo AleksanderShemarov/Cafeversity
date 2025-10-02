@@ -5,7 +5,7 @@ const GET = async () => {
     const API_KEY = process.env.WEATHERAPI_KEY!;
     const CITY = "Minsk";
 
-    const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${CITY}&aqi=no`);
+    const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${CITY}&aqi=no`, { cache: "no-store" });
     if (!response.ok) return NextResponse.json(
         {
             success: false,

@@ -22,7 +22,7 @@ export function SortableItem({ idName, itemName, children }: SortableItemInterfa
         transition,
         border: "1.5px solid gray",
         borderRadius: "1rem",
-        backgroundColor: "#ffffff80",
+        backgroundColor: "var(--background-color-sortable)",
         color: "black",
         fontSize: "2rem",
         padding: "1rem 1.5rem",
@@ -42,7 +42,7 @@ export function SortableItem({ idName, itemName, children }: SortableItemInterfa
                     display: "flex", alignItems: "center", justifyContent: "space-between",
                     height: "3vh", marginBottom: "2rem"
                 }}>
-                    <p style={{ fontSize: "1.8rem", fontWeight: 500 }}>{itemName}</p>
+                    <p style={{ fontSize: "1.8rem", fontWeight: 500, color: "var(--text-color)" }}>{itemName}</p>
                     <button {...listeners} {...attributes}
                         ref={setActivatorNodeRef}
                         style={{

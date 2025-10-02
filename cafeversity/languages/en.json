@@ -318,7 +318,9 @@
             "main": "Hot Dishes",
             "dessert": "Dessert",
             "drink": "Drinks"
-        }
+        },
+        "loading": "Dishes loading...",
+        "noDishes": "No dishes are at the category"
     },
     "UserChoisenDishShortInfo": {
         "nutritions": {
@@ -498,7 +500,7 @@
                 }
             },
             "roles": {
-                "name": "Admins' Roles (Table)"
+                "name": "Admins' Roles"
             }
         }
     }

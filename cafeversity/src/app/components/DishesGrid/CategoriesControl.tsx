@@ -49,7 +49,7 @@ export default function CategoriesControl({ categories }: CategoriesControlProps
         <>
             <div style={{
                 width: "100%", margin: "0 auto",
-                backgroundColor: "rgba(252, 242, 223, 0.67)", backdropFilter: "blur(5px)",
+                backgroundColor: "var(--background-color-filter)", backdropFilter: "blur(5px)",
                 display: "block", position: "sticky", top: 0, zIndex: 10
             }}>
 
