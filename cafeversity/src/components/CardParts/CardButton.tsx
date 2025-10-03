@@ -1,13 +1,14 @@
 import { CSSProperties, MouseEvent } from "react";
 
 
-const CardButton = ({ btnName, btnId, clicker, hovering, leaving, style }: {
+const CardButton = ({ btnName, btnId, clicker, hovering, leaving, style, disabled }: {
     btnName: React.ReactNode,
     btnId: number|string,
     clicker: (id: number|string) => void,
     hovering?: (e: MouseEvent<HTMLButtonElement>) => void,
     leaving?: (e: MouseEvent<HTMLButtonElement>) => void,
-    style?: CSSProperties
+    style?: CSSProperties,
+    disabled?: boolean
 }) => {
     return (
         <button style={{
@@ -24,6 +25,7 @@ const CardButton = ({ btnName, btnId, clicker, hovering, leaving, style }: {
             }}
             onMouseEnter={hovering}
             onMouseLeave={leaving}
+            disabled={disabled}
         >
             {btnName}
         </button>

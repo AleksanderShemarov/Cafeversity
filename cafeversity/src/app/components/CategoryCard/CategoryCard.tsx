@@ -13,7 +13,7 @@ export default function CategoryCard({ name, icon: Icon, isVisible = true, child
     return (
         <div style={{
             marginTop: "3.5rem", marginBottom: "3.5rem", borderRadius: "3rem",
-            padding: "1.2rem 1.5rem", boxShadow: "inset 0px 0px 10px -2px rgba(66, 68, 90, 1)",
+            padding: "1.2rem 1.5rem", boxShadow: "var(--menu-category-box-shadow)",
             display: isVisible ? "block" : "none"
         }}>
             <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "flex-start", gap: "1rem", marginBottom: "2rem" }}>

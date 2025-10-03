@@ -9,7 +9,7 @@ import useFontSizeSet from "../../hooks/fontSizeSet";
 import useFontVolumeSet from "../../hooks/fontVolume";
 
 
-const LocalStorageStyles = (initialStyles: SetsState) => {
+const LocalStorageStyles = (initialStyles: SetsState|{ pageTheme: "light"|"dark", brandColor: string, fontFamily: string, fontSize: string, fontVolume: string }) => {
     const [theme, setTheme] = useThemeSets(initialStyles.pageTheme);
     useAccentColourSet(initialStyles.brandColor);
     useFontFamilySet(initialStyles.fontFamily);

@@ -1,8 +1,22 @@
+import getPageSets from "@/app/actions/getPageSets";
 import CategoriesControl from "@/app/components/DishesGrid/CategoriesControl";
 import { useTranslations } from "next-intl";
+import { use } from "react";
+import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
+
+
+export type PageSetsTypes = {
+    pageTheme: "light"|"dark",
+    brandColor: string,
+    fontFamily: string,
+    fontSize: string,
+    fontVolume: string,
+}
 
 
 export default function MenuPage() {
+
+    const pageSets: PageSetsTypes = use(getPageSets());
 
     const menuCategories = useTranslations("UserMenuPage.categories");
 
@@ -16,6 +30,9 @@ export default function MenuPage() {
     ] as const;
 
     return (
-        <CategoriesControl categories={categories} />
+        <>
+            <CategoriesControl categories={categories} />
+            <LocalStorageStyles {...pageSets} />
+        </>
     );
 }

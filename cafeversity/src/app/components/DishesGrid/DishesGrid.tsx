@@ -70,15 +70,16 @@ export default function DishesGrid({ categotyName }: { categotyName: string }) {
         <div style={{ 
             display: 'grid', 
             gridTemplateColumns: 'repeat(auto-fill, minmax(21vw, 1fr))',
-            gap: '1rem',
-            padding: '0 1rem'
+            gap: '3rem',
+            padding: '0 1rem',
+            marginBottom: "1.5rem",
         }}>
             {dishes.map((dish) => (
                 <div key={dish.id} style={{
                     display: "flex", flexDirection: "column",
                     width: 'fit-content', height: 'fit-content',
                     borderRadius: "1.5rem", backgroundColor: "lightgray",
-                    filter: brightness.includes(dish.id) ? "brightness(0.8)" : "brightness(1)",
+                    filter: brightness.includes(dish.id) ? "brightness(0.85)" : "brightness(1)",
                     cursor: brightness.includes(dish.id) ? "pointer" : "auto",
                     position: "relative"
                 }}
@@ -93,7 +94,7 @@ export default function DishesGrid({ categotyName }: { categotyName: string }) {
                     }}>
                         <IconInfoSquareRoundedFilled
                             style={{
-                                height: "5rem", width: "5rem", color: "rgb(0, 140, 255)",
+                                height: "5rem", width: "5rem", color: "var(--menu-category-dish-info-icon)",
                                 visibility: brightness.includes(dish.id) ? "visible" : "hidden"
                             }}
                         />

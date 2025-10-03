@@ -1,12 +1,15 @@
 import { use } from "react";
 import { DishShortInfo } from "../../@modal/(.)menu/[foodID]/page";
 import CardImage from "@/components/CardParts/CardImage";
-import { IconArrowNarrowRight, IconCheck, IconFeatherFilled, IconMeat, IconMilk, IconX } from "@tabler/icons-react";
+import { IconArrowNarrowRight, IconCheck, IconFeatherFilled, IconMeat, IconMilk, IconX, IconSunrise, IconSunHigh, IconSunset } from "@tabler/icons-react";
 import IngredientsChart from "@/app/components/IngredientsChart/IngredientsChart";
 import AroundImage from "@/app/components/AroundImage/AroundImage";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/ReactToastify.css";
 import { useTranslations } from "next-intl";
+import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
+import { PageSetsTypes } from "../page";
+import getPageSets from "@/app/actions/getPageSets";
 
 
 type DishFullInfo = DishShortInfo & {
@@ -32,6 +35,7 @@ async function fetchData(params: { authorizedUser: string, foodID: string }) {
 export default function DishFullDetails({ params }: { params: { authorizedUser: string, foodID: string } }) {
 
     const dishFull: DishFullInfo = use(fetchData(params));
+    const pageSets: PageSetsTypes = use(getPageSets());
 
     const choisenDish = useTranslations("UserChoisenDishPage");
     
@@ -76,9 +80,42 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
     }
 
     const tasties = [
-        { idKey: "spicyTaste", icon: '🌶️', text: `(${choisenDish("diets.spicy")}?)`, value: dishFull.spicy },
-        { idKey: "vegetTaste", icon: '🌿', text: `(${choisenDish("diets.veget")}?)`, value: dishFull.vegetarian },
-        { idKey: "veganTaste", icon: '🌱', text: `(${choisenDish("diets.vegan")}?)`, value: dishFull.vegan }
+        { idKey: "spicyTaste", icon: '🌶️', text: choisenDish("diets.spicy"), value: dishFull.spicy },
+        { idKey: "vegetTaste", icon: '🌿', text: choisenDish("diets.veget"), value: dishFull.vegetarian },
+        { idKey: "veganTaste", icon: '🌱', text: choisenDish("diets.vegan"), value: dishFull.vegan }
+    ];
+
+    const mealsTypes = [
+        {
+            idKey: "snedak",
+            icon: <IconSunrise style={{
+                height: "2.5rem", width: "2.5rem",
+                color: "orange", outline: "3px solid orange",
+                padding: "1rem", borderRadius: "50%"
+            }} />,
+            text: choisenDish("meals.snedak"),
+            name: "Снедак"
+        },
+        {
+            idKey: "abed",
+            icon: <IconSunHigh style={{
+                height: "2.5rem", width: "2.5rem",
+                color: "gold", outline: "3px solid gold",
+                padding: "1rem", borderRadius: "50%"
+            }} />,
+            text: choisenDish("meals.abed"),
+            name: "Абед"
+        },
+        {
+            idKey: "vjachera",
+            icon: <IconSunset style={{
+                height: "2.5rem", width: "2.5rem",
+                color: "orangered", outline: "3px solid orangered",
+                padding: "1rem", borderRadius: "50%"
+            }} />,
+            text: choisenDish("meals.vjachera"),
+            name: "Вячэра"
+        }
     ];
 
     return (
@@ -91,11 +128,11 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                 </div>
             </AroundImage>
             <div style={{
-                backgroundColor: "#f5f5f550", backdropFilter: "blur(4px)", position: "absolute", width: "100%", top: "25vh",
+                backgroundColor: "#5f5f5f50", backdropFilter: "blur(4px)", position: "absolute", width: "100%", top: "25vh",
                 borderTopLeftRadius: "2.5rem", borderTopRightRadius: "2.5rem", boxShadow: "inset 0px 0px 15px -10px rgba(66, 68, 90, 1)",
             }}>
                 <p style={{
-                    fontSize: "5rem", fontWeight: "700", textAlign: "center", color: "wheat",
+                    fontSize: "5rem", fontWeight: "700", textAlign: "center", color: "var(--full-info-dish-name)",
                     marginTop: "1.5rem", marginBottom: "1.5rem"
                 }}>
                     {dishFull.food_name}
@@ -146,7 +183,7 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                 {tasties.map(taste =>
                     <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem" }} key={taste.idKey}>
                         <p style={{ margin: 0, fontSize: "3rem" }}>{taste.icon}</p>
-                        <p style={{ fontSize: "2rem", fontWeight: 400 }}>{taste.text}</p>
+                        <p style={{ fontSize: "2rem", fontWeight: 400, textDecoration: "underline" }}>{taste.text}</p>
                         <IconArrowNarrowRight />
                         {taste.value ?
                             <IconCheck style={{ height: "3.75rem", width: "3.75rem", color: "white", padding: "0.1rem", borderRadius: "50%", backgroundColor: "green" }} />
@@ -156,8 +193,24 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                     </div>
                 )}
                 </div>
-                <ToastContainer />
+                <div style={{ marginBottom: "1rem", paddingTop: "2rem" }}>
+                    <p style={{ fontSize: "2rem", textAlign: "center", margin: 0, marginTop: "1rem", marginBottom: "1rem" }}>
+                        {choisenDish("mealSentence")}
+                    </p>
+                    <div style={{ display: "flex", alignItems: "center", justifyContent: "space-around" }}>
+                    {mealsTypes.map(meal =>
+                        dishFull.meal.includes(meal.name)
+                        &&
+                        <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem" }} key={meal.idKey}>
+                            {meal.icon}
+                            <p style={{ fontSize: "1.8rem", textDecoration: "underline" }}>{meal.text}</p>
+                        </div>
+                    )}
+                    </div>
+                </div>
             </div>
+            <ToastContainer />
+            <LocalStorageStyles {...pageSets} />
         </div>
     );
 }

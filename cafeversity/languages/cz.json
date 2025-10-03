@@ -348,6 +348,12 @@
             "spicy": "Pikantní",
             "veget": "Vegetariánské",
             "vegan": "Veganské"
+        },
+        "mealSentence": "Častější (používané):",
+        "meals": {
+            "snedak": "Snídaně",
+            "abed": "Oběd",
+            "vjachera": "Večeře"
         }
     },
     "ExitPage": {

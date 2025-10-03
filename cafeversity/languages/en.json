@@ -348,6 +348,12 @@
             "spicy": "Spicy",
             "veget": "Vegetarian",
             "vegan": "Vegan"
+        },
+        "mealSentence": "More common (consumed):",
+        "meals": {
+            "snedak": "Breakfast",
+            "abed": "Lunch",
+            "vjachera": "Dinner"
         }
     },
     "ExitPage": {

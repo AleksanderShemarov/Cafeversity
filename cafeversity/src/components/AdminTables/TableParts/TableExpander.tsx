@@ -326,7 +326,6 @@ const TableRowExpander = <T extends { id: number }>({
             backgroundColor: "#f9f9f9",
             margin: "0.5rem 0"
         }}>
-            {/* Форма с полями в несколько колонок */}
             <form 
                 ref={formRef}
                 onSubmit={handleSubmit}
@@ -351,7 +350,7 @@ const TableRowExpander = <T extends { id: number }>({
                                 backgroundColor: "white",
                                 borderRadius: "0.5rem",
                                 border: "1px solid #ddd",
-                                gridColumn: "1 / -1" // Чекбоксы на всю ширину
+                                gridColumn: "1 / -1"
                             }}>
                                 <label htmlFor={fieldName} style={{ 
                                     fontSize: "1.4rem", 
@@ -428,7 +427,6 @@ const TableRowExpander = <T extends { id: number }>({
                 })}
             </form>
 
-            {/* Кнопки отдельно от формы */}
             <div style={{
                 display: "flex",
                 gap: "1rem",
@@ -473,7 +471,7 @@ const TableRowExpander = <T extends { id: number }>({
                 </button>
                 
                 <button 
-                    type="button" // Изменено на type="button", но привязано к форме
+                    type="button"
                     onClick={() => formRef.current?.requestSubmit()}
                     style={{
                         padding: "0.75rem 1.5rem",

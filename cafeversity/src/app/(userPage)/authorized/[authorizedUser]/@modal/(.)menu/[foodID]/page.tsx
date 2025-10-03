@@ -76,17 +76,17 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
                             <p style={{ fontSize: "1.5rem", margin: 0 }}>{dishShortInfoView("nutritions.carbo")}</p>
                         </div>
                     </div>
-                    <HorizontalLine cssProps={{ border: "1px solid black", marginTop: "0.5rem", marginBottom: "0.5rem" }} />
+                    <HorizontalLine cssProps={{ border: "1px solid var(--short-info-horizontal-line-color)", marginTop: "0.5rem", marginBottom: "0.5rem" }} />
                     <div style={{ display: "flex", alignItems: "center", gap: "2rem" }}>
                         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1rem", marginBottom: "1rem" }}>
-                            <IconToolsKitchen2 style={{ height: "2rem", width: "2rem", color: "black" }} />
+                            <IconToolsKitchen2 style={{ height: "2rem", width: "2rem", color: "var(--short-info-icon-color)" }} />
                             <div>
                                 <p style={{ fontSize: "2rem", margin: 0 }}>{dishShort.food_portion} {dishShortInfoView("nutritions.weightName")}</p>
                                 <p style={{ fontSize: "1.2rem", margin: 0 }}>{dishShortInfoView("portion")}</p>
                             </div>
                         </div>
                         <div style={{ display: "flex", alignItems: "center", gap: "1rem", marginTop: "1rem", marginBottom: "1rem" }}>
-                            <IconBasketDollar style={{ height: "2rem", width: "2rem", color: "black" }} />
+                            <IconBasketDollar style={{ height: "2rem", width: "2rem", color: "var(--short-info-icon-color)" }} />
                             <div>
                                 <p style={{ fontSize: "2rem", margin: 0 }}>{dishShort.cost} BYN</p>
                                 <p style={{ fontSize: "1.2rem", margin: 0 }}>{dishShortInfoView("cost")}</p>
@@ -97,28 +97,27 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
             </div>
             <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "2rem", marginLeft: "4rem", marginBottom: "1rem" }}>
                 {dishShort.dishTypeId === 6
-                ? <IconMug style={{ height: "3.5rem", width: "3.5rem", color: "black" }} />
-                : <IconBowlChopsticks style={{ height: "3.5rem", width: "3.5rem", color: "black" }} />}
+                ? <IconMug style={{ height: "3.5rem", width: "3.5rem", color: "var(--short-info-icon-color)" }} />
+                : <IconBowlChopsticks style={{ height: "3.5rem", width: "3.5rem", color: "var(--short-info-icon-color)" }} />}
                 <CardTitle title={dishShort.food_name} style={{
                     fontSize: "3.5rem", fontWeight: 600,
-                    color: "black", padding: "0.5rem",
+                    color: "var(--text-color)", padding: "0.5rem",
                     textAlign: "left"
                 }} />
             </div>
             <div style={{ marginLeft: "4rem", marginRight: "4rem" }}>
                 <div style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", gap: "3rem" }}>
-                    <IconListDetails style={{ height: "4rem", width: "4rem", color: "black" }} />
+                    <IconListDetails style={{ height: "4rem", width: "4rem", color: "var(--short-info-icon-color)" }} />
                     <div>
                         <CardTitle title={dishShortInfoView("composition")} style={{
                             fontSize: "2.5rem", fontWeight: 400,
-                            color: "black", textAlign: "left"
+                            color: "var(--text-color)", textAlign: "left"
                         }} />
-                        <p style={{ marginTop: "1rem", fontSize: "1.8rem", color: "black" }}>
+                        <p style={{ marginTop: "1rem", fontSize: "1.8rem", color: "var(--text-color)" }}>
                             {dishShort.includes}.
                         </p>
                     </div>
                 </div>
-                
             </div>
         </>
     );
