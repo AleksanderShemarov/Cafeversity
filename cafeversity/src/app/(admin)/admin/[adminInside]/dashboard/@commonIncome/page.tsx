@@ -13,7 +13,6 @@ const NivoChart = dynamic(
 
 export default function CommonIncome() {
 
-    // Record<string, number> === { [key: string]: number }
     const cafesIncomes: Record<string, number> = {
         "Кафэ Гэрадоту": 400,
         "Кафэ Эдгара Кодду": 200,
