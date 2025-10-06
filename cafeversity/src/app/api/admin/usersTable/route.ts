@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { NextRequest, NextResponse } from "next/server";
 import prisma from "../../../../../lib/utils/prismaClient";
 
@@ -7,7 +8,7 @@ const GET = async (request: NextRequest) => {
         const searchParams = new URL(request.url).searchParams;
         const page = searchParams.get("page");
 
-        if (page === "dashboard/panel") {
+        if (page === "usersPanel") {
             const users = await prisma.users.findMany({
                 include: {
                     customSets: { select: { id: true } }
@@ -41,15 +42,33 @@ const PATCH = async (request: Request) => {
     try {
         const { id, updatedRow } = await request.json();
 
-        const serializedUpdatedRow = {
-            ...updatedRow,
-            customSets: updatedRow.customSets
-            && { 
-                connect: {
-                    id: updatedRow.customSets
-                }
+        // const serializedUpdatedRow = {
+        //     ...updatedRow,
+        //     customSets: updatedRow.customSets
+        //     && { 
+        //         connect: {
+        //             id: updatedRow.customSets
+        //         }
+        //     }
+        // };
+
+        const cleanUpdatedRow = (data: any) => {
+            const cleaned: any = { ...data };
+            
+            if (cleaned.customSets) {
+                cleaned.customSets = { 
+                    connect: { id: cleaned.customSets }
+                };
             }
+            
+            if (cleaned.resetTokenExpiry === "") {
+                cleaned.resetTokenExpiry = null;
+            }
+            
+            return cleaned;
         };
+
+        const serializedUpdatedRow = cleanUpdatedRow(updatedRow);
 
         const result: boolean = await prisma.$transaction(async (tx) => {
             const user = await tx.users.findUnique({

@@ -4,7 +4,7 @@ import { hashPassword } from "../../../../lib/utils/passwordUtils";
 
 
 const POST = async (request: Request) => {
-    const { firstName, lastName, nickName, email, password } = await request.json();
+    const { firstName, lastName, nickName, email, lang, password } = await request.json();
     
     const searchParams = new URL(request.url).searchParams;
     const page = searchParams.get("page");
@@ -59,6 +59,7 @@ const POST = async (request: Request) => {
         await prisma.customSets.create({
             data: {
                 userId: user.id,
+                language: lang
             }
         });
     });

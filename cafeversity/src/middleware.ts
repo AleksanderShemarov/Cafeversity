@@ -3,8 +3,8 @@ import type { NextRequest } from "next/server";
 import createIntlMiddleware from "next-intl/middleware";//
 
 
-const publicLocales = [ "by", "cz", "en" ];//
-const defaultLocale = "by";//
+const publicLocales = [ "by", "cz", "en", "pl", "ru", "tr", "ua" ];//!!!
+const defaultLocale = "by";//!!!
 
 
 // function checkAuthorizedPath (pathname: string): boolean {
@@ -72,7 +72,7 @@ export async function middleware(request: NextRequest) {
 
     const { pathname } = request.nextUrl;
 
-    if (pathname.match(/^\/(by|cz|en)(\/|$)/)) {
+    if (pathname.match(/^\/(by|cz|en|pl|ru|tr|ua)(\/|$)/)) {//!!!
         // console.log("Local found! -->", pathname);
         return intlMiddleware(request);
     }

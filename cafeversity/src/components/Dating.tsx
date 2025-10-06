@@ -3,6 +3,7 @@
 import styles from '@/app/(commonSite)/[locale]/page.module.css';
 import { useState, useEffect } from 'react';
 import { useTranslations } from 'next-intl';
+import Image from 'next/image';
 
 
 export default function Dating () {
@@ -33,9 +34,41 @@ export default function Dating () {
     )
 }
 
+
+interface WeatherData {
+    temperature: number,
+    condition: string,
+    icon: string,
+    humidity: number,
+    wind: number,
+    location: string
+}
+
+
 export function WeatherWeekday() {
 
     const weatherWeekday = useTranslations("HeaderComponents");
+
+    const [weatherForecast, setWeatherForecast] = useState<WeatherData|null>(null);
+    const [loading, setLoading] = useState(true);
+
+    async function fetchWeather() {
+        setLoading(true);
+
+        const response = await fetch("http://localhost:3000/api/weatherForecast", { cache: "no-store" });
+        const result = await response.json();
+        setWeatherForecast(result.data);
+
+        setLoading(false);
+    }
+
+    useEffect(() => {
+        fetchWeather();
+
+        const interval = setInterval(fetchWeather, 15 * 60 * 1000);
+
+        return () => clearInterval(interval);
+    }, []);
 
     const [date, setDate] = useState(new Date());
     const weekdays : string[] = [
@@ -57,9 +90,22 @@ export function WeatherWeekday() {
     }, [date]);
 
     return (
-        <div id={styles.weather_line}>
-            <p id={styles.weather_degrees}>+22&#176;C, {weekdays[date.getDay()]}</p>
+        <div id={styles.weather}>
+            <div>
+                {loading
+                ? <Image src="/no_image1.jpg" alt="no_image1" width={20} height={20} />
+                : <Image src={`http:${weatherForecast?.icon}`} alt={`${weatherForecast?.condition}`} width={64} height={64} />
+                }
+            </div>
+            <div id={styles.weather_line}>
+                {loading
+                ? <p id={styles.weather_degrees}>... {weekdays[date.getDay()]}</p>
+                : <p id={styles.weather_degrees}>
+                    {weatherForecast!.temperature > 0 ? "+" : ""}
+                    {Math.round(weatherForecast!.temperature)}&#176;C, {weekdays[date.getDay()]}
+                </p>
+                }
+            </div>
         </div>
     )
-
 }

@@ -1,8 +1,12 @@
 import React, { Suspense } from "react";
 import LoadingDishesTypes from "./loading";
+import { useTranslations } from "next-intl";
 
 
 export default function DishesTypesLayout({ children }: { children: React.ReactNode }) {
+    
+    const chartName = useTranslations("AdminDashboard.ChartsNames");
+    
     return (
         <>
             <div>
@@ -12,7 +16,7 @@ export default function DishesTypesLayout({ children }: { children: React.ReactN
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    DishesTypes Component
+                    {chartName("chart3")}
                 </p>
             </div>
 

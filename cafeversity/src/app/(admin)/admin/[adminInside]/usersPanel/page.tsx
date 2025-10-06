@@ -18,7 +18,7 @@ export type UsersTableTypes = {
 
 
 async function fetchData() {
-    const response = await fetch("http://localhost:3000/api/admin/usersTable?page=dashboard/panel", { cache: "no-store" });
+    const response = await fetch("http://localhost:3000/api/admin/usersTable?page=usersPanel", { cache: "no-store" });
     if (!response.ok) {
         throw new Error('Failed to fetch data');
     }

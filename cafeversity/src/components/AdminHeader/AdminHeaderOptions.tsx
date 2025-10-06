@@ -1,11 +1,12 @@
 "use client";
 
-import { forwardRef, useState } from "react";
+import { forwardRef, ForwardRefExoticComponent, RefAttributes, useState } from "react";
 import ImageContainer from "../ImageEditor/ImageContainer";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Icon, IconClipboardText, IconCoffee, IconDumpling, IconProps } from "@tabler/icons-react";
 
 
 interface AdminHeaderOptionsProps {
@@ -22,12 +23,12 @@ const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
 
         const [isHoveredItem, setIsHoveredItem] = useState<number|null>(null);
 
-        const pageNames: { id: number, text: string, icon: string, url: string }[] = [
+        const pageNames: { id: number, text: string, icon: string|ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>, url: string }[] = [
             { id: 1, text: adminHeaderOptions("AdminHeaderOptions.dashboard"), icon: "/dashboard_icon.jpg", url: `${page.slice(0, page.lastIndexOf("/"))}/dashboard` },
-            { id: 2, text: adminHeaderOptions("AdminHeaderOptions.usersPanel"), icon: "/users_icon.png", url: `${page.slice(0, page.lastIndexOf("/"))}/panel` },
-            { id: 3, text: "Another Panel #2", icon: "/menu_list_icon.webp", url: "#" },
-            { id: 4, text: "Another Panel #3", icon: "/menu_list_icon.webp", url: "#" },
-            { id: 5, text: "Another Panel #4", icon: "/menu_list_icon.webp", url: "#" },
+            { id: 2, text: adminHeaderOptions("AdminHeaderOptions.usersPanel"), icon: "/users_icon.png", url: `${page.slice(0, page.lastIndexOf("/"))}/usersPanel` },
+            { id: 3, text: adminHeaderOptions("AdminHeaderOptions.cafesPanel"), icon: IconCoffee, url: `${page.slice(0, page.lastIndexOf("/"))}/cafesPanel` },
+            { id: 4, text: adminHeaderOptions("AdminHeaderOptions.dishesPanel"), icon: IconDumpling, url: `${page.slice(0, page.lastIndexOf("/"))}/dishesPanel` },
+            { id: 5, text: adminHeaderOptions("AdminHeaderOptions.ordersPanel"), icon: IconClipboardText, url: `${page.slice(0, page.lastIndexOf("/"))}/ordersPanel` },
         ];
 
         return (
@@ -74,6 +75,8 @@ const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
                                             position: "absolute"
                                         }}
                                     >
+                                        {typeof pageName.icon === "string"
+                                        ?
                                         <ImageContainer img_path={pageName.icon}
                                             style={{
                                                 height: "90%", width: "90%",
@@ -83,6 +86,18 @@ const AdminHeaderOptions = forwardRef<HTMLDivElement, AdminHeaderOptionsProps>(
                                                 backgroundColor: "whitesmoke"
                                             }}
                                         />
+                                        :
+                                        <div style={{
+                                            // height: "90%", width: "100%",
+                                            marginTop: 0, marginBottom: 0,
+                                            margin: "0 auto",
+                                            boxShadow: "wheat 0 0 2px 3px",
+                                            backgroundColor: "whitesmoke",
+                                            borderRadius: "50%",
+                                        }}>
+                                            <pageName.icon style={{ height: "5rem", width: "5rem", color: "black" }} />
+                                        </div>
+                                        }
                                     </motion.div>
                                     <motion.p
                                         initial={false}

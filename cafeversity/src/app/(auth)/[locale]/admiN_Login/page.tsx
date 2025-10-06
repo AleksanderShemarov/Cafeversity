@@ -25,12 +25,16 @@ export default function AdminLogin() {
 
     const [enableReg, setEnableReg] = useState<boolean>(false);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
         reactHook(event.target.value);
     }
 
     const AdminLoggingIn = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        setLoading(true);
 
         const formFields = {
             firstName: name,
@@ -54,7 +58,10 @@ export default function AdminLogin() {
                 sessionStorage.setItem("admin-id", JSON.stringify(data?.adminId));
                 window.location.href = `/${pathname.split("/")[1]}/${data?.redirect}`;
             }
-            if (data.status === "Error") toast.error(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
+            if (data.status === "Error") {
+                toast.error(data.message, { position: "top-center", style: { fontSize: "1.8rem" } });
+                setLoading(false);
+            }
         })
         .catch((error) => console.error(error));
     }
@@ -64,56 +71,71 @@ export default function AdminLogin() {
             setPasswordStyle({});
             setEnableReg(false);
         } else {
-            setPasswordStyle({ outline: "2px solid green" });
+            // setPasswordStyle({ outline: "2px solid green" });
             setEnableReg(true);
         }
     }, [password, name, surname, email]);
 
     return (
-        <>
-            <form action="" method="post" id={styles.loginForm} onSubmit={AdminLoggingIn}>
-                <p id={styles.formTitle}>{adminLogin("titles.adminGate")}</p>
-                
-                <TextFormField
-                    label={adminLogin("fields.nameField.name")}
-                    inputName="firstName"
-                    styleId={styles.firstname}
-                    placeholder={adminLogin("fields.nameField.placeholder")}
-                    value={name}
-                    onChange={(e) => valueChange(e, setName)}
-                />
+        <form action="" method="post" id={styles.loginForm} onSubmit={AdminLoggingIn}>
+            <p id={styles.formTitle}>{adminLogin("titles.adminGate")}</p>
+            
+            <TextFormField
+                label={adminLogin("fields.nameField.name")}
+                inputName="firstName"
+                styleId={styles.firstname}
+                placeholder={adminLogin("fields.nameField.placeholder")}
+                value={name}
+                onChange={(e) => valueChange(e, setName)}
+            />
 
-                <TextFormField
-                    label={adminLogin("fields.surnameField.name")}
-                    inputName="lastName"
-                    styleId={styles.lastname}
-                    placeholder={adminLogin("fields.surnameField.placeholder")}
-                    value={surname}
-                    onChange={(e) => valueChange(e, setSurname)}
-                />
+            <TextFormField
+                label={adminLogin("fields.surnameField.name")}
+                inputName="lastName"
+                styleId={styles.lastname}
+                placeholder={adminLogin("fields.surnameField.placeholder")}
+                value={surname}
+                onChange={(e) => valueChange(e, setSurname)}
+            />
 
-                <TextFormField
-                    label={adminLogin("fields.emailField.name")}
-                    inputType="email"
-                    inputName="eMail"
-                    styleId={styles.eMail}
-                    placeholder={adminLogin("fields.emailField.namedPlaceholder")}
-                    value={email}
-                    onChange={(e) => valueChange(e, setEmail)}
-                />
+            <TextFormField
+                label={adminLogin("fields.emailField.name")}
+                inputType="email"
+                inputName="eMail"
+                styleId={styles.eMail}
+                placeholder={adminLogin("fields.emailField.namedPlaceholder")}
+                value={email}
+                onChange={(e) => valueChange(e, setEmail)}
+            />
 
-                <TextFormField
-                    label={adminLogin("fields.passwordField.name")}
-                    inputType="password"
-                    inputName="password"
-                    styleId={styles.password_again}
-                    placeholder={adminLogin("fields.passwordField.placeholder")}
-                    value={password}
-                    onChange={(e) => valueChange(e, setPassword)}
-                    style={passwordStyle}
-                />
+            <TextFormField
+                label={adminLogin("fields.passwordField.name")}
+                inputType="password"
+                inputName="password"
+                styleId={styles.password_again}
+                placeholder={adminLogin("fields.passwordField.placeholder")}
+                value={password}
+                onChange={(e) => valueChange(e, setPassword)}
+                style={passwordStyle}
+            />
 
-                <div className={styles.formButtons}>
+            <div className={styles.formButtons}>
+                {loading ? (
+                    <button type="button" disabled style={{
+                        height: "35px", minWidth: "105px", fontSize: "20px", borderRadius: "10px",
+                        display: "flex", alignItems: "center", justifyContent: "center",
+                        outline: "3px solid blue", color: "blue", backgroundColor: "white",
+                    }}>
+                        <div style={{ 
+                            width: "2rem", 
+                            height: "2rem", 
+                            border: "2px solid transparent",
+                            borderTop: "2px solid currentColor",
+                            borderRadius: "50%",
+                            animation: "spin 1s linear infinite"
+                        }} />
+                    </button>
+                ) : (
                     <button
                         id={styles.submitButton}
                         type="submit"
@@ -128,11 +150,18 @@ export default function AdminLogin() {
                     >
                         {adminLogin("buttons.logIn")}
                     </button>
-                    <Link href={pathname.slice(0, 3)}>
-                        <input type="button" value={adminLogin("buttons.exit")} id={styles.closeButton} />
-                    </Link>
-                </div>
-            </form>
-        </>
+                )}
+                <Link href={pathname.slice(0, 3)}>
+                    <input type="button" value={adminLogin("buttons.exit")} id={styles.closeButton} />
+                </Link>
+            </div>
+
+            <style jsx>{`
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
+        </form>
     );
 }

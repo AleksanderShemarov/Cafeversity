@@ -1,0 +1,513 @@
+{
+    "HeaderComponents": {
+        "WeatherWeekday": {
+            "weekdays": {
+                "sun": "Вс",
+                "mon": "Пн",
+                "tue": "Вт",
+                "wed": "Ср",
+                "thu": "Чт",
+                "fri": "Пт",
+                "sat": "Сб"
+            }
+        },
+        "Dating": {
+            "months": {
+                "jan": "Январь",
+                "feb": "Февраль",
+                "mar": "Март",
+                "apr": "Апрель",
+                "may": "Май",
+                "jun": "Июнь",
+                "jul": "Июль",
+                "aug": "Август",
+                "sep": "Сентябрь",
+                "oct": "Октябрь",
+                "nov": "Ноябрь",
+                "dec": "Декабрь"
+            }
+        },
+        "Entrance": "Войти"
+    },
+    "GreetingPage": {
+        "slidesText": {
+            "slide1": {
+                "line1": "Разнообразные блюда белорусской кухни.",
+                "line2": "Возможность настроить блюда под типы диет.",
+                "line3": "Актуальные блюда в подробностях."
+            },
+            "slide2": {
+                "line4": "Все блюда со всех точек питания в одном окне.",
+                "line5": "Делайте заказы и выбирайте лучшее для Вас время прихода.",
+                "line6": "Загляните в каталог блюд, чтобы выбрать понравившиеся."
+            },
+            "slide3": {
+                "line7": "Приготовление блюд соответствует высшим гигиеническим нормам.",
+                "line8": "Соответствие ожиданий и реальности на всё 100 процентов.",
+                "line9": "Качественные продукты для приготовления блюд и чудесные вкусы."
+            }
+        },
+        "bottomButtons": {
+            "left": "Сегодняшние Блюда",
+            "right": "Мир Кухни"
+        }
+    },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Закрыть Калькулятор",
+            "open": "Открыть Калькулятор",
+            "calcName": "Счётчик Блюд",
+            "foodName": "Имя блюда",
+            "portion": "Кол-во порций",
+            "cost": "Цена",
+            "cancel": "Отмена",
+            "tipForUse": "Чтобы добавить блюдо в калькулятор, нажмите на его стоимость.",
+            "notification": "Уведомление",
+            "costSum": "Общая стоимость"
+        },
+        "bottomButtons": {
+            "left": "Главная Страница",
+            "right": "Мир Кухни"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Поиск...",
+            "searchLineTip": "Введите здесь свой запрос!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Best Recipe",
+            "food&peopleSubLink": "Food & People",
+            "foodEventsSublink": "Food Events"
+        },
+        "bottomButtons": {
+            "left": "Сегодняшние Блюда",
+            "right": "Главная Страница"
+        }
+    },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Восстановление Пароля",
+            "accessUpdate": "Восстановление Доступа",
+            "registration": "Регистрация",
+            "enterGate": "Вход",
+            "adminGate": "Вход Администратора",
+            "adminReg": "Регистрация Администратора",
+            "codeConfirmation": "Подтверждение Входа"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "На Ваш адрес электронной почты '",
+                "part2": "' было отправлено письмо с специальным кодом для подтверждения входа как администратор."
+            }
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Пароль",
+                "nameNew": "Новый Пароль",
+                "repeatName": "Повторите Пароль",
+                "placeholder": "Кодовое Слово"
+            },
+            "emailField": {
+                "name": "E-почта",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Speranskiy@gmail.com"
+            },
+            "nameField": {
+                "name": "Имя",
+                "placeholder": "Михаил"
+            },
+            "surnameField": {
+                "name": "Фамилия",
+                "placeholder": "Сперанский"
+            },
+            "nicknameField": {
+                "name": "Псевдоним",
+                "placeholder": "Путешественник"
+            },
+            "unknownwordField": {
+                "name": "Секретное Слово",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Номер Мобильного Телефона",
+                "placeholder": "+7(**)***-**-**"
+            },
+            "emailCodeConfirmField": {
+                "name": "Код Подтверждения (****-*****-****)",
+                "placeholder": "****-***-****"
+            },
+            "otherNames": {
+                "adminRole": "Роль Администратора",
+                "language": "Язык"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Сменить Пароль",
+            "enterGate": "Ко Входу",
+            "send": "Отправить",
+            "mainPage": "На Главную Страницу",
+            "signUp": "Регистрация",
+            "exit": "Выход",
+            "logIn": "Войти",
+            "back": "Назад",
+            "confirm": "Подтверждение",
+            "adminEntrance": "Ко Входу Администратора"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "Извените, пожалуйста, однако время действия ссылки уже окончилось. Чтобы затребовать новую, нажмите ",
+                "part2": "здесь"
+            },
+            "toSignUp": {
+                "part1": "Ещё не зарегистрировались? Пожалуйста, нажмите ",
+                "part2": "здесь"
+            },
+            "rememberedPassword": {
+                "part1": "Уже вспомнили свой пароль?",
+                "part2": "Переходите сюда"
+            },
+            "alreadySinedUp": {
+                "part1": "Уже зарегистрировались – пожалуйста, ",
+                "part2": "сюда"
+            },
+            "forgottenPassword": {
+                "part1": "Если забыли пароль, перейдите ",
+                "part2": "сюда"
+            }
+        },
+        "others": {
+            "loading": "Загрузка...",
+            "networks": "Вход с помощью сетей"
+        }
+    },
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Меню",
+            "main": "Главная",
+            "news": "Новости",
+            "settings": "Настройки Аккаунта"
+        },
+        "dishesBlocks": {
+            "favourite": "Понравившиеся Блюда",
+            "todays": "Сегодняшние Блюда"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Удаление Понравившегося Блюда",
+            "question": "Вы хотите на самом деле удалить блюдо из списка понравившихся?",
+            "yes": "Да",
+            "no": "Нет"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Оформить Заказ",
+                "opened": "Закрыть Окно Заказа"
+            },
+            "name": "Текущий Заказ",
+            "positions": {
+                "one": "позиция",
+                "afew": "позиции",
+                "more": "позиций"
+            },
+            "available": "Доступно",
+            "noDishes": "Не выбрано ни одного блюда",
+            "cafeChoice": {
+                "name": "Выбор Кафе",
+                "placeholder": {
+                    "noDish": "Сначала выберите блюда",
+                    "anyDish": "Выбрать Кафе"
+                }
+            },
+            "timeChoice": {
+                "name": "Выбор Времени",
+                "placeholder": {
+                    "noTimes": "Сначала выберите кафе",
+                    "anyTimes": "Выбрать Время"
+                }
+            },
+            "telephone": {
+                "name": "Tел.:",
+                "placeholder": "+7 (**) ***-**-**"
+            },
+            "comment": "Комментарий...",
+            "submit": "Подтвердить",
+            "tabs": {
+                "newOrder": "Новый Заказ",
+                "orderHistory": "История Заказов"
+            },
+            "historyTitle": "Предыдущие Заказы"
+        },
+        "exitButton": {
+            "name": "Выход",
+            "question": "Вы на самом деле хотите выйти?",
+            "access": "Да",
+            "deny": "Нет"
+        }
+    },
+    "SettingsPage": {
+        "stickyNavbar": {
+            "name": "Настройки Аккаунта",
+            "part1": "Общие Настройки",
+            "part2": "Вкусы & Телесная Конституция",
+            "part3": "Внешний Вид Страницы"
+        },
+        "firstSetsPart": {
+            "name": "Общие Настройки",
+            "photoEditor": {
+                "name": "Редактор Фотографии Пользователя",
+                "changePhotoButton": "Изменить Фото",
+                "deletePhotoButton": "Удалить Фото"
+            },
+            "input1": "Имя",
+            "input2": "Фамилия",
+            "input3": "Псевдоним",
+            "cancelButton": "Отмена",
+            "saveButtonType1": "Изменить",
+            "saveButtonType2": "Сохранить",
+            "changesDialog": {
+                "mainQuestion1": "Вы согласны со внесёнными изменениями?",
+                "mainQuestion2": "Вы хотите отменить изменения?",
+                "accessButton": "Да",
+                "denyButton": "Нет"
+            },
+            "updatedSetsSaving": "Сохранить изменения в работе веб-страниц?"
+        },
+        "secondSetsPart": {
+            "name": "Вкусы & Телесная Конституция",
+            "subtitle1": {
+                "name": "Выберите свои предпочтения",
+                "preferQuestion1": "Хотите ли Вы острые блюда?",
+                "preferQuestion2": "Предпочитаете ли Вы вегетарианские блюда?",
+                "preferQuestion3": "Вы веган?"
+            },
+            "subtitle2": {
+                "name": "Среднее количество калорий в день",
+                "mainQuestion": "Сколько калорий Вы хотите получать в день?"
+            } 
+        },
+        "thirdSetsPart": {
+            "name": "Внешний Вид Страницы",
+            "subtitle1": {
+                "name": "Язык",
+                "mainQuestion": "Выберите свой язык: "
+            },
+            "subtitle2": {
+                "name": "Режимы Страницы",
+                "mainQuestion": "Настройте цветовой режим",
+                "lightTheme": "Светлый",
+                "darkTheme": "Тёмный"
+            },
+            "subtitle3": {
+                "name": "Цвета Выделения",
+                "mainQuestion": "Выберите один из цветов"
+            },
+            "subtitle4": {
+                "name": "Настройки Шрифта",
+                "fontQuestion1": "Выберите Семейство Шрифтов",
+                "fontQuestion2": "Выберите Размер Шрифта",
+                "fontQuestion3": "Выберите Толщину Шрифта"
+            }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Салаты",
+            "soup": "Супы",
+            "main": "Горячие Блюда",
+            "dessert": "Десерты",
+            "drink": "Напитки"
+        },
+        "loading": "Загрузка блюд...",
+        "noDishes": "Ниодного блюда в данной категории"
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Белки",
+            "fats": "Жиры",
+            "carbo": "Углеводы",
+            "weightName": "г."
+        },
+        "portion": "Порция",
+        "cost": "Цена",
+        "composition": "Состав",
+        "buttons": {
+            "back": "Назад",
+            "more": "Больше..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Белки",
+            "fats": "Жиры",
+            "carbo": "Углеводы",
+            "weightName": "г."
+        },
+        "diets": {
+            "spicy": "Острое",
+            "veget": "Вегетарианское",
+            "vegan": "Веганское"
+        },
+        "mealSentence": "Чаще всего встречается (употребляется):",
+        "meals": {
+            "snedak": "Завтрак",
+            "abed": "Обед",
+            "vjachera": "Ужин"
+        }
+    },
+    "ExitPage": {
+        "name": "Производится Выход. Подождите, пожалуйста..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Меню Админа",
+            "themes": {
+                "light": "Светлый",
+                "dark": "Тёмный"
+            },
+            "settings": "Настройки",
+            "exit": "Выход"
+        },
+        "AdminHeaderOptions": {
+            "dashboard": "Панель Графиков",
+            "usersPanel": "Панель Пользователей",
+            "cafesPanel": "Панель Кафе",
+            "dishesPanel": "Панель Блюд",
+            "ordersPanel": "Панель Заказов"
+        },
+        "ChartsNames": {
+            "chart1": "Популярность блюд относительно их встречаемости в заказах ",
+            "chart2": "Количество блюд по типу рациона",
+            "chart3": "Количество блюд по категориям",
+            "chart4": "Прибыль всех кафе"
+        }
+    },
+    "AdminPageSetUps": {
+        "3_blocks": {
+            "personData": {
+                "name": "Персональные данные",
+                "fullname": "Имя",
+                "telephone": "Телефон",
+                "languagesList": "Языки",
+                "pageLanguage": "Язык Страниц",
+                "messages": {
+                    "language": {
+                        "positive": "Язык изменён.",
+                        "negative": "Ошибка при изменении языка!"
+                    },
+                    "photo": {
+                        "positive": "Фото изменено.",
+                        "neutral": "Шаблон фотографии админа установлен.",
+                        "negative": "Ошибка при изменении фото!"
+                    },
+                    "photoFile": {
+                        "uploading": {
+                            "positive": "Новая фотография загружена.",
+                            "negative": "Не удалось загрузить новую фотографию:"
+                        },
+                        "removing": {
+                            "positive": "Фотография удалена.",
+                            "negative": "Не удалось удалить фотографию:"
+                        }
+                    },
+                    "fullname": {
+                        "positive": "Полное имя обновлено.",
+                        "negative": "Не удалось обновить полное имя!"
+                    },
+                    "telephone": {
+                        "positive": "Номер телефона обновлён.",
+                        "negative": "Не удалось обновить номер телефона!"
+                    }
+                },
+                "buttons": {
+                    "save": "Сохранить",
+                    "delete": "Удалить",
+                    "upload": "Загрузить",
+                    "edit": "Редактировать"
+                },
+                "saveChangesDialog": {
+                    "title": "Сохранение Новых Данных",
+                    "text": "Согласны ли Вы сохранить обновлённые данные?",
+                    "buttons": {
+                        "yes": "Да",
+                        "no": "Нет"
+                    }
+                }
+            },
+            "security": {
+                "name": "Вход & Безопасность",
+                "email": "Е-почта",
+                "password": "Пароль",
+                "passwordTip": "Чтобы изменить пароль, получите разрешение и дважды введите новый пароль.",
+                "secretWord": "Секретное Слово",
+                "tokenPlaceholder": "Введите Токен...",
+                "passwordPlaceholder": "Введите свой новый пароль",
+                "repeatPasswordPlaceholder": "Повторите новый пароль",
+                "messages": {
+                    "email": {
+                        "positive": "Новый адрес электронной почты сохранён.",
+                        "negative": "Невозможно сохранить новый адрес электронной почты."
+                    },
+                    "emailStatus": {
+                        "confirmed": "Подтверждён",
+                        "unconfirmed": "Не Подтверждён"
+                    },
+                    "password": {
+                        "positive": "Новый пароль установлен.",
+                        "negative": "Невозможно установить новый пароль.",
+                        "mistakes": {
+                            "different": "Пароли не совпадают!",
+                            "short": "Пароль должен содержать не менее 8 символов!"
+                        }
+                    },
+                    "secretWord": {
+                        "positive": "Новое секретное слово установлено.",
+                        "negative": "Невозможно установить новое секретное слово."
+                    },
+                    "access": {
+                        "confirmed": "Доступ разрешён!",
+                        "denied": "Доступ запрещён!",
+                        "get": "Получить Доступ",
+                        "granted": "Доступ Получен"
+                    },
+                    "confirmLetter": {
+                        "sent": "Письмо с подтверждением было отправлено на вашу электронную почту:",
+                        "problem": "Что-то пошло не так... Пожалуйста, проверьте функцию 'letterForEmailConfirmation'."
+                    },
+                    "isEmailConfirmed": {
+                        "yes": "Ваш адрес электронной почты подтверждён!",
+                        "no": "Неправильный токен! Повторите попытку."
+                    }
+                },
+                "buttons": {
+                    "confirm": "Подтвердить",
+                    "save": "Сохранить",
+                    "change": "Изменить"
+                },
+                "dialogs": {
+                    "saveChangesDialog": {
+                        "title": "Сохранение Новых Данных",
+                        "text": "Согласны ли Вы сохранить обновлённые данные?",
+                        "buttons": {
+                            "yes": "Да",
+                            "no": "Нет"
+                        }
+                    },
+                    "getAccessDialog": {
+                        "title": "Доступ к Изменениям",
+                        "text": "Прежде чем Вы продолжите, пожалуйста, введите свой пароль:",
+                        "inputLabel": "Пароль",
+                        "buttons": {
+                            "confirm": "Подтвердить",
+                            "close": "Закрыть"
+                        }
+                    }
+                }
+            },
+            "roles": {
+                "name": "Роли Админов"
+            }
+        }
+    }
+}

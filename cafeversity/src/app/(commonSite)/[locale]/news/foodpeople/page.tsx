@@ -2,8 +2,7 @@
 
 import styles from "@/app/(commonSite)/[locale]/news/foodpeople/foodpeople.module.css";
 import SearchLine from "@/components/SearchLine";
-import ArticleBar from "@/components/ArticleBar";
-import Link from "next/link";
+import ArticleCard from "@/app/components/ArticleCard";
 import { SetStateAction, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
 
@@ -34,109 +33,118 @@ export default function FoodPeople () {
         published: boolean,
     }
 
+
     const [articleData, setArticleData] = useState<ArticlesData[]>([]);// The initial data are put into 'articleData'
     const [filteredArticleData, setFilteredArticleData] = useState<ArticlesData[]>([]);// Filtered – into 'filteredArticleData'
-
     const [isLoaded, setIsLoaded] = useState<boolean>(false);
-
-    // User input a text into SearchLine component
     const [query, setNewQuery] = useState<string>("");
+    const pathname = usePathname();
+    
 
     const newQuery = (searchQuery: { target: { value: SetStateAction<string>; }; }) => {
         setNewQuery(searchQuery.target.value);
     };
 
 
-
     useEffect(() => {
+        setIsLoaded(false);
+
         fetch("http://localhost:3000/api/articles", {
             method: "GET",
             headers: {
                 "Content-Type": "application/json",
             },
+            cache: "no-store",
         })
         .then((res) => res.json())
         .then((data) => {
-            data = data.filter((datum: ArticlesData) => datum.articleList_seeing);
-            setArticleData(data);
+            const visibleArticles = data.filter((datum: ArticlesData) => datum.articleList_seeing);
+            setArticleData(visibleArticles);
+            setIsLoaded(true);
         })
         .catch((error) => {
             console.error("Памылка пры атрыманні дадзен з табліцы people_and_food: ", error);
+            setIsLoaded(true);
         });
     }, []);
 
 
-    // The 'articleData' array is being set by User's input text
     useEffect(() => {
         let newRequestedArticles = articleData;
-        if (query !== "") {
+
+        if (query.trim() !== "") {
             newRequestedArticles = newRequestedArticles.filter((articleDatum) => {
-                const titleIncludesQuery = articleDatum.article_title.toLowerCase().includes(query.toLowerCase());
+                const titleIncludesQuery = articleDatum.article_title.toLowerCase().includes(query.toLowerCase().trim());
                 return titleIncludesQuery;
             });
         }
 
         setFilteredArticleData(newRequestedArticles);
-
-        setIsLoaded(true);// Articles data is loaded and will be shown for Users
     }, [query, articleData]);
 
-    const pathname = usePathname();
 
     return (
         <div id={styles.main_part}>
-            {/* <h1>Знакамітыя людзі аб Ежы</h1> */}
             <SearchLine searchingHandler={newQuery} />
-            {!isLoaded ? 
-            (<div style={{
-                marginTop: "5vh",
-            }}>
-                <p style={{
-                    textAlign: "center",
-                    fontSize: "30px",
-                    fontStyle: "italic",
-                }}>Пампаванне дадзен...</p>
-            </div>) : 
-            filteredArticleData.length > 0 ? 
-            filteredArticleData.map((articleBar, index) => {
-                if (articleBar.published) {
-                    return (
-                        <Link
-                            key={index}
-                            href={`${pathname.slice(0, 3)}/news/foodpeople/${articleBar.id}`}
-                            style={{ textDecoration: 'none', color: 'inherit' }}
-                        >
-                            <ArticleBar
-                                key={articleBar.id}
-                                picture={articleBar.article_image_path}
-                                pictName={`${articleBar.article_image_path}`}
-                                articleName={articleBar.article_title}
-                                shortText={articleBar.article_text}
-                            />
-                        </Link>
-                    )
-                } else {
-                    return (
-                        <ArticleBar
-                            key={articleBar.id}
-                            picture={articleBar.article_image_path}
-                            pictName={`${articleBar.article_image_path}`}
-                            articleName={articleBar.article_title}
-                            shortText={articleBar.article_text}
-                        />
-                    )
-                }
-            }) : (
-                <div style={{
-                    marginTop: "5vh",
-                }}>
-                    <p style={{
-                        textAlign: "center",
-                        fontSize: "30px",
-                        fontStyle: "italic",
-                    }}>Наступных артыкулаў па запыце не існуе.</p>
+            
+            {!isLoaded ? (
+                <div className={styles.loadingMessage}>
+                    <div className={styles.loadingSpinner}></div>
+                    <p className={styles.loadingText}>Пампаванне дадзен...</p>
                 </div>
-            )}
+            ) : filteredArticleData.length > 0 ? (
+                filteredArticleData.map((article) =>
+                // {
+                // if (articleBar.published) {
+                //     return (
+                //         <Link
+                //             key={index}
+                //             href={`${pathname.slice(0, 3)}/news/foodpeople/${articleBar.id}`}
+                //             style={{ textDecoration: 'none', color: 'inherit' }}
+                //         >
+                //             <ArticleBar
+                //                 key={articleBar.id}
+                //                 picture={articleBar.article_image_path}
+                //                 pictName={`${articleBar.article_image_path}`}
+                //                 articleName={articleBar.article_title}
+                //                 shortText={articleBar.article_text}
+                //             />
+                //         </Link>
+                //     )
+                // } else {
+                //     return (
+                //         <ArticleBar
+                //             key={articleBar.id}
+                //             picture={articleBar.article_image_path}
+                //             pictName={`${articleBar.article_image_path}`}
+                //             articleName={articleBar.article_title}
+                //             shortText={articleBar.article_text}
+                //         />
+                //     )
+                // }
+                // }
+                <ArticleCard
+                        key={article.id}
+                        id={article.id}
+                        image={article.article_image_path}
+                        imageName={article.article_title}
+                        articleName={article.article_title}
+                        shortText={article.article_text}
+                        published={article.published}
+                        pathname={pathname}
+                    />
+                )) : (
+                <div className={styles.noResultsMessage}>
+                    <div className={styles.noResultsIcon}>🔍</div>
+                    <p className={styles.noResultsText}>
+                        {query.trim() !== "" 
+                            ? `Наступных артыкулаў па запыце "${query}" не існуе.`
+                            : "На дадзены момант артыкулы адсутнічаюць."
+                        }
+                    </p>
+                </div>
+                )
+            }
         </div>
     )
 }

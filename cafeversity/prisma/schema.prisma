@@ -8,19 +8,25 @@ datasource db {
 }
 
 model dishes_BY {
-  id            Int      @id @default(autoincrement())
-  food_name     String
-  includes      String
-  spicy         Boolean
-  vegetarian    Boolean
-  vegan         Boolean
-  protein       Decimal? @default(0.00)
-  fats          Decimal? @default(0.00)
-  carbohydrates Decimal? @default(0.00)
-  amino_acids   String?  @default("Гістыдын, Ізалейцын, Лейцын")
-  food_portion  Decimal? @default(0.00)
-  cost          Decimal? @default(0.00)
-  imagePath     String
+  id                  Int       @id @default(autoincrement())
+  food_name           String
+  includes            String
+  spicy               Boolean
+  vegetarian          Boolean
+  vegan               Boolean
+  protein             Decimal?  @default(0.00)
+  fats                Decimal?  @default(0.00)
+  carbohydrates       Decimal?  @default(0.00)
+  amino_acids         String?   @default("Гістыдын, Ізалейцын, Лейцын")
+  food_portion        Decimal?  @default(0.00)
+  cost                Decimal?  @default(0.00)
+  imagePath           String
+  favouredByUser      UsersDishes[] @relation("UserFavouteDish")
+  meal                DishesMeals[] @relation("DishMealType")
+  dishTypeId          Int?
+  dishType            DishTypes? @relation(fields: [dishTypeId], references: [ID])
+  inCafe              DishCafe[]  @relation("DishCafe")
+  orders              DishesByOrders[]  @relation("DishesOrders")
 }
 
 model people_and_food {
@@ -59,6 +65,8 @@ model Users {
   resetToken          String?   @unique
   resetTokenExpiry    DateTime?
   customSets          CustomSets?
+  favouriteDish       UsersDishes[] @relation("UserFavouteDish")
+  orders              Orders[]  @relation("UserToOrders")
 }
 
 model CustomSets {
@@ -96,4 +104,88 @@ model AdminUsers {
   SecretWordUsed      Boolean   @default(false)
   ResetToken          String?   @unique
   ResetTokenExpiry    DateTime?
+}
+
+model UsersDishes {
+  userID              Int
+  dishID              Int
+  users               Users     @relation("UserFavouteDish", fields: [userID], references: [id])
+  dishes              dishes_BY @relation("UserFavouteDish", fields: [dishID], references: [id])
+
+  @@id([userID, dishID])
+  @@map("users_dishes")
+}
+
+model MealTypes {
+  ID                  Int       @id @default(autoincrement())
+  Name                String    @unique
+  Dish                DishesMeals[] @relation("DishMealType")
+}
+
+model DishesMeals {
+  dishID              Int
+  mealID              Int
+  dishes              dishes_BY @relation("DishMealType", fields: [dishID], references: [id])
+  meals               MealTypes @relation("DishMealType", fields: [mealID], references: [ID])
+
+  @@id([dishID, mealID])
+  @@map("dishes_meals")
+}
+
+model DishTypes {
+  ID                  Int       @id @default(autoincrement())
+  Name                String    @unique
+  Dishes              dishes_BY[]
+}
+
+model Cafes {
+  ID                  Int         @id @default(autoincrement())
+  cafeName            String      @unique
+  openHours           String
+  city                String
+  street              String
+  country             String
+  phone               String
+  latitude            Decimal?
+  longitude           Decimal?
+  SRId                Int         @default(4326)
+  hasDish             DishCafe[]  @relation("DishCafe")
+  orders              Orders[]    @relation("CafeToOrders")
+}
+
+model DishCafe {
+  dishID              Int
+  cafeID              Int
+  dishAvailable       Boolean     @default(true)
+  dishes              dishes_BY   @relation("DishCafe", fields: [dishID], references: [id])
+  cafes               Cafes       @relation("DishCafe", fields: [cafeID], references: [ID])
+
+  @@id([dishID, cafeID])
+  @@map("dishes_cafes")
+}
+
+model Orders {
+  ID                  Int         @id @default(autoincrement())
+  orderNumber         Int         @unique
+  userID              Int
+  cafeID              Int
+  sentTime            DateTime
+  readyStatus         Boolean     @default(false)
+  phone               String
+  comment             String      @default("")
+
+  user                Users       @relation("UserToOrders", fields: [userID], references: [id])
+  cafe                Cafes       @relation("CafeToOrders", fields: [cafeID], references: [ID])
+
+  dishes              DishesByOrders[]  @relation("DishesOrders")
+}
+
+model DishesByOrders {
+  dishID              Int
+  orderID             Int
+  dishes              dishes_BY   @relation("DishesOrders", fields: [dishID], references: [id])
+  orders              Orders      @relation("DishesOrders", fields: [orderID], references: [ID])
+
+  @@id([dishID, orderID])
+  @@map("dishes_orders")
 }

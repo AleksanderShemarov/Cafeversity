@@ -4,10 +4,9 @@ import styles from "@/app/(commonSite)/[locale]/commonMenu/commonMenu.module.css
 import { useCallback, useEffect, useState } from "react";
 import deleteIcon from "../../public/delete_cross_icon.png";
 import Image from "next/image";
-import additionIcon from "../../public/addition_icon.png";
-import subtractIcon from "../../public/subtraction_icon.png";
-import exclamation from "../../public/exclamation_icon.png";
+// import exclamation from "../../public/exclamation_icon.png";
 import { useTranslations } from "next-intl";
+import { IconPlus, IconMinus } from "@tabler/icons-react";
 
 
 type CalculatorProps = {
@@ -137,21 +136,16 @@ export default function Calculator({ params }: CalculatorProps) {
                                         borderRadius: "50%",
                                         height: "20px",
                                         width: "20px",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        padding: 0,
+                                        border: "1.5px solid"
                                     }}
                                     onClick={() => datum.food_portion <= 10 && portionIncrease(index, datum.food_portion)}
                                     disabled={datum.food_portion > 2}
                                 >
-                                    <Image
-                                        src={additionIcon}
-                                        alt="Add_Icon"
-                                        width={15}
-                                        height={15}
-                                        style={{
-                                            borderRadius: "50%",
-                                            marginLeft: "-5px",
-                                            marginBottom: "4px",
-                                        }}
-                                    ></Image>
+                                    <IconPlus style={{ width: "16px", height: "16px" }} />
                                 </button>
                                 {datum.food_portion}
                                 <button
@@ -160,21 +154,16 @@ export default function Calculator({ params }: CalculatorProps) {
                                         borderRadius: "50%",
                                         height: "20px",
                                         width: "20px",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        alignItems: "center",
+                                        padding: 0,
+                                        border: "1.5px solid"
                                     }}
                                     onClick={() => portionDecrease(index, datum.food_portion)}
                                     disabled={datum.food_portion <= 1}
                                 >
-                                    <Image
-                                        src={subtractIcon}
-                                        alt="Subtract_Icon"
-                                        width={15}
-                                        height={15}
-                                        style={{
-                                            borderRadius: "50%",
-                                            marginLeft: "-5px",
-                                            marginBottom: "4px",
-                                        }}
-                                    ></Image>
+                                    <IconMinus style={{ height: "16px", width: "16px" }} />
                                 </button>
                             </td>
                             <td className={styles.food_price}>{datum.cost}</td>
@@ -207,7 +196,7 @@ export default function Calculator({ params }: CalculatorProps) {
                 </tbody>
             </table>
             <div className={styles.message_summa}>
-                <div className={styles.importance}>
+                {/* <div className={styles.importance}>
                     <div className={styles.importance_block}>
                         <Image
                             src={exclamation}
@@ -220,7 +209,7 @@ export default function Calculator({ params }: CalculatorProps) {
                         ></Image>
                         {calculator("notification")}
                     </div>
-                </div>
+                </div> */}
                 <div className={styles.price_sum}>{calculator("costSum")} -&gt; {common_cost.toFixed(2)}</div>
             </div>
         </div>

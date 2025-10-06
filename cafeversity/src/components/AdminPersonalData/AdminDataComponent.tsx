@@ -10,16 +10,16 @@ import { useTranslations } from "next-intl";
 
 const langs: [string, string][] = [
     [ "Беларуская", "by" ],
-    [ "English", "en" ],
     [ "Čeština", "cz" ],
-    // [ "Polish", "Polski" ],
-    // [ "Ukranian", "Українська" ],
+    [ "English", "en" ],
+    [ "Polski", "pl" ],
+    ["Русский", "ru"],
+    [ "Türkçe", "tr" ],
+    [ "Українська", "ua" ],
     // [ "Lithuanian", "Lietuvių" ],
     // [ "Italian", "Italiano" ],
     // [ "French", "Français" ],
-    // [ "Turkish", "Türkçe" ],
     // [ "Japanese", "日本語" ],
-    // ["Russian", "Русский"],
 ] as const;
 
 

@@ -11,6 +11,8 @@ const AdminRoles = dynamic(
         loading: () => <TableLoadingComponent loadingText="Admins Table Loading..." />
     }
 );
+import { AdminUsersExpander } from "./AdminUsersExpander";
+import { TableRowExpanderProps } from "../AdminTables/TableParts/TableExpander";
 
 
 export function AdminUsersTable({ data }: { data: any[] }) {
@@ -20,17 +22,23 @@ export function AdminUsersTable({ data }: { data: any[] }) {
         { name: 'Name', selector: (a) => a.Name, sortable: true, omit: false },
         { name: 'Surname', selector: (a) => a.Surname, sortable: true, omit: false },
         { name: 'Email', selector: (a) => a.Email, sortable: false, omit: false, type: "email" },
-        { name: 'EmailConfirmed', selector: (a) => a.EmailConfirmed, sortable: true, omit: false },
-        { name: 'Telephone', selector: (a) => a.Telephone, sortable: false, omit: false },
-        { name: 'Role', selector: (a) => a.Role, sortable: false, omit: false },
-        { name: 'Photo', selector: (a) => a.Photo, sortable: false, omit: false },
-        { name: 'Language', selector: (a) => a.Language, sortable: false, omit: false },
+        { name: 'EmailConfirmed', selector: (a) => a.EmailConfirmed ? '✅' : '❌', sortable: false, omit: false, type: "bool" },
+        { name: 'Telephone', selector: (a) => a.Telephone, sortable: false, omit: true },
+        { name: 'Role', selector: (a) => a.Role, sortable: true, omit: false },
+        { name: 'Photo', selector: (a) => a.Photo, sortable: false, omit: true },
+        { name: 'Language', selector: (a) => a.Language, sortable: false, omit: true },
         { name: 'SessionId', selector: (a) => a.SessionId, sortable: false, omit: true },
         { name: 'Password', selector: (a) => a.Password, sortable: false, omit: true },
-        { name: 'SecretWord', selector: (a) => a.SecretWord, sortable: true, omit: true },
+        { name: 'SecretWord', selector: (a) => a.SecretWord, sortable: false, omit: true },
         { name: 'ResetToken', selector: (a) => a.resetToken, sortable: false, omit: true },
         { name: 'ResetTokenExpiry', selector: (a) => a.resetTokenExpiry, sortable: false, omit: true },        
     ];
+
+    const customComponents = {
+        Expander: (props: TableRowExpanderProps<any>) => (
+            <AdminUsersExpander {...props} />
+        )
+    };
 
     return (
         <div style={{ width: "80vw" }}>
@@ -38,7 +46,8 @@ export function AdminUsersTable({ data }: { data: any[] }) {
                 initialData={data}
                 initialColumns={columns}
                 loading={false}
-                title="Admins' Role (Table) Page"
+                title="Admins' Role Table"
+                components={customComponents}
             />
         </div>
     )

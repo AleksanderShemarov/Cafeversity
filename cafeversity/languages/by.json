@@ -32,19 +32,19 @@
     "GreetingPage": {
         "slidesText": {
             "slide1": {
-                "line1": "The first line: Lorem, ipsum dolor.",
-                "line2": "The second line: Lorem ipsum dolor sit amet.",
-                "line3": "The third line: Lorem ipsum dolor sit."
+                "line1": "Разнастайныя стравы беларускай кухні.",
+                "line2": "Магчымасць наладзіць стравы па дыетах.",
+                "line3": "Актуальныя стравы ў падрабязнасцях."
             },
             "slide2": {
-                "line4": "The fourth line: Lorem, ipsum dolor.",
-                "line5": "The fifth line: Lorem ipsum dolor sit amet.",
-                "line6": "The sixth line: Lorem ipsum dolor sit."
+                "line4": "Усе стравы з ўсіх кропак харчавання як на далоні.",
+                "line5": "Рабіце замовы і абярайце лепшы для Вас час прыходу.",
+                "line6": "Назірніце ў каталог страў, каб знайсці падабанні."
             },
             "slide3": {
-                "line7": "The seventh line: Lorem, ipsum dolor.",
-                "line8": "The eighth line: Lorem ipsum dolor sit amet.",
-                "line9": "The nineth line: Lorem ipsum dolor sit."
+                "line7": "Варка страў адпавядае вышэйшым гігіенічным стандартам.",
+                "line8": "Адпаведнасць чаканняў і рэальнасці на ўсе 100 адсоткаў.",
+                "line9": "Якасныя прадукты выраблення страў і цудоўныя смакі."
             }
         },
         "bottomButtons": {
@@ -58,7 +58,7 @@
             "open": "Адчыніць Калькулятар",
             "calcName": "Лічыльнык страў",
             "foodName": "Назва Стравы",
-            "portion": "Кол-сць порцый",
+            "portion": "Лічба порцый",
             "cost": "Кошт",
             "cancel": "Адмена",
             "tipForUse": "Каб дадаць страву ў калькулятар, націскніце на яе кошт.",
@@ -84,7 +84,7 @@
         },
         "bottomButtons": {
             "left": "Сённяшнія Стравы",
-            "right": "Галоўная старонка"
+            "right": "Галоўная Старонка"
         }
     },
     "AuthPages": {
@@ -95,12 +95,12 @@
             "enterGate": "Уваходная Брама",
             "adminGate": "Адмінаўская Брама",
             "adminReg": "Рэгістрацыя Адмінаў",
-            "codeConfirmation": "Пацвярджэнне Ўваходу"
+            "codeConfirmation": "Пацверджэнне Ўваходу"
         },
         "texts": {
             "codeConfirmation": {
                 "part1": "На Ваш адрас эляктроннай пошты '",
-                "part2": "' быў дасланы спецыяльны код для пацвярдэння ўваходу як адмін."
+                "part2": "' быў дасланы спецыяльны код для пацверджэння ўваходу як адмін."
             }
         },
         "fields": {
@@ -136,7 +136,7 @@
                 "placeholder": "+375(**)***-**-**"
             },
             "emailCodeConfirmField": {
-                "name": "Код Пацвярджэння (****-*****-****)",
+                "name": "Код Пацверджэння (****-*****-****)",
                 "placeholder": "****-*****-****"
             },
             "otherNames": {
@@ -153,8 +153,8 @@
             "exit": "Выхад",
             "logIn": "Увайсці",
             "back": "Ўзад",
-            "confirm": "Пацвярджэнне",
-            "adminEntrance": "Да Адмінаўскай Брамы"
+            "confirm": "Пацверджэнне",
+            "adminEntrance": "Да Ўваходу Адмінаў"
         },
         "links": {
             "newRecovery": {
@@ -190,6 +190,55 @@
             "news": "Навіны",
             "settings": "Налады акаўнту"
         },
+        "dishesBlocks": {
+            "favourite": "Ўпадабаныя Стравы",
+            "todays": "Сённяшнія Стравы"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Выдаленне Ўпадабанай Стравы",
+            "question": "Хочаш на сам рэч выдаліць страву са спісу ўпадабаных?",
+            "yes": "Так",
+            "no": "Не"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Аформіць Замову",
+                "opened": "Зачыніць Акенца Замовы"
+            },
+            "name": "Тякучая Замова",
+            "positions": {
+                "one": "пазіцыя",
+                "afew": "пазіцыі",
+                "more": "пазіцыяў"
+            },
+            "available": "Даступна",
+            "noDishes": "Не адабрана ніводнай стравы",
+            "cafeChoice": {
+                "name": "Выбар Кафэ",
+                "placeholder": {
+                    "noDish": "Спачатку выбяры стравы",
+                    "anyDish": "Выбяры Кафэ"
+                }
+            },
+            "timeChoice": {
+                "name": "Выбар Часу",
+                "placeholder": {
+                    "noTimes": "Спачатку выбяры кафэ",
+                    "anyTimes": "Выбяры Час"
+                }
+            },
+            "telephone": {
+                "name": "Тэл.:",
+                "placeholder": "+375 (**) ***-**-**"
+            },
+            "comment": "Каментар...",
+            "submit": "Пацвердзіць",
+            "tabs": {
+                "newOrder": "Новая Замова",
+                "orderHistory": "Гісторыя Замоў"
+            },
+            "historyTitle": "Папярэднія Замовы"
+        },
         "exitButton": {
             "name": "Выхад",
             "question": "Вы на сам рэч хаціце выйсці?",
@@ -218,7 +267,7 @@
             "saveButtonType1": "Змена",
             "saveButtonType2": "Захова",
             "changesDialog": {
-                "mainQuestion1": "Ці згодзен Ты са зменамі?",
+                "mainQuestion1": "Ці згодзен са зменамі?",
                 "mainQuestion2": "Хочаш адмовіць змены?",
                 "accessButton": "Так",
                 "denyButton": "Не"
@@ -228,21 +277,21 @@
         "secondSetsPart": {
             "name": "Смакі & Цялесная Канстытуцыя",
             "subtitle1": {
-                "name": "Абяры свае перавагі",
+                "name": "Адбяры свае перавагі",
                 "preferQuestion1": "Ці хочаш есці вострыя стравы?",
                 "preferQuestion2": "Ці аддаеш перавагу да вегетарыянскіх страў?",
                 "preferQuestion3": "Ты веган?"
             },
             "subtitle2": {
-                "name": "Сярэдняя колькасць калорыяў у дзень",
-                "mainQuestion": "Колькі калорыяў хочаш атрымаўваць у дзень?"
+                "name": "Сярэдняя колькасць калорыяў штодзённа",
+                "mainQuestion": "Колькі калорыяў хочаш атрымоўваць у дзень?"
             } 
         },
         "thirdSetsPart": {
             "name": "Выгляд Старонкі",
             "subtitle1": {
                 "name": "Мова",
-                "mainQuestion": "Абяры сваю родную мову: "
+                "mainQuestion": "Адбяры сваю мову: "
             },
             "subtitle2": {
                 "name": "Рэжым Старонцы",
@@ -252,14 +301,59 @@
             },
             "subtitle3": {
                 "name": "Колер Вылучэння",
-                "mainQuestion": "Абяры адзін з колераў"
+                "mainQuestion": "Адбяры адзін з колераў"
             },
             "subtitle4": {
                 "name": "Налады Шрыфту",
-                "fontQuestion1": "Абяры Сямейства Шрыфтаў",
-                "fontQuestion2": "Абяры Памер Шрыфту",
-                "fontQuestion3": "Абяры Таўшчыню Шрыфту"
+                "fontQuestion1": "Адбяры Сямейства Шрыфтаў",
+                "fontQuestion2": "Адбяры Памер Шрыфту",
+                "fontQuestion3": "Адбяры Таўшчыню Шрыфту"
             }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Салаты",
+            "soup": "Супы",
+            "main": "Гарачыя Стравы",
+            "dessert": "Дэсерты",
+            "drink": "Напоі"
+        },
+        "loading": "Загрузка страў...",
+        "noDishes": "Ніводнай стравы ў гэтай катыгорыі"
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Бялкі",
+            "fats": "Тлушчы",
+            "carbo": "Вугляводы",
+            "weightName": "г."
+        },
+        "portion": "Порцыя",
+        "cost": "Кошт",
+        "composition": "Склад",
+        "buttons": {
+            "back": "Ўзад",
+            "more": "Больш..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Бялкі",
+            "fats": "Тлушчы",
+            "carbo": "Вугляводы",
+            "weightName": "г."
+        },
+        "diets": {
+            "spicy": "Вострая",
+            "veget": "Вегетарыянская",
+            "vegan": "Веганская"
+        },
+        "mealSentence": "Хутчэй сустракаецца (спажываецца):",
+        "meals": {
+            "snedak": "Снедак",
+            "abed": "Абед",
+            "vjachera": "Вячэра"
         }
     },
     "ExitPage": {
@@ -277,7 +371,16 @@
         },
         "AdminHeaderOptions": {
             "dashboard": "Панэль Кіравання Адміна",
-            "usersPanel": "Панэль Карыстальнікаў"
+            "usersPanel": "Панэль Карыстальнікаў",
+            "cafesPanel": "Панель Кафэ",
+            "dishesPanel": "Панель Страў",
+            "ordersPanel": "Панель Замоў"
+        },
+        "ChartsNames": {
+            "chart1": "Папулярнасць страў адносна іх сустракаемасці ў замовах",
+            "chart2": "Лічба страў па тыпах рацыёну",
+            "chart3": "Лічба страў па катыгорыях",
+            "chart4": "Прыбытак усіх кафэ"
         }
     },
     "AdminPageSetUps": {
@@ -287,7 +390,7 @@
                 "fullname": "Імя",
                 "telephone": "Тэлефон",
                 "languagesList": "Мовы",
-                "pageLanguage": "Мова Старонкак",
+                "pageLanguage": "Мова Старонак",
                 "messages": {
                     "language": {
                         "positive": "Мова абноўлена.",
@@ -325,7 +428,7 @@
                 },
                 "saveChangesDialog": {
                     "title": "Захаванне Новых Дадзеных",
-                    "text": "Ці згодны вы захаваць абноўленыя даныя?",
+                    "text": "Ці згодны захаваць абноўленыя дадзеныя?",
                     "buttons": {
                         "yes": "Так",
                         "no": "Не"
@@ -370,7 +473,7 @@
                     },
                     "confirmLetter": {
                         "sent": "Ліст з пацвярджэннем быў адпраўлены на вашу электронную пошту:",
-                        "problem": "Нешта пайшло не так... Калі ласка, праверце функцыю «letterForEmailConfirmation»."
+                        "problem": "Нешта пайшло не так... Калі ласка, праверце функцыю 'letterForEmailConfirmation'."
                     },
                     "isEmailConfirmed": {
                         "yes": "Ваш адрас электроннай пошты пацверджаны!",
@@ -385,7 +488,7 @@
                 "dialogs": {
                     "saveChangesDialog": {
                         "title": "Захаванне Новых Дадзеных",
-                        "text": "Ці згодны вы захаваць абноўленыя даныя?",
+                        "text": "Ці згодны захаваць абноўленыя дадзеныя?",
                         "buttons": {
                             "yes": "Так",
                             "no": "Не"
@@ -403,7 +506,7 @@
                 }
             },
             "roles": {
-                "name": "Ролі Адмінаў (Табліца)"
+                "name": "Ролі Адмінаў"
             }
         }
     }

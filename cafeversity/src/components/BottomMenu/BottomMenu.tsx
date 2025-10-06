@@ -38,13 +38,13 @@ export default function BottomMenu () {
                         />
                     )}
                 </CircleBtnsDiv>
-                <p style={{
+                {/* <p style={{
                     fontSize: "20px",
                     fontStyle: "italic",
                     textAlign: "center",
                     lineHeight: "1.5",
                     paddingTop: "10px",
-                }}>Меню для рэгістраваных карыстальнікаў</p>
+                }}>Меню для рэгістраваных карыстальнікаў</p> */}
             </div>
         </div>
     )
@@ -85,7 +85,7 @@ function CircleButton ({
                     onMouseEnter={() => setShowing(true)}
                     onMouseLeave={() => setShowing(false)}
                 >
-                    <Image src={icon} alt={icon_alt} width={75} height={75}></Image>
+                    <Image src={icon} alt={icon_alt} width={62} height={62}></Image>
                     {showing &&
                     <p className={crcleBtnStyle.btn_name}>
                         {name}

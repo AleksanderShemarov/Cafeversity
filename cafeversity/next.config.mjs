@@ -14,6 +14,22 @@ const nextConfig = {
             },
         ];
     },
+    reactStrictMode: false,
+    images: {
+        // domains: ['cdn.weatherapi.com'],
+        remotePatterns: [
+            {
+                protocol: 'https',
+                hostname: 'cdn.weatherapi.com',
+                pathname: '/weather/64x64/**',
+            },
+            {
+                protocol: 'http',
+                hostname: 'cdn.weatherapi.com',
+                pathname: '/weather/64x64/**',
+            },
+        ],
+    },
 };
 
 export default withNextIntl(nextConfig);

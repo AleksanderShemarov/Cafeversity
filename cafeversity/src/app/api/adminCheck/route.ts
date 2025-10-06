@@ -63,6 +63,7 @@ const POST = async (request: NextRequest) => {
             );
         }
 
+        console.log("Checked before internet connection checking!");
 
         if (await isInternet()) {
             // nodemailer sends a generated code when the Internet connection exists.
@@ -117,10 +118,12 @@ const POST = async (request: NextRequest) => {
             );
             return response;
         } else {
+            console.log("checking when internet is off");
             const response = NextResponse.json(
                 {
                     message: "There is no Internet connection. Please, wait a moment!",
-                    redirect: "/admiN_Login/codeConfirm",
+                    redirect: "/admiN_Login/word",
+                    adminId: adminUser.ID,
                     status: "Success"
                 },
                 { status: 201 }

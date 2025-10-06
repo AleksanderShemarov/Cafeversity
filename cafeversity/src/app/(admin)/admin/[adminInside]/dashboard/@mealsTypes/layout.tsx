@@ -1,8 +1,12 @@
 import React, { Suspense } from "react";
 import LoadingMealsTypes from "./loading";
+import { useTranslations } from "next-intl";
 
 
 export default function MealsTypesLayout({ children }: { children: React.ReactNode }) {
+    
+    const chartName = useTranslations("AdminDashboard.ChartsNames");
+    
     return (
         <>
             <div>
@@ -12,7 +16,7 @@ export default function MealsTypesLayout({ children }: { children: React.ReactNo
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    MealsTypes Component
+                    {chartName("chart2")}
                 </p>
             </div>
 

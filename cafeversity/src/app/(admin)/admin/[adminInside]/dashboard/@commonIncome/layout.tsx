@@ -1,8 +1,12 @@
 import React, { Suspense } from "react";
 import LoadingCommonIncome from "./loading";
+import { useTranslations } from "next-intl";
 
 
 export default function CommonIncomeLayout({ children }: { children: React.ReactNode }) {
+    
+    const chartName = useTranslations("AdminDashboard.ChartsNames");
+
     return (
         <>
             <div>
@@ -12,7 +16,7 @@ export default function CommonIncomeLayout({ children }: { children: React.React
                     fontStyle: "italic",
                     fontPalette: "light",
                 }}>
-                    CommonIncome Component
+                    {chartName("chart4")}
                 </p>
             </div>
 

@@ -1,6 +1,5 @@
 "use client";
 
-// import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import ReactSelect, { CSSObjectWithLabel } from "react-select";
 import { CSSProperties } from "react";
@@ -11,20 +10,15 @@ const LangSwitcher = ({ color = "whitesmoke", fontSize = "1.8rem" }: CSSProperti
     const pathname = usePathname();
     const router = useRouter();
 
-    // const langLinks = ["by", "cz", "en"] as const;
     const langLinks2 = [
         { label: "BY", value: "by" },
         { label: "CZ", value: "cz" },
-        { label: "EN", value: "en" }
-    ];
-
-
-    // const changeLanguage_ = (locale: string) => {
-    //     console.log("changeLanguage_ is called! locale -->", locale);
-    //     const segments = pathname.split("/");
-    //     segments[1] = locale;
-    //     return segments.join("/");
-    // }
+        { label: "EN", value: "en" },
+        { label: "PL", value: "pl" },
+        { label: "RU", value: "ru" },
+        { label: "TR", value: "tr" },
+        { label: "UA", value: "ua" },
+    ];//!!!
 
     const changeLanguage = (locale: string) => {
         console.log("changeLanguage is called! locale -->", locale);
@@ -37,7 +31,15 @@ const LangSwitcher = ({ color = "whitesmoke", fontSize = "1.8rem" }: CSSProperti
         menu: (base: CSSObjectWithLabel) => ({
             ...base,
             backgroundColor: "whitesmoke",
-            borderRadius: "0.25rem"
+            borderRadius: "0.25rem",
+            maxHeight: "15rem",
+            overflow: "hidden",
+            zIndex: 1000,
+        }),
+        menuList: (base: CSSObjectWithLabel) => ({
+            ...base,
+            maxHeight: "15rem",
+            overflow: "auto"
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -67,33 +69,17 @@ const LangSwitcher = ({ color = "whitesmoke", fontSize = "1.8rem" }: CSSProperti
     }
 
     return (
-        <>
-            <div style={{
-                display: "inline-flex", alignItems: "center", fontSize: "1.8rem", fontWeight: "600", textAlign: "center"
-            }}>
-                <ReactSelect options={langLinks2.filter((link) => link.value !== pathname.split("/")[1])}
-                    defaultValue={langLinks2.filter((link) => link.value === pathname.split("/")[1])}
-                    instanceId="langLink" menuPlacement="auto"
-                    onChange={selectedOption => changeLanguage(selectedOption?.value as string)}
-                    isSearchable={false}
-                    styles={languageSelectOption}
-                />
-            </div>
-            {/* <div style={{
-                display: "inline-flex", flexDirection: "row", flexWrap: "wrap", alignItems: "center", gap: "1rem",
-                textAlign: "center", fontSize: "1.8rem", fontWeight: "600"
-            }}>
-                {langLinks.map((link, index) => 
-                    pathname.split("/")[1] !== link
-                    ? <Link key={`langLink-${index}`} href={changeLanguage_(link)}
-                        style={{ color: "whitesmoke" }}
-                    >
-                        {link.toUpperCase()}
-                    </Link>
-                    : null
-                )}
-            </div> */}
-        </>
+        <div style={{
+            display: "inline-flex", alignItems: "center", fontSize: "1.8rem", fontWeight: "600", textAlign: "center"
+        }}>
+            <ReactSelect options={langLinks2.filter((link) => link.value !== pathname.split("/")[1])}
+                defaultValue={langLinks2.filter((link) => link.value === pathname.split("/")[1])}
+                instanceId="langLink" menuPlacement="auto"
+                onChange={selectedOption => changeLanguage(selectedOption?.value as string)}
+                isSearchable={false}
+                styles={languageSelectOption}
+            />
+        </div>
     )
 }
 

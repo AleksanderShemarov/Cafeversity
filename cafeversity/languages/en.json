@@ -32,19 +32,19 @@
     "GreetingPage": {
         "slidesText": {
             "slide1": {
-                "line1": "The first line: Lorem, ipsum dolor.",
-                "line2": "The second line: Lorem ipsum dolor sit amet.",
-                "line3": "The third line: Lorem ipsum dolor sit."
+                "line1": "Various dishes of Belarusian cuisine.",
+                "line2": "Ability to customize dishes according to diets.",
+                "line3": "Actual dishes in details."
             },
             "slide2": {
-                "line4": "The fourth line: Lorem, ipsum dolor.",
-                "line5": "The fifth line: Lorem ipsum dolor sit amet.",
-                "line6": "The sixth line: Lorem ipsum dolor sit."
+                "line4": "All dishes from all food outlets at your fingertips.",
+                "line5": "Make your order and choose the best time for arriving.",
+                "line6": "Take a look at the menu to find what you like."
             },
             "slide3": {
-                "line7": "The seventh line: Lorem, ipsum dolor.",
-                "line8": "The eighth line: Lorem ipsum dolor sit amet.",
-                "line9": "The nineth line: Lorem ipsum dolor sit."
+                "line7": "Cooking of dishes meets the highest hygienic standards.",
+                "line8": "100 percent correspondence between expectations and reality.",
+                "line9": "Quality food products and great flavors."
             }
         },
         "bottomButtons": {
@@ -190,6 +190,55 @@
             "news": "News",
             "settings": "Account Settings"
         },
+        "dishesBlocks": {
+            "favourite": "Favorite Dishes",
+            "todays": "Today's Dishes"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Favourite Dish Removing",
+            "question": "Do you really want to remove this dish from Your Favourite Dishes List?",
+            "yes": "Yes",
+            "no": "No"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Make an Order",
+                "opened": "Close the Order View"
+            },
+            "name": "Current Order",
+            "positions": {
+                "one": "position",
+                "afew": "positions",
+                "more": "positions"
+            },
+            "available": "Available",
+            "noDishes": "No dishes selected",
+            "cafeChoice": {
+                "name": "Canteen Selection",
+                "placeholder": {
+                    "noDish": "First, select the dishes",
+                    "anyDish": "Select a сanteen"
+                }
+            },
+            "timeChoice": {
+                "name": "Time Selection",
+                "placeholder": {
+                    "noTimes": "First, select a canteen",
+                    "anyTimes": "Select Time"
+                }
+            },
+            "telephone": {
+                "name": "Tel.:",
+                "placeholder": "+375 (**) ***-**-**"
+            },
+            "comment": "Comment...",
+            "submit": "Submit",
+            "tabs": {
+                "newOrder": "New Order",
+                "orderHistory": "Orders History"
+            },
+            "historyTitle": "Previous Orders"
+        },
         "exitButton": {
             "name": "Exit",
             "question": "Do you really want to exit?",
@@ -242,7 +291,7 @@
             "name": "Page Appearance",
             "subtitle1": {
                 "name": "Language",
-                "mainQuestion": "Choose your native language: "
+                "mainQuestion": "Choose your language: "
             },
             "subtitle2": {
                 "name": "Interface Themes",
@@ -262,6 +311,51 @@
             }
         }
     },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Salads",
+            "soup": "Soups",
+            "main": "Hot Dishes",
+            "dessert": "Dessert",
+            "drink": "Drinks"
+        },
+        "loading": "Dishes loading...",
+        "noDishes": "No dishes are at the category"
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Protein",
+            "fats": "Fats",
+            "carbo": "Carbohydrates",
+            "weightName": "g."
+        },
+        "portion": "Portion",
+        "cost": "Cost",
+        "composition": "Composition",
+        "buttons": {
+            "back": "Back",
+            "more": "More..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Protein",
+            "fats": "Fats",
+            "carbo": "Carbohydrates",
+            "weightName": "g."
+        },
+        "diets": {
+            "spicy": "Spicy",
+            "veget": "Vegetarian",
+            "vegan": "Vegan"
+        },
+        "mealSentence": "More common (consumed):",
+        "meals": {
+            "snedak": "Breakfast",
+            "abed": "Lunch",
+            "vjachera": "Dinner"
+        }
+    },
     "ExitPage": {
         "name": "Exit in progress. Await, please..."
     },
@@ -277,7 +371,16 @@
         },
         "AdminHeaderOptions": {
             "dashboard": "Admin Dashboard",
-            "usersPanel": "Users Panel"
+            "usersPanel": "Users Panel",
+            "cafesPanel": "Cafes Panel",
+            "dishesPanel": "Dishes Panel",
+            "ordersPanel": "Orders Panel"
+        },
+        "ChartsNames": {
+            "chart1": "Popularity of dishes relative to their occurrence in orders",
+            "chart2": "Number of meals by diet type",
+            "chart3": "Number of dishes by categories",
+            "chart4": "Profit of all cafes"
         }
     },
     "AdminPageSetUps": {
@@ -403,7 +506,7 @@
                 }
             },
             "roles": {
-                "name": "Admins' Roles (Table)"
+                "name": "Admins' Roles"
             }
         }
     }

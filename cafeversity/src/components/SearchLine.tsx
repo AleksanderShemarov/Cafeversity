@@ -23,7 +23,7 @@ export default function SearchLine({ searchingHandler }: SearchLineHandler) {
 
     return (
         <>
-            <div id={styles.searchline_box} style={{ outline: "1px solid" }}>
+            <div id={styles.searchline_box} style={{  }}>
                 <input
                     id={styles.searchline_zone}
                     title={searchLine("searchLineTip")}
@@ -36,9 +36,9 @@ export default function SearchLine({ searchingHandler }: SearchLineHandler) {
                     placeholder={searchLine("searchLine")}
                  />
             </div>
-            <div className={styles.temporary_answer}>
+            {/* <div className={styles.temporary_answer}>
                 <p className={styles.temporary_answer_line}>{line}</p>
-            </div>
+            </div> */}
         </>
     )
 }

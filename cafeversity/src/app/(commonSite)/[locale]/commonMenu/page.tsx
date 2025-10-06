@@ -45,7 +45,6 @@ export default function CommonMenuPage() {
     return (
         <>
             <div id={styles.main_part}>
-                {/* <h1>Просты спіс ежы на сённяшні дзень.</h1> */}
                 <div id={styles.calculator_div} style={{
                     right: click ? "0px" : "-500px",
                 }}>
@@ -56,6 +55,10 @@ export default function CommonMenuPage() {
                             textOrientation: "upright",
                             marginLeft: "15px",
                             marginRight: "5px",
+                            padding: "9px 7px",
+                            borderRadius: "1rem",
+                            border: "none",
+                            outline: "1.5px solid black"
                         }}
                         onClick={() => setClick(!click)}
                     >

@@ -1,103 +1,237 @@
 #main_part {
     min-height: calc(100vh - 305px);
-    border: 1px solid black;
+    padding: 20px 0;
+    background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 50%, #dee2e6 100%);
 }
 
-
 #searchline_box {
-    height: 75px;
-    max-width: 30vw;
-    border: 5px double dodgerblue;
-    border-radius: 30px;
-    margin: 10px auto;
+    margin: 30px auto 50px;
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(
-        to bottom,
-        rgb(0, 204, 255) 0%,
-        rgb(252, 242, 223) 30%,
-        rgb(252, 242, 223) 50%,
-        rgb(252, 242, 223) 70%,
-        rgb(0, 204, 255) 100%
-    );
+    max-width: 80rem;
 }
 
 #searchline_zone {
-    height: 30px;
-    width: 25vw;
-    border-radius: 10px;
-    padding: 0 5px;
+    height: 50px;
+    width: 100%;
+    border-radius: 25px;
+    border: 2px solid #e67e22;
+    padding: 0 25px;
+    background-color: white;
+    font-size: 1.8rem;
+    font-weight: 400;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(230, 126, 34, 0.1);
 }
 
-.temporary_answer {
-    height: 25px;
-    width: calc(20vw - 20px);
-    border: 2px solid orange;
-    border-radius: 10px;
-    align-items: center;
-    text-align: center;
-    margin: 5px auto;
-    padding: 2.5px 10px;
+#searchline_zone:focus {
+    outline: none;
+    border-color: #d35400;
+    box-shadow: 0 0 20px rgba(230, 126, 34, 0.2);
+    transform: translateY(-2px);
 }
 
-.temporary_answer_line {
-    margin: 0 auto;
-    height: 25px;
-    font-weight: 900;
-    font-size: 20px;
-    text-decoration: underline;
-    /* border: 1px solid black; */
+#searchline_zone::placeholder {
+    color: #95a5a6;
+    font-style: italic;
 }
 
 
-
-.article_bar_body {
-    max-width: 60vw;
-    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
-    /* border: 3px solid brown; */
-    border-radius: 30px;
+/* Article Card */
+.articleCard {
+    max-width: 750px;
+    height: 450px;
     margin: 30px auto;
+    border-radius: 20px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    background: white;
+}
+
+.articleCard:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 40px rgba(0, 0, 0, 0.15);
+}
+
+.articleCardLink {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    height: 100%;
+}
+
+.articleImage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.articleOverlay {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(
+        to left,
+        rgba(0, 0, 0, 0.8) 0%,
+        rgba(0, 0, 0, 0.6) 50%,
+        rgba(0, 0, 0, 0.4) 100%
+    );
     display: flex;
-    /* outline: 1px solid black; */
-    /* background-color: black; */
+    justify-content: center;
+    padding: 0 40px;
 }
 
-.article_bar_image {
-    /* border: 3px dashed purple; */
-    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
-    border-top-left-radius: 30px;
-    border-bottom-left-radius: 30px;
-    min-width: 40vw;
+.articleContent {
+    position: relative;
+    color: white;
+    text-align: right;
+    width: 95%;
 }
 
-.article_bar_text {
-    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
-    border-top-right-radius: 30px;
-    border-bottom-right-radius: 30px;
-    min-width: 20vw;
-    display: inline-flex;
-    flex-direction: column;
+.articleTitle {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 15px;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    text-align: right;
 }
 
-.article_text {
-    height: 375px;/* first value: 300px; 375px is for Gordon Ramsay photo */
-    background-color: aliceblue;
-    border-top-right-radius: 27px;
-    border-bottom-right-radius: 27px;
-}
-
-.article_name {
-    /* border: 1px solid black; */
-    max-width: 18vw;
-    font-size: 28px;
-    margin: 25px auto 15px;
-}
-
-.article_short {
-    /* border: 1px solid black; */
-    max-width: 18vw;
-    font-size: 20px;
-    margin: 15px auto 5px;
+.articleDescription {
+    font-size: 1.8rem;
+    line-height: 1.5;
+    opacity: 0.9;
+    margin-bottom: 20px;
+    overflow: hidden;
+    display: -webkit-box;
+    line-clamp: 3;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-wrap: wrap;
     text-align: justify;
+}
+
+
+/* Loading and No-Results Messages */
+.loadingMessage,
+.noResultsMessage {
+    text-align: center;
+    margin-top: 50px;
+    padding: 40px;
+}
+
+.loadingText,
+.noResultsText {
+    font-size: 1.8rem;
+    font-style: italic;
+    color: #7f8c8d;
+    margin-bottom: 20px;
+}
+
+.loadingSpinner {
+    width: 4rem;
+    height: 4rem;
+    border: 4px solid #e67e22;
+    border-left: 4px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.noResultsIcon {
+    font-size: 3rem;
+    margin-bottom: 20px;
+    opacity: 0.5;
+}
+
+
+/* Design Responsibility */
+@media (max-width: 968px) {
+    .articleCard {
+        height: 250px;
+        max-width: 95%;
+    }
+    
+    .articleOverlay {
+        width: 45%;
+        padding: 0 30px;
+    }
+    
+    .articleTitle {
+        font-size: 2.2rem;
+    }
+    
+    .articleDescription {
+        font-size: 1.8rem;
+    }
+}
+
+@media (max-width: 768px) {
+    #searchline_zone {
+        height: 45px;
+        font-size: 1.1rem;
+        padding: 0 20px;
+    }
+    
+    .articleCard {
+        height: 200px;
+    }
+    
+    .articleOverlay {
+        width: 100%;
+        background: linear-gradient(
+            to bottom,
+            transparent 0%,
+            rgba(0, 0, 0, 0.3) 50%,
+            rgba(0, 0, 0, 0.8) 100%
+        );
+        text-align: center;
+        padding: 20px;
+        justify-content: flex-end;
+    }
+    
+    .articleContent {
+        text-align: center;
+    }
+    
+    .articleTitle {
+        font-size: 1.6rem;
+    }
+    
+    .articleDescription {
+        font-size: 1.2rem;
+        line-clamp: 2;
+        -webkit-line-clamp: 2;
+        max-height: 3em;
+    }
+}
+
+@media (max-width: 480px) {
+    .articleCard {
+        height: 180px;
+        margin: 20px auto;
+    }
+    
+    .articleTitle {
+        font-size: 1.3rem;
+        margin-bottom: 10px;
+    }
+    
+    .articleDescription {
+        display: none;
+    }
 }

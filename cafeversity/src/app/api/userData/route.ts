@@ -20,7 +20,9 @@ const GET = async (request: NextRequest) => {
                 select: {
                     firstName: true,
                     lastName: true,
+                    nickName: true,
                     userPhoto: true,
+                    email: true,
                     customSets: {
                         select: {
                             spicy: true,
@@ -34,10 +36,38 @@ const GET = async (request: NextRequest) => {
                             fontSize: true,
                             fontVolume: true,
                         }
+                    },
+                    favouriteDish: {
+                        select: {
+                            dishID: true,
+                            dishes: {
+                                select: {
+                                    food_name: true,
+                                    imagePath: true,
+                                    food_portion: true,
+                                    cost: true
+                                }
+                            }
+                        }
                     }
                 }
             });
-            return NextResponse.json(user, { status: 200 });
+
+            const favouriteDish = user?.favouriteDish.map(dish => {
+                return {
+                    dishID: dish.dishID,
+                    dishes: {
+                        ...dish.dishes,
+                        checkedDish: null
+                    }
+                }
+            });
+
+            return NextResponse.json({
+                ...user,
+                favouriteDish
+            },
+            { status: 200 });
         } else if (page === "settings") {
             const user = await prisma.users.findFirst({
                 where: {

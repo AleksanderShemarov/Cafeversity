@@ -84,7 +84,7 @@ const TableBody = <T extends { id: number }>({
 
     // State for opening the columns menu; state for changing visibility of table's columns
     const [columnsMenu, setColumnsMenu] = useState<boolean>(false);
-    const [hiddenColumns, setHiddenColumns] = useState<string[]>([]);
+    const [columns, setColumns] = useState<ColumnConfig<T>[]>(initialColumns);
 
     
     //
@@ -99,12 +99,13 @@ const TableBody = <T extends { id: number }>({
     //
 
 
-    const columnsSet = useMemo(() => {
+    const visibleColumns = useMemo(() => {
         const actionColumn = {
             name: '',
             selector: () => '',
             cell: (row: T) => {
                 const isSelected = selectedRows.some(s => s.id === row.id);
+                const isSingleSelection = selectedRows.length === 1;
                 return (
                     <div style={{ display: "inline-flex", alignItems: "center", gap: "3px" }}>
                         <button type="button"
@@ -116,11 +117,12 @@ const TableBody = <T extends { id: number }>({
                                 color: "whitesmoke",
                                 fontWeight: "600",
                                 fontSize: "1.5rem",
-                                backgroundColor: isSelected ? "#FFBA0D" : "grey",
+                                cursor: isSelected && isSingleSelection ? "pointer" : "not-allowed",
+                                backgroundColor: isSelected && isSingleSelection ? "#FFBA0D" : "grey",
                                 boxShadow: updateClicked === row.id ? "inset 0 0 4px 2px black" : "none",
                             }}
                             onClick={() => setUpdateClicked(row.id)}
-                            disabled={!isSelected}
+                            disabled={!isSelected || !isSingleSelection}
                         >
                             Update
                         </button>
@@ -132,9 +134,8 @@ const TableBody = <T extends { id: number }>({
             width: "10rem",
             grow: 0.25
         };
-
-        return [...initialColumns, actionColumn];
-    }, [initialColumns, selectedRows, updateClicked]);
+        return [...columns.filter(col => !col.omit), actionColumn];
+    }, [columns, selectedRows, updateClicked]);
 
     
     const customStyles = {
@@ -158,13 +159,6 @@ const TableBody = <T extends { id: number }>({
         }
     };
 
-
-    // Filtering of visible and non-visible columns
-    const visibleColumns = useMemo(
-        () => columnsSet.filter(col => !hiddenColumns.includes(col.name || '')),
-        [hiddenColumns, columnsSet]
-    );
-
     
     // Searching value in table's data rows by column's name
     const searchedData = useMemo(() => {
@@ -175,7 +169,7 @@ const TableBody = <T extends { id: number }>({
                 return String(item.id).includes(searchText);
             }
             
-            const column = columnsSet.find(col => 
+            const column = columns.find(col => 
                 col.name.toLowerCase() === searchType
             );
         
@@ -187,7 +181,7 @@ const TableBody = <T extends { id: number }>({
             return true;
         });
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [data, searchText, searchType, columnsSet]);
+    }, [data, searchText, searchType, columns]);
     
 
     // Saving data in updated row
@@ -252,8 +246,7 @@ const TableBody = <T extends { id: number }>({
 
     // Changing visibility of table's columns
     const toggleColumnsVisibility = (columnName: string) => {
-        // setColumns(prev => prev.map(col => col.name === columnName ? { ...col, omit: !col.omit } : col));
-        setHiddenColumns(prev => prev.includes(columnName) ? prev.filter(name => name !== columnName) : [...prev, columnName]);
+        setColumns(prev => prev.map(col => col.name === columnName ? { ...col, omit: !col.omit } : col));
     }
 
 
@@ -335,6 +328,7 @@ const TableBody = <T extends { id: number }>({
                     setSelectedRows(selectedRows);
                     if (selectedRows.length === 0) {
                         setSelectingRows(false);
+                        setUpdateClicked(0);
                     }
                 }}
                 selectableRowsHighlight
@@ -359,8 +353,8 @@ const TableBody = <T extends { id: number }>({
             {columnsMenu && (
                 <div style={{
                     position: 'absolute',
-                    right: '20.5%',
-                    top: '21.5%',
+                    left: '7%',
+                    top: '22.5%',
                     backgroundColor: 'white',
                     boxShadow: '0 2px 5px rgba(0,0,0,0.2)',
                     zIndex: 100,
@@ -369,7 +363,7 @@ const TableBody = <T extends { id: number }>({
                 }}
                     id="column-menu-container"
                 >
-                    {columnsSet.filter(column => column.name && column.name !== "").map(column => (
+                    {columns.filter(column => column.name && column.name !== "").map(column => (
                         <label key={column.name}
                             style={{ display: 'flex', alignItems: 'center', fontSize: "1.5rem" }}
                             htmlFor={`column-${column.name}`}
@@ -377,7 +371,7 @@ const TableBody = <T extends { id: number }>({
                             <input
                                 id={`column-${column.name}`}
                                 type="checkbox"
-                                checked={!hiddenColumns.includes(column.name)}
+                                checked={!column.omit}
                                 onChange={() => toggleColumnsVisibility(column.name)}
                             />
                             {column.name}

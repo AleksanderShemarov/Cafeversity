@@ -80,7 +80,7 @@ export function Clock3 () {
     return (
         <div id={styles.clock}>
             <p id={styles.clock_time}>
-                T3 {date ? date.getHours() : "00"} : {date ? date.getMinutes() : "00"} : {date ? date.getSeconds() : "00"}
+                {date ? date.getHours() : "00"} : {date ? date.getMinutes() : "00"} : {date ? date.getSeconds() : "00"}
             </p>
         </div>
     )

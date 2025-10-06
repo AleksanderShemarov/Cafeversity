@@ -10,11 +10,12 @@
 #calculator_div {
     min-height: 300px;
     width: 550px;
-    border: 1px black dashed;
+    outline: 2px black double;
     position: fixed;
     top: 195px;
     padding-top: 10px;
     padding-bottom: 10px;
+    backdrop-filter: blur(7px);
     background-color: rgba(250, 235, 215, 0.75);
 
     display: flex;
@@ -30,7 +31,7 @@
 
 /* Calculator Part */
 #calculator {
-    border: 3px dotted blue;
+    /* border: 3px dotted blue; */
     width: 450px;
     min-height: 200px;
     margin: auto;
@@ -39,7 +40,7 @@
 #calculator_name {
     font-size: 18px;
     font-weight: bolder;
-    border: 2px solid black;
+    /* border: 2px solid black; */
     border-radius: 20px/50%;
     text-align: center;
     height: 30px;
@@ -48,7 +49,7 @@
 
 
 .food_zone {
-    border: 1px solid black;
+    /* border: 1px solid black; */
     padding-top: 5px;
     margin-bottom: 10px;
 }
@@ -68,6 +69,7 @@
     width: 25px;
     align-content: center;/* vertical aligning */
     text-align: center;/* horizontal aligning */
+    font-size: 1.2rem;
 }
 
 .food_name,
@@ -79,11 +81,13 @@
     width: 85px;
     align-content: center;
     text-align: center;
+    font-size: 1.2rem;
 }
 
 .portions {
-    /* border: 1px solid black; */
+    /* outline: 1px solid black; */
     display: flex;
+    align-items: center;
     justify-content: space-around;
 }
 
@@ -94,16 +98,17 @@
     width: 85px;
     align-content: center;
     text-align: center;
+    font-size: 1.2rem;
 }
 
 .message_summa {
-    display: flex;
-    justify-content: space-around;
+    /* display: flex;
+    justify-content: space-around; */
     height: 50px;
     /* border: 1px dashed black; */
 }
 
-.importance {
+/* .importance {
     height: 30px;
     border: 1px solid black;
     text-align: center;
@@ -114,19 +119,21 @@
 }
 
 .importance_block {
-    /* border: 1px solid black; */
+    border: 1px solid black;
     display: flex;
     justify-content: space-between;
-}
+} */
 
 .price_sum {
     height: 30px;
-    border: 1px solid black;
+    /* border: 1px solid black; */
+    margin: 0 auto;
     padding-left: 3px;
     padding-right: 3px;
     text-align: center;
     align-content: center;
     width: 180px;
+    font-size: 1.5rem;
 }
 
 #empty_table {
@@ -139,6 +146,7 @@
     opacity: 0.8;
     border: 1px solid black;
     border-radius: 10px/10px;
+    font-size: 1.2rem;
 }
 /**/
 
@@ -146,7 +154,7 @@
 .list_fields_zone {
     min-height: 600px;
     width: 90vw;
-    border: 5px solid orange;
+    margin: 5px;
     margin: auto;
     display: flex;
     justify-content: space-around;
@@ -156,7 +164,8 @@
 #list_field {
     min-height: 560px;
     width: 22vw;
-    border: 3px dashed purple;
+    /* border: 3px dashed purple; */
+    box-shadow: 0px 0px 12px 0px rgba(66, 68, 90, 1);
     border-radius: 10%/5%;
     background-color: beige;
     display: flex;
@@ -169,11 +178,20 @@
     height: 250px;
     margin: 0 auto;
     overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .text_lines {
-    border: 5px peru solid;
+    margin-left: 3.5px;
+    margin-right: 3.5px;
     border-radius: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 60%;
 }
 
 #food_title,
@@ -192,18 +210,27 @@
 
 #food_ing {
     text-align: justify;
+    text-indent: 10px;
 }
 
 .portia_price {
     display: flex;
-    justify-content: space-between;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 #portia,
 #price {
     margin: 0 auto;
     margin-top: 20px;
-    border: 1px solid brown;
+    padding: 2px 3px;
+}
+
+#price:hover {
+    cursor: pointer;
+    outline: 2px solid;
+    border-radius: 0.5px;
 }
 
 

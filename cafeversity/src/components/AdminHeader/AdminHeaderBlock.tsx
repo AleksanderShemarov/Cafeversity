@@ -1,6 +1,6 @@
 "use client";
 
-import AccessBtn from "../Buttons/DifferentButtons"
+// import AccessBtn from "../Buttons/DifferentButtons"
 import ImageContainer from "../ImageEditor/ImageContainer"
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
@@ -16,7 +16,7 @@ import "react-toastify/ReactToastify.css";
 
 export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
 
-    const [dark, setDark] = useState<string>(data.Theme);
+    // const [dark, setDark] = useState<string>(data.Theme);
     const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
     const [menuLineFocus, setMenuLineFocus] = useState<number|null>(null);
@@ -112,7 +112,7 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                     <p style={{ fontSize: "3rem", margin: 0 }}>{adminHeader("AdminHeaderBlock.title")}</p>
                 </div>
                 <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center", gap: "4.5rem" }}>
-                    <AccessBtn
+                    {/* <AccessBtn
                         buttonName={
                             dark !== 'light'
                             ? adminHeader("AdminHeaderBlock.themes.light")
@@ -134,7 +134,7 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                             boxShadow: "gray 0 0 3px 2px",
                             cursor: "pointer"
                         }}
-                    />
+                    /> */}
 
                     {routePath.split("/")[3] === "setups" ?
                         <button onClick={greetHandle}

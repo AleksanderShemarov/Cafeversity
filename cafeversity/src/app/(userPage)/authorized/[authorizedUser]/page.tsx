@@ -1,13 +1,17 @@
-import Image from "next/image";
-import styles from "@/app/(userPage)/authorized/[authorizedUser]/authorized.module.css";
 import { use } from "react";
 import LocalStorageStyles from "@/components/LocalStorage/LocalStorage";
+import AuthorizedUserClient from "@/app/components/AuthorizedUserClient";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/ReactToastify.css";
+import dishesBySets from "@/app/actions/dishesBySets";
 
 
-type UserDataTypes = {
+export type UserDataTypes = {
     firstName: string,
     lastName: string,
+    nickName: string,
     userPhoto: string,
+    email: string,
     customSets: {
         spicy: boolean,
         vegetarian: boolean,
@@ -19,6 +23,27 @@ type UserDataTypes = {
         fontFamily: string,
         fontSize: string,
         fontVolume: string,
+    },
+    favouriteDish:
+    {
+        dishID: number, dishes: {
+            food_name: string,
+            imagePath: string,
+            food_portion: number,
+            cost: number,
+            checkedDish: null
+        }
+    }[]
+}
+
+
+export type DishProps = {
+    dishID: number, dishes: {
+        food_name: string,
+        imagePath: string,
+        food_portion: number,
+        cost: number,
+        checkedDish: null
     }
 }
 
@@ -34,31 +59,30 @@ async function fetchData(params: { authorizedUser: string; }) {
 }
 
 
+async function dishesFetchData(params: { authorizedUser: string; }) {
+    const { authorizedUser } = params;
+    
+    const dishesByUserSets = await dishesBySets(authorizedUser);
+
+    return dishesByUserSets;
+}
+
+
 export default function AuthorizedUser({ params }: { params: { authorizedUser: string } }) {
     
     const data: UserDataTypes = use(fetchData(params));
+    const dishesData: DishProps[] = use(dishesFetchData(params));
+
+    // console.log("data -->", data);
+    // console.log("data.favouriteDish AuthorizedUser -->", data.favouriteDish);
+    // console.log("otherDishes -->", dishesData);
 
     return (
-        <>          
-            <div style={{
-                display: "flex",
-                border: "3px dashed orange",
-                alignItems: "center",
-                justifyContent: "center",
-                paddingTop: "30px",
-                paddingBottom: "30px",
-            }}>
-                <div className={styles.userImage}>
-                    <Image
-                        src={data.userPhoto ?? "/uploads/tempUserImage.png"}
-                        alt={data.userPhoto ?? "/uploads/tempUserImage.png"}
-                        layout="fill"
-                    ></Image>
-                </div>
-                <p className={styles.userName}>{data.firstName}<br />{data.lastName}</p>
-            </div>
+        <>
+            <AuthorizedUserClient userData={data} dataOfDishes={dishesData} />
             
             <LocalStorageStyles {...data.customSets} />
+            <ToastContainer />
         </>
     )
 }

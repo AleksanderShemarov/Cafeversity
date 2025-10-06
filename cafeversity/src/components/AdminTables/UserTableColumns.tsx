@@ -19,17 +19,17 @@ import "react-toastify/ReactToastify.css";
 export function UsersAdminTable({ data }: { data: any[] }) {
 
     const columns: ColumnConfig<any>[] = [
-        { name: 'ID', selector: (u) => u.id, sortable: true, omit: false },
+        { name: 'ID', selector: (u) => u.id, sortable: true, omit: true },
         { name: 'FirstName', selector: (u) => u.firstName, sortable: true, omit: false },
         { name: 'LastName', selector: (u) => u.lastName, sortable: true, omit: false },
-        { name: 'NickName', selector: (u) => u.nickName, sortable: true, omit: false },
+        { name: 'NickName', selector: (u) => u.nickName, sortable: true, omit: true },
         { name: '_UserPhoto', selector: (u) => u.userPhoto, sortable: false, omit: false },
         { name: 'Email', selector: (u) => u.email, sortable: false, omit: false, type: "email" },
-        { name: 'Password', selector: (u) => u.password, sortable: false, omit: false },
+        { name: 'Password', selector: (u) => u.password, sortable: false, omit: true },
         { name: '_SessionId', selector: (u) => u.sessionId, sortable: false, omit: false },
-        { name: '_ResetToken', selector: (u) => u.resetToken, sortable: false, omit: false },
-        { name: '_ResetTokenExpiry', selector: (u) => u.resetTokenExpiry, sortable: false, omit: false },
-        { name: 'CustomSets', selector: (u) => u.customSets, sortable: true, omit: false, type: "number" },
+        { name: '_ResetToken', selector: (u) => u.resetToken, sortable: false, omit: true },
+        { name: '_ResetTokenExpiry', selector: (u) => u.resetTokenExpiry, sortable: false, omit: true },
+        { name: 'CustomSets', selector: (u) => u.customSets, sortable: true, omit: true, type: "number" },
     ];
 
     async function addingNewRow<T>(newRow: Partial<T>) {
