@@ -1,0 +1,513 @@
+{
+    "HeaderComponents": {
+        "WeatherWeekday": {
+            "weekdays": {
+                "sun": "Нд",
+                "mon": "Пн",
+                "tue": "Вв",
+                "wed": "Ср",
+                "thu": "Чт",
+                "fri": "Пт",
+                "sat": "Сб"
+            }
+        },
+        "Dating": {
+            "months": {
+                "jan": "Січень",
+                "feb": "Лютий",
+                "mar": "Березень",
+                "apr": "Квітень",
+                "may": "Травень",
+                "jun": "Червень",
+                "jul": "Липень",
+                "aug": "Серпень",
+                "sep": "Вересень",
+                "oct": "Жовтень",
+                "nov": "Листопад",
+                "dec": "Грудень"
+            }
+        },
+        "Entrance": "Вхід"
+    },
+    "GreetingPage": {
+        "slidesText": {
+            "slide1": {
+                "line1": "Різноманітні страви білоруської кухні.",
+                "line2": "Можливість адаптувати страви для дієт.",
+                "line3": "Детальний огляд актуальних страв."
+            },
+            "slide2": {
+                "line4": "Усі страви з усіх закладів харчування у вас під рукою.",
+                "line5": "Робіть замовлення та оберіть найкращий для вас час прибуття.",
+                "line6": "Перегляньте меню, щоб знайти улюблені."
+            },
+            "slide3": {
+                "line7": "Приготування страв відповідає найвищим гігієнічним стандартам.",
+                "line8": "Відповідність очікуванням та реальності на всі 100 відсотків.",
+                "line9": "Якісні продукти для приготування страв та чудові смаки."
+            }
+        },
+        "bottomButtons": {
+            "left": "Сьогоднішні Страви",
+            "right": "Їжа Світу"
+        }
+    },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Закрити Калькулятор",
+            "open": "Відкрити Калькулятор",
+            "calcName": "Лічильник страв",
+            "foodName": "Назва Страви",
+            "portion": "Кіл-сть порцій",
+            "cost": "Вартість",
+            "cancel": "Скасувати",
+            "tipForUse": "Щоб додати страву до калькулятора, натисніть на її вартість.",
+            "notification": "Повідомлення",
+            "costSum": "Загальна вартість"
+        },
+        "bottomButtons": {
+            "left": "Головна Сторінка",
+            "right": "Їжа Світу"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Пошук...",
+            "searchLineTip": "Введіть свій запит!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Рецепт Дня",
+            "food&peopleSubLink": "Люди та Їжа",
+            "foodEventsSublink": "Світ Їжі"
+        },
+        "bottomButtons": {
+            "left": "Сьогоднішні Страви",
+            "right": "Головна Сторінка"
+        }
+    },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Відновлення Пароля",
+            "accessUpdate": "Відновлення Доступу",
+            "registration": "Реєстраційна Форма",
+            "enterGate": "Вхідні Ворота",
+            "adminGate": "Ворота Адміністратора",
+            "adminReg": "Реєстрація Адміністратора",
+            "codeConfirmation": "Підтвердження Входу"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "До ваша адреса електронної пошти '",
+                "part2": "' було надіслано спеціальний код для підтвердження входу як адміністратор."
+            }
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Пароль",
+                "nameNew": "Новий Пароль",
+                "repeatName": "Повторити Пароль",
+                "placeholder": "Кодове Слово"
+            },
+            "emailField": {
+                "name": "Е-пошта",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Shevchenko@gmail.com"
+            },
+            "nameField": {
+                "name": "Ім'я",
+                "placeholder": "Тарас"
+            },
+            "surnameField": {
+                "name": "Прізвище",
+                "placeholder": "Шевченко"
+            },
+            "nicknameField": {
+                "name": "Прізвисько (Псевдонім)",
+                "placeholder": "Дармограй"
+            },
+            "unknownwordField": {
+                "name": "Таємне Слово",
+                "placeholder": "**********"
+            },
+            "telephoneField": {
+                "name": "Номер мобільного телефону",
+                "placeholder": "+380(**)***-**-**"
+            },
+            "emailCodeConfirmField": {
+                "name": "Код Підтвердження (****-*****-****)",
+                "placeholder": "****-*****-****"
+            },
+            "otherNames": {
+                "adminRole": "Роль Адміністратора",
+                "language": "Мова"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Змінити Пароль",
+            "enterGate": "До Вхідних Воріт",
+            "send": "Надіслати",
+            "mainPage": "На Головну",
+            "signUp": "Реєстрація",
+            "exit": "Вихід",
+            "logIn": "Вхід",
+            "back": "Назад",
+            "confirm": "Підтвердити",
+            "adminEntrance": "До Вхіду Адміністратора"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "Вибачте, але термін дії посилання закінчилося. Щоб запросити нове, натисніть ",
+                "part2": "тут"
+            },
+            "toSignUp": {
+                "part1": "Ще не зареєстровані? Будь ласка, натисніть ",
+                "part2": "тут"
+            },
+            "rememberedPassword": {
+                "part1": "Вже згадали свій пароль?",
+                "part2": "Перейдіть сюди"
+            },
+            "alreadySinedUp": {
+                "part1": "Вже зареєстровалися - будь ласка ",
+                "part2": "сюди"
+            },
+            "forgottenPassword": {
+                "part1": "Якщо ви забули свій пароль, перейдіть ",
+                "part2": "сюди"
+            }
+        },
+        "others": {
+            "loading": "Завантаження...",
+            "networks": "Вхід за допомогою мереж"
+        }
+    },
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Меню",
+            "main": "Загальні",
+            "news": "Новини",
+            "settings": "Налаштування акаунта"
+        },
+        "dishesBlocks": {
+            "favourite": "Улюблені Страви",
+            "todays": "Сьогоднішні Страви"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Видалення Улюбленої Страви",
+            "question": "Ви хочете назавжди видалити страву зі списку улюблених?",
+            "yes": "Так",
+            "no": "Ні"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Оформити Замовлення",
+                "opened": "Закрити Вікно Замовлення"
+            },
+            "name": "Поточне Замовлення",
+            "positions": {
+                "one": "позиція",
+                "afew": "позиції",
+                "more": "позицій"
+            },
+            "available": "Доступно",
+            "noDishes": "Страви не вибрано",
+            "cafeChoice": {
+                "name": "Вибір Кафе",
+                "placeholder": {
+                    "noDish": "Спочатку оберіть страви",
+                    "anyDish": "Оберіть Кафе"
+                }
+            },
+            "timeChoice": {
+                "name": "Вибір Часу",
+                "placeholder": {
+                    "noTimes": "Спочатку оберіть кафе",
+                    "anyTimes": "Оберіть Час"
+                }
+            },
+            "telephone": {
+                "name": "Тел.:",
+                "placeholder": "+380 (**) ***-**-**"
+            },
+            "comment": "Коментар...",
+            "submit": "Підтвердити",
+            "tabs": {
+                "newOrder": "Нове Замовлення",
+                "orderHistory": "Історія Замовлень"
+            },
+            "historyTitle": "Попередні Замовлення"
+        },
+        "exitButton": {
+            "name": "Вихід",
+            "question": "Ви дійсно хочете вийти?",
+            "access": "Так",
+            "deny": "Ні"
+        }
+    },
+    "SettingsPage": {
+        "stickyNavbar": {
+            "name": "Налаштування Акаунта",
+            "part1": "Загальні Налаштування",
+            "part2": "Смаки & Тілесне Конституція",
+            "part3": "Вигляд Сторінки"
+        },
+        "firstSetsPart": {
+            "name": "Загальні Налаштування",
+            "photoEditor": {
+                "name": "Редактор Фото Користувача",
+                "changePhotoButton": "Змінити Фото",
+                "deletePhotoButton": "Видалити Фото"
+            },
+            "input1": "Ім'я",
+            "input2": "Прізвище",
+            "input3": "Прізвисько",
+            "cancelButton": "Скасування",
+            "saveButtonType1": "Зміна",
+            "saveButtonType2": "Зберігання",
+            "changesDialog": {
+                "mainQuestion1": "Чи згоден зі змінами?",
+                "mainQuestion2": "Хочете відхилити зміни?",
+                "accessButton": "Так",
+                "denyButton": "Ні"
+            },
+            "updatedSetsSaving": "Зберегти зміни на веб-сторінках?"
+        },
+        "secondSetsPart": {
+            "name": "Смаки & Тілесне Конституція",
+            "subtitle1": {
+                "name": "Виберіть свої переваги",
+                "preferQuestion1": "Хочеш їсти гостру їжу?",
+                "preferQuestion2": "Надаєте перевагу вегетаріанським стравам?",
+                "preferQuestion3": "Ти веган?"
+            },
+            "subtitle2": {
+                "name": "Середня кількість калорій на день",
+                "mainQuestion": "Скільки калорій хочеш отримувати на день?"
+            }
+        },
+        "thirdSetsPart": {
+            "name": "Вигляд Сторінки",
+            "subtitle1": {
+                "name": "Мова",
+                "mainQuestion": "Виберіть свою мову: "
+            },
+            "subtitle2": {
+                "name": "Режим Сторінки",
+                "mainQuestion": "Встановити колірний режим",
+                "lightTheme": "Світлий",
+                "darkTheme": "Темний"
+            },
+            "subtitle3": {
+                "name": "Колір Виділення",
+                "mainQuestion": "Виберіть один із кольорів"
+            },
+            "subtitle4": {
+                "name": "Налаштування Шрифту",
+                "fontQuestion1": "Виберіть Сімейство Шрифтів",
+                "fontQuestion2": "Виберіть Розмір Шрифту",
+                "fontQuestion3": "Виберіть Товщину Шрифту"
+            }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Салати",
+            "soup": "Супи",
+            "main": "Гарячі Страви",
+            "dessert": "Десерти",
+            "drink": "Напої"
+        },
+        "loading": "Завантаження страв...",
+        "noDishes": "Немає страв у цій категорії"
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Білки",
+            "fats": "Жири",
+            "carbo": "Вуглеводи",
+            "weightName": "г."
+        },
+        "portion": "Порція",
+        "cost": "Вартість",
+        "composition": "Склад",
+        "buttons": {
+            "back": "Назад",
+            "more": "Більше..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Білки",
+            "fats": "Жири",
+            "carbo": "Вуглеводи",
+            "weightName": "г."
+        },
+        "diets": {
+            "spicy": "Гострий",
+            "veget": "Вегетаріанський",
+            "vegan": "Веганський"
+        },
+        "mealSentence": "Більш поширені (споживані):",
+        "meals": {
+            "snedak": "Сніданок",
+            "abed": "Обід",
+            "vjachera": "Вечеря"
+        }
+    },
+    "ExitPage": {
+        "name": "Відбувається вихід. Зачекайте, будь ласка..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Меню Адміністратора",
+            "themes": {
+                "light": "Світлий",
+                "dark": "Темний"
+            },
+            "settings": "Налаштування",
+            "exit": "Вихід"
+        },
+        "AdminHeaderOptions": {
+            "dashboard": "Панель Керування Адміністратора",
+            "usersPanel": "Панель Користувачів",
+            "cafesPanel": "Панель Кафе",
+            "dishesPanel": "Панель Страв",
+            "ordersPanel": "Панель Замовлень"
+        },
+        "ChartsNames": {
+            "chart1": "Популярність страв відносно їхньої присутності в замовленнях",
+            "chart2": "Кількість страв за типом дієти",
+            "chart3": "Кількість страв за категоріями",
+            "chart4": "Прибуток усіх кафе"
+        }
+    },
+    "AdminPageSetUps": {
+        "3_blocks": {
+            "personData": {
+                "name": "Особисті Дані",
+                "fullname": "Ім'я",
+                "telephone": "Телефон",
+                "languagesList": "Мови",
+                "pageLanguage": "Мова Сторінок",
+                "messages": {
+                    "language": {
+                        "positive": "Мова оновлена.",
+                        "negative": "Помилка оновлення мови!"
+                    },
+                    "photo": {
+                        "positive": "Фотографію оновлено.",
+                        "neutral": "Шаблон фотографії адміністратора встановлено.",
+                        "negative": "Не вдалося оновити фотографію!"
+                    },
+                    "photoFile": {
+                        "uploading": {
+                            "positive": "Нову фотографію завантажено.",
+                            "negative": "Не вдалося завантажити нову фотографію:"
+                        },
+                        "removing": {
+                            "positive": "Фотографію видалено.",
+                            "negative": "Не вдалося видалити фотографію:"
+                        }
+                    },
+                    "fullname": {
+                        "positive": "Повне ім'я оновлено.",
+                        "negative": "Не вдалося оновити повне ім'я!"
+                    },
+                    "telephone": {
+                        "positive": "Номер телефону оновлено.",
+                        "negative": "Не вдалося оновити номер телефону!"
+                    }
+                },
+                "buttons": {
+                    "save": "Зберегти",
+                    "delete": "Видалити",
+                    "upload": "Завантажити",
+                    "edit": "Редагувати"
+                },
+                "saveChangesDialog": {
+                    "title": "Збереження Нових Даних",
+                    "text": "Чи згодні зберігати оновлені дані?",
+                    "buttons": {
+                        "yes": "Так",
+                        "no": "Ні"
+                    }
+                }
+            },
+            "security": {
+                "name": "Вхід & Безпека",
+                "email": "Е-пошта",
+                "password": "Пароль",
+                "passwordTip": "Щоб змінити пароль, отримати доступ та двічі введіть новий пароль.",
+                "secretWord": "Таємне Слово",
+                "tokenPlaceholder": "Введіть Токен...",
+                "passwordPlaceholder": "Введіть свій новий пароль",
+                "repeatPasswordPlaceholder": "Повторіть новий пароль",
+                "messages": {
+                    "email": {
+                        "positive": "Нова адреса електронної пошти збережена.",
+                        "negative": "Не вдалося зберегти нову адресу електронної пошти."
+                    },
+                    "emailStatus": {
+                        "confirmed": "Підтверджено",
+                        "unconfirmed": "Не Підтверджено"
+                    },
+                    "password": {
+                        "positive": "Новий пароль встановлено.",
+                        "negative": "Не вдалося зберегти новий пароль.",
+                        "mistakes": {
+                            "different": "Паролі не збігаються!",
+                            "short": "Пароль має містити щонайменше 8 символів!"
+                        }
+                    },
+                    "secretWord": {
+                        "positive": "Нове таємне слово збережено.",
+                        "negative": "Не вдалося зберегти нове таємне слово."
+                    },
+                    "access": {
+                        "confirmed": "Доступ підтверджено!",
+                        "denied": "Доступ заборонено!",
+                        "get": "Отримати Доступ",
+                        "granted": "Доступ Надано"
+                    },
+                    "confirmLetter": {
+                        "sent": "Лист із підтвердженням надіслано на вашу електронну пошту:",
+                        "problem": "Щось пішло не так... Будь ласка, перевірте функцію 'letterForEmailConfirmation'."
+                    },
+                    "isEmailConfirmed": {
+                        "yes": "Вашу адресу електронної пошти підтверджено!",
+                        "no": "Невірний токен! Спробуйте ще раз."
+                    }
+                },
+                "buttons": {
+                    "confirm": "Підтвердити",
+                    "save": "Зберегти",
+                    "change": "Змінити"
+                },
+                "dialogs": {
+                    "saveChangesDialog": {
+                        "title": "Збереження Нових Даних",
+                        "text": "Чи згодні зберігати оновлені дані?",
+                        "buttons": {
+                            "yes": "Так",
+                            "no": "Ні"
+                        }
+                    },
+                    "getAccessDialog": {
+                        "title": "Доступ до Змін",
+                        "text": "Перш ніж продовжити, будь ласка, введіть свій пароль:",
+                        "inputLabel": "Пароль",
+                        "buttons": {
+                            "confirm": "Підтвердити",
+                            "close": "Закрити"
+                        }
+                    }
+                }
+            },
+            "roles": {
+                "name": "Ролі Адміністраторів"
+            }
+        }
+    }
+}

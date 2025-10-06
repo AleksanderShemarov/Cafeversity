@@ -1,0 +1,513 @@
+{
+    "HeaderComponents": {
+        "WeatherWeekday": {
+            "weekdays": {
+                "sun": "Nie",
+                "mon": "Po",
+                "tue": "Wt",
+                "wed": "Śr",
+                "thu": "Cz",
+                "fri": "Pt",
+                "sat": "So"
+            }
+        },
+        "Dating": {
+            "months": {
+                "jan": "Styczeń",
+                "feb": "Luty",
+                "mar": "Marzec",
+                "apr": "Kwiecień",
+                "may": "Maj",
+                "jun": "Czerwiec",
+                "jul": "Lipiec",
+                "aug": "Sierpień",
+                "sep": "Wrzesień",
+                "oct": "Październik",
+                "nov": "Listopad",
+                "dec": "Grudzień"
+            }
+        },
+        "Entrance": "Wstęp"
+    },
+    "GreetingPage": {
+        "slidesText": {
+            "slide1": {
+                "line1": "Różnorodne dania kuchni białoruskiej.",
+                "line2": "Możliwość dostosowania dań do diety.",
+                "line3": "Aktualne dania ze szczegółami."
+            },
+            "slide2": {
+                "line4": "Wszystkie dania ze wszystkich punktów gastronomicznych na wyciągnięcie ręki.",
+                "line5": "Złóż zamówienie i wybierz najlepszy czas dostawy.",
+                "line6": "Przeglądaj katalog produktów spożywczych, aby znaleźć swoje ulubione potrawy."
+            },
+            "slide3": {
+                "line7": "Przygotowywanie potraw odbywa się zgodnie z najwyższymi standardami higienicznymi.",
+                "line8": "Zgodność oczekiwań z rzeczywistością dla wszystkich 100 procent.",
+                "line9": "Wysokiej jakości produkty spożywcze i pyszne smaki."
+            }
+        },
+        "bottomButtons": {
+            "left": "Dania Dnia",
+            "right": "Jedzenie Świata"
+        }
+    },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Zamknij Kalkulator",
+            "open": "Otwórz Kalkulator",
+            "calcName": "Licznik posiłków",
+            "foodName": "Nazwa Dania",
+            "portion": "Liczba Porcji",
+            "cost": "Koszt",
+            "cancel": "Anulowanie",
+            "tipForUse": "Aby dodać potrawę do kalkulatora, kliknij na jej cenę.",
+            "notification": "Wiadomość",
+            "costSum": "Suma cen"
+        },
+        "bottomButtons": {
+            "left": "Strona Główna",
+            "right": "Jedzenie Świata"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Szukanie...",
+            "searchLineTip": "Wprowadź swoją prośbę!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "Przepis Dnia",
+            "food&peopleSubLink": "Ludzie i Jedzenie",
+            "foodEventsSublink": "Świat Jedzenia"
+        },
+        "bottomButtons": {
+            "left": "Dania Dnia",
+            "right": "Strona Główna"
+        }
+    },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Odzyskiwanie Hasła",
+            "accessUpdate": "Przywracanie Dostępu",
+            "registration": "Rejestracja",
+            "enterGate": "Brama Wjazdowa",
+            "adminGate": "Brama Administracyjna",
+            "adminReg": "Rejestracja Administratorów",
+            "codeConfirmation": "Potwierdzenie Logowania"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "Na Wasz adres poczty elektronicznej '",
+                "part2": "' specjalny kod został wysłany w celu potwierdzenia zalogowania jako administrator."
+            }
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Hasło",
+                "nameNew": "Nowe Hasło",
+                "repeatName": "Powtórz Hasło",
+                "placeholder": "Słowo Kodowe"
+            },
+            "emailField": {
+                "name": "E-mail",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Kopernik@gmail.com"
+            },
+            "nameField": {
+                "name": "Imię",
+                "placeholder": "Mikołaj"
+            },
+            "surnameField": {
+                "name": "Nazwisko",
+                "placeholder": "Kopernik"
+            },
+            "nicknameField": {
+                "name": "Przydomek (Nickname)",
+                "placeholder": "Heliocentryka"
+            },
+            "unknownwordField": {
+                "name": "Tajemne Słowo",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Numer Telefonu Komórkowego",
+                "placeholder": "+48(**)***-**-**"
+            },
+            "emailCodeConfirmField": {
+                "name": "Kod Potwierdzający (****-*****-****)",
+                "placeholder": "****-*****-****"
+            },
+            "otherNames": {
+                "adminRole": "Rola Administratora",
+                "language": "Język"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Zmień Hasło",
+            "enterGate": "Do Bramy Wjazdowej",
+            "send": "Wysłać",
+            "mainPage": "Do Głównej",
+            "signUp": "Rejestracja",
+            "exit": "Wyłaz",
+            "logIn": "Zaloguj się",
+            "back": "Nazad",
+            "confirm": "Potwierdzenie",
+            "adminEntrance": "Do Logowania Administratorów"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "Przepraszamy, ale czas aktywności łącza już się skończył. Aby poprosić o nowy, naciśnij ",
+                "part2": "tutaj"
+            },
+            "toSignUp": {
+                "part1": "Jeszcze się nie zarejestrowałeś? Proszę kliknąć ",
+                "part2": "tutaj"
+            },
+            "rememberedPassword": {
+                "part1": "Czy pamiętał hasła?",
+                "part2": "Idź tutaj"
+            },
+            "alreadySinedUp": {
+                "part1": "Już zarejestrowany – proszę, ",
+                "part2": "tu"
+            },
+            "forgottenPassword": {
+                "part1": "Jeśli zapomniałeś hasła, przejdź ",
+                "part2": "tu"
+            }
+        },
+        "others": {
+            "loading": "Załadunek...",
+            "networks": "Zaloguj się za pomocą sieci"
+        }
+    },
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Menu",
+            "main": "Ogólny",
+            "news": "Nowina",
+            "settings": "Ustawienia Konta"
+        },
+        "dishesBlocks": {
+            "favourite": "Ulubione Dania",
+            "todays": "Dania Dnia"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Usuwanie Ulubionego Dania",
+            "question": "Czy chcesz trwale usunąć danie z listy ulubionych?",
+            "yes": "Tak",
+            "no": "Nie"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Składać Zamówienie",
+                "opened": "Zamknij Okno Zamówienia"
+            },
+            "name": "Płynne Zamówienie",
+            "positions": {
+                "one": "pozycja",
+                "afew": "pozycje",
+                "more": "pozycji"
+            },
+            "available": "Dostępny",
+            "noDishes": "Nie wybrano żadnych dań",
+            "cafeChoice": {
+                "name": "Wybór Stołówek",
+                "placeholder": {
+                    "noDish": "Najpierw wybierz dania",
+                    "anyDish": "Wybierz Stołówkę"
+                }
+            },
+            "timeChoice": {
+                "name": "Wybór Czasu",
+                "placeholder": {
+                    "noTimes": "Najpierw wybierz stołówkę",
+                    "anyTimes": "Wybierz Czas"
+                }
+            },
+            "telephone": {
+                "name": "Tel.:",
+                "placeholder": "+48 (**) ***-**-**"
+            },
+            "comment": "Komentarz...",
+            "submit": "Potwierdzać",
+            "tabs": {
+                "newOrder": "Nowe Zamówienie",
+                "orderHistory": "Historia Zamówień"
+            },
+            "historyTitle": "Poprzednie Zamówienia"
+        },
+        "exitButton": {
+            "name": "Wyłaz",
+            "question": "Naprawdę chcesz wyjść?",
+            "access": "Tak",
+            "deny": "Nie"
+        }
+    },
+    "SettingsPage": {
+        "stickyNavbar": {
+            "name": "Ustawienia Konta",
+            "part1": "Ustawienia Ogólne",
+            "part2": "Smaki & Konstytucja Ciała",
+            "part3": "Widok Strony"
+        },
+        "firstSetsPart": {
+            "name": "Ustawienia Ogólne",
+            "photoEditor": {
+                "name": "Edytor Zdjęć Użytkownika",
+                "changePhotoButton": "Zmień Zdjęcie",
+                "deletePhotoButton": "Usuń Zdjęcie"
+            },
+            "input1": "Imię",
+            "input2": "Nazwisko",
+            "input3": "Przydomek",
+            "cancelButton": "Anulowanie",
+            "saveButtonType1": "Zmiana",
+            "saveButtonType2": "Składowanie",
+            "changesDialog": {
+                "mainQuestion1": "Czy zgadzasz się ze zmianami?",
+                "mainQuestion2": "Czy chcesz odrzucić zmiany?",
+                "accessButton": "Tak",
+                "denyButton": "Nie"
+            },
+            "updatedSetsSaving": "Zapisać zmiany na stronach internetowych?"
+        },
+        "secondSetsPart": {
+            "name": "Smaki & Konstytucja Ciała",
+            "subtitle1": {
+                "name": "Wybierz swoje preferencje",
+                "preferQuestion1": "Czy chcesz zjeść pikantne jedzenie?",
+                "preferQuestion2": "Czy wolisz dania wegetariańskie?",
+                "preferQuestion3": "Czy jesteś weganinem?"
+            },
+            "subtitle2": {
+                "name": "Średnia liczba kalorii dziennie",
+                "mainQuestion": "Ile kalorii chcesz spożywać dziennie?"
+            } 
+        },
+        "thirdSetsPart": {
+            "name": "Widok Strony",
+            "subtitle1": {
+                "name": "Język",
+                "mainQuestion": "Wybierz swój język: "
+            },
+            "subtitle2": {
+                "name": "Tryb Strony",
+                "mainQuestion": "Dostosuj tryb kolorów",
+                "lightTheme": "Jasne",
+                "darkTheme": "Ciemne"
+            },
+            "subtitle3": {
+                "name": "Podświetl Kolor",
+                "mainQuestion": "Wybierz jeden z kolorów"
+            },
+            "subtitle4": {
+                "name": "Ustawienia Czcionki",
+                "fontQuestion1": "Wybierz Rodzinę Czcionek",
+                "fontQuestion2": "Wybierz Rozmiar Czcionki",
+                "fontQuestion3": "Wybierz Grubość Czcionki"
+            }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Sałatki",
+            "soup": "Zupy",
+            "main": "Dania na Ciepło",
+            "dessert": "Desery",
+            "drink": "Napoje"
+        },
+        "loading": "Ładowanie dań...",
+        "noDishes": "Ani jednego dania w tej kategorii"
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Białki",
+            "fats": "Tłuszcze",
+            "carbo": "Węglowodany",
+            "weightName": "g."
+        },
+        "portion": "Porcja",
+        "cost": "Koszt",
+        "composition": "Skład",
+        "buttons": {
+            "back": "Nazad",
+            "more": "Więcej..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "nutritions": {
+            "protein": "Białki",
+            "fats": "Tłuszcze",
+            "carbo": "Węglowodany",
+            "weightName": "g."
+        },
+        "diets": {
+            "spicy": "Pikantnie",
+            "veget": "Wegetariańskie",
+            "vegan": "Wegańskie"
+        },
+        "mealSentence": "Bardziej powszechne (spożywane):",
+        "meals": {
+            "snedak": "Śniadanie",
+            "abed": "Obiad",
+            "vjachera": "Kolacja"
+        }
+    },
+    "ExitPage": {
+        "name": "Wylogowywanie. Proszę czekać..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Menu Administratora",
+            "themes": {
+                "light": "Jasna",
+                "dark": "Ciemna"
+            },
+            "settings": "Ustawienia",
+            "exit": "Wyłaz"
+        },
+        "AdminHeaderOptions": {
+            "dashboard": "Panel Sterowania Administratora",
+            "usersPanel": "Panel Użytkowników",
+            "cafesPanel": "Panel Stołówki",
+            "dishesPanel": "Panel Dania",
+            "ordersPanel": "Panel Zamówień"
+        },
+        "ChartsNames": {
+            "chart1": "Popularność dań w zależności od ich występowania w zamówieniach",
+            "chart2": "Liczba posiłków według rodzaju diety",
+            "chart3": "iczba dań według kategorii",
+            "chart4": "Zysk wszystkich stołówek"
+        }
+    },
+    "AdminPageSetUps": {
+        "3_blocks": {
+            "personData": {
+                "name": "Dane Osobowe",
+                "fullname": "Imię",
+                "telephone": "Telefon",
+                "languagesList": "Języki",
+                "pageLanguage": "Język Stronęk",
+                "messages": {
+                    "language": {
+                        "positive": "Język zaktualizowany.",
+                        "negative": "Błąd aktualizacji języka!"
+                    },
+                    "photo": {
+                        "positive": "Zdjęcie zaktualizowane.",
+                        "neutral": "Zestaw szablonów zdjęć administratora.",
+                        "negative": "Nie udało się zaktualizować zdjęcia!"
+                    },
+                    "photoFile": {
+                        "uploading": {
+                            "positive": "Nowe zdjęcie zostało przesłane.",
+                            "negative": "Nie udało się przesłać nowego zdjęcia:"
+                        },
+                        "removing": {
+                            "positive": "Zdjęcie usunięte.",
+                            "negative": "Nie udało się usunąć zdjęcia:"
+                        }
+                    },
+                    "fullname": {
+                        "positive": "Pełna imię zaktualizowana.",
+                        "negative": "Nie udało się zaktualizować pełnego imienia!"
+                    },
+                    "telephone": {
+                        "positive": "Numer telefonu zaktualizowany.",
+                        "negative": "Nie udało się zaktualizować numeru telefonu!"
+                    }
+                },
+                "buttons": {
+                    "save": "Ratować",
+                    "delete": "Usuwać",
+                    "upload": "Wgrywać",
+                    "edit": "Redagować"
+                },
+                "saveChangesDialog": {
+                    "title": "Zapisywanie Nowych Danych",
+                    "text": "Czy wyrażasz zgodę na zapisanie zaktualizowanych danych?",
+                    "buttons": {
+                        "yes": "Tak",
+                        "no": "Nie"
+                    }
+                }
+            },
+            "security": {
+                "name": "Wstęp & Bezpieczeństwo",
+                "email": "E-mail",
+                "password": "Hasło",
+                "passwordTip": "Aby zmienić hasło, uzyskać dostęp i wpisz nowe hasło dwukrotnie.",
+                "secretWord": "Tajemne Słowo",
+                "tokenPlaceholder": "Wprowadź Token...",
+                "passwordPlaceholder": "Wprowadź nowe hasło",
+                "repeatPasswordPlaceholder": "Powtórz nowe hasło",
+                "messages": {
+                    "email": {
+                        "positive": "Zapisano nowy adres poczty elektronicznej.",
+                        "negative": "Nie można zapisać nowego adresu poczty elektronicznej."
+                    },
+                    "emailStatus": {
+                        "confirmed": "Potwierdzony",
+                        "unconfirmed": "Niepotwierdzone"
+                    },
+                    "password": {
+                        "positive": "Nowe hasło ustawione.",
+                        "negative": "Nie można zapisać nowego hasła.",
+                        "mistakes": {
+                            "different": "Hasła nie są takie same!",
+                            "short": "Hasło musi mieć co najmniej 8 znaków!"
+                        }
+                    },
+                    "secretWord": {
+                        "positive": "Nowe tajne słowo zostało zapisane.",
+                        "negative": "Nie można zapisać nowego tajnego słowa."
+                    },
+                    "access": {
+                        "confirmed": "Dostęp potwierdzony!",
+                        "denied": "Odmowa dostępu!",
+                        "get": "Uzyskaj Dostęp",
+                        "granted": "Dostęp Dozwolony"
+                    },
+                    "confirmLetter": {
+                        "sent": "Wiadomość z potwierdzeniem została wysłana na wasz adres poczty elektronicznej:",
+                        "problem": "Coś poszło nie tak... Sprawdź tę funkcję «letterForEmailConfirmation»."
+                    },
+                    "isEmailConfirmed": {
+                        "yes": "Wasz adres poczty elektronicznej został potwierdzony!",
+                        "no": "Nieprawidłowy token! Spróbuj ponownie."
+                    }
+                },
+                "buttons": {
+                    "confirm": "Potwierdzać",
+                    "save": "Ratować",
+                    "change": "Zmiana"
+                },
+                "dialogs": {
+                    "saveChangesDialog": {
+                        "title": "Zapisywanie Nowych Danych",
+                        "text": "Czy wyrażasz zgodę na zapisanie zaktualizowanych danych?",
+                        "buttons": {
+                            "yes": "Tak",
+                            "no": "Nie"
+                        }
+                    },
+                    "getAccessDialog": {
+                        "title": "Dostęp do Zmian",
+                        "text": "Proszę podać hasło przed kontynuowaniem:",
+                        "inputLabel": "Hasło",
+                        "buttons": {
+                            "confirm": "Potwierdzać",
+                            "close": "Zamknąć"
+                        }
+                    }
+                }
+            },
+            "roles": {
+                "name": "Role Administatorów"
+            }
+        }
+    }
+}

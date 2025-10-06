@@ -20,20 +20,25 @@ export default function SignUp() {
         { lang: "by", name: "Беларуская" },
         { lang: "cz", name: "Čeština" },
         { lang: "en", name: "English" },
-        // { lang: "ru", name: "Русский" },
-    ] as const;
+        { lang: "pl", name: "Polski" },
+        { lang: "ru", name: "Русский" },
+        { lang: "tr", name: "Türkçe" },
+        { lang: "ua", name: "Українська" },
+    ] as const;//!!!
 
     const [name, setName] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
     const [nickname, setNickname] = useState<string>("");
     const [email, setEmail] = useState<string>("");
-    const [lang, setLang] = useState<string>("by");
+    const [lang, setLang] = useState<string>(pathname.split("/")[1]);
     const [password1, setPassword1] = useState<string>("");
     const [password2, setPassword2] = useState<string>("");
 
     const [passwordStyle, setPasswordStyle] = useState<React.CSSProperties>({});
 
     const [enableReg, setEnableReg] = useState<boolean>(false);
+
+    const [loading, setLoading] = useState<boolean>(false);
 
     const valueChange = (
         event: React.ChangeEvent<HTMLInputElement>|React.ChangeEvent<HTMLSelectElement>,
@@ -44,6 +49,8 @@ export default function SignUp() {
 
     const UserRegistration = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        setLoading(true);
 
         const formFields = {
             firstName: name,
@@ -67,6 +74,7 @@ export default function SignUp() {
             // console.log(data);
             if (data.status === "Success") toast.success(data.message, { position: "top-center" });
             if (data.status === "Error") toast.error(data.message, { position: "top-center" });
+            setLoading(false);
         })
         .catch((error) => console.error(error));
     }
@@ -170,18 +178,37 @@ export default function SignUp() {
 
                 <div className={styles.formButtons}>
                     {/* <Link href="/TemporaryPage"><input type="button" value="Рэгістрацыя" id={styles.submitButton} /></Link> */}
-                    <button
-                        id={styles.submitButton}
-                        type="submit"
-                        disabled={!enableReg}
-                        style={enableReg ? {} : { 
-                            color: "white",
-                            fontStyle: "italic",
-                            backgroundColor: "lightgray",
-                            outline: "2px dashed black",
-                            pointerEvents: "none",
-                        }}
-                    >{signingUp("buttons.signUp")}</button>
+                    {loading ? (
+                        <button type="button" disabled style={{
+                            height: "35px", minWidth: "105px", fontSize: "20px", borderRadius: "10px",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            outline: "3px solid blue", color: "blue", backgroundColor: "white",
+                        }}>
+                            <div style={{ 
+                                width: "2rem", 
+                                height: "2rem", 
+                                border: "2px solid transparent",
+                                borderTop: "2px solid currentColor",
+                                borderRadius: "50%",
+                                animation: "spin 1s linear infinite"
+                            }} />
+                        </button>
+                    ) : (
+                        <button
+                            id={styles.submitButton}
+                            type="submit"
+                            disabled={!enableReg}
+                            style={enableReg ? {} : { 
+                                color: "white",
+                                fontStyle: "italic",
+                                backgroundColor: "lightgray",
+                                outline: "2px dashed black",
+                                pointerEvents: "none",
+                            }}
+                        >
+                            {signingUp("buttons.signUp")}
+                        </button>
+                    )}
                     <Link href={pathname.slice(0, 3)}><input type="button" value={signingUp("buttons.exit")} id={styles.closeButton} /></Link>
                 </div>
             </div>
@@ -195,6 +222,13 @@ export default function SignUp() {
                     !
                 </p>
             </div>
+
+            <style jsx>{`
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
         </form>
     )
 }

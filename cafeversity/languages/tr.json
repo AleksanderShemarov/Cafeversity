@@ -1,0 +1,513 @@
+{
+    "HeaderComponents": {
+        "WeatherWeekday": {
+            "weekdays": {
+                "sun": "Pz",
+                "mon": "Pt",
+                "tue": "Sl",
+                "wed": "Çş",
+                "thu": "Pş",
+                "fri": "Cm",
+                "sat": "Ct"
+            }
+        },
+        "Dating": {
+            "months": {
+                "jan": "Ocak",
+                "feb": "Şubat",
+                "mar": "Mart",
+                "apr": "Nisan",
+                "may": "Mayıs",
+                "jun": "Haziran",
+                "jul": "Temmuz",
+                "aug": "Ağustos",
+                "sep": "Eylül",
+                "oct": "Ekim",
+                "nov": "Kasım",
+                "dec": "Aralık"
+            }
+        },
+        "Entrance": "Giriş Yap"
+    },
+    "GreetingPage": {
+        "slidesText": {
+            "slide1": {
+                "line1": "Belarus mutfağından çeşitli yemekler.",
+                "line2": "Diyetlere göre yemek özelleştirme olanağı.",
+                "line3": "Gerçek yemeklerin detayları."
+            },
+            "slide2": {
+                "line4": "Tüm yemek noktalarındaki tüm yemekler parmaklarınızın ucunda.",
+                "line5": "Siparişinizi verin ve en uygun teslimat saatini seçin.",
+                "line6": "Beğendiklerinizi bulmak için menüye göz atın."
+            },
+            "slide3": {
+                "line7": "Yemeklerin pişirilmesi en yüksek hijyen standartlarını karşılıyor.",
+                "line8": "Beklentiler ile gerçekler arasında yüzde 100 uyum.",
+                "line9": "Kaliteli gıda ürünleri ve harika lezzetler."
+            }
+        },
+        "bottomButtons": {
+            "left": "Bugünün Yemekleri",
+            "right": "Yemek Dünyası"
+        }
+    },
+    "CommonMenu": {
+        "Calcultor": {
+            "close": "Hesap Makinesini Kapat",
+            "open": "Hesap Makinesini Aç",
+            "calcName": "Yemek Hesap Makinesi",
+            "foodName": "Yemek Adı",
+            "portion": "Porsiyon Miktarı",
+            "cost": "Maliyet",
+            "cancel": "İptal",
+            "tipForUse": "Maliyetine tıklayarak hesap makinesine bir yemek ekleyin.",
+            "notification": "Bildirim",
+            "costSum": "Ortak maliyet"
+        },
+        "bottomButtons": {
+            "left": "Ana Sayfa",
+            "right": "Yemek Dünyası"
+        }
+    },
+    "NewsPage": {
+        "Food&People": {
+            "searchLine": "Ara...",
+            "searchLineTip": "Sorunuzu buraya yazın!"
+        },
+        "BestRecipe": {},
+        "FoodEvents": {},
+        "threeSublinks": {
+            "bestRecipeSublink": "En İyi Tarif",
+            "food&peopleSubLink": "Yemek ve İnsanlar",
+            "foodEventsSublink": "Yemek Etkinlikleri"
+        },
+        "bottomButtons": {
+            "left": "Bugünün Yemekleri",
+            "right": "Ana Sayfa"
+        }
+    },
+    "AuthPages": {
+        "titles": {
+            "passwordRecovery": "Şifre Kurtarma",
+            "accessUpdate": "Erişim Geri Yükleniyor",
+            "registration": "Kayıt Formu",
+            "enterGate": "Giriş Kapısı",
+            "adminGate": "Yönetici Kapısı",
+            "adminReg": "Yönetici Kayıt",
+            "codeConfirmation": "Giriş Onayı"
+        },
+        "texts": {
+            "codeConfirmation": {
+                "part1": "E-posta adresinizi kontrol edin '",
+                "part2": "'. Yönetici onayı için özel kod gönderildi."
+            }
+        },
+        "fields": {
+            "passwordField": {
+                "name": "Şifre",
+                "nameNew": "Yeni Şifre",
+                "repeatName": "Şifreyi Tekrarla",
+                "placeholder": "Kod Kelimesi"
+            },
+            "emailField": {
+                "name": "E-posta",
+                "placeholder": "email@example.com",
+                "namedPlaceholder": "Pamukl@gmail.com"
+            },
+            "nameField": {
+                "name": "Ad",
+                "placeholder": "Orhan"
+            },
+            "surnameField": {
+                "name": "Soyadı",
+                "placeholder": "Pamuk"
+            },
+            "nicknameField": {
+                "name": "Takma Ad",
+                "placeholder": "Ferit"
+            },
+            "unknownwordField": {
+                "name": "Gizli Kelime",
+                "placeholder": "***********"
+            },
+            "telephoneField": {
+                "name": "Cep Telefonu Numarası",
+                "placeholder": "+90(***)***-**-**"
+            },
+            "emailCodeConfirmField": {
+                "name": "Onay Kodu (****-******-****)",
+                "placeholder": "****-***-****"
+            },
+            "otherNames": {
+                "adminRole": "Yöneticinin Rolü",
+                "language": "Dil"
+            }
+        },
+        "buttons": {
+            "passwordChange": "Şifreyi Değiştir",
+            "enterGate": "Girişe",
+            "send": "Gönder",
+            "mainPage": "Ana Sayfaya",
+            "signUp": "Kaydolunuyor",
+            "exit": "Çıkış",
+            "logIn": "Giriş Yapılıyor",
+            "back": "Geri",
+            "confirm": "Onayla",
+            "adminEntrance": "Yönetici Kapısına"
+        },
+        "links": {
+            "newRecovery": {
+                "part1": "Üzgünüz, ancak bağlantının süresi dolmuş. Yeni bir bağlantı talep etmek için ",
+                "part2": "buraya"
+            },
+            "toSignUp": {
+                "part1": "Henüz kayıt olmadınız mı? Lütfen ",
+                "part2": "buraya"
+            },
+            "rememberedPassword": {
+                "part1": "Şifrenizi hatırladınız mı?",
+                "part2": "Buraya atla"
+            },
+            "alreadySinedUp": {
+                "part1": "Zaten kayıtlı mısınız? Lütfen, ",
+                "part2": "buraya"
+            },
+            "forgottenPassword": {
+                "part1": "Şifrenizi unuttuysanız, ",
+                "part2": "buraya"
+            }
+        },
+        "others": {
+            "loading": "Yükleniyor...",
+            "networks": "Ağları kullanarak giriş yap"
+        }
+    },
+    "MainUserPage": {
+        "vanishingNavbar": {
+            "menu": "Menü",
+            "main": "Genel",
+            "news": "Haberler",
+            "settings": "Hesap Ayarları"
+        },
+        "dishesBlocks": {
+            "favourite": "Favori Yemekler",
+            "todays": "Bugünün Yemekleri"
+        },
+        "deleteFavouriteDialog": {
+            "name": "Favori Yemek Kaldırılıyor",
+            "question": "Bu yemeği Favori Yemekler Listenizden gerçekten kaldırmak istiyor musunuz?",
+            "yes": "Evet",
+            "no": "Hayır"
+        },
+        "orderView": {
+            "makeOrderButton": {
+                "closed": "Sipariş Ver",
+                "opened": "Sipariş Görünümünü Kapat"
+            },
+            "name": "Mevcut Sipariş",
+            "positions": {
+                "one": "position",
+                "afew": "positions",
+                "more": "positions"
+            },
+            "available": "Mevcut",
+            "noDishes": "Seçilen yemek yok",
+            "cafeChoice": {
+                "name": "Kantin Seçimi",
+                "placeholder": {
+                    "noDish": "Önce yemekleri seçin",
+                    "anyDish": "Kantin seçin"
+                }
+            },
+            "timeChoice": {
+                "name": "Saat Seçimi",
+                "placeholder": {
+                    "noTimes": "Önce bir kantin seçin",
+                    "anyTimes": "Saat Seçin"
+                }
+            },
+            "telephone": {
+                "name": "Tel.:",
+                "placeholder": "+375 (**) ***-**-**"
+            },
+            "comment": "Yorum...",
+            "submit": "Gönder",
+            "tabs": {
+                "newOrder": "Yeni Sipariş",
+                "orderHistory": "Sipariş Geçmişi"
+            },
+            "historyTitle": "Önceki Siparişler"
+        },
+        "exitButton": {
+            "name": "Çıkış",
+            "question": "Gerçekten çıkmak istiyor musunuz?",
+            "access": "Evet",
+            "deny": "Hayır"
+        }
+    },
+    "SettingsPage": {
+        "stickyNavbar": {
+            "name": "Hesap Ayarları",
+            "part1": "Genel Ayarlar",
+            "part2": "Lezzetler ve Vücut Yapısı",
+            "part3": "Sayfa Görünümü"
+        },
+        "firstSetsPart": {
+            "name": "Genel Ayarlar",
+            "photoEditor": {
+                "name": "Kullanıcı Resim Düzenleyicisi",
+                "changePhotoButton": "Fotoğrafı Değiştir",
+                "deletePhotoButton": "Fotoğrafı Sil"
+            },
+            "input1": "Ad",
+            "input2": "Soyadı",
+            "input3": "Takma Ad",
+            "cancelButton": "İptal",
+            "saveButtonType1": "Değişiklik",
+            "saveButtonType2": "Kaydet",
+            "changesDialog": {
+                "mainQuestion1": "Değişiklikleri kabul ediyor musunuz?",
+                "mainQuestion2": "Değişiklikleri reddetmek istiyor musunuz?",
+                "accessButton": "Evet",
+                "denyButton": "Hayır"
+            },
+            "updatedSetsSaving": "Web sayfalarının çalışması için değişiklikler kaydedilsin mi?"
+        },
+        "secondSetsPart": {
+            "name": "Lezzetler ve Vücut Yapısı",
+            "subtitle1": {
+                "name": "Tercihlerinizi seçin",
+                "preferQuestion1": "Acılı yemekler yemek ister misiniz?",
+                "preferQuestion2": "Vejetaryen yemekleri tercih eder misiniz?",
+                "preferQuestion3": "Vegan mısınız?"
+            },
+            "subtitle2": {
+                "name": "Günlük ortalama kalori miktarı",
+                "mainQuestion": "Günde kaç kalori almak istiyorsunuz?"
+            }
+        },
+        "thirdSetsPart": {
+            "name": "Sayfa Görünümü",
+            "subtitle1": {
+                "name": "Dil",
+                "mainQuestion": "Dilinizi seçin:"
+            },
+            "subtitle2": {
+                "name": "Arayüz Temaları",
+                "mainQuestion": "Uygulama temanızı özelleştirin",
+                "lightTheme": "Açık Tema",
+                "darkTheme": "Koyu Tema"
+            },
+            "subtitle3": {
+                "name": "Marka (Vurgu) Renkleri",
+                "mainQuestion": "Renklerden birini seçin"
+            },
+            "subtitle4": {
+                "name": "Yazı Tipi Ayarları",
+                "fontQuestion1": "Bir Yazı Tipi Ailesi Seçin",
+                "fontQuestion2": "Bir Yazı Tipi Boyutu Seçin",
+                "fontQuestion3": "Bir Yazı Tipi Kalınlığı Seçin"
+            }
+        }
+    },
+    "UserMenuPage": {
+        "categories": {
+            "salad": "Salatalar",
+            "soup": "Çorbalar",
+            "main": "Sıcak Yemekler",
+            "dessert": "Tatlı",
+            "drink": "İçecekler"
+        },
+        "loading": "Yemekler yükleniyor...",
+        "noDishes": "Kategoride yemek yok"
+    },
+    "UserChoisenDishShortInfo": {
+        "nutritions": {
+            "protein": "Protein",
+            "fats": "Yağlar",
+            "carbo": "Karbonhidratlar",
+            "weightName": "g."
+        },
+        "portion": "Porsiyon",
+        "cost": "Maliyet",
+        "composition": "Bileşim",
+        "buttons": {
+            "back": "Geri",
+            "more": "Daha..."
+        }
+    },
+    "UserChoisenDishPage": {
+        "besinler": {
+            "protein": "Protein",
+            "fats": "Yağlar",
+            "carbo": "Karbonhidratlar",
+            "weightName": "g."
+        },
+        "diets": {
+            "spicy": "Acılı",
+            "veget": "Vejetaryen",
+            "vegan": "Vegan"
+        },
+        "mealSentence": "Daha yaygın (tüketilen):",
+        "meals": {
+            "snedak": "Kahvaltı",
+            "abed": "Öğle Yemeği",
+            "vjachera": "Akşam Yemeği"
+        }
+    },
+    "ExitPage": {
+        "name": "Çıkış devam ediyor. Lütfen bekleyin..."
+    },
+    "AdminDashboard": {
+        "AdminHeaderBlock": {
+            "title": "Yönetici Menüsü",
+            "themes": {
+                "light": "Açık",
+                "dark": "Koyu"
+            },
+            "settings": "Ayarlar",
+            "exit": "Çıkış"
+        },
+        "AdminHeaderOptions": {
+            "dashboard": "Yönetici Paneli",
+            "usersPanel": "Kullanıcı Paneli",
+            "cafesPanel": "Kafeler Paneli",
+            "dishesPanel": "Yemekler Paneli",
+            "ordersPanel": "Siparişler Paneli"
+        },
+        "ChartsNames": {
+            "chart1": "Yemeklerin siparişlerdeki yerlerine göre popülerliği",
+            "chart2": "Diyet türüne göre öğün sayısı",
+            "chart3": "Kategorilere göre yemek sayısı",
+            "chart4": "Tüm kafelerin kârı"
+        }
+    },
+    "AdminPageSetUps": {
+        "3_blocks": {
+            "personData": {
+                "name": "Kişisel Veriler",
+                "fullname": "Ad",
+                "telephone": "Telefon",
+                "languagesList": "Diller",
+                "pageLanguage": "Sayfaların Dili",
+                "messages": {
+                    "language": {
+                        "positive": "Dil güncellendi.",
+                        "negative": "Dil güncellemesi başarısız oldu!"
+                    },
+                    "photo": {
+                        "positive": "Fotoğraf güncellendi.",
+                        "neutral": "Yöneticinin Şablon Fotoğrafı ayarlandı.",
+                        "negative": "Fotoğraf güncellemesi başarısız oldu!"
+                    },
+                    "photoFile": {
+                        "uploading": {
+                            "positive": "Yeni fotoğraf yüklendi.",
+                            "negative": "Yeni fotoğraf yükleme başarısız oldu:"
+                        },
+                        "removing": {
+                            "positive": "Fotoğraf kaldırıldı.",
+                            "negative": "Fotoğraf kaldırma işlemi başarısız oldu:"
+                        }
+                    },
+                    "fullname": {
+                        "positive": "Tam ad güncellendi.",
+                        "negative": "Tam ad güncellemesi başarısız oldu!"
+                    },
+                    "telephone": {
+                        "positive": "Telefon numarası güncellendi.",
+                        "negative": "Telefon numarası güncellemesi başarısız oldu!"
+                    }
+                },
+                "buttons": {
+                    "save": "Kaydet",
+                    "delete": "Sil",
+                    "upload": "Yükle",
+                    "edit": "Düzenle"
+                },
+                "saveChangesDialog": {
+                    "title": "Yeni Veriler Kaydediliyor",
+                    "text": "Güncellenmiş bir veriyi kaydetmeyi kabul ediyor musunuz?",
+                    "buttons": {
+                        "yes": "Evet",
+                        "no": "Hayır"
+                    }
+                }
+            },
+            "security": {
+                "name": "Giriş ve Güvenlik",
+                "email": "E-posta",
+                "password": "Şifre",
+                "passwordTip": "Şifrenizi değiştirmek için erişim sağlayın ve yeni şifreyi iki kez girin.",
+                "secretWord": "Gizli Kelime",
+                "tokenPlaceholder": "Token'ı girin...",
+                "passwordPlaceholder": "Yeni şifrenizi girin",
+                "repeatPasswordPlaceholder": "Yeni şifrenizi tekrarlayın",
+                "messages": {
+                    "email": {
+                        "positive": "Yeni e-posta adresi kaydedildi.",
+                        "negative": "Yeni e-posta adresini kaydetmek mümkün değil."
+                    },
+                    "emailStatus": {
+                        "confirmed": "Onaylandı",
+                        "unconfirmed": "Onaylanmadı"
+                    },
+                    "password": {
+                        "positive": "Yeni şifre ayarlandı.",
+                        "negative": "Yeni şifreyi kaydetmek mümkün değil.",
+                        "mistakes": {
+                            "different": "Şifreler eşleşmiyor!",
+                            "short": "Şifre en az 8 karakter olmalıdır!"
+                        }
+                    },
+                    "secretWord": {
+                        "positive": "Yeni gizli kelime kaydedildi.",
+                        "negative": "Yeni gizli kelimeyi kaydetmek mümkün değil."
+                    },
+                    "access": {
+                        "confirmed": "Erişim onaylandı!",
+                        "denied": "Erişim reddedildi!",
+                        "get": "Erişim Alın",
+                        "granted": "Erişim Verildi"
+                    },
+                    "confirmLetter": {
+                        "sent": "Onay mektubu e-postanıza gönderildi:",
+                        "problem": "Bir sorun oluştu... Lütfen 'letterForEmailConfirmation' işlevini kontrol edin."
+                    },
+                    "isEmailConfirmed": {
+                        "yes": "E-postanız onaylandı!",
+                        "no": "Yanlış belirteç! Lütfen tekrar deneyin."
+                    }
+                },
+                "buttons": {
+                    "confirm": "Onayla",
+                    "save": "Kaydet",
+                    "change": "Değiştir"
+                },
+                "dialogs": {
+                    "saveChangesDialog": {
+                        "title": "Yeni Veriler Kaydediliyor",
+                        "text": "Güncellenmiş bir veriyi kaydetmeyi kabul ediyor musunuz?",
+                        "buttons": {
+                            "yes": "Evet",
+                            "no": "Hayır"
+                        }
+                    },
+                    "getAccessDialog": {
+                        "title": "Değişiklikler İçin Erişim",
+                        "text": "Devam etmeden önce lütfen şifrenizi girin:",
+                        "inputLabel": "Şifre",
+                        "buttons": {
+                            "confirm": "Onayla",
+                            "close": "Kapat"
+                        }
+                    }
+                }
+            },
+            "roles": {
+                "name": "Yöneticilerin Rolleri"
+            }
+        }
+    }
+}

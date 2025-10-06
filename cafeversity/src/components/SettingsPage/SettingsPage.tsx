@@ -82,17 +82,17 @@ function reducer(state: State, action: Action): State {
 
 const langs: [string, string, string][] = [
     [ "Беларуская", "by", "/countries/Belarus_borders.jpg" ],
-    [ "English", "en", "/countries/UK_borders.jpg" ],
     [ "Čeština", "cz", "/countries/CzechRepublic_borders.jpg" ],
-    // [ "Polish", "Polski", "/countries/Poland_borders.jpg" ],
-    // [ "Ukranian", "Українська", "/countries/Ukraine_borders.jpg" ],
+    [ "English", "en", "/countries/UK_borders.jpg" ],
+    [ "Polski", "pl", "/countries/Poland_borders.jpg" ],
+    ["Русский", "ru", "/no_image1.jpg"],
+    [ "Türkçe", "tr", "/countries/Turkey_borders.jpg" ],
+    [ "Українська", "ua", "/countries/Ukraine_borders.jpg" ],
     // [ "Lithuanian", "Lietuvių", "/countries/Lithuania_borders.jpg" ],
     // [ "Italian", "Italiano", "/countries/Italy_borders.jpeg" ],
     // [ "French", "Français", "/countries/France_borders.jpg" ],
-    // [ "Turkish", "Türkçe", "/countries/Turkey_borders.jpg" ],
     // [ "Japanese", "日本語", "/countries/Japan_borders.jpg" ],
-    // ["Russian", "Русский", "/countries/russia_border.jpg"],
-];
+];//!!!
 
 
 export interface SetsState {
@@ -288,7 +288,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
     function denyUpdatedSetsUserData() {
         setsDispatch({ type: "SET_REAL_USER_SETS", payload: newSets });
         setTheme(newSets.pageTheme);
-        toast.info("All changes have been discarded.", { position: "top-right" });
+        toast.info("All changes have been discarded.", { position: "top-right", style: { fontSize: "1.8rem" } });
     }
     
     
@@ -372,7 +372,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
             await fetch("/api/revalidate?path=/settings");// revalidation of settingsPage
             router.refresh();
 
-            toast.info(data.message, { position: "top-right", style: { fontSize: "1.5rem" } });
+            toast.info(data.message, { position: "top-right", style: { fontSize: "1.8rem" } });
         } catch (error) {
             console.error("Language update error:", error);
             alert("Failed to change language. Please try again.");

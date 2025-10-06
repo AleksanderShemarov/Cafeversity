@@ -14,12 +14,15 @@ const adminRoles: string[] = [
     "Founder Admin", "General Admin", "Registration Admin", "Routes Admin", "Communication Admin"
 ] as const;
 
-const langs: string[] = [
-    "by", "cz", "en",
-] as const;
-const langNames: string[] = [
-    "Беларуская", "Čeština", "English",
-] as const;
+const languages = [
+    { lang: "by", name: "Беларуская" },
+    { lang: "cz", name: "Čeština" },
+    { lang: "en", name: "English" },
+    { lang: "pl", name: "Polski" },
+    { lang: "ru", name: "Русский" },
+    { lang: "tr", name: "Türkçe" },
+    { lang: "ua", name: "Українська" },
+] as const;//!!!
 
 export default function AdminRegist() {
     const pathname = usePathname();
@@ -40,12 +43,16 @@ export default function AdminRegist() {
 
     const [enableReg, setEnableReg] = useState<boolean>(false);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const valueChange = (event: React.ChangeEvent<HTMLInputElement>, reactHook: (value: string) => void) => {
         reactHook(event.target.value);
     }
 
     const AdminSignUp = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+
+        setLoading(true);
 
         const formFields = {
             firstName: name,
@@ -72,7 +79,10 @@ export default function AdminRegist() {
                 toast.success(data.message, { position: "top-center", style: { fontSize: "1.5rem" } });
                 window.location.href = `/${pathname.split("/")[1]}/${data?.redirect}`;
             }
-            if (data.status === "Error") toast.error(data.message, { position: "top-center", style: { fontSize: "1.5rem" } });
+            if (data.status === "Error") {
+                toast.error(data.message, { position: "top-center", style: { fontSize: "1.5rem" } });
+                setLoading(false);
+            }
         })
         .catch((error) => console.error(error));
     }
@@ -157,8 +167,8 @@ export default function AdminRegist() {
                             padding: "0.5rem", borderRadius: "1rem"
                         }}
                     >
-                        {langs.map((lang, index) =>
-                            <option key={index} value={lang} style={{ fontSize: "2rem" }}>{langNames[index]}</option>
+                        {languages.map((language, index) =>
+                            <option key={index} value={language.lang} style={{ fontSize: "2rem" }}>{language.name}</option>
                         )}
                     </select>
                 </div>
@@ -208,25 +218,49 @@ export default function AdminRegist() {
                 />
 
                 <div className={styles.formButtons}>
-                    <button
-                        id={styles.submitButton}
-                        type="submit"
-                        disabled={!enableReg}
-                        style={enableReg ? {} : { 
-                            color: "white",
-                            fontStyle: "italic",
-                            backgroundColor: "lightgray",
-                            outline: "2px dashed black",
-                            pointerEvents: "none",
-                        }}
-                    >
-                        {adminRegist("buttons.logIn")}
-                    </button>
+                    {loading ? (
+                        <button type="button" disabled style={{
+                            height: "35px", minWidth: "105px", fontSize: "20px", borderRadius: "10px",
+                            display: "flex", alignItems: "center", justifyContent: "center",
+                            outline: "3px solid blue", color: "blue", backgroundColor: "white",
+                        }}>
+                            <div style={{ 
+                                width: "2rem", 
+                                height: "2rem", 
+                                border: "2px solid transparent",
+                                borderTop: "2px solid currentColor",
+                                borderRadius: "50%",
+                                animation: "spin 1s linear infinite"
+                            }} />
+                        </button>
+                    ) : (
+                        <button
+                            id={styles.submitButton}
+                            type="submit"
+                            disabled={!enableReg}
+                            style={enableReg ? {} : { 
+                                color: "white",
+                                fontStyle: "italic",
+                                backgroundColor: "lightgray",
+                                outline: "2px dashed black",
+                                pointerEvents: "none",
+                            }}
+                        >
+                            {adminRegist("buttons.logIn")}
+                        </button>
+                    )}
                     <Link href={pathname.slice(0, 3)}>
                         <input type="button" value={adminRegist("buttons.exit")} id={styles.closeButton} />
                     </Link>
                 </div>
             </div>
+
+            <style jsx>{`
+                @keyframes spin {
+                    0% { transform: rotate(0deg); }
+                    100% { transform: rotate(360deg); }
+                }
+            `}</style>
         </form>
     );
 }
