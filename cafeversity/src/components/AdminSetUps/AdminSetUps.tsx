@@ -7,7 +7,7 @@ import AdminSecurityComponent from "@/components/AdminSecurity/AdminSecurityComp
 import SecurityRows from "@/components/AdminSecurity/SecurityRows";
 import AdminUsersComponent from "@/components/AdminUsersTable/AdminUsersComponent";
 import { AdminUsersTable } from "@/components/AdminUsersTable/AdminUsersTable";
-import { AdminPersonTypes } from "@/app/(admin)/admin/[adminInside]/setups/page";
+import { AdminPersonTypes } from "@/app/(admin)/admin/setups/page";
 import { adminUpdate, UpdateAdminData } from "@/app/actions/adminSetups";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";

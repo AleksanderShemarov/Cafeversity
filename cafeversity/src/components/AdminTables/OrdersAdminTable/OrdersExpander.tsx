@@ -3,7 +3,7 @@
 
 import { useRef, Dispatch, SetStateAction, useState } from "react";
 import { ColumnConfig } from "../TableParts/TableBody";
-import { CafesType, DishesType } from "@/app/(admin)/admin/[adminInside]/ordersPanel/page";
+import { CafesType, DishesType } from "@/app/(admin)/admin/ordersPanel/page";
 import { IconCheck, IconX } from '@tabler/icons-react';
 
 

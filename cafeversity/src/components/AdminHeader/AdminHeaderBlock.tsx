@@ -1,22 +1,23 @@
 "use client";
 
-// import AccessBtn from "../Buttons/DifferentButtons"
-import ImageContainer from "../ImageEditor/ImageContainer"
-import { useEffect, useRef, useState } from "react";
+import CardButton from "../CardParts/CardButton";
+import ImageContainer from "../ImageEditor/ImageContainer";
+import { startTransition, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import AdminHeaderOptions from "./AdminHeaderOptions";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconDoorExit } from "@tabler/icons-react";
-import { AdminHeaderTypes } from "@/app/(admin)/admin/[adminInside]/layout";
+import { IconDoorExit, IconMoonFilled, IconSunFilled } from "@tabler/icons-react";
+import { AdminHeaderTypes } from "@/app/(admin)/layout";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
 import "react-toastify/ReactToastify.css";
+import saveAdminPageTheme from "@/app/actions/saveAdminPageTheme";
 
 
 export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
 
-    // const [dark, setDark] = useState<string>(data.Theme);
+    const [dark, setDark] = useState<"light"|"dark">(data.Theme);
     const [isOptionsOpen, setIsOptionsOpen] = useState<boolean>(false);
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
     const [menuLineFocus, setMenuLineFocus] = useState<number|null>(null);
@@ -42,10 +43,8 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
 
     // Routing to the admin's setups page
     const setupsHandle = () => {
-        // clearHoverTimeout();
-        // setIsMenuVisible(false);
         const setUps = routePath.split("/");
-        setUps[3] = "setups"
+        setUps[2] = "setups"
         router.push(setUps.join("/"));
     }
 
@@ -90,6 +89,32 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
 
     const adminHeader = useTranslations("AdminDashboard");
 
+    const pageThemeHandler = () => {
+        startTransition(async () => {
+            const changed = await saveAdminPageTheme(dark);
+            if (changed.success) {
+                const newTheme = dark === "light" ? "dark" : "light";
+                
+                // 1. Обновляем локальное состояние
+                setDark(newTheme);
+                
+                // 2. Обновляем localStorage
+                localStorage.setItem('theme', newTheme);
+                
+                // 3. Триггерим custom event для синхронизации
+                window.dispatchEvent(new CustomEvent('themeChange', {
+                    detail: { theme: newTheme }
+                }));
+                
+                // 4. Обновляем атрибут сразу
+                document.documentElement.setAttribute('data-theme', newTheme);
+                
+                // 5. Soft refresh
+                router.refresh();
+            }
+        });
+    }
+
     return (
         <>
             <div style={{
@@ -112,31 +137,58 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                     <p style={{ fontSize: "3rem", margin: 0 }}>{adminHeader("AdminHeaderBlock.title")}</p>
                 </div>
                 <div style={{ display: "inline-flex", justifyContent: "space-between", alignItems: "center", gap: "4.5rem" }}>
-                    {/* <AccessBtn
-                        buttonName={
-                            dark !== 'light'
-                            ? adminHeader("AdminHeaderBlock.themes.light")
-                            : adminHeader("AdminHeaderBlock.themes.dark")
+                    <CardButton
+                        btnId={"light-dark-switcher"}
+                        btnName={
+                            <div style={{ position: "relative", width: "100%", height: "4rem", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                                <AnimatePresence mode="wait" initial={false}>
+                                    <motion.div key={dark}
+                                        initial={{
+                                            x: dark === "dark" ? -100 : 100,
+                                            opacity: 0
+                                        }}
+                                        animate={{ x: 0, opacity: 1 }}
+                                        exit={{
+                                            x: dark === "dark" ? 100 : -100,
+                                            opacity: 0
+                                        }}
+                                        transition={{ duration: 0.3, ease: "easeInOut" }}
+                                        style={{
+                                            display: "flex", alignItems: "center",
+                                            gap: dark === "dark" ? "1.75rem" : "1rem",
+                                            marginLeft: "0.5rem", marginRight: "0.5rem"
+                                        }}
+                                    >
+                                    {dark === 'light' ? (
+                                        <>
+                                            <IconSunFilled style={{ height: "4rem", width: "4rem", color: "gold" }} />
+                                            <p style={{ fontSize: "1.8rem", fontWeight: 600, margin: 0, color: "gold" }}>{adminHeader("AdminHeaderBlock.themes.light")}</p>
+                                        </>
+                                    ) : (
+                                        <>
+                                            <p style={{ fontSize: "1.8rem", fontWeight: 600, margin: 0, color: "#E5E5E5" }}>{adminHeader("AdminHeaderBlock.themes.dark")}</p>
+                                            <IconMoonFilled style={{ height: "3.5rem", width: "3.5rem", color: "#E5E5E5" }} />
+                                        </>
+                                    )}
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
                         }
-                        onClick={() => {
-                            if (dark === 'light') {
-                                setDark('dark');
-                                alert("DARK THEME");
-                            } else {
-                                setDark('light');
-                                alert("LIGHT THEME");
-                            }
-                        }}
-                        additionalStyle={{
+                        clicker={pageThemeHandler}
+                        style={{
                             paddingLeft: "6rem", paddingRight: "6rem",
-                            backgroundColor: dark !== 'light' ? "whitesmoke" : "darkgray",
                             color: dark !== 'dark' ? "whitesmoke" : "darkgray",
-                            boxShadow: "gray 0 0 3px 2px",
-                            cursor: "pointer"
+                            border: `2px solid ${dark !== 'dark' ? "gold" : "#E5E5E5"}`,
+                            backgroundColor: "inherit",
+                            cursor: "pointer",
+                            borderRadius: "1rem",
+                            height: "5rem",
+                            width: "15rem",
+                            overflow: "hidden",
                         }}
-                    /> */}
+                    />
 
-                    {routePath.split("/")[3] === "setups" ?
+                    {routePath.split("/")[2] === "setups" ?
                         <button onClick={greetHandle}
                             style={{
                                 border: "1px solid red", backgroundColor: "transparent",

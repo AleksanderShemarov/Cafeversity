@@ -162,7 +162,7 @@ const POST = async (request: NextRequest) => {
 
         const response = NextResponse.json({
                 message: "Entrance is accepted!",
-                redirect: `/admin/${adminUser?.Name}_${adminUser?.Surname}/dashboard`,
+                redirect: `/admin/dashboard`,
                 status: "Success"
             },
             { status: 201 }

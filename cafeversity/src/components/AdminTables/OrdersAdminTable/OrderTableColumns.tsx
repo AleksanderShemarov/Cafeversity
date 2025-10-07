@@ -4,7 +4,7 @@
 import dynamic from "next/dynamic";
 import { ColumnConfig } from "@/components/AdminTables/TableParts/TableBody";
 import { TableLoadingComponent } from "../TableParts/TableLoading";
-import { CafesType, DishesTableTypes, DishesType } from "@/app/(admin)/admin/[adminInside]/ordersPanel/page";
+import { CafesType, DishesTableTypes, DishesType } from "@/app/(admin)/admin/ordersPanel/page";
 const TableOnParts = dynamic(
     () => import("@/components/AdminTables/TableParts/TableBody").then(mod => mod.TableBody),
     {

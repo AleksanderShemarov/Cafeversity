@@ -30,4 +30,24 @@ const LocalStorageStyles = (initialStyles: SetsState|{ pageTheme: "light"|"dark"
     return null;
 };
 
+
+const LocalStoragePageThemeStyle = ({ pageTheme }: { pageTheme: "light"|"dark" }) => {
+    const [theme, setTheme] = useThemeSets(pageTheme);
+
+    useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+    
+        const handleStorage = (e: StorageEvent) => {
+            if (e.key === "theme") setTheme(e.newValue as "light"|"dark");
+        }
+    
+        window.addEventListener('storage', handleStorage);
+        return () => window.removeEventListener('storage', handleStorage);
+    }, [theme, setTheme]);
+
+    return null;
+}
+
+
 export default LocalStorageStyles;
+export { LocalStoragePageThemeStyle };

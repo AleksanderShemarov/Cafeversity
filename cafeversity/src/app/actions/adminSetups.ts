@@ -33,7 +33,7 @@ export async function adminUpdate(updateAdminData: UpdateAdminData, adminID: num
 
         if (updateAdminData.Name && updateAdminData.Surname) {
             revalidateTag("admin-data");
-            return { success: true, redirect: `/admin/${updateAdminData.Name}_${updateAdminData.Surname}/setups` };
+            return { success: true, redirect: `/admin/setups` };
         }
 
         return { success: true };
