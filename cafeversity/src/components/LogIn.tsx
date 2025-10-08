@@ -233,7 +233,7 @@ export default function LogIn() {
                     content: '';
                     display: inline-block;
                     animation: dots 1.5s steps(4, end) infinite;
-                    dont-size: 2rem;
+                    font-size: 2rem;
                 }
 
                 @keyframes dots {

@@ -28,12 +28,16 @@ export default function DishesTypes() {
         chart: {
             type: 'pie',
             toolbar: { show: false },
+            background: "transparent",
         },
-        labels: labels, // [ "Dish1", "Dish2", "Dish3", "Dish4", "Dish5" ],
+        labels: labels,
+        legend: {
+            labels: { colors: "var(--text-color)" }
+        },
         responsive: [{
-            breakpoint: 480,
+            breakpoint: 100,
             options: {
-                chart: { width: 200 },
+                chart: { width: 500 },
                 legend: { position: "right" }
             }
         }]
@@ -43,9 +47,9 @@ export default function DishesTypes() {
 
     return (
         <ApexDonutChart options={donutOptions} series={donutSeries} style={{
-            maxHeight: "75%",
-            maxWidth: "75%",
-            margin: "0 auto"
+            minWidth: "50%",
+            maxWidth: "85%",
+            margin: "0 auto",
         }} />
     );
 }

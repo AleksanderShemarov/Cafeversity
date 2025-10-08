@@ -370,11 +370,11 @@
             "exit": "Výstup"
         },
         "AdminHeaderOptions": {
-            "dashboard": "Administrativní Panel",
-            "usersPanel": "Panel Uživatelů",
-            "cafesPanel": "Panel Jídelny",
-            "dishesPanel": "Panel Jídel",
-            "ordersPanel": "Panel Objednávek"
+            "dashboard": "Statistika",
+            "usersPanel": "Uživatelé",
+            "cafesPanel": "Jídelny",
+            "dishesPanel": "Jídla",
+            "ordersPanel": "Objednávky"
         },
         "ChartsNames": {
             "chart1": "Oblíbenost jídel vzhledem k jejich výskytu v objednávkách",

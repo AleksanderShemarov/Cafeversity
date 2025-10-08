@@ -64,6 +64,7 @@ const AdminSetUps = (data: AdminPersonTypes) => {
         { id: 3, name: adminSetUps("3_blocks.roles.name") },
     ] as const;
 
+
     const [personalDataRows, setPersonalDataRows] = useState([
         // { personalDataID: 2, personalDataName: "Name", personlData: "Gordon Harris" },
         // { personalDataID: 3, personalDataName: "Telephone", personlData: "+375 (29) ***-**-**" },
@@ -77,6 +78,7 @@ const AdminSetUps = (data: AdminPersonTypes) => {
         { securityID: 2, securityName: adminSetUps("3_blocks.security.password"), securityData: adminSetUps("3_blocks.security.passwordTip"), securityType: "password", securityPass1: "", securityPass2: "" },
         { securityID: 3, securityName: adminSetUps("3_blocks.security.secretWord"), securityData: data.SecretWord, securityType: "text" },
     ]);
+
 
     const handleSavePhotoLanguage = async (newValue: string) => {
         if (newValue.length === 2) {
@@ -141,6 +143,7 @@ const AdminSetUps = (data: AdminPersonTypes) => {
         ));
     }
 
+
     async function saveAdminDataUpdated(newAdminData: UpdateAdminData) {
         return await adminUpdate(newAdminData, data.ID);
     }
@@ -195,8 +198,8 @@ const AdminSetUps = (data: AdminPersonTypes) => {
                             borderTop: id !== 1 ? "1.5px solid" : "none",
                             borderBottom: id !== setupsLines.length ? "1.5px solid" : "none",
                             cursor: "pointer",
-                            backgroundColor: setupsLineClicked === id ? "lightgray" :
-                                setupsLineHovered === id ? "#f0f0f0" : "transparent"
+                            backgroundColor: setupsLineClicked === id ? "var(--admin-setups-shown-chapter)" :
+                                setupsLineHovered === id ? "var(--admin-setups-hovered-chapter)" : "transparent"
                         }}
                         onMouseEnter={() => setSetupsLineHovered(id)}
                         onMouseLeave={() => setSetupsLineHovered(null)}

@@ -15,6 +15,7 @@ export default function CommonIncomeLayout({ children }: { children: React.React
                     fontWeight: "bolder",
                     fontStyle: "italic",
                     fontPalette: "light",
+                    textAlign: "center",
                 }}>
                     {chartName("chart4")}
                 </p>

@@ -370,11 +370,11 @@
             "exit": "Выхад"
         },
         "AdminHeaderOptions": {
-            "dashboard": "Панэль Кіравання Адміна",
-            "usersPanel": "Панэль Карыстальнікаў",
-            "cafesPanel": "Панель Кафэ",
-            "dishesPanel": "Панель Страў",
-            "ordersPanel": "Панель Замоў"
+            "dashboard": "Статыстыка",
+            "usersPanel": "Карыстальнікі",
+            "cafesPanel": "Кафэ (Сталоўкі)",
+            "dishesPanel": "Стравы",
+            "ordersPanel": "Замовы"
         },
         "ChartsNames": {
             "chart1": "Папулярнасць страў адносна іх сустракаемасці ў замовах",

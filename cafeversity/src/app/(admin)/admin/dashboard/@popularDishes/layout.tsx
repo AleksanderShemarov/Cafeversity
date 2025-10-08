@@ -15,6 +15,7 @@ export default function PopularDishesLayout({ children }: { children: React.Reac
                     fontWeight: "bolder",
                     fontStyle: "italic",
                     fontPalette: "light",
+                    textAlign: "center",
                 }}>
                     {chartName("chart1")}
                 </p>

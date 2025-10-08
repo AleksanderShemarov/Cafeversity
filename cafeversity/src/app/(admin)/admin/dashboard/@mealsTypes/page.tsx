@@ -28,8 +28,12 @@ export default function MealsTypes() {
         chart: {
             type: 'pie',
             toolbar: { show: false },
+            background: "transparent",
         },
-        labels: labels,// [ "Dish1", "Dish2", "Dish3", "Dish4", "Dish5" ],
+        labels: labels,
+        legend: {
+            labels: { colors: "var(--text-color)" }
+        },
         responsive: [{
             breakpoint: 250,
             options: {
@@ -42,7 +46,7 @@ export default function MealsTypes() {
 
     return (            
         <ApexPieChart options={pieOptions} series={pieSeries} style={{
-            maxHeight: "75%",
+            minWidth: "50%",
             maxWidth: "75%",
             margin: "0 auto"
         }} />

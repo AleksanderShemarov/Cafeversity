@@ -370,11 +370,11 @@
             "exit": "Wyłaz"
         },
         "AdminHeaderOptions": {
-            "dashboard": "Panel Sterowania Administratora",
-            "usersPanel": "Panel Użytkowników",
-            "cafesPanel": "Panel Stołówki",
-            "dishesPanel": "Panel Dania",
-            "ordersPanel": "Panel Zamówień"
+            "dashboard": "Statystyka",
+            "usersPanel": "Użytkownicy",
+            "cafesPanel": "Stołówki",
+            "dishesPanel": "Dania",
+            "ordersPanel": "Zamówienia"
         },
         "ChartsNames": {
             "chart1": "Popularność dań w zależności od ich występowania w zamówieniach",

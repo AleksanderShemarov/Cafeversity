@@ -35,8 +35,6 @@ export default async function RootAdminLayout({
 }>) {
     const data: AdminHeaderTypes = await getAdminHeader();
 
-    console.log("data.Theme -->", data.Theme);
-
     const locale = await getLocale();
     const messages = await getMessages();
 

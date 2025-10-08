@@ -15,6 +15,7 @@ export default function DishesTypesLayout({ children }: { children: React.ReactN
                     fontWeight: "bolder",
                     fontStyle: "italic",
                     fontPalette: "light",
+                    textAlign: "center",
                 }}>
                     {chartName("chart3")}
                 </p>

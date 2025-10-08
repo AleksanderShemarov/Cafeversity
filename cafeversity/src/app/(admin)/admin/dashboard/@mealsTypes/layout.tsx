@@ -15,6 +15,7 @@ export default function MealsTypesLayout({ children }: { children: React.ReactNo
                     fontWeight: "bolder",
                     fontStyle: "italic",
                     fontPalette: "light",
+                    textAlign: "center",
                 }}>
                     {chartName("chart2")}
                 </p>

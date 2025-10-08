@@ -370,11 +370,11 @@
             "exit": "Выход"
         },
         "AdminHeaderOptions": {
-            "dashboard": "Панель Графиков",
-            "usersPanel": "Панель Пользователей",
-            "cafesPanel": "Панель Кафе",
-            "dishesPanel": "Панель Блюд",
-            "ordersPanel": "Панель Заказов"
+            "dashboard": "Статистика",
+            "usersPanel": "Пользователи",
+            "cafesPanel": "Кафе",
+            "dishesPanel": "Блюда",
+            "ordersPanel": "Заказы"
         },
         "ChartsNames": {
             "chart1": "Популярность блюд относительно их встречаемости в заказах ",

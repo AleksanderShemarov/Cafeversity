@@ -261,19 +261,17 @@ export type AdminPersonTypes = {
 }
 
 
-async function fetchData(params: { adminInside: string }) {
-    const { adminInside } = params;
-
-    const response = await fetch(`http://localhost:3000/api/adminPerson?adminName=${adminInside}`, { cache: "no-store" });
+async function fetchData() {
+    const response = await fetch(`http://localhost:3000/api/adminPerson`, { cache: "no-store" });
     const adminLine = await response.json();
 
     return adminLine;
 }
 
 
-export default function SetupsLayout({ params }: { params: { adminInside: string } }) {
+export default function SetupsLayout() {
 
-    const adminLine: AdminPersonTypes = use(fetchData(params));
+    const adminLine: AdminPersonTypes = use(fetchData());
 
     return (
         <>

@@ -370,11 +370,11 @@
             "exit": "Çıkış"
         },
         "AdminHeaderOptions": {
-            "dashboard": "Yönetici Paneli",
-            "usersPanel": "Kullanıcı Paneli",
-            "cafesPanel": "Kafeler Paneli",
-            "dishesPanel": "Yemekler Paneli",
-            "ordersPanel": "Siparişler Paneli"
+            "dashboard": "İstatistikler",
+            "usersPanel": "Kullanıcılar",
+            "cafesPanel": "Kafe (Kantinler)",
+            "dishesPanel": "Yemekler",
+            "ordersPanel": "Siparişler"
         },
         "ChartsNames": {
             "chart1": "Yemeklerin siparişlerdeki yerlerine göre popülerliği",

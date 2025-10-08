@@ -161,6 +161,18 @@ a {
 
   --full-info-dish-name: wheat;
 
+  --admin-dashboard-chart-section-background: whitesmoke;
+  --admin-dashboard-chart-section-box-shadow-color: #5F5F5F;
+  --admin-icon-option-color: black;
+  --admin-income-chart-tip-background: white;
+  --admin-option-box-shadow: inset 0px 0px 10px -2px rgba(66, 68, 90, 1);
+  --admin-choisen-option-background: rgba(66, 68, 90, 0.437);
+  --admin-visible-menu-background: whitesmoke;
+  --admin-visible-menu-outline-color: lightgray;
+  --admin-visible-menu-hovered-line: lightgray;
+  --admin-setups-shown-chapter: #f0f0f0;
+  --admin-setups-hovered-chapter: lightgray;
+
   --success-color: #28a745;
   --warning-color: #ffc107;
   --error-color: #dc3545;
@@ -205,6 +217,18 @@ a {
   --short-info-icon-color: white;
 
   --full-info-dish-name: #FFEFD5;
+
+  --admin-dashboard-chart-section-background: rgb(33, 42, 55);
+  --admin-dashboard-chart-section-box-shadow-color: #F5F5F5;
+  --admin-icon-option-color: white;
+  --admin-income-chart-tip-background: black;
+  --admin-option-box-shadow: inset 0px 0px 10px -2px rgba(189, 187, 165, 1);
+  --admin-choisen-option-background: rgba(189, 187, 165, 0.437);
+  --admin-visible-menu-background: #6c757d;
+  --admin-visible-menu-outline-color: whitesmoke;
+  --admin-visible-menu-hovered-line: darkgray;
+  --admin-setups-shown-chapter: #323232;
+  --admin-setups-hovered-chapter: darkgray;
 
   --success-color: #2ecc71;
   --warning-color: #f39c12;

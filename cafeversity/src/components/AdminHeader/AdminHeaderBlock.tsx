@@ -7,7 +7,7 @@ import Image from "next/image";
 import AdminHeaderOptions from "./AdminHeaderOptions";
 import { useRouter, usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { IconDoorExit, IconMoonFilled, IconSunFilled } from "@tabler/icons-react";
+import { IconDoorExit, IconLogout, IconMail, IconMoonFilled, IconSunFilled } from "@tabler/icons-react";
 import { AdminHeaderTypes } from "@/app/(admin)/layout";
 import { useTranslations } from "next-intl";
 import { toast } from "react-toastify";
@@ -22,6 +22,8 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
     const [isMenuVisible, setIsMenuVisible] = useState<boolean>(false);
     const [menuLineFocus, setMenuLineFocus] = useState<number|null>(null);
 
+    const [loading, setLoading] = useState<boolean>(false);
+
     const optionsRef = useRef<HTMLDivElement>(null);
     const optionsToggleRef = useRef<HTMLDivElement>(null);
     const hoverTimeoutRef = useRef<NodeJS.Timeout|null>(null);
@@ -35,7 +37,10 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
         });
         const responseData = await response.json();
         toast.success(responseData.message, { position: "top-center", style: { fontSize: "1.8rem" } });
-        router.push(`/${data.Language}`);
+        setLoading(true);
+        setTimeout(() => {
+            router.push(`/${data.Language}`);
+        }, 250);
     }
 
     // Checking a route path for showing admin's icon with hovering menu or an exit system button
@@ -95,21 +100,16 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
             if (changed.success) {
                 const newTheme = dark === "light" ? "dark" : "light";
                 
-                // 1. Обновляем локальное состояние
                 setDark(newTheme);
                 
-                // 2. Обновляем localStorage
                 localStorage.setItem('theme', newTheme);
                 
-                // 3. Триггерим custom event для синхронизации
                 window.dispatchEvent(new CustomEvent('themeChange', {
                     detail: { theme: newTheme }
                 }));
                 
-                // 4. Обновляем атрибут сразу
                 document.documentElement.setAttribute('data-theme', newTheme);
                 
-                // 5. Soft refresh
                 router.refresh();
             }
         });
@@ -191,14 +191,16 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                     {routePath.split("/")[2] === "setups" ?
                         <button onClick={greetHandle}
                             style={{
-                                border: "1px solid red", backgroundColor: "transparent",
-                                color: "red", fontSize: "2rem", fontWeight: 600,
+                                backgroundColor: "transparent", fontSize: "2rem", fontWeight: 600,
                                 display: "inline-flex", flexDirection: "row", justifyContent: "space-between",
-                                alignItems: "center", gap: "1rem", borderRadius: "1rem",
-                                padding: "8px 16px", cursor: "pointer",
+                                alignItems: "center", gap: "1rem", borderRadius: "1rem", border: "none",
+                                padding: "8px 16px", cursor: "pointer", textDecoration: "underline"
                             }}
                         >
-                            <IconDoorExit style={{ color: "red" }} /> {adminHeader("AdminHeaderBlock.exit")}
+                            <IconDoorExit style={{ color: "black" }} /> {
+                            loading
+                            ? (<span id="dots"></span>)
+                            : <>{adminHeader("AdminHeaderBlock.exit")}</>}
                         </button>
                     :
                         <div onMouseEnter={showMenu} onMouseLeave={hideMenu}
@@ -221,29 +223,25 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                                     transition={{ duration: 0.2 }}
 
                                     style={{
-                                        position: "absolute", display: "flex", outline: "2px solid lightgray", right: "-1rem",
-                                        background: "whitesmoke", borderRadius: "1.5rem", paddingLeft: "0.5rem",
-                                        paddingRight: "0.5rem", top: "6.9rem", flexDirection: "column",
-                                        zIndex: 10
+                                        position: "absolute", display: "flex", outline: "2px solid var(--admin-visible-menu-outline-color)", right: "-1rem",
+                                        background: "var(--admin-visible-menu-background)", borderRadius: "1.5rem", paddingLeft: "0.5rem",
+                                        paddingRight: "0.5rem", top: "6.9rem", flexDirection: "column", zIndex: 10
                                     }}
                                     onMouseEnter={showMenu}
                                     onMouseLeave={hideMenu}
                                 >
-                                    <div style={{
-                                        display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
-                                        // outline: "1px solid"
-                                    }}>
-                                        <Image src="/email_icon.jpg" alt="Email Icon" width={30} height={30}
-                                            style={{ borderRadius: "0.5rem", background: "whitesmoke" }}
+                                    <div style={{ display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem" }}>
+                                        {/* <Image src="/email_icon.jpg" alt="Email Icon" width={30} height={30}
+                                            style={{ borderRadius: "0.5rem", background: "var(--admin-visible-menu-background)" }}
                                         >
-                                        </Image>
+                                        </Image> */}
+                                        <IconMail style={{ background: "var(--admin-visible-menu-background)", color: "black", height: "3rem", width: "3rem" }} />
                                         <p style={{ fontSize: "1.5rem" }}>{data.Email}</p>
                                     </div>
                                     <div id="menuLine1"
                                         style={{
                                             display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
-                                            // outline: "1px double"
-                                            cursor: "pointer", background: menuLineFocus === 1 ? "lightgray" : "none",
+                                            cursor: "pointer", background: menuLineFocus === 1 ? "var(--admin-visible-menu-hovered-line)" : "none",
                                             borderRadius: "1rem"
                                         }}
                                         onClick={setupsHandle}
@@ -252,7 +250,7 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                                         onMouseLeave={() => setMenuLineFocus(null)}
                                     >
                                         <Image src="/settings-gear.png" alt="Sets Icon" width={30} height={30}
-                                            style={{ borderRadius: "0.5rem", background: menuLineFocus === 1 ? "lightgray" : "whitesmoke" }}
+                                            style={{ borderRadius: "0.5rem", background: menuLineFocus === 1 ? "var(--admin-visible-menu-hovered-line)" : "var(--admin-visible-menu-background)" }}
                                         >
                                         </Image>
                                         <p style={{ fontSize: "1.5rem" }}>{adminHeader("AdminHeaderBlock.settings")}</p>
@@ -260,8 +258,7 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                                     <div id="menuLine2"
                                         style={{
                                             display: "inline-flex", justifyContent: "flex-start", alignItems: "center", gap: "1rem",
-                                            // outline: "1px dashed",
-                                            cursor: "pointer", background: menuLineFocus === 2 ? "lightgray" : "none",
+                                            cursor: "pointer", background: menuLineFocus === 2 ? "var(--admin-visible-menu-hovered-line)" : "none",
                                             borderRadius: "1rem"
                                         }}
                                         onClick={greetHandle}
@@ -269,10 +266,11 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
                                         onMouseEnter={() => setMenuLineFocus(2)}
                                         onMouseLeave={() => setMenuLineFocus(null)}
                                     >
-                                        <Image src="/exit_icon.png" alt="Exit Icon" width={30} height={30}
-                                            style={{ borderRadius: "0.5rem", background: menuLineFocus === 2 ? "lightgray" : "whitesmoke" }}
+                                        {/* <Image src="/exit_icon.png" alt="Exit Icon" width={30} height={30}
+                                            style={{ borderRadius: "0.5rem", background: menuLineFocus === 2 ? "var(--admin-visible-menu-hovered-line)" : "var(--admin-visible-menu-background)" }}
                                         >
-                                        </Image>
+                                        </Image> */}
+                                        <IconLogout style={{ color: "black", width: "3rem", height: "3rem", background: menuLineFocus === 2 ? "var(--admin-visible-menu-hovered-line)" : "var(--admin-visible-menu-background)" }} />
                                         <p style={{ fontSize: "1.5rem" }}>{adminHeader("AdminHeaderBlock.exit")}</p>
                                     </div>
                                 </motion.div>
@@ -284,6 +282,33 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
             </div>
 
             <AdminHeaderOptions ref={optionsRef} isOptionsOpen={isOptionsOpen} setIsOptionsOpen={setIsOptionsOpen} />
+
+            <style jsx>{`
+                #dots::after {
+                    content: '';
+                    display: inline-block;
+                    animation: dots 1.5s steps(4, end) infinite;
+                    font-size: 2rem;
+                }
+
+                @keyframes dots {
+                    0% {
+                        content: '';
+                    }
+                    25% {
+                        content: '•';
+                    }
+                    50% {
+                        content: '••';
+                    }
+                    75% {
+                        content: '•••';
+                    }
+                    100% {
+                        content: '';
+                    }
+                }
+            `}</style>
         </>
     )
 }
