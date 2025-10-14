@@ -1,4 +1,4 @@
-export default function CommonIncomeDefault() {
+export default function CommonIncomeLoading() {
     return (
         <div>
             <p style={{
@@ -7,7 +7,7 @@ export default function CommonIncomeDefault() {
                 fontStyle: "italic",
                 fontPalette: "light",
             }}>
-                CommonIncome Component Default
+                CommonIncome Component Loading...
             </p>
         </div>
     );

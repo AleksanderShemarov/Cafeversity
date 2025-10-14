@@ -1,5 +1,5 @@
 import dynamic from 'next/dynamic';
-import LoadingMealsTypes from './loading';
+import MealsTypesLoading from './MealsTypesLoading';
 import { ApexOptions } from 'apexcharts';
 import { use } from 'react';
 import { getDishMeals } from '@/app/actions/getDishesData';
@@ -7,7 +7,7 @@ const ApexPieChart = dynamic(
     () => import("@/components/Charts/ApexChart").then(mod => mod.ApexPieChart),
     {
         ssr: false,
-        loading: () => <LoadingMealsTypes />
+        loading: () => <MealsTypesLoading />
     }
 );
 
@@ -18,7 +18,7 @@ async function getDishesByMeals() {
 }
 
 
-export default function MealsTypes() {
+export default function MealsTypesChart() {
 
     const data = use(getDishesByMeals());
     const labels = data.map(datum => datum.Name);

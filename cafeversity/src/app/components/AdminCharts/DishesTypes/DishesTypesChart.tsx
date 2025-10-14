@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import LoadingDishesTypes from "./loading";
+import DishesTypesLoading from "./DishesTypesLoading";
 import { ApexOptions } from 'apexcharts';
 import { use } from "react";
 import getDishTypes from "@/app/actions/getDishesData";
@@ -7,7 +7,7 @@ const ApexDonutChart = dynamic(
     () => import("@/components/Charts/ApexChart").then(mod => mod.ApexDonutChart),
     {
         ssr: false,
-        loading: () => <LoadingDishesTypes />
+        loading: () => <DishesTypesLoading />
     }
 );
 
@@ -18,7 +18,7 @@ async function getDishesByTypes() {
 }
 
 
-export default function DishesTypes() {
+export default function DishesTypesChart() {
     const data = use(getDishesByTypes());
     const labels = data.map(datum => datum.Name);
     const series = data.map(datum => datum._count.Dishes);

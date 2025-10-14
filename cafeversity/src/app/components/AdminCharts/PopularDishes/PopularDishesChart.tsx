@@ -1,5 +1,5 @@
 import dynamic from "next/dynamic";
-import LoadingPopularDishes from "./loading";
+import PopularDishesLoading from "./PopularDishesLoading";
 import { ApexOptions } from "apexcharts";
 import { getDishesPopularity } from "@/app/actions/getDishesData";
 import { use } from "react";
@@ -7,7 +7,7 @@ const ApexBars = dynamic(
     () => import("@/components/Charts/ApexChart").then(mod => mod.default),
     {
         ssr: false,
-        loading: () => <LoadingPopularDishes />
+        loading: () => <PopularDishesLoading />
     }
 );
 
@@ -18,7 +18,7 @@ async function getDishesByTheirPopularity() {
 }
 
 
-export default function PopularDishes() {
+export default function PopularDishesChart() {
     const data = use(getDishesByTheirPopularity());
     const dishes = data.map(datum => datum.name);
     const percents = data.map(datum => datum.percentage);

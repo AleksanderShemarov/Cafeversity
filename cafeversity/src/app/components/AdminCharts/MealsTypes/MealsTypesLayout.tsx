@@ -1,12 +1,12 @@
 import React, { Suspense } from "react";
-import LoadingCommonIncome from "./loading";
+import MealsTypesLoading from "./MealsTypesLoading";
 import { useTranslations } from "next-intl";
 
 
-export default function CommonIncomeLayout({ children }: { children: React.ReactNode }) {
+export default function MealsTypesLayout({ children }: { children: React.ReactNode }) {
     
     const chartName = useTranslations("AdminDashboard.ChartsNames");
-
+    
     return (
         <>
             <div>
@@ -17,11 +17,11 @@ export default function CommonIncomeLayout({ children }: { children: React.React
                     fontPalette: "light",
                     textAlign: "center",
                 }}>
-                    {chartName("chart4")}
+                    {chartName("chart2")}
                 </p>
             </div>
 
-            <Suspense fallback={<LoadingCommonIncome />}>
+            <Suspense fallback={<MealsTypesLoading />}>
                 {children}
             </Suspense>
         </>

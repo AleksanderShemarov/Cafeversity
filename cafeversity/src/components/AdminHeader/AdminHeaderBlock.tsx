@@ -38,6 +38,8 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
         const responseData = await response.json();
         toast.success(responseData.message, { position: "top-center", style: { fontSize: "1.8rem" } });
         setLoading(true);
+        setMenuLineFocus(null);
+        hideMenu();
         setTimeout(() => {
             router.push(`/${data.Language}`);
         }, 250);
@@ -48,8 +50,10 @@ export default function AdminHeaderBlock({ data }: { data: AdminHeaderTypes }) {
 
     // Routing to the admin's setups page
     const setupsHandle = () => {
+        setMenuLineFocus(null);
+        hideMenu();
         const setUps = routePath.split("/");
-        setUps[2] = "setups"
+        setUps[2] = "setups";
         router.push(setUps.join("/"));
     }
 

@@ -1,4 +1,4 @@
-export default function LoadingPopularDishes() {
+export default function MealsTypesLoading() {
     return (
         <div>
             <p style={{
@@ -7,7 +7,7 @@ export default function LoadingPopularDishes() {
                 fontStyle: "italic",
                 fontPalette: "light",
             }}>
-                PopularDishes Component Loading...
+                MealsTypes Component Loading...
             </p>
         </div>
     );

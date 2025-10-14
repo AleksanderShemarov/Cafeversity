@@ -1,12 +1,12 @@
 import dynamic from "next/dynamic";
-import LoadingCommonIncome from "./loading";
+import CommonIncomeLoading from "./CommonIncomeLoading";
 import { use } from "react";
 import { getCafeIncomes } from "@/app/actions/getDishesData";
 const NivoChart = dynamic(
     () => import("@/components/Charts/Nivo"),
     {
         ssr: false,
-        loading: () => <LoadingCommonIncome />
+        loading: () => <CommonIncomeLoading />
     }
 );
 
@@ -17,7 +17,7 @@ async function getIncomesOfCafes() {
 }
 
 
-export default function CommonIncome() {
+export default function CommonIncomeChart() {
     const cafesIncomes = use(getIncomesOfCafes());
 
     // const cafesIncomes: Record<string, number> = {

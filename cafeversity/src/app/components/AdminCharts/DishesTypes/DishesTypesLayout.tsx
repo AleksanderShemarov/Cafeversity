@@ -1,9 +1,9 @@
 import React, { Suspense } from "react";
-import LoadingPopularDishes from "./loading";
+import DishesTypesLoading from "./DishesTypesLoading";
 import { useTranslations } from "next-intl";
 
 
-export default function PopularDishesLayout({ children }: { children: React.ReactNode }) {
+export default function DishesTypesLayout({ children }: { children: React.ReactNode }) {
     
     const chartName = useTranslations("AdminDashboard.ChartsNames");
     
@@ -17,11 +17,11 @@ export default function PopularDishesLayout({ children }: { children: React.Reac
                     fontPalette: "light",
                     textAlign: "center",
                 }}>
-                    {chartName("chart1")}
+                    {chartName("chart3")}
                 </p>
             </div>
-            
-            <Suspense fallback={<LoadingPopularDishes />}>
+
+            <Suspense fallback={<DishesTypesLoading />}>
                 {children}
             </Suspense>
         </>
