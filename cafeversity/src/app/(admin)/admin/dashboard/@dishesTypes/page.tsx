@@ -47,8 +47,8 @@ export default function DishesTypes() {
 
     return (
         <ApexDonutChart options={donutOptions} series={donutSeries} style={{
-            minWidth: "50%",
-            maxWidth: "85%",
+            minWidth: "35rem",
+            maxWidth: "45rem",
             margin: "0 auto",
         }} />
     );

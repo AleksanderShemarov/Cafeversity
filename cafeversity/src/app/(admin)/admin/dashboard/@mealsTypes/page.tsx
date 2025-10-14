@@ -46,8 +46,8 @@ export default function MealsTypes() {
 
     return (            
         <ApexPieChart options={pieOptions} series={pieSeries} style={{
-            minWidth: "50%",
-            maxWidth: "75%",
+            minWidth: "30rem",
+            maxWidth: "40rem",
             margin: "0 auto"
         }} />
     );

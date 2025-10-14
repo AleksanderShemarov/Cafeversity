@@ -90,8 +90,6 @@ export default function PopularDishes() {
     ];
 
     return (        
-        <ApexBars options={apexChartOptions} series={apexChartSeries}
-            height="300"
-        />
+        <ApexBars options={apexChartOptions} series={apexChartSeries} height="300" />
     );
 }
