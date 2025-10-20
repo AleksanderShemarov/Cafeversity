@@ -24,9 +24,9 @@ export async function middleware(request: NextRequest) {
 
     if (pathname.startsWith("/authorized/")) {
         const username = pathname.split('/')[2];
-        console.log("middleware full pathname -->", pathname);
-        console.log("middleware username -->", username);
-        console.log("middleware request.url -->", request.url);
+        // console.log("middleware full pathname -->", pathname);
+        // console.log("middleware username -->", username);
+        // console.log("middleware request.url -->", request.url);
 
         if (!/^[A-Z][a-z]*_[A-Z][a-z]*$/.test(username)) {
             return NextResponse.redirect(new URL('/en', request.url));
@@ -34,7 +34,7 @@ export async function middleware(request: NextRequest) {
     }
 
     if (pathname.split("/")[1] === "authorized") {
-        console.log("'authorized' is in the pathname");
+        // console.log("'authorized' is in the pathname");
 
         const session = request.cookies.get('sessionId');
 
@@ -63,7 +63,7 @@ export async function middleware(request: NextRequest) {
             return response;
         }
     } else if (pathname.split("/")[1] === "admin") {
-        console.log("'admin' is in the pathname");
+        // console.log("'admin' is in the pathname");
 
         const adminSession = request.cookies.get('adminSessionId');
         
@@ -86,7 +86,7 @@ export async function middleware(request: NextRequest) {
         
             return NextResponse.next();
         } catch (error) {
-            console.log("error(-s) is (are) found during user_checking!");
+            // console.log("error(-s) is (are) found during user_checking!");
             const response = NextResponse.redirect(new URL('en/login/signin', request.url));
             response.cookies.delete('adminSessionId');
             return response;

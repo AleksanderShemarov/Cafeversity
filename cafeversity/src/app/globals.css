@@ -114,6 +114,8 @@ a {
   padding: 0;
 } */
 
+@import "tailwindcss";
+
 :root {
   --background-color: rgb(252, 242, 223);
   /* --background-color: rgb(73, 71, 66); */

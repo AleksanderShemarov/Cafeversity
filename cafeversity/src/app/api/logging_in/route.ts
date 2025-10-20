@@ -112,7 +112,7 @@ const POST = async (request: Request) => {
         value: sessionId,
         httpOnly: true,
         secure: process.env.NODE_ENV === 'production',
-        maxAge: 3600,
+        maxAge: 3600 * 12,// Usually it is set on 1 hour, but for developing process it will be temporary set on 12 hours!!!
         path: '/',
         sameSite: 'strict'
     });

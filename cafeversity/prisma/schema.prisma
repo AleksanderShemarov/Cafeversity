@@ -146,6 +146,7 @@ model Cafes {
   street              String
   country             String
   phone               String
+  cafeImage           String?     @default("/no_image1.jpg")
   latitude            Decimal?
   longitude           Decimal?
   SRId                Int         @default(4326)
