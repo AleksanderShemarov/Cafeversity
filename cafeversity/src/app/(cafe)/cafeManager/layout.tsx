@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "../../globals.css";
 import { Inter } from "next/font/google";
 import Toolbar from "@/app/components/CafeManager/CommonParts/Toolbar";
+import ToolbarProvider from "@/app/components/CafeManager/CommonParts/ToolbarContext";
+import Navbar from "@/app/components/CafeManager/CommonParts/Navbar";
 
 import { getLocale, getMessages } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
@@ -24,7 +26,11 @@ export default async function RootLayout({ children }: Readonly<{ children: Reac
         <html lang={locale}>
             <body className={inter.className}>
                 <NextIntlClientProvider messages={messages} locale={locale} now={new Date()}>
-                    <Toolbar />
+                    <ToolbarProvider>
+                        <Toolbar>
+                            <Navbar />
+                        </Toolbar>
+                    </ToolbarProvider>
                     {children}
                 </NextIntlClientProvider>
             </body>
