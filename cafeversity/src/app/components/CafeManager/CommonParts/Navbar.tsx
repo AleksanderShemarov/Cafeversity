@@ -58,7 +58,7 @@ export default function Navbar() {
                         </div>
                         <div className="w-[75%] h-[18%] flex justify-center items-center gap-[1.25rem] bg-[#f0f0f0] rounded-[2.5rem] text-[2rem] font-semibold align-middle text-center hover:cursor-pointer hover:shadow-[0px_0px_21px_3px_#000000]">
                             <IconChefHat className="w-[5rem] h-[5rem] text-black" />
-                            Варка & Сэрвіроўка
+                            Варка & Сэрвіроўка {/* Наяўнасць Страў */}
                         </div>
                         <div className="w-[75%] h-[18%] flex justify-center items-center gap-[1.25rem] bg-[#f0f0f0] rounded-[2.5rem] text-[2rem] font-semibold align-middle text-center hover:cursor-pointer hover:shadow-[0px_0px_21px_3px_#000000]">
                             <IconListCheck className="w-[5rem] h-[5rem] text-black" />
