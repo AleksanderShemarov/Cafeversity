@@ -1,16 +1,29 @@
 "use client";
 
-import { useContext, useEffect, useRef, useState } from "react";
+import { ForwardRefExoticComponent, RefAttributes, useContext, useEffect, useRef, useState } from "react";
 import { ToolbarContext } from "./ToolbarContext";
-import { IconReportAnalytics, IconChefHat, IconListCheck } from "@tabler/icons-react";
+import { IconReportAnalytics, IconChefHat, IconListCheck, IconArrowBackUp, IconProps, Icon } from "@tabler/icons-react";
 import { createPortal } from "react-dom";
 import { AnimatePresence, motion } from "framer-motion";
+import { useRouter, usePathname } from "next/navigation";
+
+
+const pageSwitches: { id: string, name: string, icon: ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>, url: string }[] = [
+    { id: "ChartReport", name: "Графікі & Справаздачы", icon: IconReportAnalytics, url: `/cafeManager/#` },
+    { id: "DishService", name: "Варка & Сэрвіроўка", icon: IconChefHat, url: `/cafeManager/#` },// name: "Наяўнасць Страў"
+    { id: "DishService", name: "Апрацоўка Замоў", icon: IconListCheck, url: `/cafeManager/orders` },
+    { id: "DishService", name: "Да Галоўнай", icon: IconArrowBackUp, url: `/cafeManager` },
+] as const;
 
 
 export default function Navbar() {
+    const router = useRouter();
+    const pathname = usePathname();
+
     const navbarRef = useRef<HTMLDivElement>(null);
     const { isMenuOpen, navigationToggle } = useContext(ToolbarContext);
     const [ mounted, setMounted ] = useState<boolean>(false);
+
 
     useEffect(() => { setMounted(true); }, []);
 
@@ -32,6 +45,12 @@ export default function Navbar() {
         return () => document.removeEventListener("mousedown", handleClickOutside);
     }, [mounted, isMenuOpen, navigationToggle]);
 
+
+    const linkToPage = (page: string) => {
+        router.push(page);
+    }
+
+
     if (!mounted) return null;
 
     return createPortal(
@@ -52,18 +71,22 @@ export default function Navbar() {
                         exit={{ opacity: 0, x: 20 }}
                         transition={{ delay: 0.2 }}
                     >
-                        <div className="w-[75%] h-[18%] flex justify-center items-center gap-[1.25rem] bg-[#f0f0f0] rounded-[2.5rem] text-[2rem] font-semibold align-middle text-center hover:cursor-pointer hover:shadow-[0px_0px_21px_3px_#000000]">
-                            <IconReportAnalytics className="w-[5rem] h-[5rem] text-black" />
-                            Графікі & Справаздачы
-                        </div>
-                        <div className="w-[75%] h-[18%] flex justify-center items-center gap-[1.25rem] bg-[#f0f0f0] rounded-[2.5rem] text-[2rem] font-semibold align-middle text-center hover:cursor-pointer hover:shadow-[0px_0px_21px_3px_#000000]">
-                            <IconChefHat className="w-[5rem] h-[5rem] text-black" />
-                            Варка & Сэрвіроўка {/* Наяўнасць Страў */}
-                        </div>
-                        <div className="w-[75%] h-[18%] flex justify-center items-center gap-[1.25rem] bg-[#f0f0f0] rounded-[2.5rem] text-[2rem] font-semibold align-middle text-center hover:cursor-pointer hover:shadow-[0px_0px_21px_3px_#000000]">
-                            <IconListCheck className="w-[5rem] h-[5rem] text-black" />
-                            Апрацоўка Замоў
-                        </div>
+                        {pageSwitches.map(pageSwitch =>
+                            pageSwitch.url !== pathname && (
+                                <div key={pageSwitch.id} className="
+                                    w-[75%] h-[18%]
+                                    flex justify-center items-center gap-[1.25rem]
+                                    bg-[#f0f0f0] rounded-[2.5rem] text-[2rem] font-semibold
+                                    align-middle text-center
+                                    hover:cursor-pointer hover:shadow-[0px_0px_21px_3px_#000000]
+                                "
+                                    onClick={() => linkToPage(pageSwitch.url)}
+                                >
+                                    <pageSwitch.icon className="w-[5rem] h-[5rem] text-black" />
+                                    {pageSwitch.name}
+                                </div>
+                            )
+                        )}
                     </motion.div>
                 </motion.div>
             )}

@@ -60,11 +60,11 @@ export default function ActualTime({ workdayHours, saturdayHours }: { workdayHou
             {morEqual ? (
                 <p className="text-[2rem] text-left text-balance font-light mt-[0.75rem]">
                     Заўтра: {
-                        date.getDay() === 6
-                        ? `Выхадны, адчыняемся ў ${weekdays[0]} а ${workdayHours.split(": ")[1].split(" – ")[0]}`
+                        date.getDay() === 6 || date.getDay() === 0
+                        ? `Выхадны, адчыняемся ў ${weekdays[1]} а ${workdayHours.split(": ")[1].split(" – ")[0]}`
                         : date.getDay() === 5
                         ? `адчыняемся ў ${weekdays[6]} а ${saturdayHours.split(": ")[1].split(" – ")[0]}`
-                        : `адчыняемся ў ${weekdays[date.getDay()]} а ${workdayHours.split(": ")[1].split(" – ")[0]}`
+                        : `адчыняемся ў ${weekdays[date.getDay() + 1]} а ${workdayHours.split(": ")[1].split(" – ")[0]}`
                     }
                 </p>
             ) : null}
