@@ -2,40 +2,28 @@
 
 import { DataTable } from 'primereact/datatable';
 import { Column } from 'primereact/column';
-import Link from 'next/link';
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconInfoCircle } from "@tabler/icons-react";
+import { useRouter, useSearchParams } from 'next/navigation';
 
 
-type OrderTypes = {
-    orderNumber: number;
-    sentTime: Date;
-    phone: string;
-    comment: string;
+export type OrderTypes = {
+    orderNumber: number,
+    sentTime: Date,
+    orderStatus: "SENT"|"PREPARING"|"READY"|"TAKEN"|"CANCELLED",
+    phone: string,
+    comment: string,
     dishes: {
         dishes: {
-            food_name: string;
-        };
-    }[];
+            food_name: string,
+        }
+    }[]
 }
 
 
 export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[], weekdays: string[] }) {
-    const dishesBodyTemplate = (rowData: OrderTypes) => {
-        return (
-            <p className="text-[1.6rem] font-normal text-balance">
-                {rowData.dishes.map(dish => dish.dishes.food_name).join(", ")}
-            </p>
-        );
-    };
+    const router = useRouter();
+    const searchParams = useSearchParams();
 
-    const dateTimeBodyTemplate = (rowData: OrderTypes) => {
-        const date = rowData.sentTime;
-        return (
-            <p className="text-[1.4rem] font-light">
-                {date.getFullYear()}-{String(date.getMonth()+1).padStart(2, "0")}-{String(date.getDate()).padStart(2, "0")}, {weekdays[date.getDay()]} ({date.getHours()}:{date.getMinutes().toString().padStart(2, "0")})
-            </p>
-        );
-    };
 
     const orderNumberBodyTemplate = (rowData: OrderTypes) => {
         return (
@@ -44,6 +32,41 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
             </p>
         );
     };
+
+    const dishesBodyTemplate = (rowData: OrderTypes) => {
+        return (
+            <p className="text-[1.6rem] font-normal text-balance">
+                {rowData.dishes.map(dish => dish.dishes.food_name).join(", ")}
+            </p>
+        );
+    };
+
+    const sentTimeBodyTemplate = (rowData: OrderTypes) => {
+        const date = rowData.sentTime;
+        return (
+            <p className="text-[1.4rem] font-light">
+                {date.getFullYear()}-{String(date.getMonth()+1).padStart(2, "0")}-{String(date.getDate()).padStart(2, "0")}, {weekdays[date.getDay()]} ({date.getHours()}:{date.getMinutes().toString().padStart(2, "0")})
+            </p>
+        );
+    };
+
+    const orderStatusBodyTemplate = (rowData: OrderTypes) => {
+        const orderStatus = rowData.orderStatus;
+        switch (orderStatus) {
+            case "SENT":
+                return (<p className="bg-blue-100 text-blue-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+            case "PREPARING":
+                return (<p className="bg-yellow-100 text-[goldenrod] text-[1.8rem] font-extralight">{orderStatus}</p>);
+            case "READY":
+                return (<p className="bg-green-100 text-green-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+            case "TAKEN":
+                return (<p className="bg-purple-100 text-purple-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+            case "CANCELLED":
+                return (<p className="bg-red-100 text-red-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+            default:
+                return (<p className="bg-gray-100 text-gray-800 text-[1.8rem] font-extralight">UNKNOWN</p>);
+        }
+    }
 
     const phoneBodyTemplate = (rowData: OrderTypes) => {
         return (
@@ -55,17 +78,23 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
 
     const commentBodyTemplate = (rowData: OrderTypes) => {
         return (
-            <p className="text-[1.4rem] font-light">
+            <p className="text-[1.4rem] font-light text-balance">
                 {rowData.comment}
             </p>
         );
     };
 
     const actionsBodyTemplate = (rowData: OrderTypes) => {
+        function handleSelectedOrder(orderNumber: number) {
+            const params = new URLSearchParams(searchParams.toString());
+            params.set("selected", String(orderNumber));
+            router.replace(`?${params.toString()}`, { scroll: false });
+        }
+
         return (
-            <Link href={`/cafeManager/orders/${rowData.orderNumber}`}>
-                <IconArrowRight className="w-[3.5rem] h-[3.5rem] rounded-[50%] no-underline text-[gray] hover:text-[darkgray] transition-colors" />
-            </Link>
+            <button onClick={() => handleSelectedOrder(rowData.orderNumber)}>
+                <IconInfoCircle className="w-[3.5rem] h-[3.5rem] rounded-[50%] no-underline text-[gray] hover:text-[darkgray] transition-colors" />
+            </button>
         );
     };
 
@@ -73,43 +102,74 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
         <DataTable 
             value={data}
             emptyMessage="Няма замоў"
-            style={{ fontSize: "1.9rem", fontFamily: "Arial", fontWeight: 600, width: "calc(100dvw - 3rem)" }}
+            style={{ fontSize: "1.9rem", fontFamily: "Arial", fontWeight: 600, width: "calc(75dvw - 3rem)" }}
+            tableStyle={{ width: "calc(75dvw - 3rem)" }}
             removableSort
         >
             <Column 
                 field="orderNumber" 
                 header="Замова №" 
                 body={orderNumberBodyTemplate}
-                style={{ minWidth: '12rem' }}
+                style={{ width: '12rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+                headerStyle={{ height: "3rem" }}
             />
             <Column 
                 field="dishes" 
                 header="Стравы" 
                 body={dishesBodyTemplate}
-                style={{ minWidth: '30rem' }}
+                style={{ width: '40rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+                headerStyle={{ height: "3rem" }}
             />
             <Column 
                 field="sentTime" 
                 header="Час Замовы" 
-                body={dateTimeBodyTemplate}
-                style={{ minWidth: '25rem' }}
+                body={sentTimeBodyTemplate}
+                style={{ width: '20rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+                headerStyle={{ height: "3rem", position: "relative" }}
                 sortable
+                pt={{
+                    sort: {
+                        className: "absolute right-2 top-1/2 transform -translate-y-1/2 inline-flex"
+                    },
+                    sortIcon: {
+                        className: 'w-[1.9rem] h-[1.9rem] ml-2'
+                    }
+                }}
+            />
+            <Column 
+                field="orderStatus" 
+                header="Стан" 
+                body={orderStatusBodyTemplate}
+                style={{ width: '12rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+                headerStyle={{ height: "3rem", position: "relative" }}
+                sortable
+                pt={{
+                    sort: {
+                        className: "absolute right-2 top-1/2 transform -translate-y-1/2 inline-flex"
+                    },
+                    sortIcon: {
+                        className: 'w-[1.9rem] h-[1.9rem]'
+                    }
+                }}
             />
             <Column 
                 field="phone" 
                 header="Тэлефон" 
                 body={phoneBodyTemplate}
-                style={{ minWidth: '15rem' }}
+                style={{ width: '12rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+                headerStyle={{ height: "3rem" }}
             />
             <Column 
                 field="comment" 
                 header="Каментар" 
                 body={commentBodyTemplate}
-                style={{ minWidth: '20rem' }}
+                style={{ width: '10rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
+                headerStyle={{ height: "3rem" }}
             />
             <Column 
                 body={actionsBodyTemplate}
                 style={{ width: '4rem' }}
+                headerStyle={{ height: "3rem" }}
             />
         </DataTable>
     );

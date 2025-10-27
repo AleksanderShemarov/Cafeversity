@@ -172,6 +172,9 @@ model Orders {
   cafeID              Int
   sentTime            DateTime
   readyStatus         Boolean     @default(false)
+  orderStatus         String      @default("SENT")
+  plannedTime         String      @default("")
+  paid                Boolean     @default(false)
   phone               String
   comment             String      @default("")
 
