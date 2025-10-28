@@ -1,9 +1,9 @@
-import Link from "next/link";
 import ClosePreviewButton from "./ClosePreview";
 import { IconArrowRight } from "@tabler/icons-react";
 import { OrderXTypes } from "./NewOrderPreview";
 import DishBlank from "./DishBlank";
 import TimeSinceSending from "./TimeSinceSending";
+import orderOnPreparing from "@/app/actions/orderStatusChanging";
 
 
 export default function PreviewDetails({ orderNumber, data }: { orderNumber: string, data: OrderXTypes }) {
@@ -40,7 +40,7 @@ export default function PreviewDetails({ orderNumber, data }: { orderNumber: str
             ">
                 <p className="grow text-[1.6rem] text-left font-bold m-0 p-0">Total Price</p>
                 <p className="grow text-[1.6rem] text-right text-gray-400 font-medium m-0 p-0">
-                    {data.dishes.reduce((sum, dish) => sum + dish.dishes.cost, 0)} BYN
+                    {data.dishes.reduce((sum, dish) => sum + dish.dishes.cost, 0).toFixed(2)} BYN
                 </p>
             </div>
             <TimeSinceSending sentTime={data.sentTime} />
@@ -58,16 +58,20 @@ export default function PreviewDetails({ orderNumber, data }: { orderNumber: str
                 flex flex-row items-center justify-between
                 px-[1.25rem] py-[1rem]
             ">
-                <Link href={`/cafeManager/orders/${orderNumber}`}
-                    className="
-                        flex flex-row items-center gap-[0.75rem]
-                        text-[1.6rem] font-semibold no-underline rounded-[0.5rem] px-[0.75rem] py-[0.5rem]
-                        bg-blue-500 text-[white]
-                        hover:cursor-pointer hover:bg-[white] hover:text-blue-500 hover:outline-2 hover:outline-blue-500
-                    "
-                >
-                    Апрацоўка <IconArrowRight className="h-[1.8rem] w-[1.8rem]" />
-                </Link>
+                <form action={orderOnPreparing.bind(null, Number(orderNumber))}>
+                    <button type="submit"
+                        disabled={data.orderStatus === "TAKEN" || data.orderStatus === "CANCELLED"}
+                        className="
+                            flex flex-row items-center gap-[0.75rem]
+                            text-[1.6rem] font-semibold no-underline rounded-[0.5rem] px-[0.75rem] py-[0.5rem]
+                            bg-blue-500 text-[white]
+                            hover:cursor-pointer hover:bg-[white] hover:text-blue-500 hover:outline-2 hover:outline-blue-500
+                            disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-[white] disabled:outline-0
+                        "
+                    >
+                        Апрацоўка <IconArrowRight className="h-[1.8rem] w-[1.8rem]" />
+                    </button>
+                </form>
                 <ClosePreviewButton />
             </div>
         </div>

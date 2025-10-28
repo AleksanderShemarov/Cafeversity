@@ -54,17 +54,17 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
         const orderStatus = rowData.orderStatus;
         switch (orderStatus) {
             case "SENT":
-                return (<p className="bg-blue-100 text-blue-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+                return (<p className="bg-blue-100 text-blue-800 text-[1.8rem] text-center font-extralight">{orderStatus}</p>);
             case "PREPARING":
-                return (<p className="bg-yellow-100 text-[goldenrod] text-[1.8rem] font-extralight">{orderStatus}</p>);
+                return (<p className="bg-yellow-100 text-[goldenrod] text-[1.8rem] text-center font-medium">{orderStatus}</p>);
             case "READY":
-                return (<p className="bg-green-100 text-green-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+                return (<p className="bg-green-100 text-green-800 text-[1.8rem] text-center font-semibold">{orderStatus}</p>);
             case "TAKEN":
-                return (<p className="bg-purple-100 text-purple-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+                return (<p className="bg-purple-100 text-purple-800 text-[1.8rem] text-center font-bold">{orderStatus}</p>);
             case "CANCELLED":
-                return (<p className="bg-red-100 text-red-800 text-[1.8rem] font-extralight">{orderStatus}</p>);
+                return (<p className="bg-red-100 text-red-800 text-[1.8rem] text-center font-medium">{orderStatus}</p>);
             default:
-                return (<p className="bg-gray-100 text-gray-800 text-[1.8rem] font-extralight">UNKNOWN</p>);
+                return (<p className="bg-gray-100 text-gray-800 text-[1.8rem] text-center font-thin">UNKNOWN</p>);
         }
     }
 
@@ -142,14 +142,10 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
                 body={orderStatusBodyTemplate}
                 style={{ width: '12rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
                 headerStyle={{ height: "3rem", position: "relative" }}
-                sortable
                 pt={{
-                    sort: {
-                        className: "absolute right-2 top-1/2 transform -translate-y-1/2 inline-flex"
+                    headerContent: {
+                        className: "absolute left-0 top-0 translate-x-[100%]"
                     },
-                    sortIcon: {
-                        className: 'w-[1.9rem] h-[1.9rem]'
-                    }
                 }}
             />
             <Column 

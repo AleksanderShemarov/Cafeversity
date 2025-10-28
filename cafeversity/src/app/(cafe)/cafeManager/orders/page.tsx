@@ -9,12 +9,7 @@ const weekdays: string[] = [ "Нядзеля", "Панядзелак", "Аўто
 
 async function fetchOrders() {
     const orders = await prisma.orders.findMany({
-        where: {
-            AND: [
-                { cafeID: 1 },
-                { orderStatus: "SENT" },
-            ]
-        },
+        where: { cafeID: 1 },
         select: {
             orderNumber: true,
             sentTime: true,
@@ -30,10 +25,19 @@ async function fetchOrders() {
                     }
                 }
             }
-        }
+        },
+        orderBy: [
+            { orderStatus: 'asc' },
+        ]
     });
 
-    return orders;
+    const statusPriority = ["TAKEN", "CANCELLED", "READY", "PREPARING", "SENT"];
+
+    const sortedOrders = orders.sort((a, b) => {
+        return statusPriority.indexOf(a.orderStatus) - statusPriority.indexOf(b.orderStatus);
+    });
+
+    return sortedOrders;
 }
 
 

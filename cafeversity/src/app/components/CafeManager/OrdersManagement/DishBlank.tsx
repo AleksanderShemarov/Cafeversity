@@ -8,6 +8,8 @@ export default function DishBlank({ image, dishName, dishCost }: { image: string
         <div className="
             w-[98%] flex flex-row items-center
             my-[1.75rem] mx-auto p-[1.25rem]
+            first:my-0 first:mt-[0.5rem] first:mb-[1.75rem]
+            last:my-0 last:mt-[1.75rem] last:mb-[0.5rem]
             outline-1 outline-[lightgray] rounded-[0.75rem]
         ">
             <CardImage imagePath={image} imageAlt={image.substring(image.lastIndexOf("/") + 1)}
