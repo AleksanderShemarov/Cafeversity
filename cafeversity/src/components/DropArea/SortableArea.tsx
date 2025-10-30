@@ -121,7 +121,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
                         dishData={favouriteDish}
                     >
                         <CardBlock height="18vh" width="21vw" style={{ outline: isDishSelected(favouriteDish.dishID) ? "none" : "2px solid lightgrey" }}>
-                            <CardImage imagePath={favouriteDish.dishes.imagePath.slice(8)}
+                            <CardImage imagePath={favouriteDish.dishes.imagePath}
                                 style={{ borderRadius: "1.5rem" }}
                                 fill
                             />
@@ -240,7 +240,7 @@ const SortableArea = ({ favouriteDishes, otherDishes, selectedDishIds, onDishSel
                     dishData={dish}
                 >
                     <CardBlock height="18vh" width="21vw" style={{ outline: isDishSelected(dish.dishID) ? "none" : "2px solid lightgrey" }}>
-                        <CardImage imagePath={dish.dishes.imagePath === "" ? "/no_image1.jpg" : dish.dishes.imagePath.slice(8)}
+                        <CardImage imagePath={dish.dishes.imagePath === "" ? "/no_image1.jpg" : dish.dishes.imagePath}
                             style={{ borderRadius: "1.5rem" }}
                             fill
                         />

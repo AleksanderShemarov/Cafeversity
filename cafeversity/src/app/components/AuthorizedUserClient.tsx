@@ -61,28 +61,28 @@ export default function AuthorizedUserClient({ userData, dataOfDishes }: Authori
     }
 
     return (
-    <>
-        <UserAndOrder imagePath={userData.userPhoto}
-            name={userData.firstName}
-            surname={userData.lastName}
-            nickname={userData.nickName}
-            email={userData.email}
-            selectedDishes={selectedDishes}
-            setDishSelection={setSelectedDishes}
-            onRemoveDish={removeDish}
-            isOrderOpen={isOrderOpen}
-        />
-
-        <OrderButton isOrderOpen={isOrderOpen} onClick={orderHandler} />
-
-        <div ref={contentRef}>
-            <SortableAreaComponent
-                favouriteDishes={userData.favouriteDish}
-                otherDishes={dataOfDishes}
-                selectedDishIds={selectedDishIds}
-                onDishSelection={toggleDishSelection}
+        <>
+            <UserAndOrder imagePath={userData.userPhoto}
+                name={userData.firstName}
+                surname={userData.lastName}
+                nickname={userData.nickName}
+                email={userData.email}
+                selectedDishes={selectedDishes}
+                setDishSelection={setSelectedDishes}
+                onRemoveDish={removeDish}
+                isOrderOpen={isOrderOpen}
             />
-        </div>
-    </>
+
+            <OrderButton isOrderOpen={isOrderOpen} onClick={orderHandler} />
+
+            <div ref={contentRef}>
+                <SortableAreaComponent
+                    favouriteDishes={userData.favouriteDish}
+                    otherDishes={dataOfDishes}
+                    selectedDishIds={selectedDishIds}
+                    onDishSelection={toggleDishSelection}
+                />
+            </div>
+        </>
     );
 }

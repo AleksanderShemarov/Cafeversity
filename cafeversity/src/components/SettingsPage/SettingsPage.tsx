@@ -438,7 +438,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                 />
             </PageBlockName>
 
-            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "1.25rem", marginBottom: "1.25rem" }} />
 
             <PageBlockName id="section1" name={t("secondSetsPart.name")}>
                 <SubTitle name={t("secondSetsPart.subtitle1.name")} />
@@ -478,7 +478,7 @@ export default function SettingsPage({ authorizedUser, userData }: ActualUser) {
                 {/* <BodyConstitution /> */}
             </PageBlockName>
 
-            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "10px", marginBottom: "10px" }} />
+            <HorizontalLine cssProps={{ border: "5px double gray", marginTop: "1.25rem", marginBottom: "1.25rem" }} />
 
             <PageBlockName id="section2" name={t("thirdSetsPart.name")}>
                 <SubTitle name={t("thirdSetsPart.subtitle1.name")} />

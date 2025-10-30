@@ -163,18 +163,18 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
         menu: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "max-content",
-            minWidth: "10rem",
+            minWidth: "12rem",
             fontSize: "1.5rem",
             backgroundColor: "var(--order-selectmenu-background)",
             color: "var(--text-color)",
             zIndex: 12,
-            marginLeft: "9.5rem",
+            marginLeft: "8rem",
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "auto",
             minWidth: "10rem",
-            maxWidth: "20rem",
+            maxWidth: "25rem",
             fontSize: "1.5rem",
             backgroundColor: "var(--order-selectmenu-background)",
             color: "var(--text-color)",
@@ -183,7 +183,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
         singleValue: (base: CSSObjectWithLabel) => ({
             ...base,
             color: "var(--text-color)",
-            maxWidth: "15rem",
+            width: "15rem",
         }),
         dropdownIndicator: (base: CSSObjectWithLabel) => ({
             ...base,
@@ -196,7 +196,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
             ...base,
             backgroundColor: state.isSelected ? "rgb(48, 151, 255)" : state.isFocused ? "var(--order-selectmenu-background-focused)" : "var(--order-selectmenu-background)",
             color: state.isSelected ? "gold" : state.isFocused ? "gold" : "var(--text-color)",
-            maxWidth: "15rem",
+            width: "20rem",
             margin: "0 auto",
         }),
         input: (base: CSSObjectWithLabel) => ({
@@ -336,7 +336,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                                         {index + 1}.
                                     </div>
                                     <div style={{ height: "4rem", width: "6rem" }}>
-                                        <CardImage imagePath={selectedDish.imagePath.slice(8)}
+                                        <CardImage imagePath={selectedDish.imagePath}
                                             style={{ borderRadius: "0.5rem" }}
                                             fill
                                         />
@@ -442,8 +442,8 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                         </div>
                         <AccessBtn buttonName={orderView("submit")} onClick={orderSavingHandler}
                         additionalStyle={{
-                            fontSize: "1.5rem", paddingLeft: "5rem", paddingRight: "5rem",
-                            height: "3rem", margin: "0 auto"
+                            fontSize: "1.6rem", paddingLeft: "6rem", paddingRight: "6rem",
+                            height: "4rem", margin: "0 auto", borderRadius: "1.25rem"
                         }} />
                     </>
                     )}
@@ -489,7 +489,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
 
                                             <AnimatePresence>
                                                 {expandedOrderId === order.id && (
-                                                    <motion.div 
+                                                    <motion.div
                                                         className={styles.orderDetails}
                                                         initial={{ opacity: 0, height: 0 }}
                                                         animate={{ opacity: 1, height: 'auto' }}
@@ -500,7 +500,7 @@ export default function Order({ selectedDishes, setDishSelection, onRemoveDish, 
                                                             {order.dishes.map(dish => (
                                                                 <div key={`previousOrderDish-${dish.id}`} className={styles.historyDishItem}>
                                                                     <div style={{ height: "4rem", width: "6rem" }}>
-                                                                        <CardImage 
+                                                                        <CardImage
                                                                             imagePath={dish.imagePath}
                                                                             style={{ borderRadius: "0.5rem" }}
                                                                             fill

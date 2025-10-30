@@ -1,17 +1,22 @@
 import { IconCheck } from "@tabler/icons-react";
 import CardImage from "@/components/CardParts/CardImage";
 import CardTitle from "@/components/CardParts/CardTitle";
+import { MouseEventHandler } from "react";
 
 
-export default function DishBlank({ image, dishName, dishCost }: { image: string, dishName: string, dishCost: number }) {
+export default function DishBlank({ image, dishName, dishCost, onDishBlankClick, optionalStyle = "" }: { image: string, dishName: string, dishCost: number, onDishBlankClick: MouseEventHandler<HTMLDivElement>, optionalStyle?: string }) {
     return (
-        <div className="
-            w-[98%] flex flex-row items-center
-            my-[1.75rem] mx-auto p-[1.25rem]
-            first:my-0 first:mt-[0.5rem] first:mb-[1.75rem]
-            last:my-0 last:mt-[1.75rem] last:mb-[0.5rem]
-            outline-1 outline-[lightgray] rounded-[0.75rem]
-        ">
+        <div
+            className={`
+                w-[98%] flex flex-row items-center
+                my-[1.75rem] mx-auto p-[1.25rem]
+                first:my-0 first:mt-[0.5rem] first:mb-[1.75rem]
+                last:my-0 last:mt-[1.75rem] last:mb-[0.5rem]
+                rounded-[0.75rem]
+                ${optionalStyle}
+            `}
+            onClick={onDishBlankClick}
+        >
             <CardImage imagePath={image} imageAlt={image.substring(image.lastIndexOf("/") + 1)}
                 width={75}
                 height={75}

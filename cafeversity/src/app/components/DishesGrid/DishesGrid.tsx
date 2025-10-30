@@ -101,7 +101,7 @@ export default function DishesGrid({ categotyName }: { categotyName: string }) {
                     </div>
                     <CardBlock height="18vh" width="21vw">
                         <CardImage 
-                            imagePath={dish.imagePath.slice(8)}
+                            imagePath={dish.imagePath}
                             style={{ borderRadius: "1.5rem" }}
                             fill
                         />

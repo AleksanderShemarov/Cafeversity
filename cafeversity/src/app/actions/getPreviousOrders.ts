@@ -68,7 +68,7 @@ export default async function getPreviousOrders() {
             dishes: dishes.map(({ dishes: dish }) => ({
                 id: dish.id,
                 food_name: dish.food_name,
-                imagePath: dish.imagePath.substring(8),
+                imagePath: dish.imagePath,
                 food_portion: Number(dish.food_portion),
                 cost: Number(dish.cost)
             }))

@@ -44,7 +44,7 @@ export default function ShortMainDishInfoLayout({ children }: { children: React.
                 outline: "1.5px solid white"
             }}>
                 {children}
-                <HorizontalLine cssProps={{ border: "1px solid var(--short-info-horizontal-line-color)", marginLeft: "4rem", marginRight: "4rem" }} />
+                <HorizontalLine cssProps={{ border: "1px solid var(--short-info-horizontal-line-color)", marginLeft: "4rem", marginRight: "4rem", marginTop: "1rem", marginBottom: "1rem" }} />
                 <div style={{ display: "inline-flex", alignItems: "center", justifyContent: "space-around", width: "100%", marginTop: "1rem" }}>
                     <CardButton btnId={"backBtn"}
                         btnName={

@@ -41,19 +41,19 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
     
     const protein = <IconMeat
         style={{
-            height: "2.5rem", width: "2.5rem", color: "skyblue",
+            height: "5rem", width: "5rem", color: "skyblue",
             outline: "3px solid skyblue", padding: "1rem", borderRadius: "50%"
         }}
     />
     const fat = <IconMilk
         style={{
-            height: "2.5rem", width: "2.5rem", color: "gold",
+            height: "5rem", width: "5rem", color: "gold",
             outline: "3px solid gold", padding: "1rem", borderRadius: "50%"
         }}
     />
     const carb = <IconFeatherFilled
         style={{
-            height: "2.5rem", width: "2.5rem", color: "green",
+            height: "5rem", width: "5rem", color: "green",
             outline: "3px solid green", padding: "1rem", borderRadius: "50%"
         }}
     />
@@ -89,7 +89,7 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
         {
             idKey: "snedak",
             icon: <IconSunrise style={{
-                height: "2.5rem", width: "2.5rem",
+                height: "5rem", width: "5rem",
                 color: "orange", outline: "3px solid orange",
                 padding: "1rem", borderRadius: "50%"
             }} />,
@@ -99,7 +99,7 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
         {
             idKey: "abed",
             icon: <IconSunHigh style={{
-                height: "2.5rem", width: "2.5rem",
+                height: "5rem", width: "5rem",
                 color: "gold", outline: "3px solid gold",
                 padding: "1rem", borderRadius: "50%"
             }} />,
@@ -109,7 +109,7 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
         {
             idKey: "vjachera",
             icon: <IconSunset style={{
-                height: "2.5rem", width: "2.5rem",
+                height: "5rem", width: "5rem",
                 color: "orangered", outline: "3px solid orangered",
                 padding: "1rem", borderRadius: "50%"
             }} />,
@@ -122,7 +122,7 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
         <div style={{ position: "relative" }}>
             <AroundImage liked={dishFull.favouredByUser}>
                 <div style={{ height: "35vh", width: "50%" }}>
-                    <CardImage imagePath={dishFull.imagePath.slice(8)} imageAlt={`${dishFull.imagePath.slice(8)}`}
+                    <CardImage imagePath={dishFull.imagePath} imageAlt={`${dishFull.imagePath}`}
                         fill style={{ borderTopRightRadius: "5rem", borderTopLeftRadius: "5rem" }}
                     />
                 </div>
@@ -171,11 +171,11 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                         <div key={`ingredients-chart-${index + 1}`} style={{ height: "31rem", width: "50rem", position: "relative" }}>
                             {includesPart.includes(":")
                             ? (
-                            <>
-                                <p style={{ fontSize: "1.5rem", fontWeight: 400, margin: 0, textDecoration: "underline" }}>{includesPart.split(":")[0]}</p>
-                                <IngredientsChart ingredients={includesPart.split(":")[1]} style={{ position: "absolute", height: "90%", width: "90%" }} />
-                            </>)
-                            : <IngredientsChart ingredients={includesPart} style={{ position: "absolute", height: "90%", width: "90%" }} />}
+                                <>
+                                    <p style={{ fontSize: "1.5rem", fontWeight: 400, margin: 0, textDecoration: "underline" }}>{includesPart.split(":")[0]}</p>
+                                    <IngredientsChart ingredients={includesPart.split(":")[1]} style={{ position: "absolute", height: "90%", width: "90%" }} />
+                                </>
+                            ) : <IngredientsChart ingredients={includesPart} style={{ position: "absolute", height: "90%", width: "90%" }} />}
                         </div>
                     )}
                 </div>
@@ -193,7 +193,7 @@ export default function DishFullDetails({ params }: { params: { authorizedUser: 
                     </div>
                 )}
                 </div>
-                <div style={{ marginBottom: "1rem", paddingTop: "2rem" }}>
+                <div style={{ marginBottom: "1.5rem", paddingTop: "3rem", display: "flex", alignItems: "center", justifyContent: "center", gap: "2.5rem" }}>
                     <p style={{ fontSize: "2rem", textAlign: "center", margin: 0, marginTop: "1rem", marginBottom: "1rem" }}>
                         {choisenDish("mealSentence")}
                     </p>

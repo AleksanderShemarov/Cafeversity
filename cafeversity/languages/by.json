@@ -73,7 +73,8 @@
     "NewsPage": {
         "Food&People": {
             "searchLine": "Пошук...",
-            "searchLineTip": "Увядзі свой запыт!"
+            "searchLineTip": "Увядзі свой запыт!",
+            "dataLoading": "Пампаванне дадзен..."
         },
         "BestRecipe": {},
         "FoodEvents": {},

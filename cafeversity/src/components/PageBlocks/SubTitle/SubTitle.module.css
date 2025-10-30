@@ -5,6 +5,8 @@
     font-family: var(--font-family);
     padding-left: 10px;
     padding-right: 10px;
+    padding-top: 1.75rem;
+    padding-bottom: 0.5rem;
     color: var(--text-color);
 
     font-style: var(--font-volume-style);

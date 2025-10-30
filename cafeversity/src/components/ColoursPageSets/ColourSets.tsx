@@ -1,5 +1,4 @@
 import coloursSetStyle from "@/components/ColoursPageSets/ColourSets.module.css";
-//import { useState } from "react";
 
 
 const divStyles: [string, string, string][] = [
@@ -16,41 +15,8 @@ type ColourSetsTypes = {
 
 const ColourSets = ({ theme, switcher, themeTypes }: ColourSetsTypes) => {
 
-    // const [themeClicked, setThemeClicked] = useState<boolean[]>([true, false]);
-    // 
-    // function switchBetweenColourThemes (key: string) {
-    //     const newBools: boolean[] = Array(2).fill(false);
-    //     const keyNum: number = Number(key[key.length - 1]);
-    //     console.log(keyNum);
-    //     newBools[keyNum] = !themeClicked[keyNum];
-    //     setThemeClicked(newBools);
-    // }
-
-
     return (
         <div id={coloursSetStyle.colours_examples}>
-            {/* {themeClicked.map((theme, index) => (
-                <div key={`theme-${index}`}>
-                    <div className={coloursSetStyle.colourExampleBlock}>
-                        <div className={`${coloursSetStyle.colourExample} ${divStyles[index][0]}`} key={`ColourTheme${index}`}
-                            onClick={() => { switchBetweenColourThemes(`ColourTheme${index}`); }}
-                            style={{
-                                outline: theme ? "5px solid lime" : "none",
-                                pointerEvents: theme ? "none" : "auto",
-                            }}
-                        >
-                            <div className={`${coloursSetStyle.firstlineDiv1} ${divStyles[index][1]}`}></div>
-                            <div className={`${coloursSetStyle.firstlineDiv2} ${divStyles[index][1]}`}></div>
-                            <div className={`${coloursSetStyle.firstlineDiv3} ${divStyles[index][1]}`}></div>
-                            <div className={`${coloursSetStyle.firstlineDiv4} ${divStyles[index][1]}`}></div>
-                            <div className={`${coloursSetStyle.secondlineDiv} ${divStyles[index][1]}`}></div>
-                            <div className={`${coloursSetStyle.thirdlineDiv} ${divStyles[index][1]}`}></div>
-                            <div className={`${coloursSetStyle.thirdlineDiv} ${divStyles[index][1]}`}></div>
-                        </div>
-                        <p className={coloursSetStyle.colourExampleName}>{divStyles[index][2]}</p>
-                    </div>
-                </div>
-            ))} */}
             {divStyles.map((style, index) => (
                 <div key={`theme-${index}`}>
                     <div className={coloursSetStyle.colourExampleBlock}>

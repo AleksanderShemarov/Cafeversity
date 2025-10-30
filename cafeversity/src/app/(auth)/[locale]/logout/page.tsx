@@ -7,7 +7,6 @@ import { useTranslations } from "next-intl";
 export default function ExitProcessPage () {
 
     async function LogOut () {
-
         interface LoginResponse {
             message: string;
             redirect?: string;
@@ -56,6 +55,7 @@ export default function ExitProcessPage () {
                 textAlign: "center",
                 backgroundColor: "rgb(225, 225, 225)",
                 boxShadow: "0 0 10px 10px lightgrey",
+                fontSize: "2.2rem"
             }}>
                 {t("name")}
             </h1>

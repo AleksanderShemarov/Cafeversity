@@ -5,6 +5,7 @@ import SearchLine from "@/components/SearchLine";
 import ArticleCard from "@/app/components/ArticleCard";
 import { SetStateAction, useEffect, useState } from "react";
 import { usePathname } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 
 export default function FoodPeople () {
@@ -83,6 +84,9 @@ export default function FoodPeople () {
     }, [query, articleData]);
 
 
+    const DataLoading = useTranslations("NewsPage.Food&People");
+
+
     return (
         <div id={styles.main_part}>
             <SearchLine searchingHandler={newQuery} />
@@ -90,40 +94,11 @@ export default function FoodPeople () {
             {!isLoaded ? (
                 <div className={styles.loadingMessage}>
                     <div className={styles.loadingSpinner}></div>
-                    <p className={styles.loadingText}>Пампаванне дадзен...</p>
+                    <p className={styles.loadingText}>{DataLoading("dataLoading")}</p>
                 </div>
             ) : filteredArticleData.length > 0 ? (
                 filteredArticleData.map((article) =>
-                // {
-                // if (articleBar.published) {
-                //     return (
-                //         <Link
-                //             key={index}
-                //             href={`${pathname.slice(0, 3)}/news/foodpeople/${articleBar.id}`}
-                //             style={{ textDecoration: 'none', color: 'inherit' }}
-                //         >
-                //             <ArticleBar
-                //                 key={articleBar.id}
-                //                 picture={articleBar.article_image_path}
-                //                 pictName={`${articleBar.article_image_path}`}
-                //                 articleName={articleBar.article_title}
-                //                 shortText={articleBar.article_text}
-                //             />
-                //         </Link>
-                //     )
-                // } else {
-                //     return (
-                //         <ArticleBar
-                //             key={articleBar.id}
-                //             picture={articleBar.article_image_path}
-                //             pictName={`${articleBar.article_image_path}`}
-                //             articleName={articleBar.article_title}
-                //             shortText={articleBar.article_text}
-                //         />
-                //     )
-                // }
-                // }
-                <ArticleCard
+                    <ArticleCard
                         key={article.id}
                         id={article.id}
                         image={article.article_image_path}
@@ -133,7 +108,8 @@ export default function FoodPeople () {
                         published={article.published}
                         pathname={pathname}
                     />
-                )) : (
+                )
+            ) : (
                 <div className={styles.noResultsMessage}>
                     <div className={styles.noResultsIcon}>🔍</div>
                     <p className={styles.noResultsText}>
@@ -143,8 +119,7 @@ export default function FoodPeople () {
                         }
                     </p>
                 </div>
-                )
-            }
+            )}
         </div>
     )
 }

@@ -15,7 +15,9 @@
     /* font-size: 2em; /* 32px */
     font-size: 3.2rem;
     margin-top: 0;
-    padding-top: 30px;
+    padding-top: 3rem;
+    padding-left: 1.5rem;
+    padding-bottom: 3rem;
     color: var(--text-color);
 }
 #sticky_navbar hr {
@@ -29,4 +31,6 @@
     font-family: var(--font-family);
     /* font-size: 1.5em; /* 24px */
     font-size: 2.4rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
 }

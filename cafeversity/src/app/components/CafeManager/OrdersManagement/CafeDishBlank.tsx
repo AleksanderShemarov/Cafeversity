@@ -13,6 +13,7 @@ export default function CafeDishBlank({
             first:mx-0 first:ml-[0.5rem] first:mr-[1rem]
             last:mx-0 last:ml-[1rem] last:mr-[0.5rem]
             outline-1 outline-[lightgray] rounded-[1.75rem]
+            snap-center
         ">
             <CardImage imagePath={dishImage} imageAlt={dishImage.substring(dishImage.lastIndexOf("/") + 1)}
                 width={550}

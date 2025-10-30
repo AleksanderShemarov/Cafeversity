@@ -403,7 +403,7 @@ to dicarded divs.
   width: 100%;
   border-color: blue;
   color: blue;
-  background-color: none;
+  background-color: rgb(106, 106, 106);
   box-shadow: none;
   -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
   -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
@@ -417,6 +417,7 @@ to dicarded divs.
   color: white;
   background-color: blue;
   box-shadow: 0 0 7px 7px blue;
+  cursor: pointer;
   -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
   -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
   -moz-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
@@ -427,7 +428,7 @@ to dicarded divs.
   width: 25%;
   border-color: firebrick;
   color: firebrick;
-  background-color: none;
+  background-color: rgb(106, 106, 106);
   box-shadow: none;
   -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
   -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
@@ -441,6 +442,7 @@ to dicarded divs.
   color: white;
   background-color: firebrick;
   box-shadow: 0 0 7px 7px firebrick;
+  cursor: pointer;
   -webkit-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
   -o-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;
   -moz-transition: border-color 0.5s ease, color 0.5s ease, background-color 0.5s ease, box-shadow 0.5s ease;

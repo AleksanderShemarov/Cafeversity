@@ -3,11 +3,11 @@
     font-weight: 500;
     min-width: 400px;
     max-width: fit-content;
-    height: 40px;
+    height: 6rem;
     border: 3px #714efe solid;
-    border-radius: 7px;
-    padding-left: 10px;
-    padding-right: 10px;
+    border-radius: 1.4rem;
+    padding-left: 1.4rem;
+    padding-right: 1.4rem;
     column-count: auto;
     line-height: 1.5;
     margin-bottom: 15px;

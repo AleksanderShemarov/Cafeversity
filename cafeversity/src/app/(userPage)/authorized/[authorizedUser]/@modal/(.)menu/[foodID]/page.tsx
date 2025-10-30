@@ -50,7 +50,7 @@ export default function ShortMainDishInfo({ params }: { params: { authorizedUser
                 marginTop: "2rem", marginBottom: "2rem"
             }}>
                 <div style={{ height: "30vh", width: "34vw" }}>
-                    <CardImage imagePath={dishShort.imagePath.slice(8)} imageAlt={`${dishShort.imagePath.slice(8)}`}
+                    <CardImage imagePath={dishShort.imagePath} imageAlt={`${dishShort.imagePath}`}
                         fill style={{ borderRadius: "1rem" }}
                     />
                 </div>

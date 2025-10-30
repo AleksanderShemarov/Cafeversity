@@ -30,6 +30,9 @@ export default function IngredientsChart({ ingredients, style }: { ingredients: 
             toolbar: { show: false },
         },
         labels: names,
+        legend: {
+            labels: { colors: "var(--text-color)" }
+        },
         responsive: [{
             breakpoint: 480,
             options: {

@@ -73,7 +73,8 @@
     "NewsPage": {
         "Food&People": {
             "searchLine": "Search...",
-            "searchLineTip": "Type your query here!"
+            "searchLineTip": "Type your query here!",
+            "dataLoading": "Data loading..."
         },
         "BestRecipe": {},
         "FoodEvents": {},

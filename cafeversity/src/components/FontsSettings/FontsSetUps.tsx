@@ -1,6 +1,5 @@
 import ReactSelect, { CSSObjectWithLabel } from "react-select";
 import Select from "react-select";
-// import { Dispatch, SetStateAction } from "react";
 import Paragraph from "../PageBlocks/Paragraphs/Paragraph";
 import HorizontalLine from "../OtherParts/HorizontalLine";
 import { parseFontVolume } from "@/hooks/fontVolume";
@@ -33,59 +32,24 @@ type FontsTypes = {
     familyChange: (
         fontFamily: string
     ) => void,
-    // hookFamily: Dispatch<SetStateAction<string>>,
+
     fontset2: string,
     fontSize: string,
     sizeChange: (
         fontSize: string
     ) => void,
-    // hookSize: Dispatch<SetStateAction<string>>,
+
     fontset3: string,
     fontVolume: string,
     volumeChange: (
         fontVolume: string
     ) => void
-    // fontVolume: { fontWeight: string, fontStyle: string },
-    // hookVolume: Dispatch<SetStateAction<{ fontWeight: string, fontStyle: string }>>,
 }
 
 
 export default function FontsFamilySizeWeight({
     fontset1, fontFamily, familyChange, fontset2, fontSize, sizeChange, fontset3, fontVolume, volumeChange
 }: FontsTypes) {
-
-    // let startFontFamily = { label: "Consolas", value: "Consolas, monospace" };
-    // let startFontSize = { label: "10px", value: "10px" };
-    // let startFontWeight = { label: "Normal", value: "normal" };
-    
-    // if (fontFamily) {
-    //     for (let i = 0; i < FontsFamilies.length; i++) {
-    //         if (fontFamily === FontsFamilies[i].value) {
-    //             startFontFamily = FontsFamilies[i];
-    //             break;
-    //         }
-    //     }
-    // }
-    // if (fontSize) {
-    //     for (let j = 0; j < FontSizes.length; j++) {
-    //         if (fontSize === FontSizes[j].value) {
-    //             startFontSize = FontSizes[j];
-    //             break;
-    //         }
-    //     }
-    // }
-    // if (fontVolume) {
-    //     let volumeType = ""
-    //     if (fontVolume.fontWeight !== "normal" && fontVolume.fontStyle === "normal") volumeType = "bold"
-    //     else if (fontVolume.fontWeight === "normal" && fontVolume.fontStyle !== "normal") volumeType = "italic"
-    //     else volumeType = "normal"
-    //     for (let y = 0; y < FontVolumes.length; y++) {
-    //         if (volumeType === FontVolumes[y].value) {
-    //             startFontWeight = FontVolumes[y];
-    //             break;
-    //         }
-    //     }
-    // }
 
     const currentFontFamily = FontsFamilies.find(font => font.value === fontFamily);
     const currentFontSize = FontSizes.find(font => font.value === fontSize);
@@ -100,13 +64,15 @@ export default function FontsFamilySizeWeight({
             width: "max-content",
             // minWidth: "15em", // 1em = 16px
             minWidth: "24rem", // 1rem = 10px in global.css file
-            fontSize: "1.6rem",
+            fontSize: "1.8rem",
+            height: "3rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
         }),
         control: (base: CSSObjectWithLabel) => ({
             ...base,
             width: "auto",
+            height: "6rem",
             // minWidth: "15em",
             minWidth: "24rem",
             fontSize: "1.8rem",
@@ -141,7 +107,7 @@ export default function FontsFamilySizeWeight({
             width: "max-content",
             // minWidth: "5em",
             minWidth: "8rem",
-            fontSize: "1.6rem",
+            fontSize: "1.8rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
         }),
@@ -151,6 +117,7 @@ export default function FontsFamilySizeWeight({
             // minWidth: "5em",
             minWidth: "8rem",
             fontSize: "1.8rem",
+            height: "5rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
         }),
@@ -182,7 +149,7 @@ export default function FontsFamilySizeWeight({
             width: "max-content",
             // minWidth: "7.5em",
             minWidth: "12rem",
-            fontSize: "1.6rem",
+            fontSize: "1.8rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
         }),
@@ -192,6 +159,7 @@ export default function FontsFamilySizeWeight({
             // minWidth: "7.5em",
             minWidth: "12rem",
             fontSize: "1.8rem",
+            height: "5rem",
             backgroundColor: "var(--background-color)",
             color: "var(--text-color)",
         }),
@@ -234,7 +202,6 @@ export default function FontsFamilySizeWeight({
                     )}
                     defaultValue={currentFontFamily}
                     onChange={selectedOption => {
-                            // hookFamily(selectedOption?.value as string)
                             familyChange(selectedOption?.value as string);
                         }
                     }
@@ -249,7 +216,6 @@ export default function FontsFamilySizeWeight({
                     styles={sizeSelectOptionWidth}
                     defaultValue={currentFontSize}
                     onChange={selectedOption => {
-                            // hookSize(selectedOption?.value as string)
                             sizeChange(selectedOption?.value as string);
                         }
                     }
@@ -264,13 +230,10 @@ export default function FontsFamilySizeWeight({
                     defaultValue={currentFontWeight}
                     onChange={selectedOption => {
                         if (selectedOption?.value === "bold") {
-                            // hookVolume({ fontWeight: selectedOption?.value, fontStyle: "normal" });
                             volumeChange(JSON.stringify({ fontWeight: selectedOption?.value, fontStyle: "normal" }));
                         } else if (selectedOption?.value === "italic") {
-                            // hookVolume({ fontWeight: "normal", fontStyle: selectedOption?.value });
                             volumeChange(JSON.stringify({ fontWeight: "normal", fontStyle: selectedOption?.value }));
                         } else {
-                            // hookVolume({ fontWeight: "normal", fontStyle: "normal" });
                             volumeChange(JSON.stringify({ fontWeight: "normal", fontStyle: "normal" }));
                         }
                     }}

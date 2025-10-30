@@ -11,14 +11,14 @@ interface ParagraphTypes {
 
 
 const Paragraph = ({ question, children, paragraphBlockCSS, paragraphCSS }: ParagraphTypes) => {
-  return (
-    <div className={paragraphStyles.paragraphBlock} style={paragraphBlockCSS}>
-        <p className={paragraphStyles.paragraph} style={paragraphCSS}>
-            {question}
-        </p>
-        {children}
-    </div>
-  )
+	return (
+		<div className={paragraphStyles.paragraphBlock} style={paragraphBlockCSS}>
+			<p className={paragraphStyles.paragraph} style={paragraphCSS}>
+				{question}
+			</p>
+			{children}
+		</div>
+	)
 }
 
 export default Paragraph;

@@ -74,12 +74,12 @@ export default function CategoriesControl({ categories }: CategoriesControlProps
                 </div> */}
                 {/* !!! */}
                 
-                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "1.5rem", margin: "1rem 0", flexWrap: "wrap" }}>
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "center", gap: "7.5rem", padding: "3rem 0", flexWrap: "wrap" }}>
                     {categories.map(category =>
                         <p key={category.id}
                             style={{
                                 fontSize: "1.8rem", padding: "0.5rem 1.5rem", border: "2px ridge orange",
-                                height: "2.5rem", borderRadius: "1.5rem", fontWeight: 400,
+                                borderRadius: "1.5rem", fontWeight: 400,
                                 cursor: categoryVisibility.length > 1 || !categoryVisibility.includes(category.id) ? "pointer" : "not-allowed",
                                 backgroundColor: categoryVisibility.includes(category.id) ? "orange" : "inherit",
                                 opacity: categoryVisibility.length === 1 && categoryVisibility.includes(category.id) ? 0.6 : 1,

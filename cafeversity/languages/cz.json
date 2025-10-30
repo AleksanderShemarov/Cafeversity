@@ -73,7 +73,8 @@
     "NewsPage": {
         "Food&People": {
             "searchLine": "Hledání...",
-            "searchLineTip": "Zadej svůj požadavek!"
+            "searchLineTip": "Zadej svůj požadavek!",
+            "dataLoading": "Načítání dat..."
         },
         "BestRecipe": {},
         "FoodEvents": {},

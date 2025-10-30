@@ -93,7 +93,7 @@
     position: relative;
     color: white;
     text-align: right;
-    width: 95%;
+    width: 100%;
 }
 
 .articleTitle {
@@ -103,6 +103,8 @@
     line-height: 1.2;
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
     text-align: right;
+    margin-top: 3rem;
+    margin-bottom: 3rem;
 }
 
 .articleDescription {
