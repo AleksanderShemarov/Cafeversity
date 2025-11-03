@@ -57,7 +57,7 @@ export function Clock2 () {
 }
 
 export function Clock3 () {
-    const [date, setDate] = useState<Date|null>(null);
+    const [date, setDate] = useState<Date>();
 
     useEffect(() => {
         const timerId = setInterval(() => {
@@ -72,7 +72,19 @@ export function Clock3 () {
     return (
         <div id={styles.clock}>
             <p id={styles.clock_time}>
-                {date ? date.getHours() : "00"} : {date ? date.getMinutes() : "00"} : {date ? date.getSeconds() : "00"}
+                {
+                    date
+                    ? date.getHours().toString().padStart(2, "0")
+                    : "00"
+                } : {
+                    date
+                    ? date.getMinutes().toString().padStart(2, "0")
+                    : "00"
+                } : {
+                    date
+                    ? date.getSeconds().toString().padStart(2, "0")
+                    : "00"
+                }
             </p>
         </div>
     )

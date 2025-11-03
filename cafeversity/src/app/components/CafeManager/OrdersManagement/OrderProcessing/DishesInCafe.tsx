@@ -1,6 +1,6 @@
 "use client";
 
-import CafeDishBlank from "./CafeDishBlank";
+import CafeDishBlank from "../DishBlanks/CafeDishBlank";
 import { useDishContext } from "./ChooseDishContext";
 import { useRef, useEffect } from "react";
 
@@ -35,7 +35,7 @@ export default function DishesInCafe({ cafeDishes }: { cafeDishes: CafeDishTypes
     }, [selectedDish]);
 
     return (
-        <div className="grow flex items-start justify-center">
+        <div className="flex items-start justify-center">
             <div>
                 <p className="text-[1.8rem] text-left font-bold m-0 p-0">
                     <span>Стравы Страўні </span>

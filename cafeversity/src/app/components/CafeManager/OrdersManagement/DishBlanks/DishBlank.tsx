@@ -1,10 +1,19 @@
-import { IconCheck } from "@tabler/icons-react";
+import {
+    IconChecks,
+    IconExclamationMark
+} from "@tabler/icons-react";
 import CardImage from "@/components/CardParts/CardImage";
 import CardTitle from "@/components/CardParts/CardTitle";
 import { MouseEventHandler } from "react";
 
 
-export default function DishBlank({ image, dishName, dishCost, onDishBlankClick, optionalStyle = "" }: { image: string, dishName: string, dishCost: number, onDishBlankClick: MouseEventHandler<HTMLDivElement>, optionalStyle?: string }) {
+export default function DishBlank({
+    image, dishName, dishCost, dishReady,
+    onDishBlankClick, optionalStyle = ""
+}: {
+    image: string, dishName: string, dishCost: number, dishReady: boolean,
+    onDishBlankClick?: MouseEventHandler<HTMLDivElement>, optionalStyle?: string
+}) {
     return (
         <div
             className={`
@@ -28,7 +37,11 @@ export default function DishBlank({ image, dishName, dishCost, onDishBlankClick,
                     ({dishCost.toFixed(2)} BYN) x 1
                 </p>
             </div>
-            <IconCheck className="w-[3rem] h-[3rem] rounded-[50%] text-gray-400 border-1 border-[lightgray] bg-gray-100" />
+            {
+                dishReady
+                ? <IconChecks className="w-[3rem] h-[3rem] rounded-[50%] text-green-500 border-1 border-[lightgray] bg-green-200" />
+                : <IconExclamationMark className="w-[3rem] h-[3rem] rounded-[50%] text-gray-400 border-1 border-[lightgray] bg-gray-100" />
+            }
         </div>
     );
 }

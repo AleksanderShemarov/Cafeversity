@@ -6,10 +6,12 @@ import PreviewDetails from "./PreviewDetails";
 
 export type OrderXTypes = Omit<OrderTypes, 'orderNumber'|'dishes'> & {
     dishes: {
+        dishReady: boolean,
         dishes: {
             food_name: string,
             cost: number,
             imagePath: string,
+            dishTypeId: number,
         }
     }[];
 }

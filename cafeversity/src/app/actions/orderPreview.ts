@@ -1,7 +1,7 @@
 "use server";
 
 import prisma from "../../../lib/utils/prismaClient";
-import { OrderXTypes } from "../components/CafeManager/OrdersManagement/NewOrderPreview";
+import { OrderXTypes } from "../components/CafeManager/OrdersManagement/OrdersPreview/NewOrderPreview";
 
 
 export default async function orderPreview(orderNumber: string) {
@@ -16,11 +16,13 @@ export default async function orderPreview(orderNumber: string) {
             comment: true,
             dishes: {
                 select: {
+                    dishReady: true,
                     dishes: {
                         select: {
                             food_name: true,
                             cost: true,
                             imagePath: true,
+                            dishTypeId: true,
                         }
                     }
                 }   

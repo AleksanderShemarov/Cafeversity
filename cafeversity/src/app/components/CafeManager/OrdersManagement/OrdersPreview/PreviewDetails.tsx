@@ -1,7 +1,7 @@
 import ClosePreviewButton from "./ClosePreview";
 import { IconArrowRight } from "@tabler/icons-react";
 import { OrderXTypes } from "./NewOrderPreview";
-import DishBlank from "./DishBlank";
+import DishBlank from "../DishBlanks/DishBlank";
 import TimeSinceSending from "./TimeSinceSending";
 import orderOnPreparing from "@/app/actions/orderStatusChanging";
 
@@ -29,6 +29,7 @@ export default function PreviewDetails({ orderNumber, data }: { orderNumber: str
                             image={dish.dishes.imagePath}
                             dishName={dish.dishes.food_name}
                             dishCost={dish.dishes.cost}
+                            dishReady={dish.dishReady}
                         />
                     )}
                 </div>

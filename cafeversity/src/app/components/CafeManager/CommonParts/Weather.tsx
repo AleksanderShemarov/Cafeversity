@@ -13,10 +13,8 @@ interface WeatherData {
 
 
 async function fetchWeather() {
-    const response = await fetch("http://localhost:3000/api/weatherForecast", {
-        next: { revalidate: 15 * 60 },
-    });
-    if (!response.ok) return null;
+    const response = await fetch("http://localhost:3000/api/weatherForecast", { cache: "no-store" });
+    if (!response.ok) return undefined;
     const result = await response.json();
     return result.data;
 }
@@ -24,19 +22,19 @@ async function fetchWeather() {
 
 export default function Weather() {
 
-    const weather: WeatherData|null = use(fetchWeather());
+    const weather: WeatherData|undefined = use(fetchWeather());
 
     return (
         <div className="flex items-center justify-center w-[17rem] h-[5rem]">
-            {weather !== null ? 
+            {weather !== undefined ? 
             (<>
                 <div>
                     <Image src={`http:${weather?.icon}`} alt={`${weather?.condition}`} width={50} height={40} />
                 </div>
                 <div className="w-[7rem] h-[3rem] m-[auto 0] text-left">
                     <p className="text-[1.8rem] font-medium">
-                        {weather!.temperature > 0 ? "+" : ""}
-                        {Math.round(weather!.temperature)}&#176;C
+                        {weather?.temperature > 0 ? "+" : ""}
+                        {Math.round(weather?.temperature)}&#176;C
                     </p>
                 </div>
             </>) : (

@@ -1,7 +1,7 @@
 import { use } from "react";
 import prisma from "../../../../../lib/utils/prismaClient";
-import NewOrdersTable, { OrderTypes } from "@/app/components/CafeManager/OrdersManagement/NewOrdersTable";
-import NewOrderPreview from "@/app/components/CafeManager/OrdersManagement/NewOrderPreview";
+import NewOrdersTable, { OrderTypes } from "@/app/components/CafeManager/OrdersManagement/OrdersPreview/NewOrdersTable";
+import NewOrderPreview from "@/app/components/CafeManager/OrdersManagement/OrdersPreview/NewOrderPreview";
 
 
 const weekdays: string[] = [ "Нядзеля", "Панядзелак", "Аўторак", "Серада", "Чацвер", "Пятніца", "Субота" ] as const;

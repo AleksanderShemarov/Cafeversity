@@ -5,7 +5,10 @@ const GET = async () => {
     const API_KEY = process.env.WEATHERAPI_KEY!;
     const CITY = "Minsk";
 
-    const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${CITY}&aqi=no`, { cache: "no-store" });
+    const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${CITY}&aqi=no`, {
+        // cache: "no-store",
+        next: { revalidate: 15 * 60 }
+    });
     if (!response.ok) return NextResponse.json(
         {
             success: false,
@@ -26,7 +29,7 @@ const GET = async () => {
                 location: data.location.name
             }
         },
-        { status: 201 }
+        { status: 200 }
     );
 }
 

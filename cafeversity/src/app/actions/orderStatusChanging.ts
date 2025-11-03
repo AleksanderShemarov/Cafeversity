@@ -22,7 +22,7 @@ export async function changeOrderStatus(formData: FormData) {
     const orderNumber = Number(formData.get("number-of-order"));
     const newStatus = formData.get("order-status") as string;
 
-    if (newStatus === "READY") redirect(`/cafeManager/orders?selected=${orderNumber}`);
+    if (newStatus === "PREPARING") redirect(`/cafeManager/orders?selected=${orderNumber}`);
 
     await prisma.orders.update({
         where: {

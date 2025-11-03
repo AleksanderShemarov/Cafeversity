@@ -187,6 +187,7 @@ model Orders {
 model DishesByOrders {
   dishID              Int
   orderID             Int
+  dishReady           Boolean     @default(false)
   dishes              dishes_BY   @relation("DishesOrders", fields: [dishID], references: [id])
   orders              Orders      @relation("DishesOrders", fields: [orderID], references: [ID])
 
