@@ -27,7 +27,7 @@ export default function TimeSinceSending({ sentTime }: { sentTime: Date }) {
         ">
             <p className="grow text-[1.6rem] text-left font-bold m-0 p-0">Ordered</p>
             <p className="grow text-[1.6rem] text-right text-gray-400 font-medium m-0 p-0">
-                {days > 0 && days}d. {hours > 0 && hours}hr. {minutes > 0 ? `${minutes} min.` : "<1 min."}
+                {days > 0 && days}d {hours > 0 && hours}h {minutes > 0 ? `${minutes}min` : "<1 min"}
             </p>
         </div>
     );

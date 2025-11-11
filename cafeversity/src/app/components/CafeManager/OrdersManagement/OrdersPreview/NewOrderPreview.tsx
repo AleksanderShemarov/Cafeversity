@@ -5,6 +5,7 @@ import PreviewDetails from "./PreviewDetails";
 
 
 export type OrderXTypes = Omit<OrderTypes, 'orderNumber'|'dishes'> & {
+    phone: string,
     dishes: {
         dishReady: boolean,
         dishes: {

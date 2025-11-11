@@ -1,16 +1,17 @@
 "use client";
 
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { IconInfoCircle } from "@tabler/icons-react";
-import { useRouter, useSearchParams } from 'next/navigation';
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
+import { useRouter, useSearchParams } from "next/navigation";
+import { IconCashRegister } from "@tabler/icons-react";
+import { useState } from "react";
+import { useViewContext } from "./ViewContext";
 
 
-export type OrderTypes = {
+export type ReadyOrderTypes = {
     orderNumber: number,
     sentTime: Date,
-    orderStatus: "SENT"|"PREPARING"|"READY"|"TAKEN"|"CANCELLED",
-    comment: string,
+    orderStatus: "READY"|"TAKEN",
     dishes: {
         dishes: {
             food_name: string,
@@ -19,12 +20,16 @@ export type OrderTypes = {
 }
 
 
-export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[], weekdays: string[] }) {
+export default function ReadyTakenOrdersTable ({ readyOrders }: { readyOrders: ReadyOrderTypes[] }) {
     const router = useRouter();
     const searchParams = useSearchParams();
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const [selectedRow, setSelectedRow] = useState<Record<string, any>|null>(null);
 
-    const orderNumberBodyTemplate = (rowData: OrderTypes) => {
+    const { partActive } = useViewContext();
+
+    const orderNumberBodyTemplate = (rowData: ReadyOrderTypes) => {
         return (
             <p className="w-[9rem] text-[1.8rem] font-medium">
                 #{rowData.orderNumber}
@@ -32,7 +37,7 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
         );
     };
 
-    const dishesBodyTemplate = (rowData: OrderTypes) => {
+    const dishesBodyTemplate = (rowData: ReadyOrderTypes) => {
         return (
             <p className="text-[1.6rem] font-normal text-balance">
                 {rowData.dishes.map(dish => dish.dishes.food_name).join(", ")}
@@ -40,62 +45,59 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
         );
     };
 
-    const sentTimeBodyTemplate = (rowData: OrderTypes) => {
+    const sentTimeBodyTemplate = (rowData: ReadyOrderTypes) => {
         const date = rowData.sentTime;
         return (
             <p className="text-[1.4rem] font-light">
-                {date.getFullYear()}-{String(date.getMonth()+1).padStart(2, "0")}-{String(date.getDate()).padStart(2, "0")}, {weekdays[date.getDay()]} ({date.getHours()}:{date.getMinutes().toString().padStart(2, "0")})
+                {date.getFullYear()}-{String(date.getMonth()+1).padStart(2, "0")}-{String(date.getDate()).padStart(2, "0")}, ({date.getHours()}:{date.getMinutes().toString().padStart(2, "0")})
             </p>
         );
     };
 
-    const orderStatusBodyTemplate = (rowData: OrderTypes) => {
+    const orderStatusBodyTemplate = (rowData: ReadyOrderTypes) => {
         const orderStatus = rowData.orderStatus;
         switch (orderStatus) {
-            case "SENT":
-                return (<p className="bg-blue-100 text-blue-800 text-[1.8rem] text-center font-extralight">{orderStatus}</p>);
-            case "PREPARING":
-                return (<p className="bg-yellow-100 text-[goldenrod] text-[1.8rem] text-center font-medium">{orderStatus}</p>);
             case "READY":
                 return (<p className="bg-green-100 text-green-800 text-[1.8rem] text-center font-semibold">{orderStatus}</p>);
             case "TAKEN":
                 return (<p className="bg-purple-100 text-purple-800 text-[1.8rem] text-center font-bold">{orderStatus}</p>);
-            case "CANCELLED":
-                return (<p className="bg-red-100 text-red-800 text-[1.8rem] text-center font-medium">{orderStatus}</p>);
             default:
                 return (<p className="bg-gray-100 text-gray-800 text-[1.8rem] text-center font-thin">UNKNOWN</p>);
         }
     }
 
-    const commentBodyTemplate = (rowData: OrderTypes) => {
-        return (
-            <p className="text-[1.4rem] font-light text-balance">
-                {rowData.comment}
-            </p>
-        );
-    };
-
-    const actionsBodyTemplate = (rowData: OrderTypes) => {
+    const actionsBodyTemplate = (rowData: ReadyOrderTypes) => {
         function handleSelectedOrder(orderNumber: number) {
             const params = new URLSearchParams(searchParams.toString());
-            params.set("selected", String(orderNumber));
+            params.set("choisenReady", String(orderNumber));
             router.replace(`?${params.toString()}`, { scroll: false });
         }
 
         return (
-            <button onClick={() => handleSelectedOrder(rowData.orderNumber)}>
-                <IconInfoCircle className="w-[3.5rem] h-[3.5rem] rounded-[50%] no-underline text-[gray] hover:text-[darkgray] transition-colors" />
-            </button>
+            <div className="w-[100%] h-[100%] flex items-center justify-center">
+                <button onClick={() => handleSelectedOrder(rowData.orderNumber)}>
+                    <IconCashRegister className="w-[3.5rem] h-[3.5rem] rounded-[50%] no-underline text-[gray] hover:text-[darkgray] transition-colors" />
+                </button>
+            </div>
         );
     };
 
     return (
         <DataTable 
-            value={data}
+            value={readyOrders}
             emptyMessage="Няма замоў"
-            style={{ fontSize: "1.9rem", fontFamily: "Arial", fontWeight: 600, width: "calc(75dvw - 3rem)", outline: "2px solid lightgray" }}
-            tableStyle={{ width: "calc(75dvw - 3rem)" }}
+            style={{
+                display: partActive === "ready-orders" ? "block" : "none",
+                fontSize: "1.9rem", fontFamily: "Arial", fontWeight: 600,
+                width: "calc(100% - 3rem)", outline: "2px solid lightgray",
+                margin: "0 auto"
+            }}
+            tableStyle={{ width: "100%" }}
             removableSort
+            showGridlines
+            selectionMode="single"
+            selection={selectedRow}
+            onSelectionChange={(e) => setSelectedRow(e.value)}
         >
             <Column 
                 field="orderNumber" 
@@ -135,21 +137,19 @@ export default function NewOrdersTable({ data, weekdays }: { data: OrderTypes[],
                 headerStyle={{ height: "3rem", position: "relative" }}
                 pt={{
                     headerContent: {
-                        className: "absolute left-0 top-0 translate-x-[120%]"
+                        className: "absolute left-1 top-0"
                     },
                 }}
-            />
-            <Column 
-                field="comment" 
-                header="Каментар" 
-                body={commentBodyTemplate}
-                style={{ width: '10rem', paddingLeft: "0.5rem", paddingRight: "0.5rem" }}
-                headerStyle={{ height: "3rem" }}
             />
             <Column 
                 body={actionsBodyTemplate}
                 style={{ width: '4rem' }}
                 headerStyle={{ height: "3rem" }}
+                pt={{
+                    bodyCell: {
+                        className: "w=[3rem] p-[0.25rem]"
+                    }  
+                }}
             />
         </DataTable>
     );

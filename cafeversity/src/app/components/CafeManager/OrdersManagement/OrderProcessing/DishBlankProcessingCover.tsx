@@ -6,9 +6,13 @@ import { useEffect } from "react";
 
 export default function DishBlankProcessingCover({ dishName, dishReady, onProcessingComplete, children }: { dishName: string, dishReady: boolean, onProcessingComplete?: () => void, children: React.ReactNode }) {
     
-    const { updateProcessingTime, completeProcessing, getProcessingDish } = useProcessContext();
+    const { processingDishes, updateProcessingTime, completeProcessing, getProcessingDish } = useProcessContext();
 
     const currentDish = getProcessingDish(dishName);
+
+    const isAnyDishProcessing = processingDishes.some(dish => dish.isProcessingStart);
+    const isThisDishProcessing = currentDish?.isProcessingStart;
+    const isThisDishReady = dishReady || currentDish?.dishReady;
 
 
     useEffect(() => {
@@ -44,19 +48,23 @@ export default function DishBlankProcessingCover({ dishName, dishReady, onProces
     const seconds = Math.floor((currentDish?.processingTime || 0) % 60);
     
     const getStyle = () => {
-        if (dishReady || currentDish?.dishReady) {
-            return "w-[98%] mx-auto rounded-[0.75rem] relative";
+        if (isAnyDishProcessing && !isThisDishProcessing && isThisDishReady) {
+            return "w-[98%] mx-auto z-20 bg-green-100/50 rounded-[0.75rem] pointer-events-none";
         }
 
-        if (!currentDish?.isProcessingStart) {
-            return "w-[98%] mx-auto";
+        if (isThisDishReady) {
+            return "w-[98%] mx-auto bg-green-100/50 rounded-[0.75rem] relative";
         }
 
-        if (currentDish.processingDishName === dishName) {
+        if (isThisDishProcessing) {
             return "w-[98%] mx-auto z-20 bg-orange-200/80 rounded-[0.75rem] pointer-events-none relative";
         }
 
-        return "w-[98%] mx-auto z-20 bg-[lightgray]/50 rounded-[0.75rem] pointer-events-none";
+        if (isAnyDishProcessing && !isThisDishProcessing) {
+            return "w-[98%] mx-auto z-20 bg-[lightgray]/50 rounded-[0.75rem] pointer-events-none";
+        }
+
+        return "w-[98%] mx-auto";
     }
 
     return (

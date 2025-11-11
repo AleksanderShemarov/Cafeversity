@@ -7,6 +7,7 @@ import CardTitle from "@/components/CardParts/CardTitle";
 import { IconInfoSquareRoundedFilled } from "@tabler/icons-react";
 import { usePathname } from "next/navigation";
 import { useTranslations } from "next-intl";
+import DishGridCard from "./DishGridCard";
 
 
 type Dish = {
@@ -14,6 +15,7 @@ type Dish = {
     food_name: string,
     imagePath: string,
 }
+
 
 export default function DishesGrid({ categotyName }: { categotyName: string }) {
     
@@ -75,17 +77,14 @@ export default function DishesGrid({ categotyName }: { categotyName: string }) {
             marginBottom: "1.5rem",
         }}>
             {dishes.map((dish) => (
-                <div key={dish.id} style={{
-                    display: "flex", flexDirection: "column",
-                    width: 'fit-content', height: 'fit-content',
-                    borderRadius: "1.5rem", backgroundColor: "lightgray",
-                    filter: brightness.includes(dish.id) ? "brightness(0.85)" : "brightness(1)",
-                    cursor: brightness.includes(dish.id) ? "pointer" : "auto",
-                    position: "relative"
-                }}
-                    onMouseEnter={() => setBrightness(prev => [...prev, dish.id])}
-                    onMouseLeave={() => setBrightness(prev => prev.filter(id => id !== dish.id))}
-                    onClick={() => dishRouterHandler(dish.id)}
+                <DishGridCard key={dish.id}
+                    actionStyles={{
+                        filter: brightness.includes(dish.id) ? "brightness(0.85)" : "brightness(1)",
+                        cursor: brightness.includes(dish.id) ? "pointer" : "auto",
+                    }}
+                    onMouseEnterGridCard={() => setBrightness(prev => [...prev, dish.id])}
+                    onMouseLeaveGridCard={() => setBrightness(prev => prev.filter(id => id !== dish.id))}
+                    onClickGridCard={() => dishRouterHandler(dish.id)}
                 >
                     <div style={{
                         position: "absolute", top: 0, left: 0,
@@ -122,7 +121,7 @@ export default function DishesGrid({ categotyName }: { categotyName: string }) {
                             }}
                         />
                     </CardBlock>
-                </div>
+                </DishGridCard>
             ))}
         </div>
     );

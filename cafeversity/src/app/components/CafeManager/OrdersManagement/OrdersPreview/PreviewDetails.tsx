@@ -1,5 +1,5 @@
 import ClosePreviewButton from "./ClosePreview";
-import { IconArrowRight } from "@tabler/icons-react";
+import { IconArrowRight, IconBinocularsFilled } from "@tabler/icons-react";
 import { OrderXTypes } from "./NewOrderPreview";
 import DishBlank from "../DishBlanks/DishBlank";
 import TimeSinceSending from "./TimeSinceSending";
@@ -70,7 +70,17 @@ export default function PreviewDetails({ orderNumber, data }: { orderNumber: str
                             disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-[white] disabled:outline-0
                         "
                     >
-                        Апрацоўка <IconArrowRight className="h-[1.8rem] w-[1.8rem]" />
+                        {
+                            data.orderStatus === "READY" || data.orderStatus === "TAKEN"
+                            ?
+                            <>
+                                Прагляд <IconBinocularsFilled className="h-[1.8rem] w-[1.8rem]" />
+                            </>
+                            :
+                            <>
+                                Апрацоўка <IconArrowRight className="h-[1.8rem] w-[1.8rem]" />
+                            </>
+                        }
                     </button>
                 </form>
                 <ClosePreviewButton />

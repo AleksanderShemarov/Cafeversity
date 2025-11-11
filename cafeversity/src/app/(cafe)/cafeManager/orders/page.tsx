@@ -51,7 +51,7 @@ export default function Orders({ searchParams }: { searchParams: { [key: string]
             {/* <div className="w-[100%] h-[15dvh] px-[1.5rem] outline-2 outline-emerald-400">
                 Ready Orders
             </div> */}
-            <div className="h-[85dvh] px-[1.5rem] flex flex-row gap-[1.5rem] outline-2 outline-orange-400">
+            <div className="h-[85dvh] px-[1.5rem] flex flex-row gap-[1.5rem]">
                 <NewOrdersTable data={data} weekdays={weekdays} />
                 <NewOrderPreview orderNumber={selectedOrder} />
             </div>

@@ -10,7 +10,7 @@ import { useRouter, usePathname } from "next/navigation";
 
 const pageSwitches: { id: string, name: string, icon: ForwardRefExoticComponent<IconProps & RefAttributes<Icon>>, url: string }[] = [
     { id: "ChartReport", name: "Графікі & Справаздачы", icon: IconReportAnalytics, url: `/cafeManager/#` },
-    { id: "Cooking", name: "Варка & Сэрвіроўка", icon: IconChefHat, url: `/cafeManager/#` },// name: "Наяўнасць Страў"
+    { id: "Cooking&Serving", name: "Варка & Сэрвіроўка", icon: IconChefHat, url: `/cafeManager/cooking&serving` },// name: "Наяўнасць Страў"
     { id: "OrderProcess", name: "Апрацоўка Замоў", icon: IconListCheck, url: `/cafeManager/orders` },
     { id: "MainSide", name: "Да Галоўнай", icon: IconArrowBackUp, url: `/cafeManager` },
 ] as const;
