@@ -7,6 +7,7 @@ import PartsSwitcher from "./PartsSwitcher";
 import { getTranslations } from "next-intl/server";
 import Category from "./Category";
 import BuyingContextProvider from "./BuyingContext";
+import BuyingLane from "./BuyingLane";
 
 
 export default async function ServingPage() {
@@ -34,6 +35,7 @@ export default async function ServingPage() {
                         )}
                     </ActualDishes>
                     <ReadyTakenOrdersTable readyOrders={pageData} />
+                    <BuyingLane />
                 </BuyingContextProvider>
             </PartsSwitcher>
         </ViewContextProvider>

@@ -1,6 +1,5 @@
 "use client";
 
-import { useState } from "react";
 import { FoodDatumTypes } from "./Category";
 import { useBuyingContext } from "./BuyingContext";
 
@@ -11,13 +10,11 @@ export default function CardCliker({
     clickerDishData: FoodDatumTypes, className?: string, children: React.ReactNode
 }) {
 
-    const { setBuyingData } = useBuyingContext();
-
-    const [isClicked, setIsClicked] = useState<boolean>(false);
+    const { setBuyingData, clickedDishes, setClickedDishes } = useBuyingContext();
     
     return (
         <div onClick={() => {
-            if (!isClicked) {
+            if (!clickedDishes.includes(clickerDishData.id)) {
                 setBuyingData(prev =>
                     [
                         ...prev,
@@ -27,18 +24,19 @@ export default function CardCliker({
                         }
                     ]
                 );
+                setClickedDishes(prev => [...prev, clickerDishData.id]);
             } else {
                 setBuyingData(prev =>
                     prev.filter(prevPart =>
                         prevPart.id !== clickerDishData.id
                     )
                 );
+                setClickedDishes(prev => prev.filter(prevValue => prevValue !== clickerDishData.id));
             }
-            setIsClicked(prev => !prev);
         }}
             className={`
                 ${className}
-                ${isClicked ? "outline-3 outline-blue-400" : ""}
+                ${clickedDishes.includes(clickerDishData.id) ? "outline-3 outline-blue-400" : ""}
             `}
         >
             {children}

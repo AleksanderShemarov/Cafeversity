@@ -67,7 +67,7 @@ export default async function Category({ name, categotyFetchName }: { name: stri
                 foodData.map(foodDatum =>
                     <CardCliker key={`${name}-${foodDatum.id}`}
                         clickerDishData={foodDatum}
-                        className="p-[0.25rem] rounded-[1.75rem] w-[20rem]"
+                        className="w-[20rem] p-[0.25rem] rounded-[1.75rem]"
                     >
                         <div className="w-[100%] h-[10rem]">
                             <CardImage imagePath={foodDatum.imagePath} imageAlt={foodDatum.imagePath.substring(foodDatum.imagePath.lastIndexOf("/") + 1)}
