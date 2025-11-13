@@ -23,8 +23,8 @@ export default function CardRemover({ foodID, children }: { foodID: number, chil
                 className={`
                     ${isHovered ? "block" : "hidden"}
                     absolute top-[16%] left-[30%] z-10
-                    m-0 p-[0.5rem] bg-red-500 rounded-[50%]
-                    hover:cursor-pointer hover:bg-red-700
+                    m-0 p-[0.5rem] bg-red-700 rounded-[50%]
+                    hover:cursor-pointer hover:bg-red-500
                 `}
             >
                 <IconTrash className="h-[3rem] w-[3rem] m-0 text-white font-[Consolas_monospace] font-semibold" />

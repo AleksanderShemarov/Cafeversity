@@ -8,7 +8,7 @@ export default function BuyingLaneCard({ id, food_name, imagePath, cost, food_po
     return (
         <div className="
             w-[20rem] rounded-[1.75rem]
-            relative
+            relative bg-[whitesmoke]
             border-2 p-1.5
         ">
             <div className="w-[79%] h-[10rem] overflow-x-hidden">

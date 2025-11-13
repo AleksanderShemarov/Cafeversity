@@ -3,11 +3,15 @@
 import { useBuyingContext } from "./BuyingContext";
 import BuyingLaneCard from "./BuyingLaneCard";
 import CardRemover from "./CardRemover";
+import ReadyButton, { CancelButton } from "./BuyingLaneBtns";
 
 
 export default function BuyingLane() {
 
     const { buyingData } = useBuyingContext();
+
+    const positions = buyingData.length > 4 || buyingData.length === 0 ? "страў" : buyingData.length === 1 ? "страва" : "стравы";
+    const commonCost = buyingData.length > 0 ? String(buyingData.reduce((sum, datum) => sum + (datum.cost * datum.amount), 0).toFixed(2)) : "0.00";
 
     return (
         <div className={`
@@ -22,12 +26,12 @@ export default function BuyingLane() {
                 text-[1.6rem] text-center
                 font-semibold
             ">
-                Ў Накупе
+                Ў Накупе: {buyingData.length} {positions}; {commonCost} BYN
             </p>
             <div className="
                 flex flex-row flex-nowrap
-                items-center
-                gap-[5rem] overflow-x-visible
+                items-center gap-[5rem] mx-[3rem]
+                overflow-x-auto
             ">
             {
                 buyingData.length === 0
@@ -47,6 +51,10 @@ export default function BuyingLane() {
                     </CardRemover>
                 )
             }
+            </div>
+            <div className="w-[100%] py-[0.5rem] flex flex-row items-center justify-center gap-[2rem]">
+                <ReadyButton />
+                <CancelButton />
             </div>
         </div>
     );

@@ -20,8 +20,8 @@ export default function CardVerticalLine({ foodID }: { foodID: number }) {
         >
             <button type="button"
                 className="
-                    m-0 p-0 bg-green-400 rounded-[50%]
-                    hover:cursor-pointer hover:bg-green-600
+                    m-0 p-0 bg-green-600 rounded-[50%]
+                    hover:cursor-pointer hover:bg-green-400
                 "
                 onClick={() => setBuyingData(prev => {
                     const dataAmount = dataPart[0].amount;
@@ -47,8 +47,8 @@ export default function CardVerticalLine({ foodID }: { foodID: number }) {
             </span>
             <button type="button"
                 className="
-                    m-0 p-0 bg-red-400 rounded-[50%]
-                    hover:cursor-pointer hover:bg-red-600
+                    m-0 p-0 bg-red-600 rounded-[50%]
+                    hover:cursor-pointer hover:bg-red-400
                 "
                 onClick={() => setBuyingData(prev => {
                     const dataAmount = dataPart[0].amount;

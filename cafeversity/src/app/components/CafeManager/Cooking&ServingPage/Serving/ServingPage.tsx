@@ -8,6 +8,8 @@ import { getTranslations } from "next-intl/server";
 import Category from "./Category";
 import BuyingContextProvider from "./BuyingContext";
 import BuyingLane from "./BuyingLane";
+import BuyingPreviewProvider from "./BuyingPreviewContext";
+import BuyingPreview from "./BuyingPreview";
 
 
 export default async function ServingPage() {
@@ -29,13 +31,16 @@ export default async function ServingPage() {
         <ViewContextProvider>
             <PartsSwitcher>
                 <BuyingContextProvider>
-                    <ActualDishes>
-                        {categories.map(category =>
-                            <Category key={category.id} name={category.name} categotyFetchName={category.categoryName} />
-                        )}
-                    </ActualDishes>
-                    <ReadyTakenOrdersTable readyOrders={pageData} />
-                    <BuyingLane />
+                    <BuyingPreviewProvider>
+                        <ActualDishes>
+                            {categories.map(category =>
+                                <Category key={category.id} name={category.name} categotyFetchName={category.categoryName} />
+                            )}
+                        </ActualDishes>
+                        <ReadyTakenOrdersTable readyOrders={pageData} />
+                        <BuyingLane />
+                        <BuyingPreview />
+                    </BuyingPreviewProvider>
                 </BuyingContextProvider>
             </PartsSwitcher>
         </ViewContextProvider>

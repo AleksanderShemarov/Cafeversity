@@ -31,8 +31,8 @@ export default function CardBottomLine({ foodID, portion, cost, foodType }: Card
             <>
                 <button type="button"
                     className="
-                        m-0 p-0 bg-blue-400 px-[0.5rem] rounded-l-[0.75rem]
-                        hover:cursor-pointer hover:bg-blue-600
+                        m-0 p-0 bg-blue-500 px-[0.5rem] rounded-l-[0.75rem]
+                        hover:cursor-pointer hover:bg-blue-400
                     "
                     onClick={() => setBuyingData(prev => {
                         const dataAmount = dataPart[0].amount;
@@ -52,15 +52,15 @@ export default function CardBottomLine({ foodID, portion, cost, foodType }: Card
                 <span className="
                     px-[1rem]
                     flex items-center
-                    text-[1.25rem] bg-blue-400 text-white
+                    text-[1.25rem] bg-blue-500 text-white
                     font-[Consolas_monospace] font-semibold
                 ">
                     {dataPart[0].amount}
                 </span>
                 <button type="button"
                     className="
-                        m-0 p-0 bg-blue-400 px-[0.5rem] rounded-r-[0.75rem]
-                        hover:cursor-pointer hover:bg-blue-600
+                        m-0 p-0 bg-blue-500 px-[0.5rem] rounded-r-[0.75rem]
+                        hover:cursor-pointer hover:bg-blue-400
                     "
                     onClick={() => setBuyingData(prev => {
                         const dataAmount = dataPart[0].amount;
