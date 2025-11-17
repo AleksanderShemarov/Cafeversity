@@ -1,27 +1,24 @@
 "use client";
 
+import { FoodDatumWithAmountTypes } from "./BuyingContext";
 import { useBuyingPreviewContext } from "./BuyingPreviewContext";
-import { useBuyingContext } from "./BuyingContext";
 import BuyingPreviewCard from "./BuyingPreviewCard";
 import ConfirmToPay, { CommingBack } from "./BuyingPreviewBtns";
 import { IconBasketSearch } from "@tabler/icons-react";
 
 
-export default function BuyingPreview() {
+interface BuyingPreviewProps {
+    buyingData: FoodDatumWithAmountTypes[],
+    commonCost: string,
+}
 
-    const { buyingPreviewRef } = useBuyingPreviewContext();
 
-    const { buyingData } = useBuyingContext();
-    const commonCost = String(buyingData.reduce((sum, datum) => sum + (datum.cost * datum.amount), 0).toFixed(2));
+export default function BuyingPreview({ buyingData, commonCost }: BuyingPreviewProps) {
+
+    const { buyingRef } = useBuyingPreviewContext();
 
     return (
-        <dialog ref={buyingPreviewRef}
-            className="
-                h-[90%] w-[90%] m-[auto] px-[4rem] py-[2rem]
-                left-0 top-0 z-20 fixed
-                bg-white rounded-[1rem]
-            "
-        >
+        <div ref={buyingRef}>
             <p className="
                 p-0 pb-[1.25rem]
                 flex flex-row items-center justify-center gap-[1.5rem]
@@ -52,6 +49,6 @@ export default function BuyingPreview() {
                 </span>
                 <ConfirmToPay />
             </div>
-        </dialog>
+        </div>
     )
 }

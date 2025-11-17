@@ -7,7 +7,7 @@ import { useBuyingPreviewContext } from "./BuyingPreviewContext";
 
 export default function ReadyButton() {
 
-    const { buyingPreviewRef } = useBuyingPreviewContext();
+    const { buyingPreviewRef, buyingRef } = useBuyingPreviewContext();
 
     return (
         <button type="button"
@@ -21,7 +21,7 @@ export default function ReadyButton() {
             onClick={
                 //() => alert("The Special Preview will be shown before the payment will be started.")
                 () => {
-                    if (buyingPreviewRef.current) {
+                    if (buyingPreviewRef.current && buyingRef.current) {
                         buyingPreviewRef.current.showModal();
                         document.body.style.overflow = "hidden";
                     }

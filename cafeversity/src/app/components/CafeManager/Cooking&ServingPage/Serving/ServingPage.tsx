@@ -9,7 +9,7 @@ import Category from "./Category";
 import BuyingContextProvider from "./BuyingContext";
 import BuyingLane from "./BuyingLane";
 import BuyingPreviewProvider from "./BuyingPreviewContext";
-import BuyingPreview from "./BuyingPreview";
+import BuyingProcessing from "./BuyingProcessing";
 
 
 export default async function ServingPage() {
@@ -39,7 +39,7 @@ export default async function ServingPage() {
                         </ActualDishes>
                         <ReadyTakenOrdersTable readyOrders={pageData} />
                         <BuyingLane />
-                        <BuyingPreview />
+                        <BuyingProcessing />
                     </BuyingPreviewProvider>
                 </BuyingContextProvider>
             </PartsSwitcher>
